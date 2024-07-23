@@ -1,0 +1,33 @@
+---
+- name: Create a PV of 7TB with disks /dev/nvme2n1 and /dev/nvme3n1
+  ansible.builtin.shell: pvcreate /dev/nvme2n1 /dev/nvme3n1
+
+- name: Create VG on top of /dev/nvme2n1 and /dev/nvme3n1
+  community.general.lvg:
+    vg: vgstrorage
+    pvs: /dev/nvme2n1,/dev/nvme3n1
+
+- name: Create a LV of 7TB with remaining space in the volume group
+  community.general.lvol:
+    vg: vgstrorage
+    lv: cephlv
+    size: 100%FREE
+
+- name: Format LV of 7TB with the ext4 filesystem
+  community.general.filesystem:
+    fstype: ext4
+    dev: /dev/vgstrorage/cephlv
+
+- name: Mount the 7TB LV on /var/lib/libvirt/images
+  ansible.posix.mount:
+    path: /var/lib/libvirt/images
+    src: /dev/vgstrorage/cephlv
+    fstype: ext4
+    state: mounted
+
+- name: Get UUID of the LV
+  ansible.builtin.shell: blkid /dev/vgstrorage/cephlv | awk '{print $2}' | tr -d '"'
+  register: lv_uuid
+
+- name: Update /etc/fstab entry
+  ansible.builtin.shell: echo "{{ lv_uuid }}	/var/lib/libvirt/images	ext4	errors=remount-ro	0	1" >> /etc/fstab
