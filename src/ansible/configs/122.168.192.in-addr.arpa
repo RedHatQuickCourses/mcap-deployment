@@ -77,3 +77,4 @@ $TTL    604800
 25.122.168.192.in-addr.arpa.  IN	PTR assisted-image-service-multicluster-engine.apps.tenant1.lab.example.com.
 25.122.168.192.in-addr.arpa.  IN	PTR assisted-service-multicluster-engine.apps.tenant1.lab.example.com.
 25.122.168.192.in-addr.arpa.  IN	PTR downloads-openshift-console.apps.tenant1.lab.example.com.
+

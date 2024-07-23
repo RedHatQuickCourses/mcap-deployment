@@ -1,21 +1,21 @@
 ---
 - name: Copy named.conf file
   ansible.builtin.copy:
-    src: ./configs/named.conf
+    src: ../configs/named.conf
     dest: /etc/named.conf
 
 - name: Copy ocp4.example.com.zone
   copy:
-    src: ./configs/lab.example.com.zone
+    src: ../configs/lab.example.com.zone
     dest: /var/named/lab.example.com.zone
 
 - name: Copy 122.168.192.in-addr.arpa
   copy:
-    src: ./configs/122.168.192.in-addr.arpa
+    src: ../configs/122.168.192.in-addr.arpa
     dest: /var/named/122.168.192.in-addr.arpa
 
 - name: Change the selinux context of /etc/named.conf file
-  ansible.builtin.shell: chcon ssystem_u:object_r:named_conf_t:s0 /etc/named.conf
+  ansible.builtin.shell: chcon system_u:object_r:named_conf_t:s0 /etc/named.conf
 
 - name: Change the selinux context of /var/named/lab.example.com.zone file
   ansible.builtin.shell: chcon system_u:object_r:named_conf_t:s0 /var/named/lab.example.com.zone
@@ -37,3 +37,6 @@
     name: named
     enabled: yes
     state: started
+
+- name: Update the /etc/resolv.conf file
+  ansible.builtin.shell: sed -i '2s/^/search lab.example.com\nnameserver 192.168.122.1\n/' /etc/resolv.conf

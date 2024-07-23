@@ -1,7 +1,7 @@
 ---
 - name: Copy dhcpd.conf file
   ansible.builtin.copy:
-    src: ./configs/dhcpd.conf
+    src: ../configs/dhcpd.conf
     dest: /etc/dhcp/dhcpd.conf
 
 - name: Change the selinux context of /etc/dhcp/dhcpd.conf file

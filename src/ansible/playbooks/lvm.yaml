@@ -25,9 +25,9 @@
     fstype: ext4
     state: mounted
 
-- name: Get UUID of the LV
-  ansible.builtin.shell: blkid /dev/vgstrorage/cephlv | awk '{print $2}' | tr -d '"'
-  register: lv_uuid
+      #- name: Get UUID of the LV
+      #ansible.builtin.shell: blkid /dev/vgstrorage/cephlv | awk '{print $2}' | tr -d '"'
+      #register: lv_uuid
 
-- name: Update /etc/fstab entry
-  ansible.builtin.shell: echo "{{ lv_uuid }}	/var/lib/libvirt/images	ext4	errors=remount-ro	0	1" >> /etc/fstab
+      #- name: Update /etc/fstab entry
+      #ansible.builtin.shell: echo "{{ lv_uuid.stdout }}	/var/lib/libvirt/images	ext4	errors=remount-ro	0	1" >> /etc/fstab

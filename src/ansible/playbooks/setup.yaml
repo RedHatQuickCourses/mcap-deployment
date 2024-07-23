@@ -1,6 +1,6 @@
 - hosts: localhost
   become: yes
-  vars_files: ./inventory/host_vars/hypervisor
+  vars_files: host_vars/hypervisor
   tasks:
     - name: Prepare hypervisor
       include_tasks: ./initial-setup-hypervisor.yaml

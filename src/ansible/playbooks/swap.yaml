@@ -9,11 +9,11 @@
   ansible.builtin.shell: mkswap /dev/nvme1n1 > /tmp/swap.txt
 
 - name: Get UUID of the swap partition
-  ansible.builtin.shell: cat swap.txt | grep -i UUID | awk '{print $3}'
+  ansible.builtin.shell: blkid /dev/nvme1n1 | awk '{print $2}' | tr -d '"'
   register: swap_uuid
 
 - name: Update /etc/fstab entry
-  ansible.builtin.shell: echo "{{ swap_uuid }}	none	swap	none	0	0" >> /etc/fstab
+  ansible.builtin.shell: echo "{{ swap_uuid.stdout }}	none	swap	none	0	0" >> /etc/fstab
 
 - name: swapon on hypervisor
   ansible.builtin.shell: swapon -a

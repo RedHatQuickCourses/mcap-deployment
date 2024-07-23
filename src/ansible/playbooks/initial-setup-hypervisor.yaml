@@ -1,6 +1,6 @@
 ---
 - name: Create an ssh key for the root user
-  ansible.builtin.shell: ssh-keygen -t ed25519 -f /root/.ssh/id_rsa -N ''
+  ansible.builtin.shell: ssh-keygen -t rsa -f /root/.ssh/id_rsa -N ''
 
 - name: Install required packages on hypervisor
   ansible.builtin.dnf:
@@ -11,7 +11,7 @@
   include_tasks: ./swap.yaml
 
 - name: Create backend LV for ceph storage using nvme disks from hypervisor
-  include_tasks: ./LVM.yaml
+  include_tasks: ./lvm.yaml
 
 - name: Enable libvirt and cockpit services on hypervisor
   ansible.builtin.service:

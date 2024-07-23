@@ -1,5 +1,5 @@
 $TTL    604800
-@       IN      SOA    hypervisor. admin.hypervisor. (
+@       IN      SOA    hypervisor. root.hypervisor. (
                   3     ; Serial
              604800     ; Refresh
               86400     ; Retry
@@ -9,9 +9,9 @@ $TTL    604800
 ; name servers - NS records
      IN      NS      hypervisor.
 
-hypervisor. 			                                 IN	     A 	     192.168.122.1
+hypervisor.                      IN	     A 	     192.168.122.1
 
-lb.lab..example.com.				                        IN	     A	      192.168.122.3
+lb.lab.example.com.				                        IN	     A	      192.168.122.3
 
 bootstrap.lab.example.com. 		                   IN	     A      	192.168.122.4
 
@@ -77,12 +77,4 @@ alertmanager-main-openshift-monitoring.apps.tenant1.lab.example.com.       IN	  
 assisted-image-service-multicluster-engine.apps.tenant1.lab.example.com.   IN	     A 	     192.168.122.25
 assisted-service-multicluster-engine.apps.tenant1.lab.example.com.         IN	     A 	     192.168.122.25
 downloads-openshift-console.apps.tenant1.lab.example.com.                  IN	     A 	     192.168.122.25
-
-etcd-0.lab.example.com.. 		                      IN	A 	1
-etcd-1.lab.example.com.. 		                      IN	A 	2
-etcd-2.lab.example.com.. 		                      IN	A 	3
-
-_etcd-server-ssl._tcp.lab.example.com.. 86400 IN SRV 0 10 2380 etcd-0.lab.example.com..
-_etcd-server-ssl._tcp.lab.example.com.. 86400 IN SRV 0 10 2380 etcd-1.lab.example.com..
-_etcd-server-ssl._tcp.lab.example.com.. 86400 IN SRV 0 10 2380 etcd-2.lab.example.com..
 
