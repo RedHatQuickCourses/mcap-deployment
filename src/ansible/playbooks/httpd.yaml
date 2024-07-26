@@ -1,6 +1,6 @@
 ---
 - name: Copy userdir.conf file
-  copy:
+  ansible.builtin.copy:
     src: ../configs/userdir.conf
     dest: /etc/httpd/conf.d/userdir.conf
 
@@ -8,7 +8,7 @@
   ansible.builtin.shell: mkdir /home/lab-user/public_html
 
 - name: Update permissions of /home/lab-user directory
-  file:
+  ansible.builtin.file:
     path: /home/lab-user
     owner: lab-user
     group: users
@@ -16,7 +16,7 @@
     mode: '0711'
 
 - name: Update permissions in public_html directory
-  file:
+  ansible.builtin.file:
     path: /home/lab-user/public_html
     owner: lab-user
     group: users
