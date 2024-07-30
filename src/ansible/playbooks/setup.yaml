@@ -1,9 +1,19 @@
 - hosts: localhost
   become: yes
-  vars_files: host_vars/hypervisor
+  vars_files:
+    - host_vars/hypervisor
+    - ocp-cluster-vars/vars/common.yaml
+    - ocp-cluster-vars/vars/libvirt-hub/vars.yaml
   tasks:
     - name: Prepare hypervisor
       include_tasks: ./initial-setup-hypervisor.yaml
+
+    - name: Download Artifacts
+      roles:
+        - openshift-download-artifacts
+      tags:
+        - openshift-download-artifacts
+        - pre-deploy
 
     - name: Create VMs on hypervisor
       include_tasks: ./vms-hypervisor.yaml

@@ -15,7 +15,7 @@ installer_url="${release_url}/${installer_archive_name}"
 # rhcos
 rhcos_base_url=https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos
 rhcos_release_url="${rhcos_base_url}/${ocp_version}/${rhcos_version}"
-rhcos_file_name=rhcos-openstack.x86_64.qcow2.gz
+rhcos_file_name=rhcos-qemu.x86_64.qcow2.gz
 rhcos_qcow_url="${rhcos_release_url}/${rhcos_file_name}"
 
 # virtctl binary

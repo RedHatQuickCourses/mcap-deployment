@@ -13,7 +13,7 @@ ocp_bin_client_archive_name: "openshift-client-linux.tar.gz"
 ocp_bin_installer_archive_name: "openshift-install-linux.tar.gz"
 ocp_bin_client_url: "{{ ocp_bin_release_url }}/{{ ocp_bin_client_archive_name }}"
 ocp_bin_installer_url: "{{ ocp_bin_release_url }}/{{ ocp_bin_installer_archive_name }}"
-oc_bin: "{{ staging_base_dir }}/oc"
+oc_bin: "/usr/bin/oc"
 
 # RHCOS images base URLs.
 rhcos_bin_version: "latest"

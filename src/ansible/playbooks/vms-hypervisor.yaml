@@ -14,3 +14,25 @@
   community.libvirt.virt_pool:
     command: create
     name: images
+
+- name: Autostart a storage pool
+  community.libvirt.virt_pool:
+    autostart: yes
+    name: images
+
+- name: Increase base QEMU image at the desired size
+  ansible.builtin.shell: qemu-img resize "{{ base_qcow }}" +"{{ resized_base_qcow_disk_size }}"
+
+- name: Change qemu file ownership, group and permissions
+  ansible.builtin.file:
+    path: "{{ base_qcow }}"
+    owner: qemu
+    group: qemu
+    mode: '0644'
+
+
+#- name: Define Hub from xml and set autostart
+#  community.libvirt.virt:
+#    command: define
+#    xml: '{{ lookup("template", "templates/hub.xml.j2") }}'
+#    autostart: true
