@@ -44,7 +44,7 @@
 - name: Download RHCOS archive
   ansible.builtin.get_url:
     url: "{{ rhcos_bin_qcow_url }}"
-    dest: "{{ staging_dir }}"
+    dest: "{{ artifact_download_dir }}"
   when:
     - platform == "libvirt"
     - destroy is not defined or destroy == false
@@ -52,15 +52,15 @@
 ## using gunzip since unarchive doesn't seem to be able to handle .gz
 - name: Unzip RHCOS archive
   ansible.builtin.shell:
-    chdir: "{{ staging_dir }}"
-    cmd: "gunzip  {{ staging_dir }}/{{ rhcos_bin_archive_name }}"
+    chdir: "{{ artifact_download_dir }}"
+    cmd: "gunzip  {{ artifact_download_dir }}/{{ rhcos_bin_archive_name }}"
   when:
     - platform == "libvirt"
     - destroy is not defined or destroy == false
 
 - name: Copy QEMU file to hypervisor host
   ansible.builtin.copy:
-    src: "{{ staging_dir }}/{{ rhcos_bin_file_name }}"
+    src: "{{ artifact_download_dir }}/{{ rhcos_bin_file_name }}"
     dest: "{{ base_qcow }}"
     mode: '0644'
   when:
@@ -68,4 +68,8 @@
     - destroy is not defined or destroy == false
   become: true
 
+- name: Remove temp dir which used for downloading artifacts
+  ansible.builtin.file:
+    state: absent
+    path: "{{ artifact_download_dir }}"
 

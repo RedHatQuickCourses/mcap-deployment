@@ -20,15 +20,21 @@
     autostart: yes
     name: images
 
-- name: Increase base QEMU image at the desired size
-  ansible.builtin.shell: qemu-img resize "{{ base_qcow }}" +"{{ resized_base_qcow_disk_size }}"
-
 - name: Change qemu file ownership, group and permissions
   ansible.builtin.file:
     path: "{{ base_qcow }}"
     owner: qemu
     group: qemu
     mode: '0644'
+
+- name: Increase base QEMU image at the desired size
+  ansible.builtin.shell: qemu-img resize "{{ base_qcow }}" +"{{ resized_base_qcow_disk_size }}"
+
+- name: Use base RHCOS image and resize it to the new QEMU image
+  ansible.builtin.shell: virt-customize -a "{{ base_qcow }}" --run-command 'growpart /dev/sda 4'
+
+- name: Grow the filesytem of the new QEMU image
+  ansible.builtin.shell: virt-customize -a "{{ base_qcow }}" --run-command 'xfs_growfs /'
 
 
 #- name: Define Hub from xml and set autostart
