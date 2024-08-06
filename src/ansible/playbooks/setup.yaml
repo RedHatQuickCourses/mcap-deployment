@@ -9,11 +9,8 @@
       include_tasks: ./initial-setup-hypervisor.yaml
 
     - name: Download Artifacts
-      roles:
-        - openshift-download-artifacts
-      tags:
-        - openshift-download-artifacts
-        - pre-deploy
+      include_role:
+        name: openshift-download-artifacts
 
     - name: Create VMs on hypervisor
       include_tasks: ./vms-hypervisor.yaml
