@@ -2,18 +2,12 @@
   become: yes
   vars_files:
     - host_vars/hypervisor
-    - ocp-cluster-vars/vars/common.yaml
-    - ocp-cluster-vars/vars/libvirt-hub/vars.yaml
   tasks:
     - name: Prepare hypervisor
       include_tasks: ./initial-setup-hypervisor.yaml
 
-    - name: Download Artifacts
-      include_role:
-        name: openshift-download-artifacts
-
-    - name: Create VMs on hypervisor
-      include_tasks: ./vms-hypervisor.yaml
+    #- name: Configure storage
+    #  include_tasks: ./storage.yaml
 
     #- name: Deploy ceph storage on storage VM
     #  include_tasks: ./deploy-ceph-storage.yaml

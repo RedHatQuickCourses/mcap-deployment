@@ -1,8 +1,5 @@
 
 ########## OpenShift #############
-# Base directory for staging. This is where all the OCP binaries will be downloaded to
-staging_base_dir: /var/tmp/ansible
-
 ocp_version: 4.16
 ocp_bin_channel: stable
 

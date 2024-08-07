@@ -1,24 +1,7 @@
 ---
-- name: Define a new storage pool
-  community.libvirt.virt_pool:
-    command: define
-    name: images
-    xml: '{{ lookup("template", "templates/storagepool.xml.j2") }}'
-
-- name: Build a storage pool if it does not exist
-  community.libvirt.virt_pool:
-    command: build
-    name: images
-
-- name: Start a storage pool
-  community.libvirt.virt_pool:
-    command: create
-    name: images
-
-- name: Autostart a storage pool
-  community.libvirt.virt_pool:
-    autostart: yes
-    name: images
+- name: Download Artifacts
+  include_role:
+    name: openshift-download-artifacts
 
 - name: Create base QEMU image at the desired size
   ansible.builtin.shell: "qemu-img create -f qcow2 -o preallocation=metadata,cluster_size=2M {{ resized_base_qcow }} {{ resized_base_qcow_disk_size }}"

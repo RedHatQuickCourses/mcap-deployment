@@ -12,23 +12,12 @@ ocp_bin_channel: "stable"
 rhcos_bin_qcow_url: "{{ rhcos_bin_release_url }}/{{ libvirt_rhcos_bin_archive_name }}"
 rhcos_bin_archive_name: "{{ libvirt_rhcos_bin_archive_name }}"
 rhcos_bin_file_name: "{{ libvirt_rhcos_bin_file_name }}"
-# ocp_network_type: "Cilium"  # , Calico,Cilium"
-
-## Cilium - Only required if network type is Cilium
-#cilium_version: 1.15.1
-#cilium_repo_uri: "https://github.com/isovalent/olm-for-cilium"
-
-## Calico - Only required if network type is Calico
-#calico_version: 3.26.0
-#calico_archive_uri: "https://github.com/projectcalico/calico/releases/download/v{{ calico_version }}/ocp.tgz"
-
+ocp_network_type: "OVNKubernetes"
 
 # Libvirt vars
-cluster_vms_storage_base_dir: "/var/lib/libvirt/images"
 base_qcow: "{{ staging_dir }}/{{ rhcos_bin_file_name }}"
 resized_base_qcow_disk_size: "120G"
 resized_base_qcow: "{{ staging_dir }}/{{ ocp_cluster_name }}_{{ rhcos_bin_file_name }}"
-libvirt_bridge_name: "virbr0"
 
 ### CONTROL vars
 control_ign: "{{ ocp_install_dir }}/master.ign"
@@ -45,7 +34,7 @@ worker_bridge_interface: enp2s0
 
 
 ## Base domain for the cluster
-base_domain: arvhomelab.com
+base_domain: lab.example.com
 
 ### Storage Vars
 

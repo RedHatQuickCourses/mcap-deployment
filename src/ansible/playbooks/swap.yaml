@@ -9,12 +9,7 @@
   ansible.builtin.shell: blkid | awk '{print $1}' | tr -d ':' |  sed 's/\/dev//g' | sed 's/\///g' | awk 'NR==1' | cut -c 1-5
   register: nvme_id
 
-- name: Print return information from the previous task
-  ansible.builtin.debug:
-    var: nvme_id
-    verbosity: 2
-
-- name: Configure 250GB nvme {{ nvme_id.stdout }} disk for usage as swap space
+- name: Configure 250GB nvme disk for usage as swap space
   block:
     - name: Run mkswap on disk
       ansible.builtin.shell: mkswap /dev/nvme1n1
@@ -27,7 +22,7 @@
       ansible.builtin.shell: echo "{{ swap_uuid.stdout }}	none	swap	none	0	0" >> /etc/fstab
   when: nvme_id.stdout == "nvme0"
 
-- name: Configure 250GB nvme {{ nvme_id.stdout }} disk for usage as swap space
+- name: Configure 250GB nvme disk for usage as swap space
   block:
     - name: Run mkswap on disk
       ansible.builtin.shell: mkswap /dev/nvme0n1

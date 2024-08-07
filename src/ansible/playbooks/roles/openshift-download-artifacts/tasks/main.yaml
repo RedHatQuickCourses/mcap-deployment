@@ -25,7 +25,6 @@
     dest: "{{ oc_bin }}"
     mode: '0755'
 
-
 #### Get OCP Installer
 - name: Download OCP Installer archive
   ansible.builtin.get_url:
@@ -38,7 +37,6 @@
     src: "{{ artifact_download_dir }}/{{ ocp_bin_installer_archive_name }}"
     dest: "{{ staging_dir }}"
   when: destroy is not defined or destroy == false
-
 
 #### Get RHCOS Image
 - name: Download RHCOS archive
