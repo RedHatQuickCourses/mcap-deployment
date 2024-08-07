@@ -5,12 +5,26 @@
 - name: Disable existing swap partition
   ansible.builtin.shell: sed -i '/swap/d' /etc/fstab
 
+- name: Find the used 250GB nvme disk
+  ansible.builtin.shell: blkid | awk '{print $1}' | tr -d ':' |  sed 's/\/dev//g' | sed 's/\///g' | awk 'NR==1' | cut -c 1-5
+  register: nvme_id
+
 - name: Configure 250GB nvme disk for usage as swap space
-  ansible.builtin.shell: mkswap /dev/nvme1n1 > /tmp/swap.txt
+  ansible.builtin.shell: mkswap /dev/nvme1n1
 
 - name: Get UUID of the swap partition
   ansible.builtin.shell: blkid /dev/nvme1n1 | awk '{print $2}' | tr -d '"'
   register: swap_uuid
+  when: nvme_id.stdout == "nvme1"
+
+- name: Configure 250GB nvme disk for usage as swap space
+  ansible.builtin.shell: mkswap /dev/nvme0n1
+  when: nvme_id.stdout == "nvme0"
+
+- name: Get UUID of the swap partition
+  ansible.builtin.shell: blkid /dev/nvme0n1 | awk '{print $2}' | tr -d '"'
+  register: swap_uuid
+  when: nvme_id.stdout == "nvme0"
 
 - name: Update /etc/fstab entry
   ansible.builtin.shell: echo "{{ swap_uuid.stdout }}	none	swap	none	0	0" >> /etc/fstab
