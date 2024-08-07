@@ -61,7 +61,7 @@
 - name: Copy QEMU file to hypervisor host
   ansible.builtin.copy:
     src: "{{ artifact_download_dir }}/{{ rhcos_bin_file_name }}"
-    dest: "{{ base_qcow }}"
+    dest: "{{ staging_dir }}"
     mode: '0644'
   when:
     - platform == "libvirt"
