@@ -1,11 +1,24 @@
 ---
-- name: Create a PV of 7TB with disks /dev/nvme2n1 and /dev/nvme3n1
-  ansible.builtin.shell: pvcreate /dev/nvme2n1 /dev/nvme3n1
+- name: Find the 3.5TB nvme disk1
+  ansible.builtin.shell: lsblk | grep -i 3.5T | awk '{print $1}' | awk 'NR==1'
+  register: lvm_disk1
 
-- name: Create VG on top of /dev/nvme2n1 and /dev/nvme3n1
+- name: Find the 3.5TB nvme disk2
+  ansible.builtin.shell: lsblk | grep -i 3.5T | awk '{print $1}' | awk 'NR==2'
+  register: lvm_disk2
+
+- name: Set the 3.5TB disks value
+  ansible.builtin.set_fact:
+    lv_disk1: lvm_disk1.stdout
+    lv_disk2: lvm_disk2.stdout
+
+- name: Create a PV of 7TB with disks /dev/{{ lv_disk1 }} and /dev/{{ lv_disk2 }}
+  ansible.builtin.shell: pvcreate /dev/{{ lv_disk1 }} /dev/{{ lv_disk2 }}
+
+- name: Create VG on top of /dev/{{ lv_disk1 }} and /dev/{{ lv_disk2 }}
   community.general.lvg:
     vg: vgstrorage
-    pvs: /dev/nvme2n1,/dev/nvme3n1
+    pvs: /dev/{{ lv_disk1 }},/dev/{{ lv_disk2 }}
 
 - name: Create a LV of 7TB with remaining space in the volume group
   community.general.lvol:

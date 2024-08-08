@@ -32,6 +32,16 @@
 - name: Configure http server on hypervisor
   include_tasks: ./httpd.yaml
 
+- name: Create {{ staging_base_dir }} directory
+  ansible.builtin.file:
+    state: directory
+    path: "{{ staging_base_dir }}"
+
+- name: Create {{ storage_dir }} directory
+  ansible.builtin.file:
+    state: directory
+    path: "{{ storage_dir }}"
+
 - name: Define a new storage pool
   community.libvirt.virt_pool:
     command: define
