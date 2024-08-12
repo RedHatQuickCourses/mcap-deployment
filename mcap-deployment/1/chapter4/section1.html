@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Section 1 :: Deploy Mission Critical Application Platform (MCAP)</title>
+    <title>Tenant VM Configuration :: Deploy Mission Critical Application Platform (MCAP)</title>
+    <link rel="prev" href="index.html">
+    <link rel="next" href="section2.html">
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script>var uiRootPath = '../../../_'</script>
@@ -68,7 +70,10 @@
     <a class="nav-link" href="../chapter2/index.html">Hub Cluster Deployment</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter2/section1.html">Section 1</a>
+    <a class="nav-link" href="../chapter2/section1.html">Hub VM Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter2/section2.html">Install and Configure Operators and Service(s)</a>
   </li>
 </ul>
   </li>
@@ -81,10 +86,26 @@
     <a class="nav-link" href="../chapter3/index.html">Infrastructure Cluster Deployment</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter3/section1.html">Section 1</a>
+    <a class="nav-link" href="../chapter3/section1.html">Infrastructure VM Configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter3/section2.html">Section 2</a>
+    <a class="nav-link" href="../chapter3/section2.html">Install and Configure Operators</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Tenant Cluster Deployment</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="section1.html">Tenant VM Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section2.html">Install Sample Application on Tenant Cluster</a>
   </li>
 </ul>
   </li>
@@ -119,7 +140,8 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Deploy Mission Critical Application Platform (MCAP)</a></li>
-    <li><a href="section1.html">Section 1</a></li>
+    <li><a href="index.html">Tenant Cluster Deployment</a></li>
+    <li><a href="section1.html">Tenant VM Configuration</a></li>
   </ul>
 </nav>
 </div>
@@ -128,10 +150,17 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Section 1</h1>
+<h1 class="page">Tenant VM Configuration</h1>
 <div class="paragraph">
-<p>This is <em>Section 1</em> of <em>Chapter 3</em> in the <strong>hello</strong> quick course&#8230;&#8203;.</p>
+<p>OCP Virt VMs - Tenant1 VM on SNO1, Tenant2 VM on SNO2 and Tenant3 VM on SNO3
+Download virtctl from any SNO’s console
+Upload discover iso to all SNOs
+Assisted way compact deployment using RHACM from Hub cluster</p>
 </div>
+<nav class="pagination">
+  <span class="prev"><a href="index.html">Tenant Cluster Deployment</a></span>
+  <span class="next"><a href="section2.html">Install Sample Application on Tenant Cluster</a></span>
+</nav>
 </article>
   </div>
 </main>
