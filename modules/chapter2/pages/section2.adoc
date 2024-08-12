@@ -1,0 +1,7 @@
+= Install and Configure Operators and Service(s)
+
+RHACM Installation
+Install LVMS operator
+Install multicluster engine operator
+Install RHACM operator
+Create Provisioning and AgentServiceConfig for Enabling CIM (Central Infrastructure Management) service

@@ -1,3 +1,4 @@
-= Section 1
+= Hub VM Configuration
 
-This is _Section 1_ of _Chapter 2_ in the *hello* quick course....
+SNO VM
+Assisted way (console.redhat.com) SNO deployment

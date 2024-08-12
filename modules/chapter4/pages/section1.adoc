@@ -1,3 +1,6 @@
-= Section 1
+= Tenant VM Configuration
 
-This is _Section 1_ of _Chapter 3_ in the *hello* quick course....
+OCP Virt VMs - Tenant1 VM on SNO1, Tenant2 VM on SNO2 and Tenant3 VM on SNO3
+Download virtctl from any SNO’s console
+Upload discover iso to all SNOs
+Assisted way compact deployment using RHACM from Hub cluster

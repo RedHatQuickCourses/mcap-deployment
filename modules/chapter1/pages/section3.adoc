@@ -1,4 +1,6 @@
 = Ceph Storage Deployment
 
 
-
+Storage VM Deployment
+Ceph storage deployment
+Ceph configuration

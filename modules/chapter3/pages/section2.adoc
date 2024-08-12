@@ -1,3 +1,9 @@
-= Section 2
+= Install and Configure Operators
 
-This is _Section 2_ of _Chapter 3_ in the *hello* quick course....
+Install OpenShift Virtualization on SNO1, SNO2 and SNO3
+
+Install ODF operator on SNO1, SNO2 and SNO3 and create storage system with ceph cluster storage as external
+
+Install nmstate operator on SNO1, SNO2 and SNO3 > Configure NNCP > Configure NAD
+
+

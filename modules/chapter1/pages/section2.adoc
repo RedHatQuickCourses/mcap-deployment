@@ -1,2 +1,8 @@
 = Initial Setup on Hypervisor (Bare Metal)
 
+Installing packages
+Swap Configuration
+LVM Configuration
+DHCP Configuration
+DNS Configuration
+HTTP Configuration
