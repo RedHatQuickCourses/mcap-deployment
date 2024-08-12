@@ -1,3 +1,9 @@
-= Chapter 1
+= Hands-on Lab Environment Setup for MCAP
 
-This is the home page of _Chapter_ 1 in the *hello* quick course...
+This chapter covers hands-on lab environment setup for MCAP.
+
+Chapter goals:
+
+* Explain the hands-on lab environment setup used to deploy MCAP solution.
+* Provision the base infrastructure (HW, Storage, Networking) for the hands-on lab environment.
+* Install utility services needed for the hands-on labs.

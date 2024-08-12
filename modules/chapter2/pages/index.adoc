@@ -1,3 +1,2 @@
-= Chapter 2
+= Hub Cluster Deployment
 
-This is the home page of _Chapter 2_ in the *hello* quick course....

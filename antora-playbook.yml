@@ -1,6 +1,6 @@
 site:
-  title: Placeholder Course Title
-  start_page: placeholder-course-name::index.adoc
+  title: Deploy Mission Critical Application Platform (MCAP)
+  start_page: mcap-deployment::index.adoc
 
 content:
   sources:

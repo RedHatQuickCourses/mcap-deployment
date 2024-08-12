@@ -1,6 +1,44 @@
-= An Example Quick Course
+= Deploy Mission Critical Application Platform (MCAP)
 :navtitle: Home
 
-== Introduction
+Welcome to this quick course, _Deploy Mission Critical Application Platform (MCAP)_.
 
-This is an example quick course demonstrating the usage of Antora for authoring and publishing quick courses.
+== Authors
+
+The PTL team acknowledges the valuable contributions of the following Red Hat associates:
+
+* Arvin Amirian
+* Ricardo Garcia Cavero
+* Sarvesh Pandit
+* Ashish Shah
+* Annie Purcell
+
+== Prerequisites
+
+For this course, you should have:
+
+* Red Hat Certified Systems Administrator certification or equivalent knowledge of Linux system administration is recommended for all roles.
+* https://rol.redhat.com/rol/app/courses/rh294-9.0[Red Hat Enterprise Linux Automation with Ansible (RH294)]
+* https://rol.redhat.com/rol/app/courses/do280-4.14[Red Hat OpenShift Administration II: Configuring a Production Cluster (DO280)]
+* https://rol.redhat.com/rol/app/technical-overview/do016-4.14[Red Hat OpenShift Virtualization (OCP Virt) Technical Overview (DO016)]
+* https://rol.redhat.com/rol/app/courses/do316-4.14[Managing Virtual Machines with Red Hat OpenShift Virtualization (DO316)]
+* https://rol.redhat.com/rol/app/courses/do480-2.4/pages/pr01[Multicluster Management with Red Hat OpenShift Platform Plus (DO480)]
+
+== Objectives
+
+The overall objectives of this course include:
+
+* Provision the base infrastructure (HW, Storage, Networking) for the hands-on lab environment
+* Install utility services needed for the hands-on labs
+* Configure the base OpenShift infrastructure cluster to host tenant clusters
+* Configure the Infrastructure Cluster to host Virtual Machines
+* Provision multiple tenant clusters on top of the infrastructure cluster
+* Deploy and configure applications and Virtual Machines on Tenant Clusters
+* Test high availability and resilience of deployed workloads
+
+== References
+
+https://www.redhat.com/architect/portfolio/detail/51-mission-critical-platform[Red Hat Architecture Center - Mission Critical Application Platform]
+https://www.redhat.com/en/blog/building-mission-critical-application-platform[Building a mission critical application platform]
+https://github.com/arvin-a/openshift-upi-automation.git[Github - openshift-upi-automation]
+https://www.redhat.com/en/blog/nested-openshift-using-openshift-virtualization[Nested OpenShift using OpenShift Virtualization]

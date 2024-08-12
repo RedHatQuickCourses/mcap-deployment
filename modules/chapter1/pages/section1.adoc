@@ -1,3 +1,38 @@
-= Section 1
+= MCAP Setup in Demo Lab
 
-This is _Section 1_ of _Chapter 1_ in the *hello* quick course....
+== Overview
+
+The MCAP solution is a combination of multiple Red Hat products working together to provide a robust, scalable, resilient, and highly available platform for an organization’s mission-critical applications. The following Red Hat products are used in the MCAP solution:
+
+Red Hat OpenShift Container Platform (OCP)
+Red Hat OpenShift Virtualization (OCP Virt)
+Red Hat Ansible Automation Platform (AAP)
+Red Hat Advanced Cluster Management (RHACM)
+Red Hat Advanced Cluster Security for Kubernetes (RHACS)
+Red Hat OpenShift GitOps
+
+== Demo Lab Environment
+
+image::MCAP_setup.png[]
+
+The following Red Hat products are used in the MCAP solution:
+
+Red Hat OpenShift Container Platform (OCP)
+Red Hat OpenShift Virtualization (OCP Virt)
+Red Hat Advanced Cluster Management (RHACM)
+
+Hardware and Bare-Metal -
+
+Libvirt VMs (KVM) -
+
+Utility and Services -
+
+Networking -
+
+Storage -
+
+Hub Cluster -
+
+Infrastructure Cluster -
+
+Tenant Cluster -
