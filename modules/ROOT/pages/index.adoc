@@ -13,6 +13,16 @@ The PTL team acknowledges the valuable contributions of the following Red Hat as
 * Ashish Shah
 * Annie Purcell
 
+== Classroom Environment
+
+This introductory course has a few, simple hands-on labs. You will use the https://demo.redhat.com/catalog?item=babylon-catalog-prod/equinix-metal.eqx-blank.prod&utm_source=webapp&utm_medium=share-link.ocp4-workshop-rhods-base-aws.prod[Equinix Metal baremetal blank server] catalog item in the Red Hat Demo Platform (RHDP) to run the hands-on exercises in this course.
+
+When ordering this catalog item in RHDP:
+
+* Select *Practice/Enablement* for the *Activity* field
+* Select the nearest or any region in the *Region* field
+* Select *n3.xlarge.x86* as the flavor in *Type* field
+
 == Prerequisites
 
 For this course, you should have:
@@ -42,3 +52,4 @@ https://www.redhat.com/architect/portfolio/detail/51-mission-critical-platform[R
 https://www.redhat.com/en/blog/building-mission-critical-application-platform[Building a mission critical application platform]
 https://github.com/arvin-a/openshift-upi-automation.git[Github - openshift-upi-automation]
 https://www.redhat.com/en/blog/nested-openshift-using-openshift-virtualization[Nested OpenShift using OpenShift Virtualization]
+https://docs.redhat.com/en/documentation/red_hat_openshift_data_foundation/4.11/html-single/deploying_openshift_data_foundation_in_external_mode/index?extIdCarryOver=true&sc_cid=701f2000001OH7JAAW#deploy-openshift-data-foundation-using-red-hat-ceph-storage[Deploy OpenShift Data Foundation using Red Hat Ceph storage]

@@ -2,7 +2,8 @@
 
 == Overview
 
-The MCAP solution is a combination of multiple Red Hat products working together to provide a robust, scalable, resilient, and highly available platform for an organization’s mission-critical applications. The following Red Hat products are used in the MCAP solution:
+The MCAP solution is a combination of multiple Red Hat products working together to provide a robust, scalable, resilient, and highly available platform for an organization’s mission-critical applications.
+The following Red Hat products are used in the MCAP solution:
 
 Red Hat OpenShift Container Platform (OCP)
 Red Hat OpenShift Virtualization (OCP Virt)
@@ -13,26 +14,70 @@ Red Hat OpenShift GitOps
 
 == Demo Lab Environment
 
+[NOTE]
+This setup is for Proof of Concepts (POC).
+It is not recommended for Production use case.
+For other architecture option, refer https://www.redhat.com/en/blog/nested-openshift-using-openshift-virtualization[Nested OpenShift using OpenShift Virtualization]
+
 image::MCAP_setup.png[]
 
-The following Red Hat products are used in the MCAP solution:
+The following Red Hat products are used in this MCAP solution:
 
 Red Hat OpenShift Container Platform (OCP)
 Red Hat OpenShift Virtualization (OCP Virt)
 Red Hat Advanced Cluster Management (RHACM)
 
-Hardware and Bare-Metal -
+=== Hardware and Bare-Metal
 
-Libvirt VMs (KVM) -
+In this lab, Equinix bare metal is used.
+The flavor is https://deploy.equinix.com/product/bare-metal/servers/[n3.xlarge.x86].
 
-Utility and Services -
+=== Libvirt VMs (KVM)
 
-Networking -
+In this MCAP solution, five VMs are needed.
 
-Storage -
+* One VM as shared storage for _Tenant_ cluster.
+* One VM as _Hub_ cluster.
+* Three VMs as _Infrastructure_ cluster.
 
-Hub Cluster -
+=== Utility and Services
 
-Infrastructure Cluster -
+The bare metal is acting as hypervisor, http server, dhcp server and dns server.
+All these services are configured on the bare metal.
 
-Tenant Cluster -
+=== Networking
+
+As this setup uses KVMs as base infrastructure, all external communication and communication between clusters happen via virtual bridge on the bare metal.
+nmstate operator is installed on the _Infrastructure_ clusters.
+nmstate operator allows users to configure various network interface types, DNS and routing on cluster nodes.
+The configuration is driven by two main object types, NodeNetworkConfigurationPolicy (Policy) and NodeNetworkConfigurationEnactment (Enactment).
+In this lab setup, NodeNetworkConfigurationPolicy (Policy) and NetworkAttachmentDefinition (Object) are configured to connect the _Tenant_ cluster.
+
+=== Storage
+
+On the hypervisor, 7TB (3.5TB + 3.5TB disks) LV is created and mounted to storage pool directory path.
+There is separate storage VM is created as shared storage for _Tenant_ cluster.
+This storage VM has three disks each of 2TB created from the 7TB LV.
+These disks are used in Ceph deployment on storage VM.
+OpenShift Data Foundation (ODF) operator is installed on the _Infrastructure_ clusters.
+OpenShift Data Foundation Cluster for external Ceph storage system is created.
+
+=== Hub Cluster
+
+Hub cluster is deployed as Single Node OpenShift (SNO) cluster.
+Hub cluster acts as central cluster which is installed with Multi cluster engine, Red Hat Advanced Cluster Management (RHACM) and LVMS operators.
+Provisioning and Central Infrastructure Management (CIM) service are deployed on hub cluster.
+_Infrastructure_ clusters and _Tenant_ cluster are deployed from Hub cluster and added to Hub cluster.
+
+=== Infrastructure Cluster
+
+There are three _Infrastructure_ clusters.
+All are deployed as _Single Node OpenShift (SNO)_ cluster.
+These clusters are deployed with OpenShift Virtualization, OpenShift Data Foundation (ODF) and nmstate operators.
+Discovery ISOs are uploaded to all _Infrastructure_ clusters to deploy the _Tenant_ cluster nodes.
+
+=== Tenant Cluster
+
+There is only one _Tenant_ cluster.
+This _Tenant_ cluster is deployed as _Three-Node OpenShift Compact_ cluster.
+All applications and workloads are running on _Tenant_ cluster nodes.

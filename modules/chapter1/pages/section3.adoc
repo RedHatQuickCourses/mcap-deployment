@@ -1,6 +1,352 @@
 = Ceph Storage Deployment
 
+== Prerequisites
 
-Storage VM Deployment
-Ceph storage deployment
-Ceph configuration
+. Download the rhel9 qcow2 image from the customer portal to your laptop/desktop.
+
+. Secured copy (scp) the rhel9 qcow2 image from your laptop/desktop to hypervisor.
+
+== Storage VM Deployment
+
+. Keep the rhel9 qcow2 image to /var/lib/libvirt/images directory
++
+[source,bash,role=execute]
+----
+cd /var/lib/libvirt/images/
+----
++
+.Sample output
+----
+ls -alh /var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2
+-rw-r--r--. 1 root root 913M Aug 19 05:44 /var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2
+----
+
+. Check the virtual and disk size of qcow2 image
++
+.Sample output
+----
+qemu-img info rhel-9.4-x86_64-kvm.qcow2
+
+image: rhel-9.4-x86_64-kvm.qcow2
+file format: qcow2
+virtual size: 10 GiB (10737418240 bytes)
+disk size: 913 MiB
+cluster_size: 65536
+...output omitted...
+----
+
+. Resize the image
++
+[source,bash,role=execute]
+----
+qemu-img resize rhel-9.4-x86_64-kvm.qcow2 +30G
+----
++
+.Sample output
+----
+qemu-img info rhel-9.4-x86_64-kvm.qcow2
+
+image: rhel-9.4-x86_64-kvm.qcow2
+file format: qcow2
+virtual size: 40 GiB (42949672960 bytes)
+disk size: 913 MiB
+...output omitted...
+----
+
+. Change the ownership of the image
++
+[source,bash,role=execute]
+----
+chown -R qemu:qemu rhel-9.4-x86_64-kvm.qcow2
+----
+
+. Resize the partition 4
++
+[source,bash,role=execute]
+----
+virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --run-command 'growpart /dev/sda 4'
+----
+
+. Increase the filesystem on /
++
+[source,bash,role=execute]
+----
+virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --run-command 'xfs_growfs /'
+----
+
+. Set the root password
++
+[source,bash,role=execute]
+----
+virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --root-password password:redhat
+----
+
+. Disable cloud-init
++
+[source,bash,role=execute]
+----
+virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --run-command 'systemctl disable cloud-init'
+----
+
+. Inject the root user's public rsa key
++
+[source,bash,role=execute]
+----
+virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --ssh-inject root:file:/root/.ssh/id_rsa.pub
+----
+
+. Selinux relabel
++
+[source,bash,role=execute]
+----
+virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --selinux-relabel
+----
+
+. Create the image for storage VM using the rhel9 qcow2 image
++
+[source,bash,role=execute]
+----
+qemu-img create -f qcow2 -F qcow2 -b /var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2 /var/lib/libvirt/images/storage.qcow2
+----
+
+. Create the storage VM with three 2TB disks
++
+[source,bash,role=execute]
+----
+virt-install --virt-type kvm --ram 16384 --vcpus 4 --cpu=host-passthrough --os-variant rhel9.3 \
+--disk path=/var/lib/libvirt/images/storage.qcow2,device=disk,bus=virtio,format=qcow2 \
+--disk path=/var/lib/libvirt/images/ceph-disk1.qcow2,device=disk,bus=virtio,format=qcow2,size=2000 \
+--disk path=/var/lib/libvirt/images/ceph-disk2.qcow2,device=disk,bus=virtio,format=qcow2,size=2000 \
+--disk path=/var/lib/libvirt/images/ceph-disk3.qcow2,device=disk,bus=virtio,format=qcow2,size=2000 \
+--network bridge=virbr0,mac=52:54:00:0a:a9:88 --boot hd,network --noautoconsole \
+--vnc --name storage --noreboot
+----
++
+.Sample output
+----
+virsh list --all
+
+ Id   Name      State
+--------------------------
+ -    storage   shut off
+----
+
+. Start the storage VM
++
+[source,bash,role=execute]
+----
+virsh start storage
+----
++
+.Sample output
+----
+virsh list --all
+ Id   Name      State
+-------------------------
+ 1    storage   running
+----
+
+== Ceph Storage Deployment Prerequisites
+
+. Take the console of the storage VM and login as _root_ user with _redhat_ as password
++
+[source,bash,role=execute]
+----
+virsh console storage
+----
+
+. Register the storage VM with valid subscription
++
+[source,bash,role=execute]
+----
+subscription-manager register
+----
++
+[source,bash,role=execute]
+----
+subscription-manager repos --disable=*
+----
++
+[source,bash,role=execute]
+----
+subscription-manager repos --enable=rhel-9-for-x86_64-baseos-rpms --enable=rhel-9-for-x86_64-appstream-rpms --enable=rhceph-7-tools-for-rhel-9-x86_64-rpms
+----
++
+[source,bash,role=execute]
+----
+dnf repolist
+----
+
+. Update all packages
++
+[source,bash,role=execute]
+----
+dnf -y update
+----
+
+. Install ceph packages
++
+[source,bash,role=execute]
+----
+dnf -y install cephadm ceph-common lvm2 chrony podman
+----
+
+. Reboot the storage VM
++
+[source,bash,role=execute]
+----
+reboot
+----
+
+. Permit root login on storage node
++
+[source,bash,role=execute]
+----
+echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+----
++
+[source,bash,role=execute]
+----
+systemctl restart sshd
+----
+
+. Generate key using ssh-keygen, copy id to storage node itself for password-less login
++
+[source,bash,role=execute]
+----
+ssh-keygen
+----
++
+[source,bash,role=execute]
+----
+ssh-copy-id storage.lab.example.com
+----
++
+[source,bash,role=execute]
+----
+eval $(ssh-agent)
+----
++
+[source,bash,role=execute]
+----
+ssh-add ~/.ssh/id_rsa
+----
+
+. Create the /etc/auth.json file with your
++
+[source,bash,role=execute]
+----
+cat >/etc/auth.json<<EOF
+{
+ "url":"registry.redhat.io",
+ "username":"yourusername",
+ "password":"yourpassword"
+}
+EOF
+----
++
+[NOTE]
+Replace "yourusername" with your username and "yourpassword" with your password for registry.redhat.io.
+
+== Ceph Configuration and Deployment
+
+. Create the ceph spec file
++
+[source,bash,role=execute]
+----
+cat >initial-config.yaml<<EOF
+---
+service_type: host
+addr: 192.168.122.9
+hostname: storage.lab.example.com
+---
+service_type: mon
+placement:
+  hosts:
+    - storage.lab.example.com
+---
+service_type: rgw
+service_id: realm.zone
+placement:
+  hosts:
+    - storage.lab.example.com
+---
+service_type: mgr
+placement:
+  hosts:
+    - storage.lab.example.com
+---
+service_type: osd
+service_id: default_drive_group
+placement:
+  host_pattern: 'storage*'
+data_devices:
+  paths:
+    - /dev/vdb
+    - /dev/vdc
+    - /dev/vdd
+EOF
+----
+
+. Deploy the ceph storage cluster
++
+[source,bash,role=execute]
+----
+cephadm bootstrap --apply-spec initial-config.yaml --mon-ip 192.168.122.9 --registry-json /etc/auth.json --allow-fqdn-hostname --single-host-defaults
+----
+
+. Verify deployed cluster
++
+[source,bash,role=execute]
+----
+/usr/sbin/cephadm shell
+----
++
+.Sample output
+----
+Inferring fsid 47cd0eae-5e5c-11ef-a284-5254000aa988
+Inferring config /var/lib/ceph/47cd0eae-5e5c-11ef-a284-5254000aa988/mon.storage/config
+Using ceph image with id '3fd804e38f5b' and tag 'latest' created on 2024-07-31 19:44:24 +0000 UTC
+registry.redhat.io/rhceph/rhceph-7-rhel9@sha256:75bd8969ab3f86f2203a1ceb187876f44e54c9ee3b917518c4d696cf6cd88ce3
+[ceph: root@storage /]#
+----
++
+.Sample output
+----
+[ceph: root@storage /]# ceph -s
+  cluster:
+    id:     47cd0eae-5e5c-11ef-a284-5254000aa988
+    health: HEALTH_OK
+
+  services:
+    mon: 1 daemons, quorum storage (age 18m)
+    mgr: storage.wudgfp(active, since 16m)
+    osd: 3 osds: 3 up (since 16m), 3 in (since 17m)
+    rgw: 1 daemon active (1 hosts, 1 zones)
+
+  data:
+    pools:   5 pools, 129 pgs
+    objects: 191 objects, 453 KiB
+    usage:   148 MiB used, 5.9 TiB / 5.9 TiB avail
+    pgs:     129 active+clean
+----
++
+[NOTE]
+Wait until you see cluster health as "HEALTH_OK".
+It may take 10 minutes to see the final status.
+Message HEALTH_OK in the above output indicates good cluster state.
+
+. You may also run ceph health command to verify cluster status.
++
+.Sample output
+----
+[ceph: root@storage /]# ceph health
+HEALTH_OK
+----
+
+. In case of failure, you can use following command to destroy the ceph storage cluster
++
+[source,bash,role=execute]
+----
+cephadm rm-cluster --force --zap-osds --fsid `ceph fsid`
+----
