@@ -50,7 +50,7 @@
     <a class="nav-link" href="chapter1/index.html">Hands-on Lab Environment Setup for MCAP</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="chapter1/section1.html">MCAP Setup in Demo Lab</a>
+    <a class="nav-link" href="chapter1/section1.html">MCAP Setup in RHDP Lab</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="chapter1/section2.html">Initial Setup on Hypervisor (Bare Metal)</a>
@@ -152,7 +152,9 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Welcome to this quick course, <em>Deploy Mission Critical Application Platform (MCAP)</em>.</p>
+<p>Welcome to this quick course, <em>Deploy Mission Critical Application Platform (MCAP)</em>.
+This course helps you to learn the basic infrastructure required for MCAP and how to deploy nested OpenShift using OpenShift Virtualization.
+After completing this course, you will be able to deploy MCAP solution for production environment.</p>
 </div>
 </div>
 </div>
@@ -186,14 +188,19 @@
 <div class="sect1">
 <h2 id="_classroom_environment"><a class="anchor" href="#_classroom_environment"></a>Classroom Environment</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_red_hat_associates"><a class="anchor" href="#_red_hat_associates"></a>Red Hat Associates</h3>
 <div class="paragraph">
-<p>This introductory course has a few, simple hands-on labs. You will use the <a href="https://demo.redhat.com/catalog?item=babylon-catalog-prod/equinix-metal.eqx-blank.prod&amp;utm_source=webapp&amp;utm_medium=share-link.ocp4-workshop-rhods-base-aws.prod">Equinix Metal baremetal blank server</a> catalog item in the Red Hat Demo Platform (RHDP) to run the hands-on exercises in this course.</p>
+<p>This introductory course has a few, simple hands-on labs. You will use the <a href="https://demo.redhat.com/catalog?item=babylon-catalog-prod/equinix-metal.eqx-blank.prod&amp;utm_source=webapp&amp;utm_medium=share-link.ocp4-workshop-rhods-base-aws.prod" target="read-later">Equinix Metal baremetal blank server</a> catalog item in the Red Hat Demo Platform (RHDP) to run the hands-on exercises in this course.</p>
+</div>
+<div class="paragraph">
+<p>Update the Catalog link - <mark>FIX THIS</mark></p>
 </div>
 <div class="paragraph">
 <p>When ordering this catalog item in RHDP:</p>
 </div>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p>Select <strong>Practice/Enablement</strong> for the <strong>Activity</strong> field</p>
 </li>
@@ -203,7 +210,20 @@
 <li>
 <p>Select <strong>n3.xlarge.x86</strong> as the flavor in <strong>Type</strong> field</p>
 </li>
-</ul>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_red_hat_partners"><a class="anchor" href="#_red_hat_partners"></a>Red Hat Partners</h3>
+<div class="paragraph">
+<p>Partners should be able to access the new <a href="https://partner.demo.redhat.com" target="read-later">Red Hat Demo Platform for Partners</a> by logging in with their RHN account credentials. For more information on this you can refer <a href="https://content.redhat.com/us/en/product/cross-portfolio-initiatives/rhdp.html#tabs-333fa7ebb9-item-b6fc845e73-tab" target="read-later">about Red Hat Demo Platform (RHDP)</a></p>
+</div>
+<div class="paragraph">
+<p>Catalog link - <mark>FIX THIS</mark></p>
+</div>
+<div class="paragraph">
+<p>For partner support - <a href="https://connect.redhat.com/en/support" target="read-later">Help and support</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -219,19 +239,16 @@
 <p>Red Hat Certified Systems Administrator certification or equivalent knowledge of Linux system administration is recommended for all roles.</p>
 </li>
 <li>
-<p><a href="https://rol.redhat.com/rol/app/courses/rh294-9.0">Red Hat Enterprise Linux Automation with Ansible (RH294)</a></p>
+<p><a href="https://rol.redhat.com/rol/app/courses/do280-4.14" target="read-later">Red Hat OpenShift Administration II: Configuring a Production Cluster (DO280)</a> or equivalent knowledge on configuring a production Red Hat OpenShift cluster.</p>
 </li>
 <li>
-<p><a href="https://rol.redhat.com/rol/app/courses/do280-4.14">Red Hat OpenShift Administration II: Configuring a Production Cluster (DO280)</a></p>
+<p><a href="https://rol.redhat.com/rol/app/technical-overview/do016-4.14" target="read-later">Red Hat OpenShift Virtualization (OCP Virt) Technical Overview (DO016)</a></p>
 </li>
 <li>
-<p><a href="https://rol.redhat.com/rol/app/technical-overview/do016-4.14">Red Hat OpenShift Virtualization (OCP Virt) Technical Overview (DO016)</a></p>
+<p><a href="https://rol.redhat.com/rol/app/courses/do316-4.14" target="read-later">Managing Virtual Machines with Red Hat OpenShift Virtualization (DO316)</a> or equivalent knowledge on how to create virtual machines on Red Hat OpenShift cluster using Red Hat OpenShift Virtualization.</p>
 </li>
 <li>
-<p><a href="https://rol.redhat.com/rol/app/courses/do316-4.14">Managing Virtual Machines with Red Hat OpenShift Virtualization (DO316)</a></p>
-</li>
-<li>
-<p><a href="https://rol.redhat.com/rol/app/courses/do480-2.4/pages/pr01">Multicluster Management with Red Hat OpenShift Platform Plus (DO480)</a></p>
+<p>Knowledge on installing Red Hat Advanced Cluster Management (RHACM) operator</p>
 </li>
 </ul>
 </div>
@@ -264,7 +281,7 @@
 <p>Deploy and configure applications and Virtual Machines on Tenant Clusters</p>
 </li>
 <li>
-<p>Test high availability and resilience of deployed workloads</p>
+<p>Test the high availability and resilience of deployed workloads</p>
 </li>
 </ul>
 </div>
@@ -274,19 +291,19 @@
 <h2 id="_references"><a class="anchor" href="#_references"></a>References</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://www.redhat.com/architect/portfolio/detail/51-mission-critical-platform">Red Hat Architecture Center - Mission Critical Application Platform</a></p>
+<p><a href="https://www.redhat.com/architect/portfolio/detail/51-mission-critical-platform" target="read-later">Red Hat Architecture Center - Mission Critical Application Platform</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://www.redhat.com/en/blog/building-mission-critical-application-platform">Building a mission critical application platform</a></p>
+<p><a href="https://www.redhat.com/en/blog/building-mission-critical-application-platform" target="read-later">Building a mission critical application platform</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://github.com/arvin-a/openshift-upi-automation.git">Github - openshift-upi-automation</a></p>
+<p><a href="https://github.com/arvin-a/openshift-upi-automation.git" target="read-later">Github - openshift-upi-automation</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://www.redhat.com/en/blog/nested-openshift-using-openshift-virtualization">Nested OpenShift using OpenShift Virtualization</a></p>
+<p><a href="https://www.redhat.com/en/blog/nested-openshift-using-openshift-virtualization" target="read-later">Nested OpenShift using OpenShift Virtualization</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://docs.redhat.com/en/documentation/red_hat_openshift_data_foundation/4.11/html-single/deploying_openshift_data_foundation_in_external_mode/index?extIdCarryOver=true&amp;sc_cid=701f2000001OH7JAAW#deploy-openshift-data-foundation-using-red-hat-ceph-storage">Deploy OpenShift Data Foundation using Red Hat Ceph storage</a></p>
+<p><a href="https://docs.redhat.com/en/documentation/red_hat_openshift_data_foundation/4.11/html-single/deploying_openshift_data_foundation_in_external_mode/index?extIdCarryOver=true&amp;sc_cid=701f2000001OH7JAAW#deploy-openshift-data-foundation-using-red-hat-ceph-storage" target="read-later">Deploy OpenShift Data Foundation using Red Hat Ceph storage</a></p>
 </div>
 </div>
 </div>

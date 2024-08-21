@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>MCAP Setup in Demo Lab :: Deploy Mission Critical Application Platform (MCAP)</title>
+    <title>MCAP Setup in RHDP Lab :: Deploy Mission Critical Application Platform (MCAP)</title>
     <link rel="prev" href="index.html">
     <link rel="next" href="section2.html">
     <meta name="generator" content="Antora 3.1.3">
@@ -51,7 +51,7 @@
     <a class="nav-link" href="index.html">Hands-on Lab Environment Setup for MCAP</a>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="section1.html">MCAP Setup in Demo Lab</a>
+    <a class="nav-link" href="section1.html">MCAP Setup in RHDP Lab</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="section2.html">Initial Setup on Hypervisor (Bare Metal)</a>
@@ -141,7 +141,7 @@
   <ul>
     <li><a href="../index.html">Deploy Mission Critical Application Platform (MCAP)</a></li>
     <li><a href="index.html">Hands-on Lab Environment Setup for MCAP</a></li>
-    <li><a href="section1.html">MCAP Setup in Demo Lab</a></li>
+    <li><a href="section1.html">MCAP Setup in RHDP Lab</a></li>
   </ul>
 </nav>
 </div>
@@ -150,7 +150,7 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">MCAP Setup in Demo Lab</h1>
+<h1 class="page">MCAP Setup in RHDP Lab</h1>
 <div class="sect1">
 <h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
 <div class="sectionbody">
@@ -159,17 +159,27 @@
 The following Red Hat products are used in the MCAP solution:</p>
 </div>
 <div class="paragraph">
-<p>Red Hat OpenShift Container Platform (OCP)
-Red Hat OpenShift Virtualization (OCP Virt)
-Red Hat Ansible Automation Platform (AAP)
-Red Hat Advanced Cluster Management (RHACM)
-Red Hat Advanced Cluster Security for Kubernetes (RHACS)
-Red Hat OpenShift GitOps</p>
+<p>Red Hat OpenShift Container Platform (OCP)</p>
+</div>
+<div class="paragraph">
+<p>Red Hat OpenShift Virtualization (OCP Virt)</p>
+</div>
+<div class="paragraph">
+<p>Red Hat Ansible Automation Platform (AAP)</p>
+</div>
+<div class="paragraph">
+<p>Red Hat Advanced Cluster Management (RHACM)</p>
+</div>
+<div class="paragraph">
+<p>Red Hat Advanced Cluster Security for Kubernetes (RHACS)</p>
+</div>
+<div class="paragraph">
+<p>Red Hat OpenShift GitOps</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_demo_lab_environment"><a class="anchor" href="#_demo_lab_environment"></a>Demo Lab Environment</h2>
+<h2 id="_rhdp_lab_environment"><a class="anchor" href="#_rhdp_lab_environment"></a>RHDP Lab Environment</h2>
 <div class="sectionbody">
 <div class="admonitionblock note">
 <table>
@@ -180,7 +190,7 @@ Red Hat OpenShift GitOps</p>
 <td class="content">
 This setup is for Proof of Concepts (POC).
 It is not recommended for Production use case.
-For other architecture option, refer <a href="https://www.redhat.com/en/blog/nested-openshift-using-openshift-virtualization">Nested OpenShift using OpenShift Virtualization</a>
+For other architecture option, refer <a href="https://www.redhat.com/en/blog/nested-openshift-using-openshift-virtualization" target="read-later">Nested OpenShift using OpenShift Virtualization</a>
 </td>
 </tr>
 </table>
@@ -194,32 +204,36 @@ For other architecture option, refer <a href="https://www.redhat.com/en/blog/nes
 <p>The following Red Hat products are used in this MCAP solution:</p>
 </div>
 <div class="paragraph">
-<p>Red Hat OpenShift Container Platform (OCP)
-Red Hat OpenShift Virtualization (OCP Virt)
-Red Hat Advanced Cluster Management (RHACM)</p>
+<p>Red Hat OpenShift Container Platform (OCP)</p>
+</div>
+<div class="paragraph">
+<p>Red Hat OpenShift Virtualization (OCP Virt)</p>
+</div>
+<div class="paragraph">
+<p>Red Hat Advanced Cluster Management (RHACM)</p>
 </div>
 <div class="sect2">
 <h3 id="_hardware_and_bare_metal"><a class="anchor" href="#_hardware_and_bare_metal"></a>Hardware and Bare-Metal</h3>
 <div class="paragraph">
 <p>In this lab, Equinix bare metal is used.
-The flavor is <a href="https://deploy.equinix.com/product/bare-metal/servers/">n3.xlarge.x86</a>.</p>
+The flavor is <a href="https://deploy.equinix.com/product/bare-metal/servers/" target="read-later">n3.xlarge.x86</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_libvirt_vms_kvm"><a class="anchor" href="#_libvirt_vms_kvm"></a>Libvirt VMs (KVM)</h3>
+<h3 id="_kernel_based_virtual_machines_kvm"><a class="anchor" href="#_kernel_based_virtual_machines_kvm"></a>Kernel-based Virtual Machines (KVM)</h3>
 <div class="paragraph">
-<p>In this MCAP solution, five VMs are needed.</p>
+<p>In this MCAP solution, five Virtual Machines (VMs) are needed.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>One VM as shared storage for <em>Tenant</em> cluster.</p>
+<p>One virtual machine as shared storage for <em>Tenant</em> cluster.</p>
 </li>
 <li>
-<p>One VM as <em>Hub</em> cluster.</p>
+<p>One virtual machine as <em>Hub</em> cluster.</p>
 </li>
 <li>
-<p>Three VMs as <em>Infrastructure</em> cluster.</p>
+<p>Three virtual machines as <em>Infrastructure</em> clusters.</p>
 </li>
 </ul>
 </div>
@@ -245,7 +259,7 @@ In this lab setup, NodeNetworkConfigurationPolicy (Policy) and NetworkAttachment
 <h3 id="_storage"><a class="anchor" href="#_storage"></a>Storage</h3>
 <div class="paragraph">
 <p>On the hypervisor, 7TB (3.5TB + 3.5TB disks) LV is created and mounted to storage pool directory path.
-There is separate storage VM is created as shared storage for <em>Tenant</em> cluster.
+There is separate storage virtual machine (VM) is created as shared storage for <em>Tenant</em> cluster.
 This storage VM has three disks each of 2TB created from the 7TB LV.
 These disks are used in Ceph deployment on storage VM.
 OpenShift Data Foundation (ODF) operator is installed on the <em>Infrastructure</em> clusters.
@@ -255,10 +269,10 @@ OpenShift Data Foundation Cluster for external Ceph storage system is created.</
 <div class="sect2">
 <h3 id="_hub_cluster"><a class="anchor" href="#_hub_cluster"></a>Hub Cluster</h3>
 <div class="paragraph">
-<p>Hub cluster is deployed as Single Node OpenShift (SNO) cluster.
-Hub cluster acts as central cluster which is installed with Multi cluster engine, Red Hat Advanced Cluster Management (RHACM) and LVMS operators.
-Provisioning and Central Infrastructure Management (CIM) service are deployed on hub cluster.
-<em>Infrastructure</em> clusters and <em>Tenant</em> cluster are deployed from Hub cluster and added to Hub cluster.</p>
+<p><em>Hub</em> cluster is deployed as Single Node OpenShift (SNO) cluster.
+<em>Hub</em> cluster acts as central cluster which is installed with Multi cluster engine, Red Hat Advanced Cluster Management (RHACM) and LVMS operators.
+Provisioning and Central Infrastructure Management (CIM) service are deployed on <em>Hub</em> cluster.
+<em>Infrastructure</em> clusters and <em>Tenant</em> cluster are deployed from <em>Hub</em> cluster and added to <em>Hub</em> cluster.</p>
 </div>
 </div>
 <div class="sect2">
@@ -271,10 +285,16 @@ Discovery ISOs are uploaded to all <em>Infrastructure</em> clusters to deploy th
 </div>
 </div>
 <div class="sect2">
+<h3 id="_nested_openshift_vms_using_openshift_virtualization"><a class="anchor" href="#_nested_openshift_vms_using_openshift_virtualization"></a>Nested OpenShift VMs using OpenShift Virtualization</h3>
+<div class="paragraph">
+<p>Each <em>Infrastructure</em> cluster has one virtual machine acts as OpenShift node in <em>Tenant</em> cluster.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_tenant_cluster"><a class="anchor" href="#_tenant_cluster"></a>Tenant Cluster</h3>
 <div class="paragraph">
 <p>There is only one <em>Tenant</em> cluster.
-This <em>Tenant</em> cluster is deployed as <em>Three-Node OpenShift Compact</em> cluster.
+This <em>Tenant</em> cluster is deployed as <em>Three-Node OpenShift Compact</em> cluster using virtual machines running on <em>Infrastructure</em> clusters.
 All applications and workloads are running on <em>Tenant</em> cluster nodes.</p>
 </div>
 </div>

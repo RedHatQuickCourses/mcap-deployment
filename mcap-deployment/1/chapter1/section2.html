@@ -51,7 +51,7 @@
     <a class="nav-link" href="index.html">Hands-on Lab Environment Setup for MCAP</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section1.html">MCAP Setup in Demo Lab</a>
+    <a class="nav-link" href="section1.html">MCAP Setup in RHDP Lab</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="section2.html">Initial Setup on Hypervisor (Bare Metal)</a>
@@ -151,17 +151,26 @@
 </aside>
 <article class="doc">
 <h1 class="page">Initial Setup on Hypervisor (Bare Metal)</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before proceeding the actual MCAP deployment, let&#8217;s first ensure the initial setup and configuration is done on the hypervisor.
+You will need to perform few tasks before actual deployment of openshift clusters.
+Few of the tasks are automated with the help of ansible playbooks.</p>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Login as root on the hypervisor</p>
+<p>Login as <code>root</code> on the hypervisor.</p>
 <div class="listingblock">
 <div class="title">Sample output</div>
 <div class="content">
-<pre>[user@laptop]$ ssh lab-user@14X.40.6Y.Z
+<pre>[user@laptop]$ ssh lab-user@14X.XX.YY.Z
 
 [lab-user@hypervisor ~]$ sudo su -
 
@@ -170,15 +179,22 @@
 </div>
 </li>
 <li>
-<p>Install ansible-core package on the hypervisor</p>
+<p>Install <code>ansible-core</code> package on the hypervisor.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dnf install -y ansible-core</code></pre>
 </div>
 </div>
 </li>
+</ol>
+</div>
+<div class="paragraph">
+<p><mark>Fix the Repo</mark></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>Clone the repo</p>
+<p>Clone the repo which holds all automation scripts and ansible playbooks.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone &lt;repo_link&gt;.git</code></pre>
@@ -186,7 +202,7 @@
 </div>
 </li>
 <li>
-<p>Install the required collections</p>
+<p>Install the required ansible collections needed for running the playbooks.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd &lt;repo&gt;/src/ansible/</code></pre>
@@ -206,13 +222,20 @@
 <h2 id="_setup_and_configuration"><a class="anchor" href="#_setup_and_configuration"></a>Setup and Configuration</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can either use the <strong><em>setup.yaml</em></strong> playbook to install packages, configure swap, lv, dhcp, http and dns or else run commands manually on the hypervisor.
-Ensure you are in <strong><em>ansible</em></strong> directory of the repo.</p>
+<p>You can either use the <strong><em>setup.yaml</em></strong> playbook to install packages, configure swap, lv, dhcp, http and dns or else run commands manually on the hypervisor.</p>
+</div>
+<div class="paragraph">
+<p>Ensure you are in <strong><em>ansible</em></strong> directory of the repo.</p>
 </div>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-playbook playbooks/setup.yaml -vvv | tee -a /tmp/setup.log</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Tha above command results in verbose play output.
+<code>tee -a</code> command redirects the output to <code>/tmp/setup.log</code> log file.
+In case of failure, <code>/tmp/setup.log</code> log file can be used for troubleshooting the issue.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -221,13 +244,17 @@ Ensure you are in <strong><em>ansible</em></strong> directory of the repo.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If you choose to configure manually then perform the tasks in following sections.
+If you choose to configure manually then only perform the tasks from the following sections.
 </td>
 </tr>
 </table>
 </div>
 <div class="sect2">
 <h3 id="_ssh_key_for_the_root_user"><a class="anchor" href="#_ssh_key_for_the_root_user"></a>SSH key for the root user</h3>
+<div class="paragraph">
+<p>The public key from the following command will be used while deploying <em>Hub</em> and <em>Infrastructure</em> clusters.
+You will be asked for public key while building the discovery iso for the host.</p>
+</div>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ssh-keygen -t rsa -f /root/.ssh/id_rsa -N ''</code></pre>
@@ -236,6 +263,10 @@ If you choose to configure manually then perform the tasks in following sections
 </div>
 <div class="sect2">
 <h3 id="_installing_required_packages"><a class="anchor" href="#_installing_required_packages"></a>Installing required packages</h3>
+<div class="paragraph">
+<p>The following required packages needed for dhcp server, http server, dns server and creating virtual machines on hypervisor.
+It also include additional tools packages.</p>
+</div>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dnf -y install jq dhcp-server bind bind-utils httpd httpd-tools podman \
@@ -246,14 +277,22 @@ libguestfs-tools-c cockpit cockpit-machines unzip tigervnc tigervnc-server firef
 </div>
 <div class="sect2">
 <h3 id="_increase_the_swap_space"><a class="anchor" href="#_increase_the_swap_space"></a>Increase the <em>Swap</em> space</h3>
+<div class="paragraph">
+<p><em>Swap</em> space is extension of physical RAM.
+It offers virtual memory in case of physical RAM is fully used.
+MCAP needs considerable amount of memory and it is recommended to have proportionate amount of <em>Swap</em> space configured in an environment.</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Disable the existing swap first</p>
+<p>Disable the existing <em>Swap</em> first.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">swapoff -a</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Check the <em>Swap</em> space using <code>free</code> command.</p>
 </div>
 <div class="listingblock">
 <div class="title">Sample output</div>
@@ -266,7 +305,7 @@ Swap:             0B          0B          0B</pre>
 </div>
 </li>
 <li>
-<p>Disable existing swap partition from /etc/fstab</p>
+<p>Remove swap entry from <code>/etc/fstab</code>.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sed -i '/swap/d' /etc/fstab</code></pre>
@@ -274,7 +313,7 @@ Swap:             0B          0B          0B</pre>
 </div>
 </li>
 <li>
-<p>Find the unused 250GB nvme disk</p>
+<p>Find the unused 250GB nvme disk.</p>
 <div class="listingblock">
 <div class="title">Sample output</div>
 <div class="content">
@@ -289,6 +328,9 @@ nvme0n1     259:1    0 238.5G  0 disk
 nvme3n1     259:5    0   3.5T  0 disk
 nvme2n1     259:6    0   3.5T  0 disk</pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Here <code>nvme1n1</code> disk can be used to create the swap space.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -305,7 +347,7 @@ The unused nvme disk may vary in your environment output.
 </div>
 </li>
 <li>
-<p>Use unused 250GB nvme disk as swap partition</p>
+<p>Use unused 250GB nvme disk as swap partition.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkswap /dev/nvme1n1</code></pre>
@@ -332,7 +374,10 @@ Above UUID differ in your environment.
 </div>
 </li>
 <li>
-<p>Add swap entry in /etc/fstab</p>
+<p>Add swap entry in <code>/etc/fstab</code> to make it persistent throughout the reboot.</p>
+<div class="paragraph">
+<p>Ensure to replace the UUID in following command with UUID from previous step.</p>
+</div>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">echo "UUID=455687c9-aaf7-46a6-9097-be4587a48f2f      none    swap    none    0       0" &gt;&gt; /etc/fstab</code></pre>
@@ -351,11 +396,14 @@ UUID=455687c9-aaf7-46a6-9097-be4587a48f2f	none	swap	none	0	0</pre>
 </div>
 </li>
 <li>
-<p>Enable the swap</p>
+<p>Enable the swap.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">swapon -a</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Check the <em>Swap</em> space using <code>free</code> command.</p>
 </div>
 <div class="listingblock">
 <div class="title">Sample output</div>
@@ -372,10 +420,13 @@ Swap:          238Gi          0B       238Gi</pre>
 </div>
 <div class="sect2">
 <h3 id="_create_lv_for_vm_storage_pool"><a class="anchor" href="#_create_lv_for_vm_storage_pool"></a>Create LV for VM storage pool</h3>
+<div class="paragraph">
+<p>The LV created in this section will be used as storage pool for virtual machine disks and backend shared OpenShift DataFoundation using Red Hat Ceph storage for <em>Tenant</em> cluster.</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Find the 3.5TB nvme disks</p>
+<p>Find the 3.5TB nvme disks.</p>
 <div class="listingblock">
 <div class="title">Sample output</div>
 <div class="content">
@@ -406,7 +457,7 @@ The unused nvme disk may vary in your environment output.
 </div>
 </li>
 <li>
-<p>Create a PV of 7TB with disks</p>
+<p>Create a PV of 7TB with disks.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">pvcreate /dev/nvme3n1 /dev/nvme2n1</code></pre>
@@ -414,7 +465,7 @@ The unused nvme disk may vary in your environment output.
 </div>
 </li>
 <li>
-<p>Create VG of 7TB</p>
+<p>Create VG of 7TB.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">vgcreate vgstrorage /dev/nvme3n1 /dev/nvme2n1</code></pre>
@@ -422,15 +473,27 @@ The unused nvme disk may vary in your environment output.
 </div>
 </li>
 <li>
-<p>Create a LV of 7TB with remaining space in the volume group</p>
+<p>Create a LV of 7TB with remaining space in the volume group.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">lvcreate -l 100%FREE -n cephlv vgstrorage</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Verify the LV size is 7TB.</p>
+</div>
+<div class="listingblock">
+<div class="title">Sample output</div>
+<div class="content">
+<pre>lvs
+
+  LV     VG         Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  cephlv vgstrorage -wi-a----- &lt;6.99t</pre>
+</div>
+</div>
 </li>
 <li>
-<p>Format LV of 7TB with the ext4 filesystem</p>
+<p>Format LV of 7TB with the ext4 filesystem.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkfs.ext4 /dev/vgstrorage/cephlv</code></pre>
@@ -454,23 +517,48 @@ Creating journal (262144 blocks): done
 Writing superblocks and filesystem accounting information: done</pre>
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Above UUID differ in your environment.
+</td>
+</tr>
+</table>
+</div>
 </li>
 <li>
-<p>Mount the 7TB LV on /var/lib/libvirt/images</p>
+<p>Mount the 7TB LV on <code>/var/lib/libvirt/images</code>.</p>
+<div class="paragraph">
+<p>Ensure to replace the UUID in following command with UUID from previous step.</p>
+</div>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">echo "UUID=195dc91e-58be-4671-bbf5-b4fdf70945e2	/var/lib/libvirt/images	ext4	errors=remount-ro	0	1" &gt;&gt; /etc/fstab</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Run <code>mount</code> command to mount the LV on <code>/var/lib/libvirt/images</code>.</p>
 </div>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mount -a</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Use <code>systemctl daemon-reload</code> to reload.
+This will ensure the latest version of the <code>/etc/fstab</code> is referred.</p>
+</div>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">systemctl daemon-reload</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Verify the 7TB LV is correctly mounted.</p>
 </div>
 <div class="listingblock">
 <div class="title">Sample output</div>
@@ -493,6 +581,14 @@ tmpfs                           51G     0   51G   0% /run/user/0
 </div>
 <div class="sect2">
 <h3 id="_enable_and_start_the_libvirt_and_cockpit_services"><a class="anchor" href="#_enable_and_start_the_libvirt_and_cockpit_services"></a>Enable and start the libvirt and cockpit services</h3>
+<div class="paragraph">
+<p>After enabling and starting the libvirt services, <code>virbr0</code> bridge will be created.
+You can verify it by running the <code>ip addr</code> command.</p>
+</div>
+<div class="paragraph">
+<p>After enabling and starting the cockpit services, it creates cockpit web console access.
+You can login to cockpit web console with <code>lab-user&#8217;s</code> credentials.</p>
+</div>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">systemctl enable libvirt-guests.service --now</code></pre>
@@ -520,7 +616,7 @@ tmpfs                           51G     0   51G   0% /run/user/0
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-You can use the cockpit UI to monitor the VMs resources and console access.
+You can use the cockpit web console (<a href="https://&lt;your_hypervisor_IP&gt;:9090/" class="bare">https://&lt;your_hypervisor_IP&gt;:9090/</a>) to monitor the VM&#8217;s resources and console access.
 </td>
 </tr>
 </table>
@@ -528,10 +624,14 @@ You can use the cockpit UI to monitor the VMs resources and console access.
 </div>
 <div class="sect2">
 <h3 id="_configure_dhcp"><a class="anchor" href="#_configure_dhcp"></a>Configure DHCP</h3>
+<div class="paragraph">
+<p>It is recommended to have DHCP server.
+In this section, you will be configuring the DHCP server.</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Create the /etc/dhcp/dhcpd.conf file</p>
+<p>Create the <code>/etc/dhcp/dhcpd.conf</code> file.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt;/etc/dhcp/dhcpd.conf&lt;&lt;EOF
@@ -600,7 +700,8 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Update the selinux context</p>
+<p>Set the correct selinux context of the <code>/etc/dhcp/dhcpd.conf</code> file.
+For additional information on SELinux refer - <a href="https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/using_selinux/index#introduction-to-selinux_getting-started-with-selinux" target="read-later">Introduction to SELinux</a></p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chcon system_u:object_r:dhcp_etc_t:s0 /etc/dhcp/dhcpd.conf</code></pre>
@@ -613,7 +714,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Start the dhcpd service</p>
+<p>Start the <code>dhcpd</code> service.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">systemctl start dhcpd</code></pre>
@@ -625,10 +726,14 @@ EOF</code></pre>
 </div>
 <div class="sect2">
 <h3 id="_configure_dns"><a class="anchor" href="#_configure_dns"></a>Configure DNS</h3>
+<div class="paragraph">
+<p>To have name resolution, DNS server is needed.
+In this section, you will be configuring the DNS server.</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Create the /etc/named.conf file</p>
+<p>Create the <code>/etc/named.conf</code> file.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt;/etc/named.conf&lt;&lt;-"EOF"
@@ -705,7 +810,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Create /var/named/lab.example.com.zone file</p>
+<p>Create <code>/var/named/lab.example.com.zone</code> file.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt;/var/named/lab.example.com.zone&lt;&lt;-"EOF"
@@ -794,7 +899,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Create /var/named/122.168.192.in-addr.arpa file</p>
+<p>Create <code>/var/named/122.168.192.in-addr.arpa</code> file.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt;/var/named/122.168.192.in-addr.arpa&lt;&lt;-"EOF"
@@ -811,8 +916,8 @@ $TTL    604800
 
 1.122.168.192.in-addr.arpa.	   IN	PTR	hypervisor.
 
-3.122.168.192.in-addr.arpa.	   IN	PTR	lb.example.com.
-4.122.168.192.in-addr.arpa.	   IN	PTR	bootstrap.ocp4.example.com.
+3.122.168.192.in-addr.arpa.	   IN	PTR	lb.lab.example.com.
+4.122.168.192.in-addr.arpa.	   IN	PTR	bootstrap.lab.example.com.
 
 9.122.168.192.in-addr.arpa.	   IN	PTR	storage.lab.example.com.
 10.122.168.192.in-addr.arpa.     IN	PTR	hub.lab.example.com.
@@ -882,7 +987,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Update the selinux context</p>
+<p>Set the correct selinux context of the dns configuration and zone files.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chcon system_u:object_r:named_conf_t:s0 /etc/named.conf</code></pre>
@@ -915,7 +1020,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Start the named service</p>
+<p>Start the <code>named</code> service.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">systemctl start named</code></pre>
@@ -923,7 +1028,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Update the nameserver entry in /etc/resolv.conf</p>
+<p>Update the <code>nameserver</code> entry in <code>/etc/resolv.conf</code> file.</p>
 <div class="listingblock">
 <div class="title">Sample output</div>
 <div class="content">
@@ -951,9 +1056,21 @@ nameserver 14X.XX.YY.ZZZ
 nameserver 14X.XX.YY.ZZX</pre>
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>nameserver</code> entry at the top or first in <code>/etc/resolv.conf</code> file means that dns server is checked first for name resolution.
+</td>
+</tr>
+</table>
+</div>
 </li>
 <li>
-<p>Test the DNS resolution</p>
+<p>Test the DNS resolution by running <code>dig</code> command.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dig -x 192.168.122.11</code></pre>
@@ -970,10 +1087,16 @@ nameserver 14X.XX.YY.ZZX</pre>
 </div>
 <div class="sect2">
 <h3 id="_configure_http"><a class="anchor" href="#_configure_http"></a>Configure HTTP</h3>
+<div class="paragraph">
+<p>The HTTP server is needed to serve the ignition configuration files.
+These ignition configuration files will be pulled from HTTP server during the openshift node installation.
+In this section, you will be configuring the HTTP server.
+There are multiple ways to configure the HTTP server but here directory from user&#8217;s home directory holds the files.</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Create the /etc/httpd/conf.d/userdir.conf file</p>
+<p>Create the <code>/etc/httpd/conf.d/userdir.conf</code> file.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt;/etc/httpd/conf.d/userdir.conf&lt;&lt;-"EOF"
@@ -1017,7 +1140,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Create the public_html directory in the lab-user&#8217;s home directory</p>
+<p>Create the <code>public_html</code> directory in the <code>lab-user&#8217;s</code> home directory and set the permissions as mentioned in the <code>/etc/httpd/conf.d/userdir.conf</code> file.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir /home/lab-user/public_html</code></pre>
@@ -1040,7 +1163,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Update the selinux context</p>
+<p>Set the correct selinux context of the <code>/etc/httpd/conf.d/userdir.conf</code> file.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chcon system_u:object_r:httpd_config_t:s0 /etc/httpd/conf.d/userdir.conf</code></pre>
@@ -1053,7 +1176,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Start the httpd service</p>
+<p>Start the <code>httpd</code> service.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">systemctl start httpd</code></pre>
@@ -1061,7 +1184,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Test the http server</p>
+<p>Test the <code>http</code> server.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">touch /home/lab-user/public_html/cmd</code></pre>
@@ -1070,6 +1193,11 @@ EOF</code></pre>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chown lab-user:users /home/lab-user/public_html/cmd</code></pre>
+</div>
+</div>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -I http://192.168.122.1/~lab-user/cmd</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -1091,16 +1219,35 @@ Content-Type: text/plain; charset=UTF-8</pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">rm /home/lab-user/public_html/cmd</code></pre>
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+"HTTP/1.1 200 OK" indicates http server is working.
+</td>
+</tr>
+</table>
+</div>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_create_storage_pool_for_vms"><a class="anchor" href="#_create_storage_pool_for_vms"></a>Create Storage Pool for VMs</h3>
+<h3 id="_create_storage_pool_for_kvms"><a class="anchor" href="#_create_storage_pool_for_kvms"></a>Create Storage Pool for KVMs</h3>
+<div class="paragraph">
+<p>All five KVMs need the storage pool for storing the VM disks.
+In this section, you will be creating the storage pool.</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Define the storage pool</p>
+<p>Define the storage pool with name as <code>images</code> and path as <code>/var/lib/libvirt/images</code>.</p>
+<div class="paragraph">
+<p>Review the existing storage pool.</p>
+</div>
 <div class="listingblock">
 <div class="title">Sample output</div>
 <div class="content">
@@ -1109,6 +1256,9 @@ Content-Type: text/plain; charset=UTF-8</pre>
 ---------------------------</pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Define the storage pool.</p>
+</div>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virsh pool-define-as images --type dir --target /var/lib/libvirt/images</code></pre>
@@ -1116,7 +1266,7 @@ Content-Type: text/plain; charset=UTF-8</pre>
 </div>
 </li>
 <li>
-<p>Build the storage pool</p>
+<p>Build the storage pool <code>images</code>.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virsh pool-build images</code></pre>
@@ -1124,7 +1274,7 @@ Content-Type: text/plain; charset=UTF-8</pre>
 </div>
 </li>
 <li>
-<p>Start the storage pool</p>
+<p>Start the storage pool <code>images</code>.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virsh pool-start images</code></pre>
@@ -1132,7 +1282,7 @@ Content-Type: text/plain; charset=UTF-8</pre>
 </div>
 </li>
 <li>
-<p>Autostart the storage pool</p>
+<p>Autostart the storage pool <code>images</code>.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virsh pool-autostart images</code></pre>
@@ -1140,11 +1290,12 @@ Content-Type: text/plain; charset=UTF-8</pre>
 </div>
 </li>
 <li>
-<p>Verify the storage pool is active and autostart is enabled</p>
+<p>Verify the storage pool <code>images</code> is active and autostart is enabled.</p>
 <div class="listingblock">
 <div class="title">Sample output</div>
 <div class="content">
 <pre>virsh pool-list --all
+
  Name     State    Autostart
 ------------------------------
  images   active   yes</pre>
@@ -1157,7 +1308,7 @@ Content-Type: text/plain; charset=UTF-8</pre>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="section1.html">MCAP Setup in Demo Lab</a></span>
+  <span class="prev"><a href="section1.html">MCAP Setup in RHDP Lab</a></span>
   <span class="next"><a href="section3.html">Ceph Storage Deployment</a></span>
 </nav>
 </article>
