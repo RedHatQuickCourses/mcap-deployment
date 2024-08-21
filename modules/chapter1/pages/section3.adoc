@@ -1,14 +1,29 @@
 = Ceph Storage Deployment
 
+In this section, you will be creating one KVM with name `storage`.
+This `storage` VM will be single node and three disks Ceph cluster.
+
 == Prerequisites
 
-. Download the rhel9 qcow2 image from the customer portal to your laptop/desktop.
+. Download the _rhel9.X_ qcow2 image from the https://access.redhat.com/downloads/content/rhel[Red Hat Customer Portal,window=read-later] to your laptop/desktop.
+. Secured copy (scp) the _rhel9.X_ qcow2 image from your laptop/desktop to hypervisor and then place it in `/var/lib/libvirt/images` directory.
++
+.Sample output
+----
+[user@laptop]$ scp Downloads/rhel-9.4-x86_64-kvm.qcow2 lab-user@14X.XX.YY.Z:.
 
-. Secured copy (scp) the rhel9 qcow2 image from your laptop/desktop to hypervisor.
+[user@laptop]$ ssh lab-user@14X.XX.YY.Z
+
+[lab-user@hypervisor ~]$ sudo su -
+
+[root@hypervisor ~]# mv /home/lab-user/rhel-9.4-x86_64-kvm.qcow2 /var/lib/libvirt/images/
+----
+
+##FIX this - Try Automation playbook##
 
 == Storage VM Deployment
 
-. Keep the rhel9 qcow2 image to /var/lib/libvirt/images directory
+. Keep the rhel9 qcow2 image to `/var/lib/libvirt/images` directory.
 +
 [source,bash,role=execute]
 ----
@@ -18,10 +33,12 @@ cd /var/lib/libvirt/images/
 .Sample output
 ----
 ls -alh /var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2
--rw-r--r--. 1 root root 913M Aug 19 05:44 /var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2
+-rw-r--r--. 1 lab-user users 913M Aug 21 10:00 /var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2
 ----
 
-. Check the virtual and disk size of qcow2 image
+. Check the virtual and disk size of qcow2 image.
++
+To get information on qcow2 image, run `qemu-img info` command on the qcow2 image.
 +
 .Sample output
 ----
@@ -35,12 +52,16 @@ cluster_size: 65536
 ...output omitted...
 ----
 
-. Resize the image
+. Resize the image with additional size of 30G.
 +
 [source,bash,role=execute]
 ----
 qemu-img resize rhel-9.4-x86_64-kvm.qcow2 +30G
 ----
++
+This increases the virtual size of the disk.
++
+Ensure virtual size is increased by 30GB.
 +
 .Sample output
 ----
@@ -53,63 +74,80 @@ disk size: 913 MiB
 ...output omitted...
 ----
 
-. Change the ownership of the image
+. Change the ownership of the image to `qemu:qemu`.
 +
 [source,bash,role=execute]
 ----
 chown -R qemu:qemu rhel-9.4-x86_64-kvm.qcow2
 ----
++
+https://www.redhat.com/en/blog/all-you-need-know-about-kvm-userspace[All you need to know about KVM userspace,window=read-later]
 
-. Resize the partition 4
+. Resize the partition 4 i.e. `/` of qcow2 image.
 +
 [source,bash,role=execute]
 ----
 virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --run-command 'growpart /dev/sda 4'
 ----
++
+This will resize the partition with additional size i.e. 30GB.
++
+https://access.redhat.com/solutions/5540131[What is growpart utility and how to use it?,window=read-later]
 
-. Increase the filesystem on /
+. Increase the filesystem on `/`.
 +
 [source,bash,role=execute]
 ----
 virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --run-command 'xfs_growfs /'
 ----
++
+https://access.redhat.com/solutions/57263[How to extend a XFS filesytem using the xfs_growfs?,window=read-later]
 
-. Set the root password
+. Set the `root` user password for qcow2 image.
 +
 [source,bash,role=execute]
 ----
 virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --root-password password:redhat
 ----
++
+You can use this password for logging into VM via console.
 
-. Disable cloud-init
+. Disable the `cloud-init` service in qcow2 image.
 +
 [source,bash,role=execute]
 ----
 virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --run-command 'systemctl disable cloud-init'
 ----
 
-. Inject the root user's public rsa key
+. Inject the `root` user's public rsa key in qcow2 image.
 +
 [source,bash,role=execute]
 ----
 virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --ssh-inject root:file:/root/.ssh/id_rsa.pub
 ----
 
-. Selinux relabel
+. Selinux relabel in qcow2 image.
 +
 [source,bash,role=execute]
 ----
 virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --selinux-relabel
 ----
 
-. Create the image for storage VM using the rhel9 qcow2 image
+. Create the image for storage VM using the _rhel9.X_ qcow2 image.
 +
 [source,bash,role=execute]
 ----
 qemu-img create -f qcow2 -F qcow2 -b /var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2 /var/lib/libvirt/images/storage.qcow2
 ----
++
+.Sample output
+----
+Formatting '/var/lib/libvirt/images/storage.qcow2', fmt=qcow2 cluster_size=65536 extended_l2=off compression_type=zlib size=42949672960 backing_file=/var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2 backing_fmt=qcow2 lazy_refcounts=off refcount_bits=16
+----
 
-. Create the storage VM with three 2TB disks
+. Create the `storage` VM with three 2TB disks.
+Disk path should be storage pool path i.e. `/var/lib/libvirt/images/`.
+mac address for the `storage` VM should be same as from the dhcp configuration.
 +
 [source,bash,role=execute]
 ----
@@ -124,6 +162,20 @@ virt-install --virt-type kvm --ram 16384 --vcpus 4 --cpu=host-passthrough --os-v
 +
 .Sample output
 ----
+Starting install...
+Allocating 'ceph-disk1qcow2'                     | 2.0 TB  00:00:02
+Allocating 'ceph-disk2.qcow2'                    | 2.0 TB  00:00:02
+Allocating 'ceph-disk3.qcow2'                    | 2.0 TB  00:00:02
+Creating domain...                               |         00:00:00
+Domain creation completed.
+You can restart your domain by running:
+  virsh --connect qemu:///system start storage
+----
++
+Verify `storage` VM is created and in `shut off` state.
++
+.Sample output
+----
 virsh list --all
 
  Id   Name      State
@@ -131,7 +183,7 @@ virsh list --all
  -    storage   shut off
 ----
 
-. Start the storage VM
+. Start the `storage` VM.
 +
 [source,bash,role=execute]
 ----
@@ -140,7 +192,16 @@ virsh start storage
 +
 .Sample output
 ----
+Domain 'storage' started
+
+----
++
+Verify `storage` VM is in `running` state.
++
+.Sample output
+----
 virsh list --all
+
  Id   Name      State
 -------------------------
  1    storage   running
@@ -148,73 +209,95 @@ virsh list --all
 
 == Ceph Storage Deployment Prerequisites
 
-. Take the console of the storage VM and login as _root_ user with _redhat_ as password
+. Take the console of the `storage` VM and login as _root_ user with _redhat_ as password.
 +
 [source,bash,role=execute]
 ----
 virsh console storage
 ----
++
+.Sample output
+----
+[root@hypervisor images]# virsh console storage
+Connected to domain 'storage'
+Escape character is ^] (Ctrl + ])
 
-. Register the storage VM with valid subscription
+storage login: root
+Password:
+[root@storage ~]#
+----
+
+. Register the `storage` VM with valid subscription.
+You will need to provide your customer portal (access.redhat.com) credentials.
 +
 [source,bash,role=execute]
 ----
 subscription-manager register
 ----
 +
+Disable the all repos.
++
 [source,bash,role=execute]
 ----
 subscription-manager repos --disable=*
 ----
++
+Enable only required and Ceph repos.
 +
 [source,bash,role=execute]
 ----
 subscription-manager repos --enable=rhel-9-for-x86_64-baseos-rpms --enable=rhel-9-for-x86_64-appstream-rpms --enable=rhceph-7-tools-for-rhel-9-x86_64-rpms
 ----
 +
+Check the repo list and ensure all required repos are enabled.
++
 [source,bash,role=execute]
 ----
 dnf repolist
 ----
 
-. Update all packages
+. Update all packages on the `storage` VM to latest version.
 +
 [source,bash,role=execute]
 ----
 dnf -y update
 ----
 
-. Install ceph packages
+. Install Ceph packages on the `storage` VM.
 +
 [source,bash,role=execute]
 ----
 dnf -y install cephadm ceph-common lvm2 chrony podman
 ----
 
-. Reboot the storage VM
+. Reboot the `storage` VM.
 +
 [source,bash,role=execute]
 ----
 reboot
 ----
 
-. Permit root login on storage node
+. Permit `root` login on `storage` VM.
+This will allow the login to `storage` VM as `root` user using `ssh` connection.
 +
 [source,bash,role=execute]
 ----
 echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 ----
 +
+Restart the `sshd` service for configuration changes.
++
 [source,bash,role=execute]
 ----
 systemctl restart sshd
 ----
 
-. Generate key using ssh-keygen, copy id to storage node itself for password-less login
+. Generate key using `ssh-keygen`, copy id to `storage` VM itself for password-less login.
+This sets up SSH public key authentication to connect to a remote system.
 +
 [source,bash,role=execute]
 ----
-ssh-keygen
+ssh-keygen -t rsa -f /root/.ssh/id_rsa -N ''
 ----
 +
 [source,bash,role=execute]
@@ -227,12 +310,18 @@ ssh-copy-id storage.lab.example.com
 eval $(ssh-agent)
 ----
 +
+`ssh-agent` is a background program that handles passwords for SSH private keys.
++
 [source,bash,role=execute]
 ----
 ssh-add ~/.ssh/id_rsa
 ----
++
+The `ssh-add` command prompts the user for a private key password and adds it to the list maintained by `ssh-agent`.
+Once you add a password to `ssh-agent`, you will not be prompted for it when using SSH or scp to connect to hosts with your public key.
 
-. Create the /etc/auth.json file with your
+. Create the `/etc/auth.json` file.
+This file will be used in Ceph cluster deployment for getting access to container image catalog.
 +
 [source,bash,role=execute]
 ----
@@ -250,7 +339,9 @@ Replace "yourusername" with your username and "yourpassword" with your password 
 
 == Ceph Configuration and Deployment
 
-. Create the ceph spec file
+. Create the Ceph spec file `initial-config.yaml` which is used as initial configuration for Ceph cluster deployment.
+There is only single Ceph cluster node i.e. `storage` VM used to deploy Ceph cluster.
+Hence you need to provide `storage` VM details in spec file such as ip address, hostname, host and three disks attached to `storage` VM.
 +
 [source,bash,role=execute]
 ----
@@ -288,14 +379,16 @@ data_devices:
 EOF
 ----
 
-. Deploy the ceph storage cluster
+. Deploy the Ceph storage cluster with following command.
+You will need to pass the spec file as `initial-config.yaml`, mon ip as `storage` VM's ip and registry json file as `/etc/auth.json`.
+To deploy a Ceph cluster running on a single host, use the `--single-host-defaults` flag when bootstrapping.
 +
 [source,bash,role=execute]
 ----
 cephadm bootstrap --apply-spec initial-config.yaml --mon-ip 192.168.122.9 --registry-json /etc/auth.json --allow-fqdn-hostname --single-host-defaults
 ----
 
-. Verify deployed cluster
+. Verify deployed Ceph cluster.
 +
 [source,bash,role=execute]
 ----
@@ -332,11 +425,10 @@ registry.redhat.io/rhceph/rhceph-7-rhel9@sha256:75bd8969ab3f86f2203a1ceb187876f4
 ----
 +
 [NOTE]
-Wait until you see cluster health as "HEALTH_OK".
-It may take 10 minutes to see the final status.
-Message HEALTH_OK in the above output indicates good cluster state.
+You may have to wait for approximately 5 to 10 minutes for all the background processes needed for installation to complete and the cluster to be in `HEALTH_OK` state.
+You may track the progress with watch `ceph -s` command.
 
-. You may also run ceph health command to verify cluster status.
+. You may also run `ceph health` command to verify cluster status.
 +
 .Sample output
 ----
@@ -344,7 +436,7 @@ Message HEALTH_OK in the above output indicates good cluster state.
 HEALTH_OK
 ----
 
-. In case of failure, you can use following command to destroy the ceph storage cluster
+. In case of failure, you can use following command to destroy the Ceph storage cluster
 +
 [source,bash,role=execute]
 ----
