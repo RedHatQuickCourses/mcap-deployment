@@ -73,7 +73,10 @@
     <a class="nav-link" href="section1.html">Hub VM Configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section2.html">Install and Configure Operators and Service(s)</a>
+    <a class="nav-link" href="section2.html">Assisted Clusters - Hub Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section3.html">Install Operators and Configure Service(s)</a>
   </li>
 </ul>
   </li>
@@ -151,13 +154,295 @@
 </aside>
 <article class="doc">
 <h1 class="page">Hub VM Configuration</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>SNO VM
-Assisted way (console.redhat.com) SNO deployment</p>
+<p>In this section, you will be creating one KVM with name <code>hub</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/MCAP_setup.png" alt="MCAP setup">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Download the <em>rhel9.X</em> qcow2 image from the <a href="https://access.redhat.com/downloads/content/rhel" target="read-later">Red Hat Customer Portal</a> to your laptop/desktop.</p>
+</li>
+<li>
+<p>Secured copy (scp) the <em>rhel9.X</em> qcow2 image from your laptop/desktop to hypervisor and then place it in <code>/var/lib/libvirt/images</code> directory with name as <code>rhel9-guest.qcow2</code>.</p>
+<div class="listingblock">
+<div class="title">Sample output</div>
+<div class="content">
+<pre>[user@laptop]$ scp Downloads/rhel-9.4-x86_64-kvm.qcow2 lab-user@14X.XX.YY.Z:.
+
+[user@laptop]$ ssh lab-user@14X.XX.YY.Z
+
+[lab-user@hypervisor ~]$ sudo su -
+
+[root@hypervisor ~]# mv /home/lab-user/rhel-9.4-x86_64-kvm.qcow2 /var/lib/libvirt/images/rhel9-guest.qcow2</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><mark>FIX this - Try Automation playbook</mark></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hub_vm_deployment"><a class="anchor" href="#_hub_vm_deployment"></a>Hub VM Deployment</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Ensure the rhel9 qcow2 image is in <code>/var/lib/libvirt/images</code> directory.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd /var/lib/libvirt/images/</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample output</div>
+<div class="content">
+<pre>ls -alh /var/lib/libvirt/images/rhel9-guest.qcow2
+-rw-r--r--. 1 lab-user users 913M Aug 21 10:00 /var/lib/libvirt/images/rhel9-guest.qcow2</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check the virtual and disk size of qcow2 image.</p>
+<div class="paragraph">
+<p>To get information on qcow2 image, run <code>qemu-img info</code> command on the qcow2 image.</p>
+</div>
+<div class="listingblock">
+<div class="title">Sample output</div>
+<div class="content">
+<pre>qemu-img info rhel9-guest.qcow2
+
+image: rhel9-guest.qcow2
+file format: qcow2
+virtual size: 10 GiB (10737418240 bytes)
+disk size: 913 MiB
+cluster_size: 65536
+...output omitted...</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Resize the image with additional size of 120G.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">qemu-img resize rhel9-guest.qcow2 +120G</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This increases the virtual size of the disk.</p>
+</div>
+<div class="paragraph">
+<p>Ensure virtual size is increased by 120GB.</p>
+</div>
+<div class="listingblock">
+<div class="title">Sample output</div>
+<div class="content">
+<pre>qemu-img info rhel9-guest.qcow2
+
+image: rhel9-guest.qcow2
+file format: qcow2
+virtual size: 130 GiB (139586437120 bytes)
+disk size: 913 MiB
+cluster_size: 65536
+...output omitted...</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Change the ownership of the image to <code>qemu:qemu</code>.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chown -R qemu:qemu rhel9-guest.qcow2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://www.redhat.com/en/blog/all-you-need-know-about-kvm-userspace" target="read-later">All you need to know about KVM userspace</a></p>
+</div>
+</li>
+<li>
+<p>Resize the partition 4 i.e. <code>/</code> of qcow2 image.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-customize -a rhel9-guest.qcow2 --run-command 'growpart /dev/sda 4'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will resize the partition with additional size i.e. 120GB.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://access.redhat.com/solutions/5540131" target="read-later">What is growpart utility and how to use it?</a></p>
+</div>
+</li>
+<li>
+<p>Increase the filesystem on <code>/</code>.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-customize -a rhel9-guest.qcow2 --run-command 'xfs_growfs /'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://access.redhat.com/solutions/57263" target="read-later">How to extend a XFS filesytem using the xfs_growfs?</a></p>
+</div>
+</li>
+<li>
+<p>Set the <code>root</code> user password for qcow2 image.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-customize -a rhel9-guest.qcow2 --root-password password:redhat</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can use this password for logging into VM via console.</p>
+</div>
+</li>
+<li>
+<p>Disable the <code>cloud-init</code> service in qcow2 image.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-customize -a rhel9-guest.qcow2 --run-command 'systemctl disable cloud-init'</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Inject the <code>root</code> user&#8217;s public rsa key in qcow2 image.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-customize -a rhel9-guest.qcow2 --ssh-inject root:file:/root/.ssh/id_rsa.pub</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Selinux relabel in qcow2 image.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-customize -a rhel9-guest.qcow2 --selinux-relabel</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create the image for <code>hub</code> VM using the <em>rhel9.X</em> qcow2 image.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">qemu-img create -f qcow2 -F qcow2 -b /var/lib/libvirt/images/rhel9-guest.qcow2 /var/lib/libvirt/images/hub.qcow2</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample output</div>
+<div class="content">
+<pre>Formatting '/var/lib/libvirt/images/hub.qcow2', fmt=qcow2 cluster_size=65536 extended_l2=off compression_type=zlib size=139586437120 backing_file=/var/lib/libvirt/images/rhel9-guest.qcow2 backing_fmt=qcow2 lazy_refcounts=off refcount_bits=16</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create the <code>hub</code> VM with three 2TB disks.
+Disk path should be storage pool path i.e. <code>/var/lib/libvirt/images/</code>.
+mac address for the <code>hub</code> VM should be same as from the dhcp configuration.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-install --virt-type kvm --ram 122880 --vcpus 32 --cpu=host-passthrough --os-variant rhel9.3 \
+--disk path=/var/lib/libvirt/images/hub.qcow2,device=disk,bus=virtio,format=qcow2 \
+--disk path=/var/lib/libvirt/images/hub-disk.qcow2,device=disk,bus=virtio,format=qcow2,size=250 \
+--network bridge=virbr0,mac=52:54:00:23:60:87 --boot hd,network --noautoconsole \
+--vnc --name hub --noreboot</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample output</div>
+<div class="content">
+<pre>Starting install...
+Creating domain...                             |         00:00:00
+Domain creation completed.
+You can restart your domain by running:
+  virsh --connect qemu:///system start hub</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Verify <code>hub</code> VM is created and in <code>shut off</code> state.</p>
+</div>
+<div class="listingblock">
+<div class="title">Sample output</div>
+<div class="content">
+<pre>virsh list --all
+
+ Id   Name      State
+--------------------------
+ 1    storage   running
+ -    hub       shut off</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Start the <code>hub</code> VM.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virsh start hub</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample output</div>
+<div class="content">
+<pre>Domain 'hub' started</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Verify <code>hub</code> VM is in <code>running</code> state.</p>
+</div>
+<div class="listingblock">
+<div class="title">Sample output</div>
+<div class="content">
+<pre>virsh list --all
+
+ Id   Name      State
+-------------------------
+ 1    storage   running
+ 8    hub       running</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify <code>hub</code> VM is booted successfully.</p>
+<div class="paragraph">
+<p>Take the console of the <code>hub</code> VM and login as <em>root</em> user with <em>redhat</em> as password.</p>
+</div>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virsh console hub</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample output</div>
+<div class="content">
+<pre>[root@hypervisor images]# virsh console hub
+Connected to domain 'hub'
+Escape character is ^] (Ctrl + ])
+
+hub login: root
+Password:
+[root@hub ~]#</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="index.html">Hub Cluster Deployment</a></span>
-  <span class="next"><a href="section2.html">Install and Configure Operators and Service(s)</a></span>
+  <span class="next"><a href="section2.html">Assisted Clusters - Hub Cluster</a></span>
 </nav>
 </article>
   </div>

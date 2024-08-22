@@ -73,7 +73,10 @@
     <a class="nav-link" href="../chapter2/section1.html">Hub VM Configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter2/section2.html">Install and Configure Operators and Service(s)</a>
+    <a class="nav-link" href="../chapter2/section2.html">Assisted Clusters - Hub Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter2/section3.html">Install Operators and Configure Service(s)</a>
   </li>
 </ul>
   </li>
@@ -157,6 +160,11 @@
 <p>In this section, you will be creating one KVM with name <code>storage</code>.
 This <code>storage</code> VM will be single node and three disks Ceph cluster.</p>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/MCAP_setup_2.png" alt="MCAP setup 2">
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -178,7 +186,7 @@ This <code>storage</code> VM will be single node and three disks Ceph cluster.</
 
 [lab-user@hypervisor ~]$ sudo su -
 
-[root@hypervisor ~]# mv /home/lab-user/rhel-9.4-x86_64-kvm.qcow2 /var/lib/libvirt/images/</pre>
+[root@hypervisor ~]# mv /home/lab-user/rhel-9.4-x86_64-kvm.qcow2 /var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2</pre>
 </div>
 </div>
 </li>
@@ -195,7 +203,7 @@ This <code>storage</code> VM will be single node and three disks Ceph cluster.</
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Keep the rhel9 qcow2 image to <code>/var/lib/libvirt/images</code> directory.</p>
+<p>Ensure the rhel9 qcow2 image is in <code>/var/lib/libvirt/images</code> directory.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd /var/lib/libvirt/images/</code></pre>
@@ -326,7 +334,7 @@ disk size: 913 MiB
 </div>
 </li>
 <li>
-<p>Create the image for storage VM using the <em>rhel9.X</em> qcow2 image.</p>
+<p>Create the image for <code>storage</code> VM using the <em>rhel9.X</em> qcow2 image.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">qemu-img create -f qcow2 -F qcow2 -b /var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2 /var/lib/libvirt/images/storage.qcow2</code></pre>
