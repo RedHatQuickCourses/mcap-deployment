@@ -3,6 +3,8 @@
 In this section, you will be creating one KVM with name `storage`.
 This `storage` VM will be single node and three disks Ceph cluster.
 
+image::MCAP_setup_2.png[]
+
 == Prerequisites
 
 . Download the _rhel9.X_ qcow2 image from the https://access.redhat.com/downloads/content/rhel[Red Hat Customer Portal,window=read-later] to your laptop/desktop.
@@ -16,14 +18,14 @@ This `storage` VM will be single node and three disks Ceph cluster.
 
 [lab-user@hypervisor ~]$ sudo su -
 
-[root@hypervisor ~]# mv /home/lab-user/rhel-9.4-x86_64-kvm.qcow2 /var/lib/libvirt/images/
+[root@hypervisor ~]# mv /home/lab-user/rhel-9.4-x86_64-kvm.qcow2 /var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2
 ----
 
 ##FIX this - Try Automation playbook##
 
 == Storage VM Deployment
 
-. Keep the rhel9 qcow2 image to `/var/lib/libvirt/images` directory.
+. Ensure the rhel9 qcow2 image is in `/var/lib/libvirt/images` directory.
 +
 [source,bash,role=execute]
 ----
@@ -133,7 +135,7 @@ virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --ssh-inject root:file:/root/.ssh/id
 virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --selinux-relabel
 ----
 
-. Create the image for storage VM using the _rhel9.X_ qcow2 image.
+. Create the image for `storage` VM using the _rhel9.X_ qcow2 image.
 +
 [source,bash,role=execute]
 ----

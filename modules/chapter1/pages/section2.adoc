@@ -4,6 +4,8 @@ Before proceeding the actual MCAP deployment, let's first ensure the initial set
 You will need to perform few tasks before actual deployment of openshift clusters.
 Few of the tasks are automated with the help of ansible playbooks.
 
+image::MCAP_setup_1.png[]
+
 == Prerequisites
 
 . Login as `root` on the hypervisor.
@@ -75,7 +77,7 @@ ssh-keygen -t rsa -f /root/.ssh/id_rsa -N ''
 
 === Installing required packages
 
-The following required packages needed for dhcp server, http server, dns server and creating virtual machines on hypervisor.
+The following required packages needed for dhcp server, http server, dns server, vnc server and creating virtual machines on hypervisor.
 It also include additional tools packages.
 
 [source,bash,role=execute]

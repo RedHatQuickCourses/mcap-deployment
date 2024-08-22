@@ -1,7 +1,228 @@
-= Install and Configure Operators and Service(s)
+= Assisted Clusters - Hub Cluster
 
-RHACM Installation
-Install LVMS operator
-Install multicluster engine operator
-Install RHACM operator
-Create Provisioning and AgentServiceConfig for Enabling CIM (Central Infrastructure Management) service
+In this section, you will be deploying _Hub_ cluster using `hub` VM.
+This _Hub_ cluster will be Single Node OpenShift (SNO) cluster.
+
+image::MCAP_setup_1.png[]
+
+. Visit https://console.redhat.com/openshift
++
+Click btn:[Create cluster] to create the Assisted Cluster.
++
+image::console_redhat_screen.png[]
+
+. Select `Bare Metal` as cluster type from `Datacenter` tab.
++
+image::console_redhat_cluster_type.png[]
+
+. Select `Interactive` web based mode.
++
+image::console_redhat_baremetal_interactive.png[]
+
+. Provide the Cluster details.
++
+Cluster name: `hub`
++
+Base domain: `lab.example.com`
++
+Select latest available stable version of OpenShift from the menu.
++
+Check box the `Install single node OpenShift (SNO)`
++
+Click btn:[Next].
++
+image::console_redhat_cluster_details.png[]
+
+. Check box the `Install multicluster engine` and `Install Logical Volume Manager Storage` operators.
++
+image::console_redhat_operators.png[]
+
+. Click btn:[Add host].
++
+This will open a window to generate discovery iso.
++
+image::console_redhat_host_discovery.png[]
+
+. Generate discovery ISO.
++
+Select menu:Provisioning type[Full image file - Download a self-contained ISO].
++
+SSH public key: provide the `root` user's public rsa key from hypervisor.
++
+Click btn:[Generate Discovery ISO].
++
+image::console_redhat_host_add.png[]
+
+. Download the discovery ISO.
++
+To download the discovery ISO on your laptop/desktop, click btn:[Download Discovery ISO].
+In this case, you need to copy it to hypervisor manually.
++
+or
++
+Use `Command to download the ISO` option and run the given `wget` command to download the discovery ISO on hypervisor.
++
+image::console_redhat_discovery_iso_download.png[]
++
+[NOTE]
+You will need `virt-manager` to attach this discovery iso to `hub` VM.
+To access the GUI of hypervisor you need console access.
+
+. Access the vnc console of hypervisor.
++
+[NOTE]
+`tigervnc-server` is installed on the hypervisor.
+Using vnc viewer, you can access the console of hypervisor.
+
+.. Set password for vncserver.
+You will use this password to access vnc console of hypervisor from your laptop/desktop.
++
+[source,bash,role=execute]
+----
+vncpasswd
+----
++
+.Sample output
+----
+Password:
+Verify:
+Would you like to enter a view-only password (y/n)? n
+A view-only password is not used
+----
++
+It is recommended to set strong password.
+
+.. Run `vncserver` command to create a virtual desktop you can view or control remotely using a VNC viewer.
++
+[source,bash,role=execute]
+----
+vncserver
+----
++
+.Sample output
+----
+WARNING: vncserver has been replaced by a systemd unit and is now considered deprecated and removed in upstream.
+Please read /usr/share/doc/tigervnc/HOWTO.md for more information.
+xauth:  file /root/.Xauthority does not exist
+
+New 'hypervisor:2 (root)' desktop is hypervisor:2
+
+Creating default startup script /root/.vnc/xstartup
+Creating default config /root/.vnc/config
+Starting applications specified in /root/.vnc/xstartup
+Log file is /root/.vnc/hypervisor:2.log
+----
++
+[NOTE]
+As per above output, you will mention `<hypervisor_ip_address>:2` as connection in VNC viewer.
+
+.. Download and install VNC viewer from https://www.realvnc.com/en/connect/download/viewer/ as per your laptop/desktop operating system.
+
+.. Use the `<hypervisor_ip_address>:2` as connection in VNC viewer.
++
+image::vnc_connect.png[]
+
+.. Click btn:[Continue] to proceed.
++
+image::vnc_connection_server.png[]
+
+.. Enter the vncserver password set by you.
++
+image::vnc_authenticate_server.png[]
+
+.. Now, you can see the console with firefox browser and terminal open.
++
+image::vnc_viewer_screen.png[]
++
+You will not be able to drag the browser or terminal window as there is no menu bar.
+
+.. Get the menu bar to ease the movement of the browser and terminal window.
++
+Click in terminal space.
+Hit kbd:[enter] button, till you see the `>` command line.
++
+Run `gnome-kiosk &` command in terminal.
++
+This command provides those missing menu bars.
++
+image::vnc_menu_bar.png[]
++
+Running command in background i.e. with `&` allows to run other commands on same terminal later.
+
+.. Move the menu bar and place and resize the browser and terminal window as per your convenience.
++
+image::vnc_menu_bar_1.png[]
+
+. Attach the downloaded discovery iso to `hub` VM.
+
+.. Run the `virt-manager &` command on terminal to launch virtual machine manager.
+
+.. First open the console of the `hub` VM and then shutdown the `hub` VM.
++
+image::hub_vm_1.png[]
+
+.. Click on bulb icon and then Click btn:[Add hardware].
++
+image::hub_vm_2.png[]
+
+.. Select `Select or create custom image` option and click btn:[Manage].
+Select the discovery ISO and click btn:[Finish].
++
+image::hub_vm_3.png[]
+
+. Update the `Boot device order` to boot system with discovery ISO.
+Click btn:[Apply].
++
+image::hub_vm_4.png[]
+Ensure it is booted with RHEL CoreOS (Live).
++
+image::hub_vm_5.png[]
+
+. Go back to console.redhat.com to resume assisted installation.
+Notice the host is getting discovered and status as `Ready`.
++
+Click btn:[Next].
++
+image::console_redhat_host_discovery_ready.png[]
++
+It may take few minutes to update status as `Ready`.
+
+. Once status is `Ready`, click btn:[Next].
++
+image::console_redhat_storage.png[]
+
+. Once status is `Ready`, click btn:[Next].
++
+image::console_redhat_networking.png[]
+
+. Ensure all `Preflight checks` are passed.
++
+Click btn:[Install cluster].
++
+image::console_redhat_review_create.png[]
+
+. Cluster installation starts and after some time it wait for pending user action.
++
+image::console_redhat_pending_user_actions.png[]
++
+This means you need to disconnect the discovery ISO from the `hub` VM and boot the `hub` VM from disk.
+
+.. You can notice the user config is applied from the `hub` VM's console.
++
+image::hub_vm_6.png[]
+
+.. Shutdown the `hub` VM.
++
+image::hub_vm_7.png[]
+
+.. Change the boot order and start the `hub` VM.
++
+image::hub_vm_8.png[]
+
+. Installation proceeds and you will notice the progress.
++
+image::console_redhat_install_proceed.png[]
+
+. Installation completes in approximately in 25 minutes.
++
+image::console_redhat_install_complete.png[]
