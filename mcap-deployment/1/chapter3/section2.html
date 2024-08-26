@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Install and Configure Operators :: Deploy Mission Critical Application Platform (MCAP)</title>
+    <title>Assisted Clusters - Infrastructure Clusters :: Deploy Mission Critical Application Platform (MCAP)</title>
     <link rel="prev" href="section1.html">
-    <link rel="next" href="../chapter4/index.html">
+    <link rel="next" href="section3.html">
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script>var uiRootPath = '../../../_'</script>
@@ -98,7 +98,13 @@
     <a class="nav-link" href="section1.html">Infrastructure VM Configuration</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="section2.html">Install and Configure Operators</a>
+    <a class="nav-link" href="section2.html">Assisted Clusters - Infrastructure Clusters</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section3.html">Access the Infrastructure Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section4.html">Install and Configure Operators</a>
   </li>
 </ul>
   </li>
@@ -150,7 +156,7 @@
   <ul>
     <li><a href="../index.html">Deploy Mission Critical Application Platform (MCAP)</a></li>
     <li><a href="index.html">Infrastructure Cluster Deployment</a></li>
-    <li><a href="section2.html">Install and Configure Operators</a></li>
+    <li><a href="section2.html">Assisted Clusters - Infrastructure Clusters</a></li>
   </ul>
 </nav>
 </div>
@@ -159,19 +165,37 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Install and Configure Operators</h1>
+<h1 class="page">Assisted Clusters - Infrastructure Clusters</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>Install OpenShift Virtualization on SNO1, SNO2 and SNO3</p>
+<p>In this section, you will be deploying <em>Infrastructure</em> clusters using RHACM from <em>Hub</em> cluster.
+These <em>Infrastructure</em> clusters will be Single Node OpenShift (SNO) clusters.</p>
 </div>
-<div class="paragraph">
-<p>Install ODF operator on SNO1, SNO2 and SNO3 and create storage system with ceph cluster storage as external</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/MCAP_setup_1.png" alt="MCAP setup 1">
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Install nmstate operator on SNO1, SNO2 and SNO3 &gt; Configure NNCP &gt; Configure NAD</p>
+<p><code>sno1</code>, <code>sno2</code> and <code>sno3</code> VMs are up and running.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deploy_infrastructure_clusters_as_sno_clusters"><a class="anchor" href="#_deploy_infrastructure_clusters_as_sno_clusters"></a>Deploy <em>Infrastructure</em> clusters as SNO clusters</h2>
+<div class="sectionbody">
+
+</div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="section1.html">Infrastructure VM Configuration</a></span>
-  <span class="next"><a href="../chapter4/index.html">Tenant Cluster Deployment</a></span>
+  <span class="next"><a href="section3.html">Access the Infrastructure Cluster</a></span>
 </nav>
 </article>
   </div>
