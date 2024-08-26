@@ -1,9 +1,14 @@
-= Install and Configure Operators
+= Assisted Clusters - Infrastructure Clusters
+:experimental:
 
-Install OpenShift Virtualization on SNO1, SNO2 and SNO3
+In this section, you will be deploying _Infrastructure_ clusters using RHACM from _Hub_ cluster.
+These _Infrastructure_ clusters will be Single Node OpenShift (SNO) clusters.
 
-Install ODF operator on SNO1, SNO2 and SNO3 and create storage system with ceph cluster storage as external
+image::MCAP_setup_1.png[]
 
-Install nmstate operator on SNO1, SNO2 and SNO3 > Configure NNCP > Configure NAD
+== Prerequisites
 
+`sno1`, `sno2` and `sno3` VMs are up and running.
+
+== Deploy _Infrastructure_ clusters as SNO clusters
 

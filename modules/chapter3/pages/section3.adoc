@@ -1,0 +1,10 @@
+= Access the Infrastructure Cluster
+:experimental:
+
+In this section, you will be accessing _Infrastructure_ clusters.
+
+image::MCAP_setup_1.png[]
+
+
+== Prerequisites
+

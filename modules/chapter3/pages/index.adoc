@@ -1,1 +1,8 @@
 = Infrastructure Cluster Deployment
+
+This chapter covers deployment of _Infrastructure_ clusters.
+
+Chapter goals:
+
+* Deploy Single Node OpenShift (SNO) clusters as KVMs on bare metal using RHACM from _Hub_ cluster.
+* Install OpenShift Virtualization, OpenShift DataFoundation and nmstate operators on _Infrastructure_ clusters.

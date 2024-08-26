@@ -1,0 +1,17 @@
+= Install and Configure Operators
+:experimental:
+
+In this section, you will be installing additional operators needed for deploying _Tenant_ cluster.
+
+image::MCAP_setup_2.png[]
+
+== Prerequisites
+
+
+Install OpenShift Virtualization on SNO1, SNO2 and SNO3
+
+Install ODF operator on SNO1, SNO2 and SNO3 and create storage system with ceph cluster storage as external
+
+Install nmstate operator on SNO1, SNO2 and SNO3 > Configure NNCP > Configure NAD
+
+
