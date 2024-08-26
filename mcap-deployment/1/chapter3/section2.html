@@ -182,15 +182,221 @@ These <em>Infrastructure</em> clusters will be Single Node OpenShift (SNO) clust
 <div class="sect1">
 <h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
 <div class="sectionbody">
-<div class="paragraph">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
 <p><code>sno1</code>, <code>sno2</code> and <code>sno3</code> VMs are up and running.</p>
+</li>
+<li>
+<p>Download or copy your <a href="https://console.redhat.com/openshift/install/pull-secret" target="read-later">pull-secret</a> and put it in <code>pull_secret.txt</code> file on hypervisor.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_deploy_infrastructure_clusters_as_sno_clusters"><a class="anchor" href="#_deploy_infrastructure_clusters_as_sno_clusters"></a>Deploy <em>Infrastructure</em> clusters as SNO clusters</h2>
 <div class="sectionbody">
-
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Login to web console of <em>Hub</em> cluster.</p>
+<div class="paragraph">
+<p>Switch to the <code>All Clusters</code> from <code>local-cluster</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_switch.png" alt="hub console switch">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_create_cluster.png" alt="hub console create cluster">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_host_inventory.png" alt="hub console host inventory">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_standalone.png" alt="hub console standalone">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_add_new_hosts.png" alt="hub console add new hosts">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_details.png" alt="hub console sno1 details">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_pull_secret.png" alt="hub console sno1 pull secret">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_pull_secret_1.png" alt="hub console sno1 pull secret 1">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_automation.png" alt="hub console sno1 automation">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_review_save.png" alt="hub console sno1 review save">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_add_host.png" alt="hub console sno1 add host">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_add_host_discovery_iso.png" alt="hub console sno1 add host discovery iso">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_public_key.png" alt="hub console sno1 public key">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_public_key_1.png" alt="hub console sno1 public key 1">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_generate_discovery_iso.png" alt="hub console sno1 generate discovery iso">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_download_discovery_iso.png" alt="hub console sno1 download discovery iso">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_advanced_risk.png" alt="hub console sno1 advanced risk">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_accept_risk.png" alt="hub console sno1 accept risk">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_shutdown.png" alt="sno1 shutdown">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_add_hardware.png" alt="sno1 add hardware">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_add_cdrom.png" alt="sno1 add cdrom">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_attach_discovery_iso.png" alt="sno1 attach discovery iso">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_attach_iso_finish.png" alt="sno1 attach iso finish">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_boot_order.png" alt="sno1 boot order">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_rhcos_boot.png" alt="sno1 rhcos boot">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_approve_host.png" alt="hub console sno1 approve host">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_approve_host_1.png" alt="hub console sno1 approve host 1">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_host_ready.png" alt="hub console sno1 host ready">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_networking_ready.png" alt="hub console sno1 networking ready">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_networking_ready_1.png" alt="hub console sno1 networking ready 1">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_review_create.png" alt="hub console sno1 review create">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_install_progress.png" alt="hub console sno1 install progress">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_pending_user_actions.png" alt="hub console sno1 pending user actions">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_shutdown_1.png" alt="sno1 shutdown 1">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_boot_order_1.png" alt="sno1 boot order 1">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_install_proceed.png" alt="hub console sno1 install proceed">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_install_complete.png" alt="hub console sno1 install complete">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_ready.png" alt="hub console sno1 ready">
+</div>
+</div>
+</li>
+</ol>
+</div>
 </div>
 </div>
 <nav class="pagination">

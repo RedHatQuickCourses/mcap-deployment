@@ -397,18 +397,15 @@ metadata:
 <h2 id="_enable_the_central_infrastructure_management_service"><a class="anchor" href="#_enable_the_central_infrastructure_management_service"></a>Enable the Central Infrastructure Management service</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.5/html/clusters/managing-your-clusters#enable-cim" target="read-later">The Central Infrastructure Management (CIM)</a> service is provided with the {mce-short} and deploys OpenShift Container Platform clusters.
+<p><a href="https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.5/html/clusters/managing-your-clusters#enable-cim" target="read-later">The Central Infrastructure Management (CIM)</a> service is provided with the <code>mce-short</code> and deploys OpenShift Container Platform clusters.
 CIM is deployed when you enable the <em>MultiClusterHub Operator</em> on the hub cluster, but must be enabled.</p>
 </div>
 <div class="paragraph">
 <p>This will help to generate discovery ISO which will be used for deploying <em>Infrastructure</em> clusters from <em>Hub</em> cluster using RHACM.</p>
 </div>
-<div class="sect2">
-<h3 id="_create_the_agentserviceconfig_custom_resource_for_connected_environment"><a class="anchor" href="#_create_the_agentserviceconfig_custom_resource_for_connected_environment"></a>Create the AgentServiceConfig custom resource for connected environment</h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
+<div class="paragraph">
 <p>Ensure <code>AgentServiceConfig</code> exists and running.</p>
+</div>
 <div class="listingblock">
 <div class="title">Sample output</div>
 <div class="content">
@@ -416,67 +413,6 @@ CIM is deployed when you enable the <em>MultiClusterHub Operator</em> on the hub
 
 NAME    AGE
 agent   3h37m</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Create the <code>AgentServiceConfig</code> custom resource.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt;agent_service_config.yaml&lt;&lt;-"EOF"
-apiVersion: agent-install.openshift.io/v1beta1
-kind: AgentServiceConfig
-metadata:
- name: agent
-spec:
-  databaseStorage:
-    accessModes:
-    - ReadWriteOnce
-    resources:
-      requests:
-        storage: 10Gi
-  filesystemStorage:
-    accessModes:
-    - ReadWriteOnce
-    resources:
-      requests:
-        storage: 100Gi
-  imageStorage:
-    accessModes:
-    - ReadWriteOnce
-    resources:
-      requests:
-        storage: 50Gi
-  osImages:
-    - openshiftVersion: "4.16"
-      version: "416.94.202406251923-0"
-      url: "https://mirror.openshift.com/pub/openshift-v4/x86_64/dependencies/rhcos/4.16/4.16.3/rhcos-4.16.3-x86_64-live.x86_64.iso"
-      cpuArchitecture: "x86_64"
-EOF</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<a href="https://github.com/openshift/assisted-service/blob/master/data/default_os_images.json">Default_os_images</a>
-</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Create the <code>AgentServiceConfig</code> custom resource by running the following command.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc create -f agent_service_config.yaml</code></pre>
-</div>
-</div>
-</li>
-</ol>
 </div>
 </div>
 <div class="sect2">
