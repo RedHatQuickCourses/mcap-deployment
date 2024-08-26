@@ -47,6 +47,9 @@ In this MCAP solution, five Virtual Machines (VMs) are needed.
 * One virtual machine as _Hub_ cluster.
 * Three virtual machines as _Infrastructure_ clusters.
 
+[NOTE]
+https://linux-kvm.org/page/Main_Page[Linux-KVM,window=read-later]
+
 === Utility and Services
 
 The bare metal is acting as hypervisor, http server, dhcp server and dns server.
@@ -54,8 +57,8 @@ All these services are configured on the bare metal.
 
 === Networking
 
-As this setup uses KVMs as base infrastructure, all external communication and communication between clusters happen via virtual bridge on the bare metal.
-nmstate operator is installed on the _Infrastructure_ clusters.
+As this setup uses KVMs as base infrastructure, all external communication and communication between clusters happen via https://developers.redhat.com/blog/2018/10/22/introduction-to-linux-interfaces-for-virtual-networking#bridge[virtual bridge,window=read-later] on the bare metal.
+https://docs.openshift.com/container-platform/4.16/networking/k8s_nmstate/k8s-nmstate-about-the-k8s-nmstate-operator.html[nmstate operator,window=read-later] is installed on the _Infrastructure_ clusters.
 nmstate operator allows users to configure various network interface types, DNS and routing on cluster nodes.
 The configuration is driven by two main object types, NodeNetworkConfigurationPolicy (Policy) and NodeNetworkConfigurationEnactment (Enactment).
 In this lab setup, NodeNetworkConfigurationPolicy (Policy) and NetworkAttachmentDefinition (Object) are configured to connect the _Tenant_ cluster.
@@ -66,21 +69,21 @@ On the hypervisor, 7TB (3.5TB + 3.5TB disks) LV is created and mounted to storag
 There is separate storage virtual machine (VM) is created as shared storage for _Tenant_ cluster.
 This storage VM has three disks each of 2TB created from the 7TB LV.
 These disks are used in Ceph deployment on storage VM.
-OpenShift Data Foundation (ODF) operator is installed on the _Infrastructure_ clusters.
-OpenShift Data Foundation Cluster for external Ceph storage system is created.
+https://docs.redhat.com/en/documentation/red_hat_openshift_data_foundation/4.16/html/red_hat_openshift_data_foundation_architecture/openshift_data_foundation_operators[OpenShift Data Foundation (ODF) operator,window=read-later] is installed on the _Infrastructure_ clusters.
+OpenShift Data Foundation Cluster for https://docs.redhat.com/en/documentation/red_hat_openshift_data_foundation/4.11/html-single/deploying_openshift_data_foundation_in_external_mode/index?extIdCarryOver=true&sc_cid=701f2000001OH7JAAW#deploy-openshift-data-foundation-using-red-hat-ceph-storage[external Ceph storage system,window=read-later] is created.
 
 === Hub Cluster
 
-_Hub_ cluster is deployed as Single Node OpenShift (SNO) cluster.
-_Hub_ cluster acts as central cluster which is installed with Multi cluster engine, Red Hat Advanced Cluster Management (RHACM) and LVMS operators.
-Provisioning and Central Infrastructure Management (CIM) service are deployed on _Hub_ cluster.
+_Hub_ cluster is deployed as https://docs.openshift.com/container-platform/4.16/installing/installing_sno/install-sno-installing-sno.html[Single Node OpenShift (SNO) cluster,window=read-later].
+_Hub_ cluster acts as central cluster which is installed with Multi cluster engine, Red Hat Advanced Cluster Management (RHACM) and Logical Volume Manager Storage (LVMS) operators.
+https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.5/html/clusters/managing-your-clusters#enable-cim[Provisioning and Central Infrastructure Management (CIM),window=read-later] service are deployed on _Hub_ cluster.
 _Infrastructure_ clusters and _Tenant_ cluster are deployed from _Hub_ cluster and added to _Hub_ cluster.
 
 === Infrastructure Cluster
 
 There are three _Infrastructure_ clusters.
 All are deployed as _Single Node OpenShift (SNO)_ cluster.
-These clusters are deployed with OpenShift Virtualization, OpenShift Data Foundation (ODF) and nmstate operators.
+These clusters are deployed with https://docs.openshift.com/container-platform/4.16/virt/about_virt/about-virt.html[OpenShift Virtualization,window=read-later], OpenShift Data Foundation (ODF) and nmstate operators.
 Discovery ISOs are uploaded to all _Infrastructure_ clusters to deploy the _Tenant_ cluster nodes.
 
 === Nested OpenShift VMs using OpenShift Virtualization
@@ -90,5 +93,5 @@ Each _Infrastructure_ cluster has one virtual machine acts as OpenShift node in 
 === Tenant Cluster
 
 There is only one _Tenant_ cluster.
-This _Tenant_ cluster is deployed as _Three-Node OpenShift Compact_ cluster using virtual machines running on _Infrastructure_ clusters.
+This _Tenant_ cluster is deployed as https://docs.openshift.com/container-platform/4.5/release_notes/ocp-4-5-release-notes.html#ocp-4-5-three-node-bare-metal-deployments[_Three-Node OpenShift Compact_ cluster,window=read-later] using virtual machines running on _Infrastructure_ clusters.
 All applications and workloads are running on _Tenant_ cluster nodes.

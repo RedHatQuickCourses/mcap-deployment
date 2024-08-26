@@ -163,6 +163,7 @@ virt-install --virt-type kvm --ram 122880 --vcpus 32 --cpu=host-passthrough --os
 .Sample output
 ----
 Starting install...
+Allocating 'hub-disk.qcow2'                    | 250 GB  00:00:00
 Creating domain...                             |         00:00:00
 Domain creation completed.
 You can restart your domain by running:

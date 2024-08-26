@@ -68,5 +68,3 @@ https://www.redhat.com/en/blog/building-mission-critical-application-platform[Bu
 https://github.com/arvin-a/openshift-upi-automation.git[Github - openshift-upi-automation,window=read-later]
 
 https://www.redhat.com/en/blog/nested-openshift-using-openshift-virtualization[Nested OpenShift using OpenShift Virtualization,window=read-later]
-
-https://docs.redhat.com/en/documentation/red_hat_openshift_data_foundation/4.11/html-single/deploying_openshift_data_foundation_in_external_mode/index?extIdCarryOver=true&sc_cid=701f2000001OH7JAAW#deploy-openshift-data-foundation-using-red-hat-ceph-storage[Deploy OpenShift Data Foundation using Red Hat Ceph storage,window=read-later]

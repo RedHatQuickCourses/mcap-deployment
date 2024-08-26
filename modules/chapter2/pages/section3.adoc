@@ -1,11 +1,13 @@
-= Install Operators and Configure Service(s)
+= Access the Hub Cluster
+:experimental:
 
 In this section, you will be accessing _Hub_ cluster.
-You will also be installing additional operators and configuring service(s) needed for deploying _Infrastructure_ and _Tenant_ clusters.
 
-image::MCAP_setup_2.png[]
+image::MCAP_setup_1.png[]
 
-== Prerequisites to Access the _Hub_ Cluster.
+== Prerequisites
+
+. Ensure _Hub_ cluster is deployed successfully.
 
 . Create a directory as `/root/hub/` on hypervisor.
 +
@@ -117,19 +119,35 @@ hub.lab.example.com   Ready    control-plane,master,worker   10h   v1.29.7+6abe8
 
 == Access the _Hub_ Cluster from Web Console
 
-
-== Install RHACM Operator
-
-Install RHACM operator
-
-== Additional Configuration and Service
-
-Create Provisioning and AgentServiceConfig for Enabling CIM (Central Infrastructure Management) service
-
+. Access the firefox browser on console of hypervisor using VNC viewer.
 +
-[source,bash,role=execute]
-----
-----
+image::vnc_hub_cluster_access.png[]
 
+. Get the web console url from `/root/hub/console-url` file.
++
+Select the url and paste in firefox browser tab.
++
+Click btn:[Advanced...] to proceed.
++
+image::vnc_hub_cluster_access_1.png[]
++
+Click btn:[Accept the Risk and Continue] to proceed.
++
+image::vnc_hub_cluster_access_2.png[]
++
+[NOTE]
+You may need to accept the risk twice.
 
+. Login as `kubadmin` user.
++
+Get the `kubadmin` user's passwrod from `/root/hub/kubeadmin-password` file.
++
+image::vnc_hub_cluster_access_3.png[]
 
+. Once you logged in as `kubadmin` user, this is how the first screen looks like
++
+image::vnc_hub_cluster_access_4.png[]
+
+. Verify your `local-cluster` i.e _Hub_ cluster is in `Ready` state.
++
+image::vnc_hub_cluster_access_5.png[]

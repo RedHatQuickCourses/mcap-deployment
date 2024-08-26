@@ -1,17 +1,24 @@
 = Assisted Clusters - Hub Cluster
+:experimental:
 
 In this section, you will be deploying _Hub_ cluster using `hub` VM.
 This _Hub_ cluster will be Single Node OpenShift (SNO) cluster.
 
 image::MCAP_setup_1.png[]
 
-. Visit https://console.redhat.com/openshift
+== Prerequisites
+
+`hub` VM is deployed and running.
+
+== Deploy _Hub_ cluster as SNO cluster
+
+. Visit https://console.redhat.com/openshift[console.redhat.com,window=read-later]
 +
 Click btn:[Create cluster] to create the Assisted Cluster.
 +
 image::console_redhat_screen.png[]
 
-. Select `Bare Metal` as cluster type from `Datacenter` tab.
+. Select `Bare Metal (x86_64)` as cluster type from `Datacenter` tab.
 +
 image::console_redhat_cluster_type.png[]
 
@@ -31,7 +38,7 @@ Check box the `Install single node OpenShift (SNO)`
 +
 Click btn:[Next].
 +
-image::console_redhat_cluster_details.png[]
+image::console_redhat_cluster_details.png[link="images/console_redhat_cluster_details.png",window=read-later]
 
 . Check box the `Install multicluster engine` and `Install Logical Volume Manager Storage` operators.
 +
@@ -60,7 +67,7 @@ In this case, you need to copy it to hypervisor manually.
 +
 or
 +
-Use `Command to download the ISO` option and run the given `wget` command to download the discovery ISO on hypervisor.
+Use `Command to download the ISO` option and run the given `wget` command to download the discovery ISO in `/var/lib/libvirt/images/` on hypervisor.
 +
 image::console_redhat_discovery_iso_download.png[]
 +
@@ -134,14 +141,17 @@ image::vnc_authenticate_server.png[]
 +
 image::vnc_viewer_screen.png[]
 +
+[NOTE]
 You will not be able to drag the browser or terminal window as there is no menu bar.
 
 .. Get the menu bar to ease the movement of the browser and terminal window.
 +
 Click in terminal space.
-Hit kbd:[enter] button, till you see the `>` command line.
+Hit kbd:[enter] button, till you see the `[root@hypervisor images]#` command line.
 +
 Run `gnome-kiosk &` command in terminal.
++
+image::vnc_gnome_kiosk.png[]
 +
 This command provides those missing menu bars.
 +
@@ -156,6 +166,13 @@ image::vnc_menu_bar_1.png[]
 . Attach the downloaded discovery iso to `hub` VM.
 
 .. Run the `virt-manager &` command on terminal to launch virtual machine manager.
++
+image::vnc_virt_manager.png[]
++
+[NOTE]
+You may need to close first instance of `virt-manager` and re-run `virt-manager &` command to get virtual machine manager with menu bar.
++
+image::vnc_virt_manager_1.png[]
 
 .. First open the console of the `hub` VM and then shutdown the `hub` VM.
 +
@@ -166,19 +183,21 @@ image::hub_vm_1.png[]
 image::hub_vm_2.png[]
 
 .. Select `Select or create custom image` option and click btn:[Manage].
++
 Select the discovery ISO and click btn:[Finish].
 +
 image::hub_vm_3.png[]
 
 . Update the `Boot device order` to boot system with discovery ISO.
++
 Click btn:[Apply].
 +
 image::hub_vm_4.png[]
-Ensure it is booted with RHEL CoreOS (Live).
+Now, boot the VM and ensure it is booted with RHEL CoreOS (Live).
 +
 image::hub_vm_5.png[]
 
-. Go back to console.redhat.com to resume assisted installation.
+. Go back to https://console.redhat.com/openshift/cluster-list[console.redhat.com] to resume assisted installation of _Hub_ cluster.
 Notice the host is getting discovered and status as `Ready`.
 +
 Click btn:[Next].
@@ -201,7 +220,11 @@ Click btn:[Install cluster].
 +
 image::console_redhat_review_create.png[]
 
-. Cluster installation starts and after some time it wait for pending user action.
+. Cluster installation starts.
++
+image::console_redhat_cluster_installation_start.png[]
+
+. After 7 to 10 minutes, it waits on pending user action.
 +
 image::console_redhat_pending_user_actions.png[]
 +
@@ -219,10 +242,14 @@ image::hub_vm_7.png[]
 +
 image::hub_vm_8.png[]
 
-. Installation proceeds and you will notice the progress.
+. After 2 minutes, installation proceeds and you will notice the progress.
 +
 image::console_redhat_install_proceed.png[]
 
-. Installation completes in approximately in 25 minutes.
+. You will notice at `80%` the installation goes into finalizing state.
++
+image::console_redhat_cluster_install_finalizing.png[]
+
+. Installation completes in approximately in 15 minutes.
 +
 image::console_redhat_install_complete.png[]
