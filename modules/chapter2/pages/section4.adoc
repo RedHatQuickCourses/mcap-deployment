@@ -148,68 +148,19 @@ image::rhacm_install_6.png[]
 
 ==  Enable the Central Infrastructure Management service
 
-https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.5/html/clusters/managing-your-clusters#enable-cim[The Central Infrastructure Management (CIM),window=read-later] service is provided with the {mce-short} and deploys OpenShift Container Platform clusters.
+https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.5/html/clusters/managing-your-clusters#enable-cim[The Central Infrastructure Management (CIM),window=read-later] service is provided with the `mce-short` and deploys OpenShift Container Platform clusters.
 CIM is deployed when you enable the _MultiClusterHub Operator_ on the hub cluster, but must be enabled.
 
 This will help to generate discovery ISO which will be used for deploying _Infrastructure_ clusters from _Hub_ cluster using RHACM.
 
-=== Create the AgentServiceConfig custom resource for connected environment
+Ensure `AgentServiceConfig` exists and running.
 
-. Ensure `AgentServiceConfig` exists and running.
-+
 .Sample output
 ----
 [root@hypervisor ~]# oc get AgentServiceConfig
 
 NAME    AGE
 agent   3h37m
-----
-
-. Create the `AgentServiceConfig` custom resource.
-+
-[source,bash,role=execute]
-----
-cat >agent_service_config.yaml<<-"EOF"
-apiVersion: agent-install.openshift.io/v1beta1
-kind: AgentServiceConfig
-metadata:
- name: agent
-spec:
-  databaseStorage:
-    accessModes:
-    - ReadWriteOnce
-    resources:
-      requests:
-        storage: 10Gi
-  filesystemStorage:
-    accessModes:
-    - ReadWriteOnce
-    resources:
-      requests:
-        storage: 100Gi
-  imageStorage:
-    accessModes:
-    - ReadWriteOnce
-    resources:
-      requests:
-        storage: 50Gi
-  osImages:
-    - openshiftVersion: "4.16"
-      version: "416.94.202406251923-0"
-      url: "https://mirror.openshift.com/pub/openshift-v4/x86_64/dependencies/rhcos/4.16/4.16.3/rhcos-4.16.3-x86_64-live.x86_64.iso"
-      cpuArchitecture: "x86_64"
-EOF
-----
-+
-[NOTE]
-https://github.com/openshift/assisted-service/blob/master/data/default_os_images.json[Default_os_images]
-
-
-. Create the `AgentServiceConfig` custom resource by running the following command.
-+
-[source,bash,role=execute]
-----
-oc create -f agent_service_config.yaml
 ----
 
 === Manually create the Provisioning custom resource (CR)

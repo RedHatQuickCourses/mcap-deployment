@@ -178,7 +178,7 @@ mac address for the `sno1`, `sno2` and `sno3` VMs should be same as from the dhc
 ----
 virt-install --virt-type kvm --ram 122880 --vcpus 24 --cpu=host-passthrough --os-variant rhel9.3 \
 --disk path=/var/lib/libvirt/images/sno1.qcow2,device=disk,bus=virtio,format=qcow2 \
---network bridge=virbr0,mac=52:54:00:87:f4:2f --network bridge=virbr0 --boot hd,network \
+--network bridge=virbr0,mac=52:54:00:87:f4:2f --boot hd,network \
 --noautoconsole --vnc --name sno1 --noreboot
 ----
 +
@@ -186,7 +186,7 @@ virt-install --virt-type kvm --ram 122880 --vcpus 24 --cpu=host-passthrough --os
 ----
 virt-install --virt-type kvm --ram 122880 --vcpus 24 --cpu=host-passthrough --os-variant rhel9.3 \
 --disk path=/var/lib/libvirt/images/sno2.qcow2,device=disk,bus=virtio,format=qcow2 \
---network bridge=virbr0,mac=52:54:00:cc:51:86 --network bridge=virbr0 --boot hd,network \
+--network bridge=virbr0,mac=52:54:00:cc:51:86 --boot hd,network \
 --noautoconsole --vnc --name sno2 --noreboot
 ----
 +
@@ -194,7 +194,7 @@ virt-install --virt-type kvm --ram 122880 --vcpus 24 --cpu=host-passthrough --os
 ----
 virt-install --virt-type kvm --ram 122880 --vcpus 24 --cpu=host-passthrough --os-variant rhel9.3 \
 --disk path=/var/lib/libvirt/images/sno3.qcow2,device=disk,bus=virtio,format=qcow2 \
---network bridge=virbr0,mac=52:54:00:67:34:25 --network bridge=virbr0 --boot hd,network \
+--network bridge=virbr0,mac=52:54:00:67:34:25 --boot hd,network \
 --noautoconsole --vnc --name sno3 --noreboot
 ----
 +
@@ -202,7 +202,7 @@ virt-install --virt-type kvm --ram 122880 --vcpus 24 --cpu=host-passthrough --os
 ----
 [root@hypervisor images]# virt-install --virt-type kvm --ram 122880 --vcpus 24 --cpu=host-passthrough --os-variant rhel9.3 \
 --disk path=/var/lib/libvirt/images/sno1.qcow2,device=disk,bus=virtio,format=qcow2 \
---network bridge=virbr0,mac=52:54:00:87:f4:2f --network bridge=virbr0 --boot hd,network \
+--network bridge=virbr0,mac=52:54:00:87:f4:2f --boot hd,network \
 --noautoconsole --vnc --name sno1 --noreboot
 
 Starting install...
@@ -213,7 +213,7 @@ You can restart your domain by running:
 
 [root@hypervisor images]# virt-install --virt-type kvm --ram 122880 --vcpus 24 --cpu=host-passthrough --os-variant rhel9.3 \
 --disk path=/var/lib/libvirt/images/sno2.qcow2,device=disk,bus=virtio,format=qcow2 \
---network bridge=virbr0,mac=52:54:00:cc:51:86 --network bridge=virbr0 --boot hd,network \
+--network bridge=virbr0,mac=52:54:00:cc:51:86 --boot hd,network \
 --noautoconsole --vnc --name sno2 --noreboot
 
 Starting install...
@@ -224,7 +224,7 @@ You can restart your domain by running:
 
 [root@hypervisor images]# virt-install --virt-type kvm --ram 122880 --vcpus 24 --cpu=host-passthrough --os-variant rhel9.3 \
 --disk path=/var/lib/libvirt/images/sno3.qcow2,device=disk,bus=virtio,format=qcow2 \
---network bridge=virbr0,mac=52:54:00:67:34:25 --network bridge=virbr0 --boot hd,network \
+--network bridge=virbr0,mac=52:54:00:67:34:25 --boot hd,network \
 --noautoconsole --vnc --name sno3 --noreboot
 
 Starting install...
