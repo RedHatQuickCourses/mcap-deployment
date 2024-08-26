@@ -57,7 +57,10 @@
     <a class="nav-link" href="section2.html">Initial Setup on Hypervisor (Bare Metal)</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section3.html">Ceph Storage Deployment</a>
+    <a class="nav-link" href="section3.html">Storage VM Deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section4.html">Ceph Storage Deployment</a>
   </li>
 </ul>
   </li>
@@ -76,7 +79,10 @@
     <a class="nav-link" href="../chapter2/section2.html">Assisted Clusters - Hub Cluster</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter2/section3.html">Install Operators and Configure Service(s)</a>
+    <a class="nav-link" href="../chapter2/section3.html">Access the Hub Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter2/section4.html">Install Operators and Configure Service</a>
   </li>
 </ul>
   </li>
@@ -240,6 +246,18 @@ The flavor is <a href="https://deploy.equinix.com/product/bare-metal/servers/" t
 </li>
 </ul>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<a href="https://linux-kvm.org/page/Main_Page" target="read-later">Linux-KVM</a>
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_utility_and_services"><a class="anchor" href="#_utility_and_services"></a>Utility and Services</h3>
@@ -251,8 +269,8 @@ All these services are configured on the bare metal.</p>
 <div class="sect2">
 <h3 id="_networking"><a class="anchor" href="#_networking"></a>Networking</h3>
 <div class="paragraph">
-<p>As this setup uses KVMs as base infrastructure, all external communication and communication between clusters happen via virtual bridge on the bare metal.
-nmstate operator is installed on the <em>Infrastructure</em> clusters.
+<p>As this setup uses KVMs as base infrastructure, all external communication and communication between clusters happen via <a href="https://developers.redhat.com/blog/2018/10/22/introduction-to-linux-interfaces-for-virtual-networking#bridge" target="read-later">virtual bridge</a> on the bare metal.
+<a href="https://docs.openshift.com/container-platform/4.16/networking/k8s_nmstate/k8s-nmstate-about-the-k8s-nmstate-operator.html" target="read-later">nmstate operator</a> is installed on the <em>Infrastructure</em> clusters.
 nmstate operator allows users to configure various network interface types, DNS and routing on cluster nodes.
 The configuration is driven by two main object types, NodeNetworkConfigurationPolicy (Policy) and NodeNetworkConfigurationEnactment (Enactment).
 In this lab setup, NodeNetworkConfigurationPolicy (Policy) and NetworkAttachmentDefinition (Object) are configured to connect the <em>Tenant</em> cluster.</p>
@@ -265,16 +283,16 @@ In this lab setup, NodeNetworkConfigurationPolicy (Policy) and NetworkAttachment
 There is separate storage virtual machine (VM) is created as shared storage for <em>Tenant</em> cluster.
 This storage VM has three disks each of 2TB created from the 7TB LV.
 These disks are used in Ceph deployment on storage VM.
-OpenShift Data Foundation (ODF) operator is installed on the <em>Infrastructure</em> clusters.
-OpenShift Data Foundation Cluster for external Ceph storage system is created.</p>
+<a href="https://docs.redhat.com/en/documentation/red_hat_openshift_data_foundation/4.16/html/red_hat_openshift_data_foundation_architecture/openshift_data_foundation_operators" target="read-later">OpenShift Data Foundation (ODF) operator</a> is installed on the <em>Infrastructure</em> clusters.
+OpenShift Data Foundation Cluster for <a href="https://docs.redhat.com/en/documentation/red_hat_openshift_data_foundation/4.11/html-single/deploying_openshift_data_foundation_in_external_mode/index?extIdCarryOver=true&amp;sc_cid=701f2000001OH7JAAW#deploy-openshift-data-foundation-using-red-hat-ceph-storage" target="read-later">external Ceph storage system</a> is created.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_hub_cluster"><a class="anchor" href="#_hub_cluster"></a>Hub Cluster</h3>
 <div class="paragraph">
-<p><em>Hub</em> cluster is deployed as Single Node OpenShift (SNO) cluster.
-<em>Hub</em> cluster acts as central cluster which is installed with Multi cluster engine, Red Hat Advanced Cluster Management (RHACM) and LVMS operators.
-Provisioning and Central Infrastructure Management (CIM) service are deployed on <em>Hub</em> cluster.
+<p><em>Hub</em> cluster is deployed as <a href="https://docs.openshift.com/container-platform/4.16/installing/installing_sno/install-sno-installing-sno.html" target="read-later">Single Node OpenShift (SNO) cluster</a>.
+<em>Hub</em> cluster acts as central cluster which is installed with Multi cluster engine, Red Hat Advanced Cluster Management (RHACM) and Logical Volume Manager Storage (LVMS) operators.
+<a href="https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.5/html/clusters/managing-your-clusters#enable-cim" target="read-later">Provisioning and Central Infrastructure Management (CIM)</a> service are deployed on <em>Hub</em> cluster.
 <em>Infrastructure</em> clusters and <em>Tenant</em> cluster are deployed from <em>Hub</em> cluster and added to <em>Hub</em> cluster.</p>
 </div>
 </div>
@@ -283,7 +301,7 @@ Provisioning and Central Infrastructure Management (CIM) service are deployed on
 <div class="paragraph">
 <p>There are three <em>Infrastructure</em> clusters.
 All are deployed as <em>Single Node OpenShift (SNO)</em> cluster.
-These clusters are deployed with OpenShift Virtualization, OpenShift Data Foundation (ODF) and nmstate operators.
+These clusters are deployed with <a href="https://docs.openshift.com/container-platform/4.16/virt/about_virt/about-virt.html" target="read-later">OpenShift Virtualization</a>, OpenShift Data Foundation (ODF) and nmstate operators.
 Discovery ISOs are uploaded to all <em>Infrastructure</em> clusters to deploy the <em>Tenant</em> cluster nodes.</p>
 </div>
 </div>
@@ -297,7 +315,7 @@ Discovery ISOs are uploaded to all <em>Infrastructure</em> clusters to deploy th
 <h3 id="_tenant_cluster"><a class="anchor" href="#_tenant_cluster"></a>Tenant Cluster</h3>
 <div class="paragraph">
 <p>There is only one <em>Tenant</em> cluster.
-This <em>Tenant</em> cluster is deployed as <em>Three-Node OpenShift Compact</em> cluster using virtual machines running on <em>Infrastructure</em> clusters.
+This <em>Tenant</em> cluster is deployed as <a href="https://docs.openshift.com/container-platform/4.5/release_notes/ocp-4-5-release-notes.html#ocp-4-5-three-node-bare-metal-deployments" target="read-later"><em>Three-Node OpenShift Compact</em> cluster</a> using virtual machines running on <em>Infrastructure</em> clusters.
 All applications and workloads are running on <em>Tenant</em> cluster nodes.</p>
 </div>
 </div>
