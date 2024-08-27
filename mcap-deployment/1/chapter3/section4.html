@@ -181,14 +181,71 @@
 <div class="sect1">
 <h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
 <div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Verify <em>sno1</em> cluster is deployed successfully.</p>
+</li>
+<li>
+<p>Access the <em>sno1</em> cluster via CLI and web console.</p>
+</li>
+<li>
+<p>Ensure <code>sno1.lab.example.com</code> node is in <code>Ready</code> status and all cluster operators are available.</p>
+<div class="listingblock">
+<div class="title">Sample output</div>
+<div class="content">
+<pre>[root@hypervisor ~]# oc get nodes
+
+NAME                   STATUS   ROLES                         AGE   VERSION
+sno1.lab.example.com   Ready    control-plane,master,worker   23h   v1.29.7+4510e9c
+
+[root@hypervisor ~]# oc get clusterversion
+
+NAME      VERSION   AVAILABLE   PROGRESSING   SINCE   STATUS
+version   4.16.8    True        False         23h     Cluster version is 4.16.8</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_install_openshift_virtualization_operator"><a class="anchor" href="#_install_openshift_virtualization_operator"></a>Install OpenShift Virtualization Operator</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Install OpenShift Virtualization on SNO1, SNO2 and SNO3</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_install_openshift_data_foundation_operator"><a class="anchor" href="#_install_openshift_data_foundation_operator"></a>Install OpenShift Data Foundation Operator</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Install ODF operator on SNO1, SNO2 and SNO3 and create storage system with ceph cluster storage as external</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_install_nmstate_operator"><a class="anchor" href="#_install_nmstate_operator"></a>Install NMstate Operator</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_add_additional_nics_to_sno1_sno2_and_sno3_vms"><a class="anchor" href="#_add_additional_nics_to_sno1_sno2_and_sno3_vms"></a>Add additional NICs to <code>sno1</code>, <code>sno2</code> and <code>sno3</code> VMs</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_install_the_operator"><a class="anchor" href="#_install_the_operator"></a>Install the Operator</h3>
 <div class="paragraph">
-<p>Install nmstate operator on SNO1, SNO2 and SNO3 &gt; Configure NNCP &gt; Configure NAD</p>
+<p>Install nmstate operator on SNO1, SNO2 and SNO3</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configure_nncp"><a class="anchor" href="#_configure_nncp"></a>Configure NNCP</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_configure_nad"><a class="anchor" href="#_configure_nad"></a>Configure NAD</h3>
+
 </div>
 </div>
 </div>
