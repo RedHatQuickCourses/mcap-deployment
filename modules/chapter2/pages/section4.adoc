@@ -22,7 +22,7 @@ lvms-operator.openshift-storage           58m
 multicluster-engine.multicluster-engine   58m
 ----
 
-. Ensure `hub.lab.example.com` node is in `Ready` status and all operators are available.
+. Ensure `hub.lab.example.com` node is in `Ready` status and all cluster operators are available.
 +
 .Sample output
 ----

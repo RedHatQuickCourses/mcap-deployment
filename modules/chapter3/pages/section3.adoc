@@ -105,38 +105,40 @@ Follow same steps for `sno2` and `sno3` clusters.
 
 == Access the _sno1_ Cluster from Web Console
 
-. Access the firefox browser on console of hypervisor using VNC viewer.
-#+
-#image::vnc_sno1_cluster_access.png[]
-
-. Get the web console url from `/root/sno1/console-url` file.
+. Get the web console url from _Hub_ cluster console.
 +
-Select the url and paste in firefox browser tab.
+image::console_redhat_sno1_install_download.png[]
++
+. Click on link from `Web Console URL`.
 +
 Click btn:[Advanced...] to proceed.
-#+
-#image::vnc_sno1_cluster_access_1.png[]
-#+
-#Click btn:[Accept the Risk and Continue] to proceed.
-#+
-#image::vnc_sno1_cluster_access_2.png[]
-#+
-#[NOTE]
-#You may need to accept the risk twice.
++
+image::vnc_sno1_cluster_access_1.png[]
++
+Click btn:[Accept the Risk and Continue] to proceed.
++
+image::vnc_sno1_cluster_access_2.png[]
++
+[NOTE]
+You may need to accept the risk twice.
 
 . Login as `kubadmin` user.
 +
-Get the `kubadmin` user's passwrod from `/root/sno1/kubeadmin-password` file.
-#+
-#image::vnc_sno1_cluster_access_3.png[]
+Get the `kubadmin` user's passwrod from from _Hub_ cluster console.
++
+image::console_redhat_sno1_install_download.png[]
++
+Copy the `kubadmin` user's passwrod from from _Hub_ cluster console and paste it in `Password` field.
++
+image::vnc_sno1_cluster_access_3.png[]
 
 . Once you logged in as `kubadmin` user, this is how the first screen looks like
-#+
-#image::vnc_sno1_cluster_access_4.png[]
++
+image::vnc_sno1_cluster_access_4.png[]
 
-. Verify your `local-cluster` i.e _sno1_ cluster is in `Ready` state.
-#+
-#image::vnc_sno1_cluster_access_5.png[]
+. Verify _sno1_ cluster is in `Ready` state in _Hub_ cluster console.
++
+image::vnc_sno1_cluster_access_5.png[]
 
 [NOTE]
 Follow same steps for `sno2` and `sno3` clusters.

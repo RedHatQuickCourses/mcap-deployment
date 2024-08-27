@@ -7,11 +7,43 @@ image::MCAP_setup_2.png[]
 
 == Prerequisites
 
+. Verify _sno1_ cluster is deployed successfully.
+
+. Access the _sno1_ cluster via CLI and web console.
+
+. Ensure `sno1.lab.example.com` node is in `Ready` status and all cluster operators are available.
++
+.Sample output
+----
+[root@hypervisor ~]# oc get nodes
+
+NAME                   STATUS   ROLES                         AGE   VERSION
+sno1.lab.example.com   Ready    control-plane,master,worker   23h   v1.29.7+4510e9c
+
+[root@hypervisor ~]# oc get clusterversion
+
+NAME      VERSION   AVAILABLE   PROGRESSING   SINCE   STATUS
+version   4.16.8    True        False         23h     Cluster version is 4.16.8
+----
+
+== Install OpenShift Virtualization Operator
 
 Install OpenShift Virtualization on SNO1, SNO2 and SNO3
 
+== Install OpenShift Data Foundation Operator
+
 Install ODF operator on SNO1, SNO2 and SNO3 and create storage system with ceph cluster storage as external
 
-Install nmstate operator on SNO1, SNO2 and SNO3 > Configure NNCP > Configure NAD
+== Install NMstate Operator
+
+=== Add additional NICs to `sno1`, `sno2` and `sno3` VMs
+
+=== Install the Operator
+
+Install nmstate operator on SNO1, SNO2 and SNO3
+
+=== Configure NNCP
+
+=== Configure NAD
 
 
