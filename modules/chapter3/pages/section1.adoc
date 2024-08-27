@@ -2,7 +2,7 @@
 
 In this section, you will be creating three KVMs with name `sno1`, `sno2` and `sno3`.
 
-image::MCAP_setup_1.png[]
+image::MCAP_setup.png[]
 
 == Prerequisites
 

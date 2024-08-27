@@ -6,8 +6,8 @@ image::MCAP_setup_2.png[]
 
 == Prerequisites
 
-. Download the _rhel9.X_ qcow2 image from the https://access.redhat.com/downloads/content/rhel[Red Hat Customer Portal,window=read-later] to your laptop/desktop.
-. Secured copy (scp) the _rhel9.X_ qcow2 image from your laptop/desktop to hypervisor and then place it in `/var/lib/libvirt/images` directory.
+. Download the _rhel9.X_ QCOW2 image from the https://access.redhat.com/downloads/content/rhel[Red Hat Customer Portal,window=read-later] to your laptop/desktop.
+. Use Secured copy (scp) command to copy the _rhel9.X_ QCOW2 image from your laptop/desktop to hypervisor and then place it in `/var/lib/libvirt/images` directory.
 +
 .Sample output
 ----
@@ -24,7 +24,7 @@ image::MCAP_setup_2.png[]
 
 == Storage VM Deployment
 
-. Ensure the rhel9 qcow2 image is in `/var/lib/libvirt/images` directory.
+. Ensure the rhel9 QCOW2 image is in `/var/lib/libvirt/images` directory.
 +
 [source,bash,role=execute]
 ----
@@ -37,9 +37,9 @@ ls -alh /var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2
 -rw-r--r--. 1 lab-user users 913M Aug 21 10:00 /var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2
 ----
 
-. Check the virtual and disk size of qcow2 image.
+. Check the virtual and disk size of QCOW2 image.
 +
-To get information on qcow2 image, run `qemu-img info` command on the qcow2 image.
+To get information on QCOW2 image, run `qemu-img info` command on the QCOW2 image.
 +
 .Sample output
 ----
@@ -84,7 +84,7 @@ chown -R qemu:qemu rhel-9.4-x86_64-kvm.qcow2
 +
 https://www.redhat.com/en/blog/all-you-need-know-about-kvm-userspace[All you need to know about KVM userspace,window=read-later]
 
-. Resize the partition 4 of qcow2 image.
+. Resize the partition 4 of QCOW2 image.
 +
 [source,bash,role=execute]
 ----
@@ -104,7 +104,7 @@ virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --run-command 'xfs_growfs /'
 +
 https://access.redhat.com/solutions/57263[How to extend a XFS filesytem using the xfs_growfs?,window=read-later]
 
-. Set the `root` user password for qcow2 image.
+. Set the `root` user password for QCOW2 image.
 +
 [source,bash,role=execute]
 ----
@@ -120,21 +120,21 @@ You can use this password for logging into VM via console.
 virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --run-command 'systemctl disable cloud-init'
 ----
 
-. Inject the `root` user's public rsa key in qcow2 image.
+. Inject the `root` user's public RSA key in QCOW2 image.
 +
 [source,bash,role=execute]
 ----
 virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --ssh-inject root:file:/root/.ssh/id_rsa.pub
 ----
 
-. Selinux relabel in qcow2 image.
+. SELinux relabel in QCOW2 image.
 +
 [source,bash,role=execute]
 ----
 virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --selinux-relabel
 ----
 
-. Create the image for `storage` VM using the _rhel9.X_ qcow2 image.
+. Create the image for `storage` VM using the _rhel9.X_ QCOW2 image.
 +
 [source,bash,role=execute]
 ----

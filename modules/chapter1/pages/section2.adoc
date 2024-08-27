@@ -47,7 +47,7 @@ cd <repo>/src/ansible/
 ansible-galaxy collection install -r requirements.yml
 ----
 
-== Setup and Configuration
+== Setup and Configuration with Automation
 
 You can either use the *_setup.yaml_* playbook to install packages, configure swap, lv, dhcp, http and dns or else run commands manually on the hypervisor.
 
@@ -65,7 +65,9 @@ In case of failure, `/tmp/setup.log` log file can be used for troubleshooting th
 [NOTE]
 If you choose to configure manually then only perform the tasks from the following sections.
 
-=== SSH key for the root user
+== Setup and Configuration without Automation
+
+=== Create SSH key for the root user
 
 The public key from the following command will be used while deploying _Hub_ and _Infrastructure_ clusters.
 You will be asked for public key while building the discovery iso for the host.
@@ -75,7 +77,7 @@ You will be asked for public key while building the discovery iso for the host.
 ssh-keygen -t rsa -f /root/.ssh/id_rsa -N ''
 ----
 
-=== Installing required packages
+=== Install the required packages
 
 The following required packages needed for dhcp server, http server, dns server, vnc server and creating virtual machines on hypervisor.
 It also include additional tools packages.
@@ -135,8 +137,8 @@ nvme2n1     259:6    0   3.5T  0 disk
 Here `nvme1n1` disk can be used to create the swap space.
 +
 [NOTE]
-The nvme disk sequencing to use as os partition changes whenever you provision the catalog.
-The unused nvme disk may vary in your environment output.
+The NVMe disk sequencing used as an OS partition will change, whenever you provision the catalog.
+The unused NVMe disk may vary in your environment output.
 
 . Use unused 250GB nvme disk as swap partition.
 +
@@ -152,7 +154,7 @@ no label, UUID=455687c9-aaf7-46a6-9097-be4587a48f2f
 ----
 +
 [NOTE]
-Above UUID differ in your environment.
+The above UUID may differ in your environment.
 
 . Add swap entry in `/etc/fstab` to make it persistent throughout the reboot.
 +
@@ -211,8 +213,8 @@ nvme2n1     259:6    0   3.5T  0 disk
 ----
 +
 [NOTE]
-The nvme disk sequencing to use as os partition changes whenever you provision the catalog.
-The unused nvme disk may vary in your environment output.
+The NVMe disk sequencing used as an OS partition will change, whenever you provision the catalog.
+The unused NVMe disk may vary in your environment output.
 
 . Create a PV of 7TB with disks.
 +
@@ -270,7 +272,7 @@ Writing superblocks and filesystem accounting information: done
 ----
 +
 [NOTE]
-Above UUID differ in your environment.
+The above UUID may differ in your environment.
 
 . Mount the 7TB LV on `/var/lib/libvirt/images`.
 +
@@ -416,7 +418,7 @@ host tcn3.lab.example.com {
 EOF
 ----
 
-. Set the correct selinux context of the `/etc/dhcp/dhcpd.conf` file.
+. Set the correct SELinux context of the `/etc/dhcp/dhcpd.conf` file.
 For additional information on SELinux refer - https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/using_selinux/index#introduction-to-selinux_getting-started-with-selinux[Introduction to SELinux,window=read-later]
 +
 [source,bash,role=execute]
@@ -535,10 +537,6 @@ $TTL    604800
 
 hypervisor.                      IN	     A 	     192.168.122.1
 
-lb.lab.example.com.			   IN	     A	     192.168.122.3
-
-bootstrap.lab.example.com. 	   IN	     A      	192.168.122.4
-
 storage.lab.example.com.         IN	     A	     192.168.122.9
 hub.lab.example.com. 		   IN	     A 	     192.168.122.10
 sno1.lab.example.com. 		   IN	     A 	     192.168.122.11
@@ -623,9 +621,6 @@ $TTL    604800
 
 1.122.168.192.in-addr.arpa.	   IN	PTR	hypervisor.
 
-3.122.168.192.in-addr.arpa.	   IN	PTR	lb.lab.example.com.
-4.122.168.192.in-addr.arpa.	   IN	PTR	bootstrap.lab.example.com.
-
 9.122.168.192.in-addr.arpa.	   IN	PTR	storage.lab.example.com.
 10.122.168.192.in-addr.arpa.     IN	PTR	hub.lab.example.com.
 11.122.168.192.in-addr.arpa. 	   IN	PTR	sno1.lab.example.com.
@@ -692,7 +687,7 @@ $TTL    604800
 EOF
 ----
 
-. Set the correct selinux context of the dns configuration and zone files.
+. Set the correct SELinux context of the dns configuration and zone files.
 +
 [source,bash,role=execute]
 ----
@@ -845,7 +840,7 @@ chmod 0711 /home/lab-user
 chmod 0755 /home/lab-user/public_html
 ----
 
-. Set the correct selinux context of the `/etc/httpd/conf.d/userdir.conf` file.
+. Set the correct SELinux context of the `/etc/httpd/conf.d/userdir.conf` file.
 +
 [source,bash,role=execute]
 ----

@@ -193,7 +193,7 @@ image::hub_vm_3.png[]
 Click btn:[Apply].
 +
 image::hub_vm_4.png[]
-Now, boot the VM and ensure it is booted with RHEL CoreOS (Live).
+Boot the VM and ensure it is booted with RHEL CoreOS (Live).
 +
 image::hub_vm_5.png[]
 

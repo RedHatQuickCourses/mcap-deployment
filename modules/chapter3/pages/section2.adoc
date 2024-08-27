@@ -20,116 +20,196 @@ Switch to the `All Clusters` from `local-cluster`.
 +
 image::hub_console_switch.png[]
 
+. Create cluster using btn:[Create cluster].
 +
 image::hub_console_create_cluster.png[]
 
-
+. Select `Host inventory`.
 +
 image::hub_console_host_inventory.png[]
 
-
+. Select `Standalone`.
 +
 image::hub_console_standalone.png[]
 
-
+. Select `Add new hosts`.
 +
 image::hub_console_add_new_hosts.png[]
 
+. Provide cluster details.
++
+Cluster name: `sno1`
++
+Cluster set: `default`
++
+Base domain: `lab.example.com`
++
+Select latest available stable version of OpenShift from the menu
++
+Check box the `Install single node OpenShift (SNO)`
 +
 image::hub_console_sno1_details.png[]
 
+.. Get the pull secret from `pull_secret.txt`.
 +
 image::hub_console_sno1_pull_secret.png[]
 
+.. Provide the pull secret in `Pull secret` field.
++
+Click btn:[Next]
 +
 image::hub_console_sno1_pull_secret_1.png[]
 
+. No automation template.
++
+Click btn:[Next]
 +
 image::hub_console_sno1_automation.png[]
 
+. Review and save.
++
+Click btn:[Save]
 +
 image::hub_console_sno1_review_save.png[]
 
+. Add `sno1` VM as host.
++
+Click btn:[Add hosts].
 +
 image::hub_console_sno1_add_host.png[]
 
+.. Select menu:Add hosts[With Discovery ISO].
 +
 image::hub_console_sno1_add_host_discovery_iso.png[]
 
+.. Here you need to provide the public ssh key of `root` user.
 +
 image::hub_console_sno1_public_key.png[]
 
+.. Get the public ssh key of `root` user.
 +
 image::hub_console_sno1_public_key_1.png[]
 
+.. Provide the public ssh key of `root` user in `SSH public key` field.
++
+Click btn:[Generate Discovery ISO] to generate discovery ISO.
 +
 image::hub_console_sno1_generate_discovery_iso.png[]
 
+.. Click btn:[Download Discovery ISO] to download discovery ISO on hypervisor.
 +
 image::hub_console_sno1_download_discovery_iso.png[]
 
+.. This will open link in new tab.
++
+Click btn:[Advanced...] to proceed.
 +
 image::hub_console_sno1_advanced_risk.png[]
-
++
+Click btn:[Accept the Risk and Continue] to proceed.
 +
 image::hub_console_sno1_accept_risk.png[]
 
+.. Move iso from `Download` directory to `/var/lib/libvirt/images/` directory.
++
+.Sample output
+----
+[root@hypervisor ~]# mv Downloads/39c2b646-e122-435b-b85e-c8ec6dd18d04-discovery.iso /var/lib/libvirt/images/
+----
+
+.. Boot the `sno1` VM with discovery ISO.
++
+Shutdown the `sno1` VM.
 +
 image::sno1_shutdown.png[]
-
++
+Click btn:[Add hardware]
 +
 image::sno1_add_hardware.png[]
-
++
+Select menu:Device type[CDROM device] and select `Select or create custom image` option.
++
+Click btn:[Manage].
 +
 image::sno1_add_cdrom.png[]
-
++
+Select the discovery ISO and click btn:[Choose Volume].
 +
 image::sno1_attach_discovery_iso.png[]
-
++
+Select the discovery ISO and click btn:[Finish].
 +
 image::sno1_attach_iso_finish.png[]
-
++
+Update the `Boot device order` to boot system with discovery ISO.
++
+Click btn:[Apply].
 +
 image::sno1_boot_order.png[]
-
++
+Boot the `sno1` VM and ensure it is booted with RHEL CoreOS (Live).
 +
 image::sno1_rhcos_boot.png[]
 
+.. In hub console, notice `sno1` VM as host is discovered and select `Approve host`.
 +
 image::hub_console_sno1_approve_host.png[]
 
+.. Again select `Approve host`.
 +
 image::hub_console_sno1_approve_host_1.png[]
 
+.. Notice `sno1.lab.example.com` host is in `Ready` status.
++
+Once `sno1.lab.example.com` host is in `Ready` status, click btn:[Next]
 +
 image::hub_console_sno1_host_ready.png[]
 
+. In networking section, you may notice the `Some validations failed` message.
 +
 image::hub_console_sno1_networking_ready.png[]
-
++
+After few minutes, the message goes away and notice the host is in `Ready` status.
 +
 image::hub_console_sno1_networking_ready_1.png[]
 
+. If you notice `All checks passed` for cluster and host validations then click btn:[Install cluster].
 +
 image::hub_console_sno1_review_create.png[]
 
+. Notice the installation has started.
 +
 image::hub_console_sno1_install_progress.png[]
 
+. After 7 to 10 minutes, it waits on pending user action.
 +
 image::hub_console_sno1_pending_user_actions.png[]
++
+This means you need to disconnect the discovery ISO from the `sno1` VM and boot the `sno1` VM from disk.
 
+.. Shutdown the `sno1` VM.
 +
 image::sno1_shutdown_1.png[]
 
+.. Update the boot order to boot `sno1` VM from disk.
 +
 image::sno1_boot_order_1.png[]
 
+. After 2 minutes, installation proceeds and you will notice the progress.
 +
 image::hub_console_sno1_install_proceed.png[]
 
+. Installation completes in approximately in 20 minutes.
 +
 image::hub_console_sno1_install_complete.png[]
 
+. Notice the `sno1` is added to cluster list in default cluster set.
 +
 image::hub_console_sno1_ready.png[]
++
+This concludes successful deployment of OpenShift cluster and added to hub cluster using RHACM.
+
+=== Install remaining _Infrastructure_ clusters as SNO clusters
+
+. You can deploy remaining `sno2` and `sno3` clusters by following steps from previous section followed for `sno1` cluster deployment.
+. Each cluster deployment take 35 to 40 minutes to complete.
