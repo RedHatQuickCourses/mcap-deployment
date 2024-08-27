@@ -209,193 +209,389 @@ These <em>Infrastructure</em> clusters will be Single Node OpenShift (SNO) clust
 <img src="_images/hub_console_switch.png" alt="hub console switch">
 </div>
 </div>
+</li>
+<li>
+<p>Create cluster using <b class="button">Create cluster</b>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_create_cluster.png" alt="hub console create cluster">
 </div>
 </div>
+</li>
+<li>
+<p>Select <code>Host inventory</code>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_host_inventory.png" alt="hub console host inventory">
 </div>
 </div>
+</li>
+<li>
+<p>Select <code>Standalone</code>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_standalone.png" alt="hub console standalone">
 </div>
 </div>
+</li>
+<li>
+<p>Select <code>Add new hosts</code>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_add_new_hosts.png" alt="hub console add new hosts">
 </div>
+</div>
+</li>
+<li>
+<p>Provide cluster details.</p>
+<div class="paragraph">
+<p>Cluster name: <code>sno1</code></p>
+</div>
+<div class="paragraph">
+<p>Cluster set: <code>default</code></p>
+</div>
+<div class="paragraph">
+<p>Base domain: <code>lab.example.com</code></p>
+</div>
+<div class="paragraph">
+<p>Select latest available stable version of OpenShift from the menu</p>
+</div>
+<div class="paragraph">
+<p>Check box the <code>Install single node OpenShift (SNO)</code></p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_details.png" alt="hub console sno1 details">
 </div>
 </div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Get the pull secret from <code>pull_secret.txt</code>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_pull_secret.png" alt="hub console sno1 pull secret">
 </div>
+</div>
+</li>
+<li>
+<p>Provide the pull secret in <code>Pull secret</code> field.</p>
+<div class="paragraph">
+<p>Click <b class="button">Next</b></p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_pull_secret_1.png" alt="hub console sno1 pull secret 1">
 </div>
 </div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>No automation template.</p>
+<div class="paragraph">
+<p>Click <b class="button">Next</b></p>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_automation.png" alt="hub console sno1 automation">
 </div>
+</div>
+</li>
+<li>
+<p>Review and save.</p>
+<div class="paragraph">
+<p>Click <b class="button">Save</b></p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_review_save.png" alt="hub console sno1 review save">
 </div>
 </div>
+</li>
+<li>
+<p>Add <code>sno1</code> VM as host.</p>
+<div class="paragraph">
+<p>Click <b class="button">Add hosts</b>.</p>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_add_host.png" alt="hub console sno1 add host">
 </div>
 </div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Select <span class="menuseq"><b class="menu">Add hosts</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">With Discovery ISO</b></span>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_add_host_discovery_iso.png" alt="hub console sno1 add host discovery iso">
 </div>
 </div>
+</li>
+<li>
+<p>Here you need to provide the public ssh key of <code>root</code> user.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_public_key.png" alt="hub console sno1 public key">
 </div>
 </div>
+</li>
+<li>
+<p>Get the public ssh key of <code>root</code> user.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_public_key_1.png" alt="hub console sno1 public key 1">
 </div>
+</div>
+</li>
+<li>
+<p>Provide the public ssh key of <code>root</code> user in <code>SSH public key</code> field.</p>
+<div class="paragraph">
+<p>Click <b class="button">Generate Discovery ISO</b> to generate discovery ISO.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_generate_discovery_iso.png" alt="hub console sno1 generate discovery iso">
 </div>
 </div>
+</li>
+<li>
+<p>Click <b class="button">Download Discovery ISO</b> to download discovery ISO on hypervisor.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_download_discovery_iso.png" alt="hub console sno1 download discovery iso">
 </div>
+</div>
+</li>
+<li>
+<p>This will open link in new tab.</p>
+<div class="paragraph">
+<p>Click <b class="button">Advanced&#8230;&#8203;</b> to proceed.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_advanced_risk.png" alt="hub console sno1 advanced risk">
 </div>
 </div>
+<div class="paragraph">
+<p>Click <b class="button">Accept the Risk and Continue</b> to proceed.</p>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_accept_risk.png" alt="hub console sno1 accept risk">
 </div>
+</div>
+</li>
+<li>
+<p>Move iso from <code>Download</code> directory to <code>/var/lib/libvirt/images/</code> directory.</p>
+<div class="listingblock">
+<div class="title">Sample output</div>
+<div class="content">
+<pre>[root@hypervisor ~]# mv Downloads/39c2b646-e122-435b-b85e-c8ec6dd18d04-discovery.iso /var/lib/libvirt/images/</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Boot the <code>sno1</code> VM with discovery ISO.</p>
+<div class="paragraph">
+<p>Shutdown the <code>sno1</code> VM.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="_images/sno1_shutdown.png" alt="sno1 shutdown">
 </div>
 </div>
+<div class="paragraph">
+<p>Click <b class="button">Add hardware</b></p>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="_images/sno1_add_hardware.png" alt="sno1 add hardware">
 </div>
+</div>
+<div class="paragraph">
+<p>Select <span class="menuseq"><b class="menu">Device type</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">CDROM device</b></span> and select <code>Select or create custom image</code> option.</p>
+</div>
+<div class="paragraph">
+<p>Click <b class="button">Manage</b>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="_images/sno1_add_cdrom.png" alt="sno1 add cdrom">
 </div>
 </div>
+<div class="paragraph">
+<p>Select the discovery ISO and click <b class="button">Choose Volume</b>.</p>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="_images/sno1_attach_discovery_iso.png" alt="sno1 attach discovery iso">
 </div>
+</div>
+<div class="paragraph">
+<p>Select the discovery ISO and click <b class="button">Finish</b>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="_images/sno1_attach_iso_finish.png" alt="sno1 attach iso finish">
 </div>
 </div>
+<div class="paragraph">
+<p>Update the <code>Boot device order</code> to boot system with discovery ISO.</p>
+</div>
+<div class="paragraph">
+<p>Click <b class="button">Apply</b>.</p>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="_images/sno1_boot_order.png" alt="sno1 boot order">
 </div>
+</div>
+<div class="paragraph">
+<p>Boot the <code>sno1</code> VM and ensure it is booted with RHEL CoreOS (Live).</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="_images/sno1_rhcos_boot.png" alt="sno1 rhcos boot">
 </div>
 </div>
+</li>
+<li>
+<p>In hub console, notice <code>sno1</code> VM as host is discovered and select <code>Approve host</code>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_approve_host.png" alt="hub console sno1 approve host">
 </div>
 </div>
+</li>
+<li>
+<p>Again select <code>Approve host</code>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_approve_host_1.png" alt="hub console sno1 approve host 1">
 </div>
+</div>
+</li>
+<li>
+<p>Notice <code>sno1.lab.example.com</code> host is in <code>Ready</code> status.</p>
+<div class="paragraph">
+<p>Once <code>sno1.lab.example.com</code> host is in <code>Ready</code> status, click <b class="button">Next</b></p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_host_ready.png" alt="hub console sno1 host ready">
 </div>
 </div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>In networking section, you may notice the <code>Some validations failed</code> message.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_networking_ready.png" alt="hub console sno1 networking ready">
 </div>
+</div>
+<div class="paragraph">
+<p>After few minutes, the message goes away and notice the host is in <code>Ready</code> status.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_networking_ready_1.png" alt="hub console sno1 networking ready 1">
 </div>
 </div>
+</li>
+<li>
+<p>If you notice <code>All checks passed</code> for cluster and host validations then click <b class="button">Install cluster</b>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_review_create.png" alt="hub console sno1 review create">
 </div>
 </div>
+</li>
+<li>
+<p>Notice the installation has started.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_install_progress.png" alt="hub console sno1 install progress">
 </div>
 </div>
+</li>
+<li>
+<p>After 7 to 10 minutes, it waits on pending user action.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_pending_user_actions.png" alt="hub console sno1 pending user actions">
 </div>
 </div>
+<div class="paragraph">
+<p>This means you need to disconnect the discovery ISO from the <code>sno1</code> VM and boot the <code>sno1</code> VM from disk.</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Shutdown the <code>sno1</code> VM.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/sno1_shutdown_1.png" alt="sno1 shutdown 1">
 </div>
 </div>
+</li>
+<li>
+<p>Update the boot order to boot <code>sno1</code> VM from disk.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/sno1_boot_order_1.png" alt="sno1 boot order 1">
 </div>
 </div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>After 2 minutes, installation proceeds and you will notice the progress.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_install_proceed.png" alt="hub console sno1 install proceed">
 </div>
 </div>
+</li>
+<li>
+<p>Installation completes in approximately in 20 minutes.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_install_complete.png" alt="hub console sno1 install complete">
 </div>
 </div>
+</li>
+<li>
+<p>Notice the <code>sno1</code> is added to cluster list in default cluster set.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_ready.png" alt="hub console sno1 ready">
 </div>
 </div>
+<div class="paragraph">
+<p>This concludes successful deployment of OpenShift cluster and added to hub cluster using RHACM.</p>
+</div>
 </li>
 </ol>
+</div>
+<div class="sect2">
+<h3 id="_install_remaining_infrastructure_clusters_as_sno_clusters"><a class="anchor" href="#_install_remaining_infrastructure_clusters_as_sno_clusters"></a>Install remaining <em>Infrastructure</em> clusters as SNO clusters</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>You can deploy remaining <code>sno2</code> and <code>sno3</code> clusters by following steps from previous section followed for <code>sno1</code> cluster deployment.</p>
+</li>
+<li>
+<p>Each cluster deployment take 35 to 40 minutes to complete.</p>
+</li>
+</ol>
+</div>
 </div>
 </div>
 </div>

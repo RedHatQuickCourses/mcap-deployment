@@ -170,8 +170,16 @@
 <h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The MCAP solution is a combination of multiple Red Hat products working together to provide a robust, scalable, resilient, and highly available platform for an organization’s mission-critical applications.
-The following Red Hat products are used in the MCAP solution:</p>
+<p>MCAP is a solution for managing mission-critical applications.
+Mission-critical applications are software applications essential to an organization or enterprise.
+If these applications fail, it can have a catastrophic effect on the whole organization.
+For more on mission-critical application failure, see the real-life examples in Getting to Know Mission Critical Applications.</p>
+</div>
+<div class="paragraph">
+<p>With Red Hat MCAP, organizations can prioritize the applications most important to their individual needs.</p>
+</div>
+<div class="paragraph">
+<p>The MCAP solution combines the following Red Hat products:</p>
 </div>
 <div class="paragraph">
 <p>Red Hat OpenShift Container Platform (OCP)</p>
@@ -203,9 +211,9 @@ The following Red Hat products are used in the MCAP solution:</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-This setup is for Proof of Concepts (POC).
-It is not recommended for Production use case.
-For other architecture option, refer <a href="https://www.redhat.com/en/blog/nested-openshift-using-openshift-virtualization" target="read-later">Nested OpenShift using OpenShift Virtualization</a>
+This setup is a Proof of Concept (POC).
+This setup is not recommended for Production use cases.
+For other architecture options, refer to the <a href="https://www.redhat.com/en/blog/nested-openshift-using-openshift-virtualization" target="read-later">Nested OpenShift using OpenShift Virtualization</a> post on the Red Hat Blog.
 </td>
 </tr>
 </table>
@@ -228,10 +236,10 @@ For other architecture option, refer <a href="https://www.redhat.com/en/blog/nes
 <p>Red Hat Advanced Cluster Management (RHACM)</p>
 </div>
 <div class="sect2">
-<h3 id="_hardware_and_bare_metal"><a class="anchor" href="#_hardware_and_bare_metal"></a>Hardware and Bare-Metal</h3>
+<h3 id="_hardware_and_bare_metal"><a class="anchor" href="#_hardware_and_bare_metal"></a>Hardware and Bare Metal</h3>
 <div class="paragraph">
-<p>In this lab, Equinix bare metal is used.
-The flavor is <a href="https://deploy.equinix.com/product/bare-metal/servers/" target="read-later">n3.xlarge.x86</a>.</p>
+<p>In this lab, Equinix bare-metal is used.
+The flavor i.e. server configuration is <a href="https://deploy.equinix.com/product/bare-metal/servers/" target="read-later">n3.xlarge.x86</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -269,60 +277,122 @@ The flavor is <a href="https://deploy.equinix.com/product/bare-metal/servers/" t
 <h3 id="_utility_and_services"><a class="anchor" href="#_utility_and_services"></a>Utility and Services</h3>
 <div class="paragraph">
 <p>The bare metal is acting as hypervisor, http server, dhcp server and dns server.
-All these services are configured on the bare metal.</p>
+Configure all these services on the bare metal.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_networking"><a class="anchor" href="#_networking"></a>Networking</h3>
 <div class="paragraph">
-<p>As this setup uses KVMs as base infrastructure, all external communication and communication between clusters happen via <a href="https://developers.redhat.com/blog/2018/10/22/introduction-to-linux-interfaces-for-virtual-networking#bridge" target="read-later">virtual bridge</a> on the bare metal.
-<a href="https://docs.openshift.com/container-platform/4.16/networking/k8s_nmstate/k8s-nmstate-about-the-k8s-nmstate-operator.html" target="read-later">nmstate operator</a> is installed on the <em>Infrastructure</em> clusters.
-nmstate operator allows users to configure various network interface types, DNS and routing on cluster nodes.
-The configuration is driven by two main object types, NodeNetworkConfigurationPolicy (Policy) and NodeNetworkConfigurationEnactment (Enactment).
-In this lab setup, NodeNetworkConfigurationPolicy (Policy) and NetworkAttachmentDefinition (Object) are configured to connect the <em>Tenant</em> cluster.</p>
+<p>In this example there are three Infrastructure clusters.
+This setup uses KVMs as the base infrastructure.
+All external communication between your clusters will happen via a <a href="https://developers.redhat.com/blog/2018/10/22/introduction-to-linux-interfaces-for-virtual-networking#bridge" target="read-later">virtual bridge</a> on the bare metal.</p>
+</div>
+<div class="paragraph">
+<p>Install the <a href="https://docs.openshift.com/container-platform/4.16/networking/k8s_nmstate/k8s-nmstate-about-the-k8s-nmstate-operator.html" target="read-later">Kubernetes NMState Operator</a> on the <em>Infrastructure</em> clusters.
+NMstate operator allows users to configure various network interface types, DNS and routing on cluster nodes.
+Two main object types drive the configuration.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>NodeNetworkConfigurationPolicy (Policy)</p>
+</li>
+<li>
+<p>NodeNetworkConfigurationEnactment (Enactment)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In this lab setup, configure the NodeNetworkConfigurationPolicy (Policy) and NetworkAttachmentDefinition (Object) to connect the <em>Tenant</em> cluster.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_storage"><a class="anchor" href="#_storage"></a>Storage</h3>
 <div class="paragraph">
-<p>On the hypervisor, 7TB (3.5TB + 3.5TB disks) LV is created and mounted to storage pool directory path.
-There is separate storage virtual machine (VM) is created as shared storage for <em>Tenant</em> cluster.
-This storage VM has three disks each of 2TB created from the 7TB LV.
-These disks are used in Ceph deployment on storage VM.
-<a href="https://docs.redhat.com/en/documentation/red_hat_openshift_data_foundation/4.16/html/red_hat_openshift_data_foundation_architecture/openshift_data_foundation_operators" target="read-later">OpenShift Data Foundation (ODF) operator</a> is installed on the <em>Infrastructure</em> clusters.
-OpenShift Data Foundation Cluster for <a href="https://docs.redhat.com/en/documentation/red_hat_openshift_data_foundation/4.11/html-single/deploying_openshift_data_foundation_in_external_mode/index?extIdCarryOver=true&amp;sc_cid=701f2000001OH7JAAW#deploy-openshift-data-foundation-using-red-hat-ceph-storage" target="read-later">external Ceph storage system</a> is created.</p>
+<p>Non-volatile Memory Express (NVMe) disks are attached to this hypervisor.
+In this lab setup, use <a href="https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_logical_volumes/index" target="read-later">LVM</a> to configure storage.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Non-volatile Memory Express (NVMe) is an interface that allows host software utility to communicate with solid state drives.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>On the hypervisor, first create 7TB (3.5TB + 3.5TB disks) logical volume (LV) and mount on storage pool directory path.
+This stores VMs images.</p>
+</div>
+<div class="paragraph">
+<p>There is separate storage virtual machine (VM) for shared storage for <em>Tenant</em> cluster.
+Create three disks each of 2TB from the 7TB LV and attach it to storage VM.
+These disks are needed in Ceph deployment on storage VM.</p>
+</div>
+<div class="paragraph">
+<p>Next, install <a href="https://docs.redhat.com/en/documentation/red_hat_openshift_data_foundation/4.16/html/red_hat_openshift_data_foundation_architecture/openshift_data_foundation_operators" target="read-later">OpenShift Data Foundation (ODF) operator</a> on the <em>Infrastructure</em> clusters.
+Create an OpenShift Data Foundation cluster for <a href="https://docs.redhat.com/en/documentation/red_hat_openshift_data_foundation/4.16/html/deploying_openshift_data_foundation_in_external_mode/deploy-openshift-data-foundation-using-red-hat-ceph-storage#creating-an-openshift-data-foundation-cluster-service-for-external-storage_ceph-external" target="read-later">external Ceph storage system</a>.
+This is the backend shared storage for <em>Tenant</em> cluster.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_hub_cluster"><a class="anchor" href="#_hub_cluster"></a>Hub Cluster</h3>
 <div class="paragraph">
-<p><em>Hub</em> cluster is deployed as <a href="https://docs.openshift.com/container-platform/4.16/installing/installing_sno/install-sno-installing-sno.html" target="read-later">Single Node OpenShift (SNO) cluster</a>.
-<em>Hub</em> cluster acts as central cluster which is installed with Multi cluster engine, Red Hat Advanced Cluster Management (RHACM) and Logical Volume Manager Storage (LVMS) operators.
-<a href="https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.5/html/clusters/managing-your-clusters#enable-cim" target="read-later">Provisioning and Central Infrastructure Management (CIM)</a> service are deployed on <em>Hub</em> cluster.
-<em>Infrastructure</em> clusters and <em>Tenant</em> cluster are deployed from <em>Hub</em> cluster and added to <em>Hub</em> cluster.</p>
+<p>The main role of <em>Hub</em> cluster is to deploy <em>Infrastructure</em> clusters and <em>Tenant</em> cluster.</p>
+</div>
+<div class="paragraph">
+<p>Deploy <em>Hub</em> cluster as <a href="https://docs.openshift.com/container-platform/4.16/installing/installing_sno/install-sno-installing-sno.html" target="read-later">Single Node OpenShift (SNO) cluster</a>.</p>
+</div>
+<div class="paragraph">
+<p>Install following operators on <em>Hub</em> cluster which acts as hub cluster.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Multi cluster engine</p>
+</li>
+<li>
+<p>Red Hat Advanced Cluster Management (RHACM)</p>
+</li>
+<li>
+<p>Logical Volume Manager Storage (LVMS)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Ensure <a href="https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.11/html-single/clusters/index#enable-cim" target="read-later">Provisioning and Central Infrastructure Management (CIM)</a> service are deployed on <em>Hub</em> cluster.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_infrastructure_cluster"><a class="anchor" href="#_infrastructure_cluster"></a>Infrastructure Cluster</h3>
 <div class="paragraph">
-<p>There are three <em>Infrastructure</em> clusters.
-All are deployed as <em>Single Node OpenShift (SNO)</em> cluster.
-These clusters are deployed with <a href="https://docs.openshift.com/container-platform/4.16/virt/about_virt/about-virt.html" target="read-later">OpenShift Virtualization</a>, OpenShift Data Foundation (ODF) and nmstate operators.
-Discovery ISOs are uploaded to all <em>Infrastructure</em> clusters to deploy the <em>Tenant</em> cluster nodes.</p>
+<p>The main role of <em>Infrastructure</em> clusters is to deploy Nested OpenShift VMs using OpenShift Virtualization.
+Each <em>Infrastructure</em> cluster has one virtual machine acts as OpenShift node in <em>Tenant</em> cluster.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_nested_openshift_vms_using_openshift_virtualization"><a class="anchor" href="#_nested_openshift_vms_using_openshift_virtualization"></a>Nested OpenShift VMs using OpenShift Virtualization</h3>
 <div class="paragraph">
-<p>Each <em>Infrastructure</em> cluster has one virtual machine acts as OpenShift node in <em>Tenant</em> cluster.</p>
+<p>There are three <em>Infrastructure</em> clusters.
+Deploy <em>Infrastructure</em> clusters as <em>Single Node OpenShift (SNO)</em> cluster from <em>Hub</em> cluster using RHACM.</p>
+</div>
+<div class="paragraph">
+<p>Install <a href="https://docs.openshift.com/container-platform/4.16/virt/about_virt/about-virt.html" target="read-later">OpenShift Virtualization</a>, OpenShift Data Foundation (ODF) and nmstate operators on <em>Infrastructure</em> clusters.</p>
+</div>
+<div class="paragraph">
+<p>Upload discovery ISO to all <em>Infrastructure</em> clusters to boot the <em>Tenant</em> cluster nodes from discovery ISO.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_tenant_cluster"><a class="anchor" href="#_tenant_cluster"></a>Tenant Cluster</h3>
 <div class="paragraph">
 <p>There is only one <em>Tenant</em> cluster.
-This <em>Tenant</em> cluster is deployed as <a href="https://docs.openshift.com/container-platform/4.5/release_notes/ocp-4-5-release-notes.html#ocp-4-5-three-node-bare-metal-deployments" target="read-later"><em>Three-Node OpenShift Compact</em> cluster</a> using virtual machines running on <em>Infrastructure</em> clusters.
-All applications and workloads are running on <em>Tenant</em> cluster nodes.</p>
+Deploy <em>Tenant</em> cluster as <a href="https://docs.openshift.com/container-platform/4.5/release_notes/ocp-4-5-release-notes.html#ocp-4-5-three-node-bare-metal-deployments" target="read-later"><em>Three-Node OpenShift Compact</em> cluster</a> from <em>Hub</em> cluster using RHACM.
+These three nodes are the virtual machines running on <em>Infrastructure</em> clusters.</p>
+</div>
+<div class="paragraph">
+<p>All applications and workloads are running on <em>Tenant</em> cluster nodes.</p>
 </div>
 </div>
 </div>

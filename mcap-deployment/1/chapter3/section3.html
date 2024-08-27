@@ -181,7 +181,221 @@
 <div class="sect1">
 <h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
 <div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Ensure <em>Infrastructure</em> clusters (<code>sno1</code>, <code>sno2</code> and <code>sno3</code>) are deployed successfully.</p>
+</li>
+<li>
+<p>Create a directory as <code>/root/sno1/</code> on hypervisor.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir /root/sno1</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create <code>kubeadmin-password</code> file in <code>/root/sno1/</code> directory.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">touch /root/sno1/kubeadmin-password</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Get the <code>kubeconfig</code> file and password for <code>kubeadmin</code> user from <em>Hub</em> cluster console.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/console_redhat_sno1_install_download.png" alt="console redhat sno1 install download">
+</div>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Download the <code>kubeconfig</code> file to hypervisor and then copy to <code>/root/sno1</code> directory on hypervisor.</p>
+<div class="listingblock">
+<div class="title">Sample output</div>
+<div class="content">
+<pre>[root@hypervisor ~]# mv Downloads/sno1-kubeconfig.yaml sno1/kubeconfig</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample output</div>
+<div class="content">
+<pre>[root@hypervisor ~]# ls -al sno1/
+total 28
+drwxr-xr-x.  2 root root  4096 Aug 22 15:20 .
+dr-xr-x---. 13 root root  4096 Aug 22 15:18 ..
+-rw-r--r--.  1 root root    24 Aug 22 15:11 kubeadmin-password
+-rw-r--r--.  1 root root 12127 Aug 22 15:20 kubeconfig</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Copy the password for <code>kubeadmin</code> user and paste it in new tab of firefox browser.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/console_redhat_sno1_copy_password.png" alt="console redhat sno1 copy password">
+</div>
+</div>
+<div class="paragraph">
+<p>Copy the password from tab of firefox browser and paste it in <code>/root/sno1/kubeadmin-password</code> file.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/console_redhat_sno1_copy_password_1.png" alt="console redhat sno1 copy password 1">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Follow same steps for <code>sno2</code> and <code>sno3</code> clusters.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_access_the_sno1_cluster_via_cli"><a class="anchor" href="#_access_the_sno1_cluster_via_cli"></a>Access the <em>sno1</em> Cluster via CLI</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Copy <code>/root/sno1/kubeconfig</code> file as <code>/root/.kube/config</code> file.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cp /root/sno1/kubeconfig /root/.kube/config</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set <code>kubepass</code> variable as <code>kubeadmin</code> user&#8217;s password.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubepass=$(cat /root/sno1/kubeadmin-password)</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Login to <em>sno1</em> cluster with <code>oc login</code> command.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc login -u kubeadmin -p $kubepass</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample output</div>
+<div class="content">
+<pre>Login successful.
 
+You have access to 79 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Review the nodes.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get nodes</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample output</div>
+<div class="content">
+<pre>NAME                  STATUS   ROLES                         AGE   VERSION
+sno1.lab.example.com   Ready    control-plane,master,worker   10h   v1.29.7+6abe8a1</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Follow same steps for <code>sno2</code> and <code>sno3</code> clusters.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_access_the_sno1_cluster_from_web_console"><a class="anchor" href="#_access_the_sno1_cluster_from_web_console"></a>Access the <em>sno1</em> Cluster from Web Console</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Access the firefox browser on console of hypervisor using VNC viewer.
+#+
+#image::vnc_sno1_cluster_access.png[]</p>
+</li>
+<li>
+<p>Get the web console url from <code>/root/sno1/console-url</code> file.</p>
+<div class="paragraph">
+<p>Select the url and paste in firefox browser tab.</p>
+</div>
+<div class="paragraph">
+<p>Click <b class="button">Advanced&#8230;&#8203;</b> to proceed.
+#+
+#image::vnc_sno1_cluster_access_1.png[]
+#+
+#Click <b class="button">Accept the Risk and Continue</b> to proceed.
+#+
+#image::vnc_sno1_cluster_access_2.png[]
+#+
+#[NOTE]
+#You may need to accept the risk twice.</p>
+</div>
+</li>
+<li>
+<p>Login as <code>kubadmin</code> user.</p>
+<div class="paragraph">
+<p>Get the <code>kubadmin</code> user&#8217;s passwrod from <code>/root/sno1/kubeadmin-password</code> file.
+#+
+#image::vnc_sno1_cluster_access_3.png[]</p>
+</div>
+</li>
+<li>
+<p>Once you logged in as <code>kubadmin</code> user, this is how the first screen looks like
+#+
+#image::vnc_sno1_cluster_access_4.png[]</p>
+</li>
+<li>
+<p>Verify your <code>local-cluster</code> i.e <em>sno1</em> cluster is in <code>Ready</code> state.
+#+
+#image::vnc_sno1_cluster_access_5.png[]</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Follow same steps for <code>sno2</code> and <code>sno3</code> clusters.
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <nav class="pagination">

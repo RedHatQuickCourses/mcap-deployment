@@ -239,7 +239,7 @@ Few of the tasks are automated with the help of ansible playbooks.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_setup_and_configuration"><a class="anchor" href="#_setup_and_configuration"></a>Setup and Configuration</h2>
+<h2 id="_setup_and_configuration_with_automation"><a class="anchor" href="#_setup_and_configuration_with_automation"></a>Setup and Configuration with Automation</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>You can either use the <strong><em>setup.yaml</em></strong> playbook to install packages, configure swap, lv, dhcp, http and dns or else run commands manually on the hypervisor.</p>
@@ -269,8 +269,13 @@ If you choose to configure manually then only perform the tasks from the followi
 </tr>
 </table>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_setup_and_configuration_without_automation"><a class="anchor" href="#_setup_and_configuration_without_automation"></a>Setup and Configuration without Automation</h2>
+<div class="sectionbody">
 <div class="sect2">
-<h3 id="_ssh_key_for_the_root_user"><a class="anchor" href="#_ssh_key_for_the_root_user"></a>SSH key for the root user</h3>
+<h3 id="_create_ssh_key_for_the_root_user"><a class="anchor" href="#_create_ssh_key_for_the_root_user"></a>Create SSH key for the root user</h3>
 <div class="paragraph">
 <p>The public key from the following command will be used while deploying <em>Hub</em> and <em>Infrastructure</em> clusters.
 You will be asked for public key while building the discovery iso for the host.</p>
@@ -282,7 +287,7 @@ You will be asked for public key while building the discovery iso for the host.<
 </div>
 </div>
 <div class="sect2">
-<h3 id="_installing_required_packages"><a class="anchor" href="#_installing_required_packages"></a>Installing required packages</h3>
+<h3 id="_install_the_required_packages"><a class="anchor" href="#_install_the_required_packages"></a>Install the required packages</h3>
 <div class="paragraph">
 <p>The following required packages needed for dhcp server, http server, dns server, vnc server and creating virtual machines on hypervisor.
 It also include additional tools packages.</p>
@@ -359,8 +364,8 @@ nvme2n1     259:6    0   3.5T  0 disk</pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The nvme disk sequencing to use as os partition changes whenever you provision the catalog.
-The unused nvme disk may vary in your environment output.
+The NVMe disk sequencing used as an OS partition will change, whenever you provision the catalog.
+The unused NVMe disk may vary in your environment output.
 </td>
 </tr>
 </table>
@@ -387,7 +392,7 @@ no label, UUID=455687c9-aaf7-46a6-9097-be4587a48f2f</pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Above UUID differ in your environment.
+The above UUID may differ in your environment.
 </td>
 </tr>
 </table>
@@ -469,8 +474,8 @@ nvme2n1     259:6    0   3.5T  0 disk</pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The nvme disk sequencing to use as os partition changes whenever you provision the catalog.
-The unused nvme disk may vary in your environment output.
+The NVMe disk sequencing used as an OS partition will change, whenever you provision the catalog.
+The unused NVMe disk may vary in your environment output.
 </td>
 </tr>
 </table>
@@ -544,7 +549,7 @@ Writing superblocks and filesystem accounting information: done</pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Above UUID differ in your environment.
+The above UUID may differ in your environment.
 </td>
 </tr>
 </table>
@@ -720,7 +725,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Set the correct selinux context of the <code>/etc/dhcp/dhcpd.conf</code> file.
+<p>Set the correct SELinux context of the <code>/etc/dhcp/dhcpd.conf</code> file.
 For additional information on SELinux refer - <a href="https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/using_selinux/index#introduction-to-selinux_getting-started-with-selinux" target="read-later">Introduction to SELinux</a></p>
 <div class="listingblock execute">
 <div class="content">
@@ -847,10 +852,6 @@ $TTL    604800
 
 hypervisor.                      IN	     A 	     192.168.122.1
 
-lb.lab.example.com.			   IN	     A	     192.168.122.3
-
-bootstrap.lab.example.com. 	   IN	     A      	192.168.122.4
-
 storage.lab.example.com.         IN	     A	     192.168.122.9
 hub.lab.example.com. 		   IN	     A 	     192.168.122.10
 sno1.lab.example.com. 		   IN	     A 	     192.168.122.11
@@ -936,9 +937,6 @@ $TTL    604800
 
 1.122.168.192.in-addr.arpa.	   IN	PTR	hypervisor.
 
-3.122.168.192.in-addr.arpa.	   IN	PTR	lb.lab.example.com.
-4.122.168.192.in-addr.arpa.	   IN	PTR	bootstrap.lab.example.com.
-
 9.122.168.192.in-addr.arpa.	   IN	PTR	storage.lab.example.com.
 10.122.168.192.in-addr.arpa.     IN	PTR	hub.lab.example.com.
 11.122.168.192.in-addr.arpa. 	   IN	PTR	sno1.lab.example.com.
@@ -1007,7 +1005,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Set the correct selinux context of the dns configuration and zone files.</p>
+<p>Set the correct SELinux context of the dns configuration and zone files.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chcon system_u:object_r:named_conf_t:s0 /etc/named.conf</code></pre>
@@ -1183,7 +1181,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Set the correct selinux context of the <code>/etc/httpd/conf.d/userdir.conf</code> file.</p>
+<p>Set the correct SELinux context of the <code>/etc/httpd/conf.d/userdir.conf</code> file.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chcon system_u:object_r:httpd_config_t:s0 /etc/httpd/conf.d/userdir.conf</code></pre>
