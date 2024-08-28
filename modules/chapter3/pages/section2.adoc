@@ -209,7 +209,7 @@ image::hub_console_sno1_ready.png[]
 +
 This concludes successful deployment of OpenShift cluster and added to hub cluster using RHACM.
 
-=== Install remaining _Infrastructure_ clusters as SNO clusters
+== Install remaining _Infrastructure_ clusters as SNO clusters
 
 . You can deploy remaining `sno2` and `sno3` clusters by following steps from previous section followed for `sno1` cluster deployment.
 . Each cluster deployment take 35 to 40 minutes to complete.

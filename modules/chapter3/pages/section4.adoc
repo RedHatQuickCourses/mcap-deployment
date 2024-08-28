@@ -28,22 +28,217 @@ version   4.16.8    True        False         23h     Cluster version is 4.16.8
 
 == Install OpenShift Virtualization Operator
 
-Install OpenShift Virtualization on SNO1, SNO2 and SNO3
+. Access the operator hub from web console of _sno1_ cluster.
++
+From left navigation pane, click menu:Operators[OperatorHub].
++
+image::sno1_console_operator_hub.png[]
+
+. In search window, search _openshift virtualization_ and select the `OpenShift Virtualization`.
++
+image::sno1_console_operator_hub_1.png[]
+
+. Click btn:[Install] to open install options.
++
+image::sno1_console_ocpvirt_install.png[]
+
+. Keep all options as it is with no change in selected options and click btn:[Install] to install the operator.
++
+image::sno1_console_ocpvirt_install_1.png[]
+
+. Click btn:[Create HyperConverged] to create the resource.
++
+image::sno1_console_ocpvirt_install_2.png[]
+
+. Keep all options as it is with no change in selected options and click btn:[Create] to create the resource.
++
+image::sno1_console_ocpvirt_install_3.png[]
+
+. Notice it goes into `Progressing, Degraded` conditions.
++
+image::sno1_console_ocpvirt_install_4.png[]
+
+. After 3 to 4 minutes, notice the `Refresh web console` message on window.
++
+image::sno1_console_ocpvirt_install_5.png[]
+
+. After 3 to 4 minutes, _HyperConverged_ is in `Reconcile, Complete, Available, Upgradable` conditions.
++
+image::sno1_console_ocpvirt_install_6.png[]
 
 == Install OpenShift Data Foundation Operator
 
-Install ODF operator on SNO1, SNO2 and SNO3 and create storage system with ceph cluster storage as external
+. Access the operator hub from web console of _sno1_ cluster.
++
+From left navigation pane, click menu:Operators[OperatorHub].
++
+image::sno1_console_operator_hub.png[]
 
-== Install NMstate Operator
+. In search window, search _odf_ and select the `OpenShift Data Foundation`.
++
+image::sno1_console_odf_install.png[]
 
-=== Add additional NICs to `sno1`, `sno2` and `sno3` VMs
+. Click btn:[Install] to open install options.
++
+image::sno1_console_odf_install_1.png[]
 
-=== Install the Operator
+. Keep all options as it is with no change in selected options and click btn:[Install] to install the operator.
++
+image::sno1_console_odf_install_2.png[]
 
-Install nmstate operator on SNO1, SNO2 and SNO3
+. After 3 to 4 minutes, notice the `Refresh web console` message on window.
++
+First, refresh the web console then click btn:[Create StorageSystem] to create the resource.
++
+image::sno1_console_odf_install_3.png[]
 
-=== Configure NNCP
+. Create the StorageSystem.
 
-=== Configure NAD
+.. Provide backing storage details.
++
+Deployment type: `Full deployment`.
++
+Select `Connect an external storage platform`.
++
+Storage platform: `Red Hat Ceph Storage`.
++
+image::sno1_console_odf_install_4.png[]
++
+Check box the `Use Ceph RBD as the default StorageClass`.
++
+Click btn:[Next] to proceed.
++
+image::sno1_console_odf_install_5.png[]
 
+.. Provide connection details.
++
+Use `Download script` option to download the python script.
++
+image::sno1_console_odf_install_6.png[]
++
+You need to run this script on the `storage` VM.
++
+[source,bash,role=execute]
+----
+scp Downloads/ceph-external-cluster-details-exporter.py root@storage:.
+----
++
+Password for `root` user is `redhat`.
++
+.Sample output
+----
+[root@hypervisor ~]# ls Downloads/
+ceph-external-cluster-details-exporter.py
 
+[root@hypervisor ~]# scp Downloads/ceph-external-cluster-details-exporter.py root@storage:.
+root@storage's password:
+ceph-external-cluster-details-exporter.py
+----
++
+Run the `ceph-external-cluster-details-exporter.py` script on the `storage` VM and store output in `output.json` file.
++
+[source,bash,role=execute]
+----
+python ceph-external-cluster-details-exporter.py --rbd-data-pool-name default.rgw.control > output.json
+----
++
+.Sample output
+----
+[root@hypervisor ~]# ssh root@storage
+root@storage's password:
+
+[root@storage ~]# ceph osd lspools
+1 .rgw.root
+2 .mgr
+3 default.rgw.log
+4 default.rgw.control
+5 default.rgw.meta
+
+[root@storage ~]# python ceph-external-cluster-details-exporter.py --rbd-data-pool-name default.rgw.control > output.json
+----
++
+Copy the `output.json` file from `storage` VM to hypervisor.
++
+[source,bash,role=execute]
+----
+scp root@storage:/root/output.json .
+----
++
+.Sample output
+----
+[root@hypervisor ~]# scp root@storage:/root/output.json .
+root@storage's password:
+output.json                                                                                                                                                                     100% 1333     3.5MB/s   00:00
+
+[root@hypervisor ~]# cat output.json
+[{"name": "rook-ceph-mon-endpoints", "kind": "ConfigMap", "data": {"data": "storage=192.168.122.9:6789", "maxMonId": "0", "mapping": "{}"}}, {"name": "rook-ceph-mon", "kind": "Secret", "data": {"admin-secret": "admin-secret", "fsid": "ce583900-6387-11ef-b336-5254000aa988", "mon-secret": "mon-secret"}}, {"name": "rook-ceph-operator-creds", "kind": "Secret", "data": {"userID": "client.healthchecker", "userKey": "AQCvG85m2K12GxAAvQeqtNb8TrkbmNtrQon2Bg=="}}, {"name": "monitoring-endpoint", "kind": "CephCluster", "data": {"MonitoringEndpoint": "192.168.122.9", "MonitoringPort": "9283"}}, {"name": "rook-csi-rbd-node", "kind": "Secret", "data": {"userID": "csi-rbd-node", "userKey": "AQCvG85mbOq3GxAALYQ2DP4V2Sq/i198FffI4A=="}}, {"name": "rook-csi-rbd-provisioner", "kind": "Secret", "data": {"userID": "csi-rbd-provisioner", "userKey": "AQCvG85mRgrvGxAAIyfBypIKKkhtiSQdlulsVA=="}}, {"name": "rook-ceph-dashboard-link", "kind": "Secret", "data": {"userID": "ceph-dashboard-link", "userKey": "https://192.168.122.9:8443/"}}, {"name": "ceph-rbd", "kind": "StorageClass", "data": {"pool": "default.rgw.control", "csi.storage.k8s.io/provisioner-secret-name": "rook-csi-rbd-provisioner", "csi.storage.k8s.io/controller-expand-secret-name": "rook-csi-rbd-provisioner", "csi.storage.k8s.io/node-stage-secret-name": "rook-csi-rbd-node"}}]
+----
+
+.. Click btn:[Browse] to provide the content of the `output.json` file.
++
+image::sno1_console_odf_install_7.png[]
+
+.. Select the `output.json` file and click btn:[Open].
++
+image::sno1_console_odf_install_8.png[]
+
+.. Click btn:[Next] to proceed.
++
+image::sno1_console_odf_install_9.png[]
+
+.. Click btn:[Create StorageSystem] to create the StorageSystem.
++
+image::sno1_console_odf_install_10.png[]
+
+.. Notice the conditions as `Available, VendorCsv Ready, Vendor System Present`.
++
+image::sno1_console_odf_install_11.png[]
+
+.. Verify operator is installed successfully in `openshift-storage` namespace.
++
+image::sno1_console_odf_install_12.png[]
+
+== Install NMState Operator
+
+. Access the operator hub from web console of _sno1_ cluster.
++
+From left navigation pane, click menu:Operators[OperatorHub].
++
+image::sno1_console_operator_hub.png[]
+
+. In search window, search _NMstate_ and select the `Kubernetes NMState Operator`.
++
+image::sno1_console_operator_hub_nmstate.png[]
+
+. Click btn:[Install] to open install options.
++
+image::sno1_console_nmstate_install.png[]
+
+. Keep all options as it is with no change in selected options and click btn:[Install] to install the operator.
++
+image::sno1_console_nmstate_install_1.png[]
+
+. Click btn:[View Operator] to view the operator details.
++
+image::sno1_console_nmstate_install_2.png[]
+
+. In `NMState` tab and click btn:[Create NMState] to create the resource.
++
+image::sno1_console_nmstate_install_3.png[]
+
+. Keep all options as it is with no change in selected options and click btn:[Create] to create the resource.
++
+image::sno1_console_nmstate_install_4.png[]
+
+. Notice `nmstate` resource is created.
++
+image::sno1_console_nmstate_install_5.png[]
+
+. After 3 to 4 minutes, notice the `Refresh web console` message on window.
++
+image::sno1_console_nmstate_install_6.png[]
+
+== Install and Configure Operators on `sno2` and `sno3` Clusters
+
+. Follow the same prerequisites from previous section for `sno2` and `sno3` clusters.
+. Follow same steps from previous section for installing and configuring operators on the `sno2` and `sno3` clusters.

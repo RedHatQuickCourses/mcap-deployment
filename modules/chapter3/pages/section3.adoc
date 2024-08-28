@@ -140,5 +140,7 @@ image::vnc_sno1_cluster_access_4.png[]
 +
 image::vnc_sno1_cluster_access_5.png[]
 
-[NOTE]
-Follow same steps for `sno2` and `sno3` clusters.
+== Access the _sno2_ and _sno3_ Clusters via CLI and from Web Console
+
+. Follow the same prerequisites from previous section for `sno2` and `sno3` clusters.
+. Follow same steps from previous section for accessing the `sno2` and `sno3` clusters.

@@ -110,7 +110,7 @@ image::local_cluster_access.png[]
 
 . Access the operator hub.
 +
-From left navigation pane, click menu:Operators[OperatorHub]
+From left navigation pane, click menu:Operators[OperatorHub].
 +
 image::operator_hub.png[]
 
