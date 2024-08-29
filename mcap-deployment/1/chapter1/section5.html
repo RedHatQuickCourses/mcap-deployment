@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Hub VM Configuration :: Deploy Mission Critical Application Platform (MCAP)</title>
-    <link rel="prev" href="index.html">
-    <link rel="next" href="section2.html">
+    <title>Storage VM Deployment without Automation :: Deploy Mission Critical Application Platform (MCAP)</title>
+    <link rel="prev" href="section4.html">
+    <link rel="next" href="section6.html">
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script>var uiRootPath = '../../../_'</script>
@@ -48,25 +48,25 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../chapter1/index.html">Hands-on Lab Environment Setup for MCAP</a>
+    <a class="nav-link" href="index.html">Hands-on Lab Environment Setup for MCAP</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter1/section1.html">MCAP Setup in RHDP Lab</a>
+    <a class="nav-link" href="section1.html">MCAP Setup in RHDP Lab</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter1/section2.html">Initial Setup on Hypervisor with Automation</a>
+    <a class="nav-link" href="section2.html">Initial Setup on Hypervisor with Automation</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter1/section3.html">Initial Setup on Hypervisor without Automation</a>
+    <a class="nav-link" href="section3.html">Initial Setup on Hypervisor without Automation</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter1/section4.html">Storage VM Deployment with Automation</a>
+    <a class="nav-link" href="section4.html">Storage VM Deployment with Automation</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="section5.html">Storage VM Deployment without Automation</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter1/section5.html">Storage VM Deployment without Automation</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter1/section6.html">Ceph Storage Deployment</a>
+    <a class="nav-link" href="section6.html">Ceph Storage Deployment</a>
   </li>
 </ul>
   </li>
@@ -76,19 +76,19 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">Hub Cluster Deployment</a>
+    <a class="nav-link" href="../chapter2/index.html">Hub Cluster Deployment</a>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="section1.html">Hub VM Configuration</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter2/section1.html">Hub VM Configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section2.html">Assisted Clusters - Hub Cluster</a>
+    <a class="nav-link" href="../chapter2/section2.html">Assisted Clusters - Hub Cluster</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section3.html">Access the Hub Cluster</a>
+    <a class="nav-link" href="../chapter2/section3.html">Access the Hub Cluster</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section4.html">Install Operators and Configure Service</a>
+    <a class="nav-link" href="../chapter2/section4.html">Install Operators and Configure Service</a>
   </li>
 </ul>
   </li>
@@ -164,8 +164,8 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Deploy Mission Critical Application Platform (MCAP)</a></li>
-    <li><a href="index.html">Hub Cluster Deployment</a></li>
-    <li><a href="section1.html">Hub VM Configuration</a></li>
+    <li><a href="index.html">Hands-on Lab Environment Setup for MCAP</a></li>
+    <li><a href="section5.html">Storage VM Deployment without Automation</a></li>
   </ul>
 </nav>
 </div>
@@ -174,15 +174,28 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Hub VM Configuration</h1>
+<h1 class="page">Storage VM Deployment without Automation</h1>
 <div id="preamble">
 <div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+If you have followed the automation instructions from previous page then skip this page.
+Follow the steps from this page only if you choose to configure manually.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
-<p>In this section, you will be creating one KVM with name <code>hub</code>.</p>
+<p>In this section, you will be creating one KVM with name <code>storage</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/MCAP_setup.png" alt="MCAP setup">
+<img src="_images/MCAP_setup_2.png" alt="MCAP setup 2">
 </div>
 </div>
 </div>
@@ -191,17 +204,27 @@
 <h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><mark>FIX this - Try Automation playbook</mark></p>
+<p>Copy the <code>rhel-9.4-x86_64-kvm.qcow2</code> image from <code>/root</code> and place it in /var/lib/libvirt/images directory.</p>
+</div>
+<div class="listingblock">
+<div class="title">Sample output</div>
+<div class="content">
+<pre>[user@laptop]$ ssh lab-user@14X.XX.YY.Z
+
+[lab-user@hypervisor ~]$ sudo su -
+
+[root@hypervisor ~]# cp /root/rhel-9.4-x86_64-kvm.qcow2 /var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2</pre>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_hub_vm_deployment"><a class="anchor" href="#_hub_vm_deployment"></a>Hub VM Deployment</h2>
+<h2 id="_storage_vm_deployment_without_automation"><a class="anchor" href="#_storage_vm_deployment_without_automation"></a>Storage VM Deployment without Automation</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Ensure the rhel9 qcow2 image is in <code>/var/lib/libvirt/images</code> directory.</p>
+<p>Ensure the rhel9 QCOW2 image is in <code>/var/lib/libvirt/images</code> directory.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd /var/lib/libvirt/images/</code></pre>
@@ -210,22 +233,22 @@
 <div class="listingblock">
 <div class="title">Sample output</div>
 <div class="content">
-<pre>ls -alh /var/lib/libvirt/images/rhel9-guest.qcow2
--rw-r--r--. 1 lab-user users 913M Aug 21 10:00 /var/lib/libvirt/images/rhel9-guest.qcow2</pre>
+<pre>ls -alh /var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2
+-rw-r--r--. 1 lab-user users 913M Aug 21 10:00 /var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2</pre>
 </div>
 </div>
 </li>
 <li>
-<p>Check the virtual and disk size of qcow2 image.</p>
+<p>Check the virtual and disk size of QCOW2 image.</p>
 <div class="paragraph">
-<p>To get information on qcow2 image, run <code>qemu-img info</code> command on the qcow2 image.</p>
+<p>To get information on QCOW2 image, run <code>qemu-img info</code> command on the QCOW2 image.</p>
 </div>
 <div class="listingblock">
 <div class="title">Sample output</div>
 <div class="content">
-<pre>qemu-img info rhel9-guest.qcow2
+<pre>qemu-img info rhel-9.4-x86_64-kvm.qcow2
 
-image: rhel9-guest.qcow2
+image: rhel-9.4-x86_64-kvm.qcow2
 file format: qcow2
 virtual size: 10 GiB (10737418240 bytes)
 disk size: 913 MiB
@@ -235,28 +258,27 @@ cluster_size: 65536
 </div>
 </li>
 <li>
-<p>Resize the image with additional size of 120G.</p>
+<p>Resize the image with additional size of 30G.</p>
 <div class="listingblock execute">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">qemu-img resize rhel9-guest.qcow2 +120G</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">qemu-img resize rhel-9.4-x86_64-kvm.qcow2 +30G</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>This increases the virtual size of the disk.</p>
 </div>
 <div class="paragraph">
-<p>Ensure virtual size is increased by 120GB.</p>
+<p>Ensure virtual size is increased by 30GB.</p>
 </div>
 <div class="listingblock">
 <div class="title">Sample output</div>
 <div class="content">
-<pre>qemu-img info rhel9-guest.qcow2
+<pre>qemu-img info rhel-9.4-x86_64-kvm.qcow2
 
-image: rhel9-guest.qcow2
+image: rhel-9.4-x86_64-kvm.qcow2
 file format: qcow2
-virtual size: 130 GiB (139586437120 bytes)
+virtual size: 40 GiB (42949672960 bytes)
 disk size: 913 MiB
-cluster_size: 65536
 ...output omitted...</pre>
 </div>
 </div>
@@ -265,7 +287,7 @@ cluster_size: 65536
 <p>Change the ownership of the image to <code>qemu:qemu</code>.</p>
 <div class="listingblock execute">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chown -R qemu:qemu rhel9-guest.qcow2</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chown -R qemu:qemu rhel-9.4-x86_64-kvm.qcow2</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -276,11 +298,11 @@ cluster_size: 65536
 <p>Resize the partition 4 of QCOW2 image.</p>
 <div class="listingblock execute">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-customize -a rhel9-guest.qcow2 --run-command 'growpart /dev/sda 4'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --run-command 'growpart /dev/sda 4'</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>This will resize the partition with additional size i.e. 120GB.</p>
+<p>This will resize the partition with additional size i.e. 30GB.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://access.redhat.com/solutions/5540131" target="read-later">What is growpart utility and how to use it?</a></p>
@@ -290,7 +312,7 @@ cluster_size: 65536
 <p>Increase the filesystem on <code>/</code>.</p>
 <div class="listingblock execute">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-customize -a rhel9-guest.qcow2 --run-command 'xfs_growfs /'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --run-command 'xfs_growfs /'</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -298,10 +320,10 @@ cluster_size: 65536
 </div>
 </li>
 <li>
-<p>Set the <code>root</code> user password for qcow2 image.</p>
+<p>Set the <code>root</code> user password for QCOW2 image.</p>
 <div class="listingblock execute">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-customize -a rhel9-guest.qcow2 --root-password password:redhat</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --root-password password:redhat</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -312,66 +334,70 @@ cluster_size: 65536
 <p>Disable the <code>cloud-init</code> service in qcow2 image.</p>
 <div class="listingblock execute">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-customize -a rhel9-guest.qcow2 --run-command 'systemctl disable cloud-init'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --run-command 'systemctl disable cloud-init'</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Inject the <code>root</code> user&#8217;s public rsa key in qcow2 image.</p>
+<p>Inject the <code>root</code> user&#8217;s public RSA key in QCOW2 image.</p>
 <div class="listingblock execute">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-customize -a rhel9-guest.qcow2 --ssh-inject root:file:/root/.ssh/id_rsa.pub</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --ssh-inject root:file:/root/.ssh/id_rsa.pub</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Selinux relabel in qcow2 image.</p>
+<p>SELinux relabel in QCOW2 image.</p>
 <div class="listingblock execute">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-customize -a rhel9-guest.qcow2 --selinux-relabel</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --selinux-relabel</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Create the image for <code>hub</code> VM using the <em>rhel9.X</em> qcow2 image.</p>
+<p>Create the image for <code>storage</code> VM using the <em>rhel9.X</em> QCOW2 image.</p>
 <div class="listingblock execute">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">qemu-img create -f qcow2 -F qcow2 -b /var/lib/libvirt/images/rhel9-guest.qcow2 /var/lib/libvirt/images/hub.qcow2</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">qemu-img create -f qcow2 -F qcow2 -b /var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2 /var/lib/libvirt/images/storage.qcow2</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Sample output</div>
 <div class="content">
-<pre>Formatting '/var/lib/libvirt/images/hub.qcow2', fmt=qcow2 cluster_size=65536 extended_l2=off compression_type=zlib size=139586437120 backing_file=/var/lib/libvirt/images/rhel9-guest.qcow2 backing_fmt=qcow2 lazy_refcounts=off refcount_bits=16</pre>
+<pre>Formatting '/var/lib/libvirt/images/storage.qcow2', fmt=qcow2 cluster_size=65536 extended_l2=off compression_type=zlib size=42949672960 backing_file=/var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2 backing_fmt=qcow2 lazy_refcounts=off refcount_bits=16</pre>
 </div>
 </div>
 </li>
 <li>
-<p>Create the <code>hub</code> VM with three 2TB disks.
+<p>Create the <code>storage</code> VM with three 2TB disks.
 Disk path should be storage pool path i.e. <code>/var/lib/libvirt/images/</code>.
-mac address for the <code>hub</code> VM should be same as from the dhcp configuration.</p>
+mac address for the <code>storage</code> VM should be same as from the dhcp configuration.</p>
 <div class="listingblock execute">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-install --virt-type kvm --ram 122880 --vcpus 32 --cpu=host-passthrough --os-variant rhel9.3 \
---disk path=/var/lib/libvirt/images/hub.qcow2,device=disk,bus=virtio,format=qcow2 \
---disk path=/var/lib/libvirt/images/hub-disk.qcow2,device=disk,bus=virtio,format=qcow2,size=250 \
---network bridge=virbr0,mac=52:54:00:23:60:87 --boot hd,network --noautoconsole \
---vnc --name hub --noreboot</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-install --virt-type kvm --ram 16384 --vcpus 4 --cpu=host-passthrough --os-variant rhel9.3 \
+--disk path=/var/lib/libvirt/images/storage.qcow2,device=disk,bus=virtio,format=qcow2 \
+--disk path=/var/lib/libvirt/images/ceph-disk1.qcow2,device=disk,bus=virtio,format=qcow2,size=2000 \
+--disk path=/var/lib/libvirt/images/ceph-disk2.qcow2,device=disk,bus=virtio,format=qcow2,size=2000 \
+--disk path=/var/lib/libvirt/images/ceph-disk3.qcow2,device=disk,bus=virtio,format=qcow2,size=2000 \
+--network bridge=virbr0,mac=52:54:00:0a:a9:88 --boot hd,network --noautoconsole \
+--vnc --name storage --noreboot</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Sample output</div>
 <div class="content">
 <pre>Starting install...
-Allocating 'hub-disk.qcow2'                    | 250 GB  00:00:00
-Creating domain...                             |         00:00:00
+Allocating 'ceph-disk1qcow2'                     | 2.0 TB  00:00:02
+Allocating 'ceph-disk2.qcow2'                    | 2.0 TB  00:00:02
+Allocating 'ceph-disk3.qcow2'                    | 2.0 TB  00:00:02
+Creating domain...                               |         00:00:00
 Domain creation completed.
 You can restart your domain by running:
-  virsh --connect qemu:///system start hub</pre>
+  virsh --connect qemu:///system start storage</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Verify <code>hub</code> VM is created and in <code>shut off</code> state.</p>
+<p>Verify <code>storage</code> VM is created and in <code>shut off</code> state.</p>
 </div>
 <div class="listingblock">
 <div class="title">Sample output</div>
@@ -380,26 +406,25 @@ You can restart your domain by running:
 
  Id   Name      State
 --------------------------
- 1    storage   running
- -    hub       shut off</pre>
+ -    storage   shut off</pre>
 </div>
 </div>
 </li>
 <li>
-<p>Start the <code>hub</code> VM.</p>
+<p>Start the <code>storage</code> VM.</p>
 <div class="listingblock execute">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virsh start hub</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virsh start storage</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Sample output</div>
 <div class="content">
-<pre>Domain 'hub' started</pre>
+<pre>Domain 'storage' started</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Verify <code>hub</code> VM is in <code>running</code> state.</p>
+<p>Verify <code>storage</code> VM is in <code>running</code> state.</p>
 </div>
 <div class="listingblock">
 <div class="title">Sample output</div>
@@ -408,31 +433,7 @@ You can restart your domain by running:
 
  Id   Name      State
 -------------------------
- 1    storage   running
- 8    hub       running</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Verify <code>hub</code> VM is booted successfully.</p>
-<div class="paragraph">
-<p>Take the console of the <code>hub</code> VM and login as <em>root</em> user with <em>redhat</em> as password.</p>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virsh console hub</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Sample output</div>
-<div class="content">
-<pre>[root@hypervisor images]# virsh console hub
-Connected to domain 'hub'
-Escape character is ^] (Ctrl + ])
-
-hub login: root
-Password:
-[root@hub ~]#</pre>
+ 1    storage   running</pre>
 </div>
 </div>
 </li>
@@ -441,8 +442,8 @@ Password:
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="index.html">Hub Cluster Deployment</a></span>
-  <span class="next"><a href="section2.html">Assisted Clusters - Hub Cluster</a></span>
+  <span class="prev"><a href="section4.html">Storage VM Deployment with Automation</a></span>
+  <span class="next"><a href="section6.html">Ceph Storage Deployment</a></span>
 </nav>
 </article>
   </div>
