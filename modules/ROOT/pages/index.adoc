@@ -2,7 +2,7 @@
 :navtitle: Home
 
 Welcome to this quick course, _Deploy Mission Critical Application Platform (MCAP)_.
-This course helps you to learn the basic infrastructure required for MCAP and how to deploy nested OpenShift using OpenShift Virtualization.
+This course will help you learn the basic infrastructure required for MCAP and how to deploy nested OpenShift using OpenShift Virtualization.
 After completing this course, you will be able to deploy MCAP solution for production environment.
 
 == Authors
@@ -51,13 +51,13 @@ For this course, you should have:
 
 The overall objectives of this course include:
 
-* Provision the base infrastructure (HW, Storage, Networking) for the hands-on lab environment
-* Install utility services needed for the hands-on labs
-* Configure the base OpenShift infrastructure cluster to host tenant clusters
-* Configure the Infrastructure Cluster to host Virtual Machines
-* Provision multiple tenant clusters on top of the infrastructure cluster
-* Deploy and configure applications and Virtual Machines on Tenant Clusters
-* Test the high availability and resilience of deployed workloads
+* Provision the base infrastructure (HW, Storage, Networking) for the hands-on lab environment.
+* Install utility services needed for the hands-on labs.
+* Configure the base OpenShift infrastructure cluster to host tenant clusters.
+* Configure the Infrastructure Cluster to host Virtual Machines.
+* Provision multiple tenant clusters on top of the infrastructure cluster.
+* Deploy and configure applications and Virtual Machines on Tenant Clusters.
+* Test the high availability and resilience of deployed workloads.
 
 == References
 
