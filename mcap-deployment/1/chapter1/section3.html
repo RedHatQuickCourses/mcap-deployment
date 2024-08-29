@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Initial Setup on Hypervisor without Automation :: Deploy Mission Critical Application Platform (MCAP)</title>
+    <title>Storage VM Deployment :: Deploy Mission Critical Application Platform (MCAP)</title>
     <link rel="prev" href="section2.html">
     <link rel="next" href="section4.html">
     <meta name="generator" content="Antora 3.1.3">
@@ -54,19 +54,13 @@
     <a class="nav-link" href="section1.html">MCAP Setup in RHDP Lab</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section2.html">Initial Setup on Hypervisor with Automation</a>
+    <a class="nav-link" href="section2.html">Initial Setup on Hypervisor</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="section3.html">Initial Setup on Hypervisor without Automation</a>
+    <a class="nav-link" href="section3.html">Storage VM Deployment</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section4.html">Storage VM Deployment with Automation</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section5.html">Storage VM Deployment without Automation</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section6.html">Ceph Storage Deployment</a>
+    <a class="nav-link" href="section4.html">Ceph Storage Deployment</a>
   </li>
 </ul>
   </li>
@@ -79,7 +73,7 @@
     <a class="nav-link" href="../chapter2/index.html">Hub Cluster Deployment</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter2/section1.html">Hub VM Configuration</a>
+    <a class="nav-link" href="../chapter2/section1.html">Hub VM Deployment</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../chapter2/section2.html">Assisted Clusters - Hub Cluster</a>
@@ -101,7 +95,7 @@
     <a class="nav-link" href="../chapter3/index.html">Infrastructure Cluster Deployment</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter3/section1.html">Infrastructure VM Configuration</a>
+    <a class="nav-link" href="../chapter3/section1.html">Infrastructure VM Deployment</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../chapter3/section2.html">Assisted Clusters - Infrastructure Clusters</a>
@@ -130,6 +124,28 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../chapter4/section2.html">Install Sample Application on Tenant Cluster</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../appendix/appendix.html">Appendix A</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/section1.html">Initial Setup on Hypervisor without Automation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/section2.html">Storage VM Deployment without Automation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/section3.html">Hub VM Deployment without Automation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/section4.html">Infrastructure VM Deployment without Automation</a>
   </li>
 </ul>
   </li>
@@ -165,7 +181,7 @@
   <ul>
     <li><a href="../index.html">Deploy Mission Critical Application Platform (MCAP)</a></li>
     <li><a href="index.html">Hands-on Lab Environment Setup for MCAP</a></li>
-    <li><a href="section3.html">Initial Setup on Hypervisor without Automation</a></li>
+    <li><a href="section3.html">Storage VM Deployment</a></li>
   </ul>
 </nav>
 </div>
@@ -174,29 +190,27 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Initial Setup on Hypervisor without Automation</h1>
+<h1 class="page">Storage VM Deployment</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="admonitionblock important">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If you have followed the automation instructions from previous page then skip this page.
-Follow the steps from this page only if you choose to configure manually.
+You can refer how to configure manually i.e. without automation in at the end appendix chapter.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Before proceeding the actual MCAP deployment, let&#8217;s first ensure the initial setup and configuration is done on the hypervisor.
-You will need to perform few tasks before actual deployment of openshift clusters.</p>
+<p>In this section, you will be creating one KVM with name <code>storage</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/MCAP_setup_1.png" alt="MCAP setup 1">
+<img src="_images/MCAP_setup_2.png" alt="MCAP setup 2">
 </div>
 </div>
 </div>
@@ -205,1077 +219,34 @@ You will need to perform few tasks before actual deployment of openshift cluster
 <h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Login as <code>root</code> on the hypervisor.</p>
-</div>
-<div class="listingblock">
-<div class="title">Sample output</div>
-<div class="content">
-<pre>[user@laptop]$ ssh lab-user@14X.XX.YY.Z
-
-[lab-user@hypervisor ~]$ sudo su -
-
-[root@hypervisor ~]#</pre>
-</div>
+<p>Ensure you have already executed <strong><em>setup_hypervisor.yaml</em></strong> playbook from <code>Initial Setup on Hypervisor</code> page.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_setup_and_configuration_without_automation"><a class="anchor" href="#_setup_and_configuration_without_automation"></a>Setup and Configuration without Automation</h2>
+<h2 id="_storage_vm_deployment"><a class="anchor" href="#_storage_vm_deployment"></a>Storage VM Deployment</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_create_ssh_key_for_the_root_user"><a class="anchor" href="#_create_ssh_key_for_the_root_user"></a>Create SSH key for the root user</h3>
 <div class="paragraph">
-<p>The public key from the following command will be used while deploying <em>Hub</em> and <em>Infrastructure</em> clusters.
-You will be asked for public key while building the discovery iso for the host.</p>
+<p>You can either use the <strong><em>setup_storage.yaml</em></strong> playbook to create QCOW2 image for <code>storage</code> VM and then deploy <code>storage</code> VM on the hypervisor.</p>
+</div>
+<div class="paragraph">
+<p>Ensure you are in <strong><em>ansible</em></strong> directory of the repo.</p>
 </div>
 <div class="listingblock execute">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ssh-keygen -t rsa -f /root/.ssh/id_rsa -N ''</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_install_the_required_packages"><a class="anchor" href="#_install_the_required_packages"></a>Install the required packages</h3>
-<div class="paragraph">
-<p>The following required packages needed for dhcp server, http server, dns server, vnc server and creating virtual machines on hypervisor.
-It also include additional tools packages.</p>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dnf -y install jq dhcp-server bind bind-utils httpd httpd-tools podman \
-vim wget telnet curl lvm2 git libvirt qemu-kvm virt-manager virt-install libguestfs-tools tar \
-libguestfs-tools-c cockpit cockpit-machines unzip tigervnc tigervnc-server firefox gnome-kiosk</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_increase_the_swap_space"><a class="anchor" href="#_increase_the_swap_space"></a>Increase the <em>Swap</em> space</h3>
-<div class="paragraph">
-<p><em>Swap</em> space is extension of physical RAM.
-It offers virtual memory in case of physical RAM is fully used.
-MCAP needs considerable amount of memory and it is recommended to have proportionate amount of <em>Swap</em> space configured in an environment.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Disable the existing <em>Swap</em> first.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">swapoff -a</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-playbook playbooks/setup_storage.yaml -vvv | tee -a /tmp/setup_storage.log</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Check the <em>Swap</em> space using <code>free</code> command.</p>
-</div>
-<div class="listingblock">
-<div class="title">Sample output</div>
-<div class="content">
-<pre>free -mh
-               total        used        free      shared  buff/cache   available
-Mem:           503Gi       9.4Gi       494Gi        20Mi       3.1Gi       493Gi
-Swap:             0B          0B          0B</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Remove swap entry from <code>/etc/fstab</code>.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sed -i '/swap/d' /etc/fstab</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Find the unused 250GB nvme disk.</p>
-<div class="listingblock">
-<div class="title">Sample output</div>
-<div class="content">
-<pre>lsblk
-
-NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
-nvme1n1     259:0    0 238.5G  0 disk
-nvme0n1     259:1    0 238.5G  0 disk
-├─nvme0n1p1 259:2    0   512M  0 part /boot/efi
-├─nvme0n1p2 259:3    0   1.9G  0 part
-└─nvme0n1p3 259:4    0 236.1G  0 part /
-nvme3n1     259:5    0   3.5T  0 disk
-nvme2n1     259:6    0   3.5T  0 disk</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Here <code>nvme1n1</code> disk can be used to create the swap space.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The NVMe disk sequencing used as an OS partition will change, whenever you provision the catalog.
-The unused NVMe disk may vary in your environment output.
-</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Use unused 250GB nvme disk as swap partition.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkswap /dev/nvme1n1</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Sample output</div>
-<div class="content">
-<pre>Setting up swapspace version 1, size = 238.5 GiB (256060510208 bytes)
-no label, UUID=455687c9-aaf7-46a6-9097-be4587a48f2f</pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The above UUID may differ in your environment.
-</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Add swap entry in <code>/etc/fstab</code> to make it persistent throughout the reboot.</p>
-<div class="paragraph">
-<p>Ensure to replace the UUID in following command with UUID from previous step.</p>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">echo "UUID=455687c9-aaf7-46a6-9097-be4587a48f2f      none    swap    none    0       0" &gt;&gt; /etc/fstab</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Sample output</div>
-<div class="content">
-<pre>cat /etc/fstab
-
-UUID=6D5D-C9B9	/boot/efi	vfat	errors=remount-ro	0	2
-UUID=071aef59-7224-4502-a526-bea01cc3e320	/	ext4	errors=remount-ro	0	1
-
-UUID=455687c9-aaf7-46a6-9097-be4587a48f2f	none	swap	none	0	0</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Enable the swap.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">swapon -a</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Check the <em>Swap</em> space using <code>free</code> command.</p>
-</div>
-<div class="listingblock">
-<div class="title">Sample output</div>
-<div class="content">
-<pre>free -mh
-               total        used        free      shared  buff/cache   available
-Mem:           503Gi       9.6Gi       493Gi        20Mi       3.1Gi       493Gi
-Swap:          238Gi          0B       238Gi</pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_create_lv_for_vm_storage_pool"><a class="anchor" href="#_create_lv_for_vm_storage_pool"></a>Create LV for VM storage pool</h3>
-<div class="paragraph">
-<p>The LV created in this section will be used as storage pool for virtual machine disks and backend shared OpenShift DataFoundation using Red Hat Ceph storage for <em>Tenant</em> cluster.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Find the 3.5TB nvme disks.</p>
-<div class="listingblock">
-<div class="title">Sample output</div>
-<div class="content">
-<pre>lsblk
-
-NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
-nvme1n1     259:0    0 238.5G  0 disk [SWAP]
-nvme0n1     259:1    0 238.5G  0 disk
-├─nvme0n1p1 259:2    0   512M  0 part /boot/efi
-├─nvme0n1p2 259:3    0   1.9G  0 part
-└─nvme0n1p3 259:4    0 236.1G  0 part /
-nvme3n1     259:5    0   3.5T  0 disk
-nvme2n1     259:6    0   3.5T  0 disk</pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The NVMe disk sequencing used as an OS partition will change, whenever you provision the catalog.
-The unused NVMe disk may vary in your environment output.
-</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Create a PV of 7TB with disks.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">pvcreate /dev/nvme3n1 /dev/nvme2n1</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Create VG of 7TB.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">vgcreate vgstrorage /dev/nvme3n1 /dev/nvme2n1</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Create a LV of 7TB with remaining space in the volume group.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">lvcreate -l 100%FREE -n cephlv vgstrorage</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Verify the LV size is 7TB.</p>
-</div>
-<div class="listingblock">
-<div class="title">Sample output</div>
-<div class="content">
-<pre>lvs
-
-  LV     VG         Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
-  cephlv vgstrorage -wi-a----- &lt;6.99t</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Format LV of 7TB with the ext4 filesystem.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkfs.ext4 /dev/vgstrorage/cephlv</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Sample output</div>
-<div class="content">
-<pre>mke2fs 1.46.5 (30-Dec-2021)
-Discarding device blocks: done
-Creating filesystem with 1875367936 4k blocks and 234422272 inodes
-Filesystem UUID: 195dc91e-58be-4671-bbf5-b4fdf70945e2
-Superblock backups stored on blocks:
-	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
-	4096000, 7962624, 11239424, 20480000, 23887872, 71663616, 78675968,
-	102400000, 214990848, 512000000, 550731776, 644972544
-
-Allocating group tables: done
-Writing inode tables: done
-Creating journal (262144 blocks): done
-Writing superblocks and filesystem accounting information: done</pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The above UUID may differ in your environment.
-</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Mount the 7TB LV on <code>/var/lib/libvirt/images</code>.</p>
-<div class="paragraph">
-<p>Ensure to replace the UUID in following command with UUID from previous step.</p>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">echo "UUID=195dc91e-58be-4671-bbf5-b4fdf70945e2	/var/lib/libvirt/images	ext4	errors=remount-ro	0	1" &gt;&gt; /etc/fstab</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Run <code>mount</code> command to mount the LV on <code>/var/lib/libvirt/images</code>.</p>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mount -a</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Use <code>systemctl daemon-reload</code> to reload.
-This will ensure the latest version of the <code>/etc/fstab</code> is referred.</p>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">systemctl daemon-reload</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Verify the 7TB LV is correctly mounted.</p>
-</div>
-<div class="listingblock">
-<div class="title">Sample output</div>
-<div class="content">
-<pre>df -h
-
-Filesystem                     Size  Used Avail Use% Mounted on
-devtmpfs                       4.0M     0  4.0M   0% /dev
-tmpfs                          252G     0  252G   0% /dev/shm
-tmpfs                          101G   18M  101G   1% /run
-/dev/nvme0n1p3                 232G  4.2G  216G   2% /
-/dev/nvme0n1p1                 511M  6.4M  505M   2% /boot/efi
-tmpfs                           51G     0   51G   0% /run/user/0
-/dev/mapper/vgstrorage-cephlv  7.0T   28K  6.6T   1% /var/lib/libvirt/images</pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_enable_and_start_the_libvirt_and_cockpit_services"><a class="anchor" href="#_enable_and_start_the_libvirt_and_cockpit_services"></a>Enable and start the libvirt and cockpit services</h3>
-<div class="paragraph">
-<p>After enabling and starting the libvirt services, <code>virbr0</code> bridge will be created.
-You can verify it by running the <code>ip addr</code> command.</p>
-</div>
-<div class="paragraph">
-<p>After enabling and starting the cockpit services, it creates cockpit web console access.
-You can login to cockpit web console with <code>lab-user&#8217;s</code> credentials.</p>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">systemctl enable libvirt-guests.service --now</code></pre>
-</div>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">systemctl enable libvirtd --now</code></pre>
-</div>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">systemctl enable cockpit.socket --now</code></pre>
-</div>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">systemctl start cockpit</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-You can use the cockpit web console (<a href="https://&lt;your_hypervisor_IP&gt;:9090/" class="bare">https://&lt;your_hypervisor_IP&gt;:9090/</a>) to monitor the VM&#8217;s resources and console access.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_configure_dhcp"><a class="anchor" href="#_configure_dhcp"></a>Configure DHCP</h3>
-<div class="paragraph">
-<p>It is recommended to have DHCP server.
-In this section, you will be configuring the DHCP server.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Create the <code>/etc/dhcp/dhcpd.conf</code> file.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt;/etc/dhcp/dhcpd.conf&lt;&lt;EOF
-#
-# DHCP Server Configuration file.
-#   see /usr/share/doc/dhcp-server/dhcpd.conf.example
-#   see dhcpd.conf(5) man page
-#
-authoritative;
-ddns-update-style interim;
-allow booting;
-allow bootp;
-allow unknown-clients;
-ignore client-updates;
-default-lease-time 14400;
-max-lease-time 14400;
-subnet 192.168.122.0 netmask 255.255.255.0 {
-        option routers                  192.168.122.1;
-        option subnet-mask              255.255.255.0;
-        option domain-search            "lab.example.com";
-        option domain-name-servers      192.168.122.1, 8.8.8.8;
-	  range   192.168.122.30   192.168.122.100;
-}
-host storage.lab.example.com {
-   option host-name "storage.lab.example.com";
-   hardware ethernet 52:54:00:0a:a9:88;
-   fixed-address 192.168.122.9;
-}
-host hub.lab.example.com {
-   option host-name "hub.lab.example.com";
-   hardware ethernet 52:54:00:23:60:87;
-   fixed-address 192.168.122.10;
-}
-host sno1.lab.example.com {
-   option host-name "sno1.lab.example.com";
-   hardware ethernet 52:54:00:87:f4:2f;
-   fixed-address 192.168.122.11;
-}
-host sno2.lab.example.com {
-   option host-name "sno2.lab.example.com";
-   hardware ethernet 52:54:00:cc:51:86;
-   fixed-address 192.168.122.12;
-}
-host sno3.lab.example.com {
-   option host-name "sno3.lab.example.com";
-   hardware ethernet 52:54:00:67:34:25;
-   fixed-address 192.168.122.13;
-}
-host tcn1.lab.example.com {
-   option host-name "tcn1.lab.example.com";
-   hardware ethernet 52:54:00:68:35:27;
-   fixed-address 192.168.122.21;
-}
-host tcn2.lab.example.com {
-   option host-name "tcn2.lab.example.com";
-   hardware ethernet 52:54:00:69:36:28;
-   fixed-address 192.168.122.22;
-}
-host tcn3.lab.example.com {
-   option host-name "tcn3.lab.example.com";
-   hardware ethernet 52:54:00:70:37:29;
-   fixed-address 192.168.122.23;
-}
-EOF</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Set the correct SELinux context of the <code>/etc/dhcp/dhcpd.conf</code> file.
-For additional information on SELinux refer - <a href="https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/using_selinux/index#introduction-to-selinux_getting-started-with-selinux" target="read-later">Introduction to SELinux</a></p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chcon system_u:object_r:dhcp_etc_t:s0 /etc/dhcp/dhcpd.conf</code></pre>
-</div>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">restorecon -vF /etc/dhcp/dhcpd.conf</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Start the <code>dhcpd</code> service.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">systemctl start dhcpd</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_configure_dns"><a class="anchor" href="#_configure_dns"></a>Configure DNS</h3>
-<div class="paragraph">
-<p>To have name resolution, DNS server is needed.
-In this section, you will be configuring the DNS server.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Create the <code>/etc/named.conf</code> file.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt;/etc/named.conf&lt;&lt;-"EOF"
-//
-// named.conf
-//
-// Provided by Red Hat bind package to configure the ISC BIND named(8) DNS
-// server as a caching only nameserver (as a localhost DNS resolver only).
-//
-// See /usr/share/doc/bind*/sample/ for example named configuration files.
-//
-// See the BIND Administrator's Reference Manual (ARM) for details about the
-
-options {
-        # change ( listen all )
-        listen-on port 53 { 127.0.0.1; 192.168.122.1; };
-        # change( if not use IPv6 )
-        listen-on-v6 { none; };
-	directory 	"/var/named";
-	dump-file 	"/var/named/data/cache_dump.db";
-	statistics-file "/var/named/data/named_stats.txt";
-	memstatistics-file "/var/named/data/named_mem_stats.txt";
-	secroots-file	"/var/named/data/named.secroots";
-	recursing-file	"/var/named/data/named.recursing";
-        allow-query         { localhost; 192.168.122.0/24; };
-        allow-transfer      { localhost; 192.168.122.0/24; };
-
-	/*
-	 - If you are building an AUTHORITATIVE DNS server, do NOT enable recursion.
-	 - If you are building a RECURSIVE (caching) DNS server, you need to enable
-	   recursion.
-	 - If your recursive DNS server has a public IP address, you MUST enable access
-	   control to limit queries to your legitimate users. Failing to do so will
-	   cause your server to become part of large scale DNS amplification
-	   attacks. Implementing BCP38 within your network would greatly
-	   reduce such attack surface
-	*/
-	recursion yes;
-
-        forwarders {192.168.122.1; 8.8.8.8; };
-	managed-keys-directory "/var/named/dynamic";
-
-	pid-file "/run/named/named.pid";
-	session-keyfile "/run/named/session.key";
-
-};
-
-logging {
-        channel default_debug {
-                file "data/named.run";
-                severity dynamic;
-        };
-};
-
-zone "." IN {
-	type hint;
-	file "named.ca";
-};
-
-include "/etc/named.rfc1912.zones";
-include "/etc/named.root.key";
-
-zone "lab.example.com" {
-      type master;
-      file "lab.example.com.zone";
-};
-
-zone   "122.168.192.in-addr.arpa" IN {
-       type master;
-       file "122.168.192.in-addr.arpa";
-};
-EOF</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Create <code>/var/named/lab.example.com.zone</code> file.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt;/var/named/lab.example.com.zone&lt;&lt;-"EOF"
-$TTL    604800
-@       IN      SOA    hypervisor. root.hypervisor. (
-                  3     ; Serial
-             604800     ; Refresh
-              86400     ; Retry
-            2419200     ; Expire
-             604800 )   ; Negative Cache TTL
-;
-; name servers - NS records
-     IN      NS      hypervisor.
-
-hypervisor.                      IN	     A 	     192.168.122.1
-
-storage.lab.example.com.         IN	     A	     192.168.122.9
-hub.lab.example.com. 		   IN	     A 	     192.168.122.10
-sno1.lab.example.com. 		   IN	     A 	     192.168.122.11
-sno2.lab.example.com. 		   IN	     A 	     192.168.122.12
-sno3.lab.example.com. 		   IN	     A      	192.168.122.13
-tcn1.lab.example.com.            IN	     A      	192.168.122.21
-tcn2.lab.example.com.            IN	     A      	192.168.122.22
-tcn3.lab.example.com.            IN	     A      	192.168.122.23
-
-api.hub.lab.example.com.                                               IN	     A 	     192.168.122.10
-oauth-openshift.apps.hub.lab.example.com.                              IN	     A 	     192.168.122.10
-console-openshift-console.apps.hub.lab.example.com.                    IN	     A 	     192.168.122.10
-grafana-openshift-monitoring.apps.hub.lab.example.com.                 IN	     A 	     192.168.122.10
-thanos-querier-openshift-monitoring.apps.hub.lab.example.com.          IN	     A 	     192.168.122.10
-prometheus-k8s-openshift-monitoring.apps.hub.lab.example.com.          IN	     A 	     192.168.122.10
-alertmanager-main-openshift-monitoring.apps.hub.lab.example.com.       IN	     A 	     192.168.122.10
-assisted-image-service-multicluster-engine.apps.hub.lab.example.com.   IN	     A 	     192.168.122.10
-assisted-service-multicluster-engine.apps.hub.lab.example.com.         IN	     A 	     192.168.122.10
-downloads-openshift-console.apps.hub.lab.example.com.                  IN	     A 	     192.168.122.10
-
-api.sno1.lab.example.com.                                               IN	     A 	     192.168.122.11
-oauth-openshift.apps.sno1.lab.example.com.                              IN	     A 	     192.168.122.11
-console-openshift-console.apps.sno1.lab.example.com.                    IN	     A 	     192.168.122.11
-grafana-openshift-monitoring.apps.sno1.lab.example.com.                 IN	     A 	     192.168.122.11
-thanos-querier-openshift-monitoring.apps.sno1.lab.example.com.          IN	     A 	     192.168.122.11
-prometheus-k8s-openshift-monitoring.apps.sno1.lab.example.com.          IN	     A 	     192.168.122.11
-alertmanager-main-openshift-monitoring.apps.sno1.lab.example.com.       IN	     A 	     192.168.122.11
-assisted-image-service-multicluster-engine.apps.sno1.lab.example.com.   IN	     A 	     192.168.122.11
-assisted-service-multicluster-engine.apps.sno1.lab.example.com.         IN	     A 	     192.168.122.11
-downloads-openshift-console.apps.sno1.lab.example.com.                  IN	     A 	     192.168.122.11
-
-api.sno2.lab.example.com.                                               IN	     A 	     192.168.122.12
-oauth-openshift.apps.sno2.lab.example.com.                              IN	     A 	     192.168.122.12
-console-openshift-console.apps.sno2.lab.example.com.                    IN	     A 	     192.168.122.12
-grafana-openshift-monitoring.apps.sno2.lab.example.com.                 IN	     A 	     192.168.122.12
-thanos-querier-openshift-monitoring.apps.sno2.lab.example.com.          IN	     A 	     192.168.122.12
-prometheus-k8s-openshift-monitoring.apps.sno2.lab.example.com.          IN	     A 	     192.168.122.12
-alertmanager-main-openshift-monitoring.apps.sno2.lab.example.com.       IN	     A 	     192.168.122.12
-assisted-image-service-multicluster-engine.apps.sno2.lab.example.com.   IN	     A 	     192.168.122.12
-assisted-service-multicluster-engine.apps.sno2.lab.example.com.         IN	     A 	     192.168.122.12
-downloads-openshift-console.apps.sno2.lab.example.com.                  IN	     A 	     192.168.122.12
-
-api.sno3.lab.example.com.                                               IN	     A 	     192.168.122.13
-oauth-openshift.apps.sno3.lab.example.com.                              IN	     A 	     192.168.122.13
-console-openshift-console.apps.sno3.lab.example.com.                    IN	     A 	     192.168.122.13
-grafana-openshift-monitoring.apps.sno3.lab.example.com.                 IN	     A 	     192.168.122.13
-thanos-querier-openshift-monitoring.apps.sno3.lab.example.com.          IN	     A 	     192.168.122.13
-prometheus-k8s-openshift-monitoring.apps.sno3.lab.example.com.          IN	     A 	     192.168.122.13
-alertmanager-main-openshift-monitoring.apps.sno3.lab.example.com.       IN	     A 	     192.168.122.13
-assisted-image-service-multicluster-engine.apps.sno3.lab.example.com.   IN	     A 	     192.168.122.13
-assisted-service-multicluster-engine.apps.sno3.lab.example.com.         IN	     A 	     192.168.122.13
-downloads-openshift-console.apps.sno3.lab.example.com.                  IN	     A 	     192.168.122.13
-
-api.tenant.lab.example.com.                                               IN	     A 	     192.168.122.24
-oauth-openshift.apps.tenant.lab.example.com.                              IN	     A 	     192.168.122.25
-console-openshift-console.apps.tenant.lab.example.com.                    IN	     A 	     192.168.122.25
-grafana-openshift-monitoring.apps.tenant.lab.example.com.                 IN	     A 	     192.168.122.25
-thanos-querier-openshift-monitoring.apps.tenant.lab.example.com.          IN	     A 	     192.168.122.25
-prometheus-k8s-openshift-monitoring.apps.tenant.lab.example.com.          IN	     A 	     192.168.122.25
-alertmanager-main-openshift-monitoring.apps.tenant.lab.example.com.       IN	     A 	     192.168.122.25
-assisted-image-service-multicluster-engine.apps.tenant.lab.example.com.   IN	     A 	     192.168.122.25
-assisted-service-multicluster-engine.apps.tenant.lab.example.com.         IN	     A 	     192.168.122.25
-downloads-openshift-console.apps.tenant.lab.example.com.                  IN	     A 	     192.168.122.25
-EOF</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Create <code>/var/named/122.168.192.in-addr.arpa</code> file.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt;/var/named/122.168.192.in-addr.arpa&lt;&lt;-"EOF"
-$TTL    604800
-@       IN      SOA    hypervisor. admin.hypervisor. (
-                  3     ; Serial
-             604800     ; Refresh
-              86400     ; Retry
-            2419200     ; Expire
-             604800 )   ; Negative Cache TTL
-;
-; name servers - NS records
-     IN      NS      hypervisor.
-
-1.122.168.192.in-addr.arpa.	   IN	PTR	hypervisor.
-
-9.122.168.192.in-addr.arpa.	   IN	PTR	storage.lab.example.com.
-10.122.168.192.in-addr.arpa.     IN	PTR	hub.lab.example.com.
-11.122.168.192.in-addr.arpa. 	   IN	PTR	sno1.lab.example.com.
-12.122.168.192.in-addr.arpa. 	   IN	PTR	sno2.lab.example.com.
-13.122.168.192.in-addr.arpa.	   IN	PTR	sno3.lab.example.com.
-21.122.168.192.in-addr.arpa.	   IN	PTR	tcn1.lab.example.com.
-22.122.168.192.in-addr.arpa.	   IN	PTR	tcn2.lab.example.com.
-23.122.168.192.in-addr.arpa.	   IN	PTR	tcn3.lab.example.com.
-
-10.122.168.192.in-addr.arpa.  IN	PTR api.hub.lab.example.com.
-10.122.168.192.in-addr.arpa.  IN	PTR oauth-openshift.apps.hub.lab.example.com.
-10.122.168.192.in-addr.arpa.  IN	PTR console-openshift-console.apps.hub.lab.example.com.
-10.122.168.192.in-addr.arpa.  IN	PTR grafana-openshift-monitoring.apps.hub.lab.example.com.
-10.122.168.192.in-addr.arpa.  IN	PTR thanos-querier-openshift-monitoring.apps.hub.lab.example.com.
-10.122.168.192.in-addr.arpa.  IN	PTR prometheus-k8s-openshift-monitoring.apps.hub.lab.example.com.
-10.122.168.192.in-addr.arpa.  IN	PTR alertmanager-main-openshift-monitoring.apps.hub.lab.example.com.
-10.122.168.192.in-addr.arpa.  IN	PTR assisted-image-service-multicluster-engine.apps.hub.lab.example.com.
-10.122.168.192.in-addr.arpa.  IN	PTR assisted-service-multicluster-engine.apps.hub.lab.example.com.
-10.122.168.192.in-addr.arpa.  IN	PTR downloads-openshift-console.apps.hub.lab.example.com.
-
-11.122.168.192.in-addr.arpa.  IN	PTR api.sno1.lab.example.com.
-11.122.168.192.in-addr.arpa.  IN	PTR oauth-openshift.apps.sno1.lab.example.com.
-11.122.168.192.in-addr.arpa.  IN	PTR console-openshift-console.apps.sno1.lab.example.com.
-11.122.168.192.in-addr.arpa.  IN	PTR grafana-openshift-monitoring.apps.sno1.lab.example.com.
-11.122.168.192.in-addr.arpa.  IN	PTR thanos-querier-openshift-monitoring.apps.sno1.lab.example.com.
-11.122.168.192.in-addr.arpa.  IN	PTR prometheus-k8s-openshift-monitoring.apps.sno1.lab.example.com.
-11.122.168.192.in-addr.arpa.  IN	PTR alertmanager-main-openshift-monitoring.apps.sno1.lab.example.com.
-11.122.168.192.in-addr.arpa.  IN	PTR assisted-image-service-multicluster-engine.apps.sno1.lab.example.com.
-11.122.168.192.in-addr.arpa.  IN	PTR assisted-service-multicluster-engine.apps.sno1.lab.example.com.
-11.122.168.192.in-addr.arpa.  IN	PTR downloads-openshift-console.apps.sno1.lab.example.com.
-
-12.122.168.192.in-addr.arpa.  IN	PTR api.sno2.lab.example.com.
-12.122.168.192.in-addr.arpa.  IN	PTR oauth-openshift.apps.sno2.lab.example.com.
-12.122.168.192.in-addr.arpa.  IN	PTR console-openshift-console.apps.sno2.lab.example.com.
-12.122.168.192.in-addr.arpa.  IN	PTR grafana-openshift-monitoring.apps.sno2.lab.example.com.
-12.122.168.192.in-addr.arpa.  IN	PTR thanos-querier-openshift-monitoring.apps.sno2.lab.example.com.
-12.122.168.192.in-addr.arpa.  IN	PTR prometheus-k8s-openshift-monitoring.apps.sno2.lab.example.com.
-12.122.168.192.in-addr.arpa.  IN	PTR alertmanager-main-openshift-monitoring.apps.sno2.lab.example.com.
-12.122.168.192.in-addr.arpa.  IN	PTR assisted-image-service-multicluster-engine.apps.sno2.lab.example.com.
-12.122.168.192.in-addr.arpa.  IN	PTR assisted-service-multicluster-engine.apps.sno2.lab.example.com.
-12.122.168.192.in-addr.arpa.  IN	PTR downloads-openshift-console.apps.sno2.lab.example.com.
-
-13.122.168.192.in-addr.arpa.  IN	PTR api.sno3.lab.example.com.
-13.122.168.192.in-addr.arpa.  IN	PTR oauth-openshift.apps.sno3.lab.example.com.
-13.122.168.192.in-addr.arpa.  IN	PTR console-openshift-console.apps.sno3.lab.example.com.
-13.122.168.192.in-addr.arpa.  IN	PTR grafana-openshift-monitoring.apps.sno3.lab.example.com.
-13.122.168.192.in-addr.arpa.  IN	PTR thanos-querier-openshift-monitoring.apps.sno3.lab.example.com.
-13.122.168.192.in-addr.arpa.  IN	PTR prometheus-k8s-openshift-monitoring.apps.sno3.lab.example.com.
-13.122.168.192.in-addr.arpa.  IN	PTR alertmanager-main-openshift-monitoring.apps.sno3.lab.example.com.
-13.122.168.192.in-addr.arpa.  IN	PTR assisted-image-service-multicluster-engine.apps.sno3.lab.example.com.
-13.122.168.192.in-addr.arpa.  IN	PTR assisted-service-multicluster-engine.apps.sno3.lab.example.com.
-13.122.168.192.in-addr.arpa.  IN	PTR downloads-openshift-console.apps.sno3.lab.example.com.
-
-24.122.168.192.in-addr.arpa.  IN	PTR api.tenant.lab.example.com.
-25.122.168.192.in-addr.arpa.  IN	PTR oauth-openshift.apps.tenant.lab.example.com.
-25.122.168.192.in-addr.arpa.  IN	PTR console-openshift-console.apps.tenant.lab.example.com.
-25.122.168.192.in-addr.arpa.  IN	PTR grafana-openshift-monitoring.apps.tenant.lab.example.com.
-25.122.168.192.in-addr.arpa.  IN	PTR thanos-querier-openshift-monitoring.apps.tenant.lab.example.com.
-25.122.168.192.in-addr.arpa.  IN	PTR prometheus-k8s-openshift-monitoring.apps.tenant.lab.example.com.
-25.122.168.192.in-addr.arpa.  IN	PTR alertmanager-main-openshift-monitoring.apps.tenant.lab.example.com.
-25.122.168.192.in-addr.arpa.  IN	PTR assisted-image-service-multicluster-engine.apps.tenant.lab.example.com.
-25.122.168.192.in-addr.arpa.  IN	PTR assisted-service-multicluster-engine.apps.tenant.lab.example.com.
-25.122.168.192.in-addr.arpa.  IN	PTR downloads-openshift-console.apps.tenant.lab.example.com.
-EOF</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Set the correct SELinux context of the dns configuration and zone files.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chcon system_u:object_r:named_conf_t:s0 /etc/named.conf</code></pre>
-</div>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chcon system_u:object_r:named_conf_t:s0 /var/named/lab.example.com.zone</code></pre>
-</div>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chcon system_u:object_r:named_conf_t:s0 /var/named/122.168.192.in-addr.arpa</code></pre>
-</div>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">restorecon -vF /etc/named.conf</code></pre>
-</div>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">restorecon -vF /var/named/lab.example.com.zone</code></pre>
-</div>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">restorecon -vF /var/named/122.168.192.in-addr.arpa</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Start the <code>named</code> service.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">systemctl start named</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Update the <code>nameserver</code> entry in <code>/etc/resolv.conf</code> file.</p>
-<div class="listingblock">
-<div class="title">Sample output</div>
-<div class="content">
-<pre>cat /etc/resolv.conf
-
-# Generated by NetworkManager
-nameserver 14X.XX.YY.ZZZ
-nameserver 14X.XX.YY.ZZX</pre>
-</div>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sed -i '2s/^/search lab.example.com\nnameserver 192.168.122.1\n/' /etc/resolv.conf</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Sample output</div>
-<div class="content">
-<pre>cat /etc/resolv.conf
-
-# Generated by NetworkManager
-search lab.example.com
-nameserver 192.168.122.1
-nameserver 14X.XX.YY.ZZZ
-nameserver 14X.XX.YY.ZZX</pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>nameserver</code> entry at the top or first in <code>/etc/resolv.conf</code> file means that dns server is checked first for name resolution.
-</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Test the DNS resolution by running <code>dig</code> command.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dig -x 192.168.122.11</code></pre>
-</div>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dig sno1.lab.example.com</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_configure_http"><a class="anchor" href="#_configure_http"></a>Configure HTTP</h3>
-<div class="paragraph">
-<p>The HTTP server is needed to serve the ignition configuration files.
-These ignition configuration files will be pulled from HTTP server during the openshift node installation.
-In this section, you will be configuring the HTTP server.
-There are multiple ways to configure the HTTP server but here directory from user&#8217;s home directory holds the files.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Create the <code>/etc/httpd/conf.d/userdir.conf</code> file.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt;/etc/httpd/conf.d/userdir.conf&lt;&lt;-"EOF"
-#
-# UserDir: The name of the directory that is appended onto a user's home
-# directory if a ~user request is received.
-#
-# The path to the end user account 'public_html' directory must be
-# accessible to the webserver userid.  This usually means that ~userid
-# must have permissions of 711, ~userid/public_html must have permissions
-# of 755, and documents contained therein must be world-readable.
-# Otherwise, the client will only receive a "403 Forbidden" message.
-#
-&lt;IfModule mod_userdir.c&gt;
-    #
-    # UserDir is disabled by default since it can confirm the presence
-    # of a username on the system (depending on home directory
-    # permissions).
-    #
-    UserDir enabled lab-user
-
-    #
-    # To enable requests to /~user/ to serve the user's public_html
-    # directory, remove the "UserDir disabled" line above, and uncomment
-    # the following line instead:
-    #
-    UserDir public_html
-&lt;/IfModule&gt;
-
-#
-# Control access to UserDir directories.  The following is an example
-# for a site where these directories are restricted to read-only.
-#
-&lt;Directory "/home/*/public_html"&gt;
-    AllowOverride FileInfo AuthConfig Limit Indexes
-    Options MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec
-    Require method GET POST OPTIONS
-&lt;/Directory&gt;
-EOF</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Create the <code>public_html</code> directory in the <code>lab-user&#8217;s</code> home directory and set the permissions as mentioned in the <code>/etc/httpd/conf.d/userdir.conf</code> file.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir /home/lab-user/public_html</code></pre>
-</div>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chown lab-user:users /home/lab-user/public_html</code></pre>
-</div>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chmod 0711 /home/lab-user</code></pre>
-</div>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chmod 0755 /home/lab-user/public_html</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Set the correct SELinux context of the <code>/etc/httpd/conf.d/userdir.conf</code> file.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chcon system_u:object_r:httpd_config_t:s0 /etc/httpd/conf.d/userdir.conf</code></pre>
-</div>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">restorecon -vF /etc/httpd/conf.d/userdir.conf</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Start the <code>httpd</code> service.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">systemctl start httpd</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Test the <code>http</code> server.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">touch /home/lab-user/public_html/cmd</code></pre>
-</div>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chown lab-user:users /home/lab-user/public_html/cmd</code></pre>
-</div>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -I http://192.168.122.1/~lab-user/cmd</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Sample output</div>
-<div class="content">
-<pre>curl -I http://192.168.122.1/~lab-user/cmd
-
-HTTP/1.1 200 OK
-Date: Mon, 19 Aug 2024 15:29:02 GMT
-Server: Apache/2.4.57 (Red Hat Enterprise Linux)
-Last-Modified: Mon, 19 Aug 2024 15:28:26 GMT
-ETag: "0-6200af5d343a9"
-Accept-Ranges: bytes
-Content-Type: text/plain; charset=UTF-8</pre>
-</div>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">rm /home/lab-user/public_html/cmd</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-"HTTP/1.1 200 OK" indicates http server is working.
-</td>
-</tr>
-</table>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_create_storage_pool_for_kvms"><a class="anchor" href="#_create_storage_pool_for_kvms"></a>Create Storage Pool for KVMs</h3>
-<div class="paragraph">
-<p>All five KVMs need the storage pool for storing the VM disks.
-In this section, you will be creating the storage pool.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Define the storage pool with name as <code>images</code> and path as <code>/var/lib/libvirt/images</code>.</p>
-<div class="paragraph">
-<p>Review the existing storage pool.</p>
-</div>
-<div class="listingblock">
-<div class="title">Sample output</div>
-<div class="content">
-<pre>virsh pool-list --all
- Name   State   Autostart
----------------------------</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Define the storage pool.</p>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virsh pool-define-as images --type dir --target /var/lib/libvirt/images</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Build the storage pool <code>images</code>.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virsh pool-build images</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Start the storage pool <code>images</code>.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virsh pool-start images</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Autostart the storage pool <code>images</code>.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virsh pool-autostart images</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Verify the storage pool <code>images</code> is active and autostart is enabled.</p>
-<div class="listingblock">
-<div class="title">Sample output</div>
-<div class="content">
-<pre>virsh pool-list --all
-
- Name     State    Autostart
-------------------------------
- images   active   yes</pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
+<p>Tha above command results in verbose play output.
+<code>tee -a</code> command redirects the output to <code>/tmp/setup_storage.log</code> log file.
+In case of failure, <code>/tmp/setup_storage.log</code> log file can be used for troubleshooting the issue.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="section2.html">Initial Setup on Hypervisor with Automation</a></span>
-  <span class="next"><a href="section4.html">Storage VM Deployment with Automation</a></span>
+  <span class="prev"><a href="section2.html">Initial Setup on Hypervisor</a></span>
+  <span class="next"><a href="section4.html">Ceph Storage Deployment</a></span>
 </nav>
 </article>
   </div>
