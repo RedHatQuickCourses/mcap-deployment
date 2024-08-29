@@ -1,7 +1,7 @@
-= Initial Setup on Hypervisor with Automation
+= Initial Setup on Hypervisor
 
 [NOTE]
-If you choose to configure manually then skip this page and move on to next page for without automation.
+You can refer how to configure manually i.e. without automation in at the end appendix chapter.
 
 Before proceeding the actual MCAP deployment, let's first ensure the initial setup and configuration is done on the hypervisor.
 You will need to perform few tasks before actual deployment of openshift clusters.
@@ -55,7 +55,7 @@ cd <repo>/src/ansible/
 ansible-galaxy collection install -r requirements.yml
 ----
 
-== Setup and Configuration with Automation
+== Setup and Configuration
 
 You can either use the *_setup_hypervisor.yaml_* playbook to install packages, configure swap, lv, dhcp, http and dns or else run commands manually on the hypervisor.
 

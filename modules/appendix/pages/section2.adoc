@@ -1,17 +1,28 @@
 = Storage VM Deployment without Automation
 
-[IMPORTANT]
-If you have followed the automation instructions from previous page then skip this page.
-Follow the steps from this page only if you choose to configure manually.
-
 In this section, you will be creating one KVM with name `storage`.
 
 image::MCAP_setup_2.png[]
 
 == Prerequisites
 
-Copy the `rhel-9.4-x86_64-kvm.qcow2` image from `/root` and place it in /var/lib/libvirt/images directory.
+. Download the `rhel-9.4-x86_64-kvm.qcow2` image from the https://access.redhat.com/downloads/content/rhel[Red Hat Customer Portal,window=read-later] to your laptop/desktop.
 
+. Use secured copy (scp) to copy the `rhel-9.4-x86_64-kvm.qcow2` image from your laptop/desktop to hypervisor and then place it in `/root` directory.
++
+.Sample output
+----
+[user@laptop]$ scp Downloads/rhel-9.4-x86_64-kvm.qcow2 lab-user@14X.XX.YY.Z:.
+
+[user@laptop]$ ssh lab-user@14X.XX.YY.Z
+
+[lab-user@hypervisor ~]$ sudo su -
+
+[root@hypervisor ~]# mv /home/lab-user/rhel-9.4-x86_64-kvm.qcow2 /root/rhel-9.4-x86_64-kvm.qcow2
+----
+
+. Copy the `rhel-9.4-x86_64-kvm.qcow2` image from `/root` and place it in `/var/lib/libvirt/images` directory.
++
 .Sample output
 ----
 [user@laptop]$ ssh lab-user@14X.XX.YY.Z
@@ -21,9 +32,9 @@ Copy the `rhel-9.4-x86_64-kvm.qcow2` image from `/root` and place it in /var/lib
 [root@hypervisor ~]# cp /root/rhel-9.4-x86_64-kvm.qcow2 /var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2
 ----
 
-== Storage VM Deployment without Automation
+== Storage VM Deployment
 
-. Ensure the rhel9 QCOW2 image is in `/var/lib/libvirt/images` directory.
+. Ensure the `rhel-9.4-x86_64-kvm.qcow2` image is in `/var/lib/libvirt/images` directory.
 +
 [source,bash,role=execute]
 ----
@@ -33,7 +44,7 @@ cd /var/lib/libvirt/images/
 .Sample output
 ----
 ls -alh /var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2
--rw-r--r--. 1 lab-user users 913M Aug 21 10:00 /var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2
+-rw-r--r--. 1 root root 913M Aug 21 10:00 /var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2
 ----
 
 . Check the virtual and disk size of QCOW2 image.
