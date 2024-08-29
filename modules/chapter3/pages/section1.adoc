@@ -85,7 +85,7 @@ chown -R qemu:qemu rhel9-guest-sno.qcow2
 +
 https://www.redhat.com/en/blog/all-you-need-know-about-kvm-userspace[All you need to know about KVM userspace,window=read-later]
 
-. Resize the partition 4 i.e. `/` of qcow2 image.
+. Resize the partition 4 of QCOW2 image.
 +
 [source,bash,role=execute]
 ----

@@ -1,209 +1,910 @@
-= Storage VM Deployment
+= Initial Setup on Hypervisor without Automation
 
-In this section, you will be creating one KVM with name `storage`.
+[IMPORTANT]
+If you have followed the automation instructions from previous page then skip this page.
+Follow the steps from this page only if you choose to configure manually.
 
-image::MCAP_setup_2.png[]
+Before proceeding the actual MCAP deployment, let's first ensure the initial setup and configuration is done on the hypervisor.
+You will need to perform few tasks before actual deployment of openshift clusters.
+
+image::MCAP_setup_1.png[]
 
 == Prerequisites
 
-. Download the _rhel9.X_ QCOW2 image from the https://access.redhat.com/downloads/content/rhel[Red Hat Customer Portal,window=read-later] to your laptop/desktop.
-. Use Secured copy (scp) command to copy the _rhel9.X_ QCOW2 image from your laptop/desktop to hypervisor and then place it in `/var/lib/libvirt/images` directory.
-+
+Login as `root` on the hypervisor.
+
 .Sample output
 ----
-[user@laptop]$ scp Downloads/rhel-9.4-x86_64-kvm.qcow2 lab-user@14X.XX.YY.Z:.
-
 [user@laptop]$ ssh lab-user@14X.XX.YY.Z
 
 [lab-user@hypervisor ~]$ sudo su -
 
-[root@hypervisor ~]# mv /home/lab-user/rhel-9.4-x86_64-kvm.qcow2 /var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2
+[root@hypervisor ~]#
 ----
 
-##FIX this - Try Automation playbook##
+== Setup and Configuration without Automation
 
-== Storage VM Deployment
+=== Create SSH key for the root user
 
-. Ensure the rhel9 QCOW2 image is in `/var/lib/libvirt/images` directory.
+The public key from the following command will be used while deploying _Hub_ and _Infrastructure_ clusters.
+You will be asked for public key while building the discovery iso for the host.
+
+[source,bash,role=execute]
+----
+ssh-keygen -t rsa -f /root/.ssh/id_rsa -N ''
+----
+
+=== Install the required packages
+
+The following required packages needed for dhcp server, http server, dns server, vnc server and creating virtual machines on hypervisor.
+It also include additional tools packages.
+
+[source,bash,role=execute]
+----
+dnf -y install jq dhcp-server bind bind-utils httpd httpd-tools podman \
+vim wget telnet curl lvm2 git libvirt qemu-kvm virt-manager virt-install libguestfs-tools tar \
+libguestfs-tools-c cockpit cockpit-machines unzip tigervnc tigervnc-server firefox gnome-kiosk
+----
+
+=== Increase the _Swap_ space
+
+_Swap_ space is extension of physical RAM.
+It offers virtual memory in case of physical RAM is fully used.
+MCAP needs considerable amount of memory and it is recommended to have proportionate amount of _Swap_ space configured in an environment.
+
+. Disable the existing _Swap_ first.
 +
 [source,bash,role=execute]
 ----
-cd /var/lib/libvirt/images/
+swapoff -a
+----
++
+Check the _Swap_ space using `free` command.
++
+.Sample output
+----
+free -mh
+               total        used        free      shared  buff/cache   available
+Mem:           503Gi       9.4Gi       494Gi        20Mi       3.1Gi       493Gi
+Swap:             0B          0B          0B
+----
+
+. Remove swap entry from `/etc/fstab`.
++
+[source,bash,role=execute]
+----
+sed -i '/swap/d' /etc/fstab
+----
+
+. Find the unused 250GB nvme disk.
++
+.Sample output
+----
+lsblk
+
+NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+nvme1n1     259:0    0 238.5G  0 disk
+nvme0n1     259:1    0 238.5G  0 disk
+├─nvme0n1p1 259:2    0   512M  0 part /boot/efi
+├─nvme0n1p2 259:3    0   1.9G  0 part
+└─nvme0n1p3 259:4    0 236.1G  0 part /
+nvme3n1     259:5    0   3.5T  0 disk
+nvme2n1     259:6    0   3.5T  0 disk
+----
+Here `nvme1n1` disk can be used to create the swap space.
++
+[NOTE]
+The NVMe disk sequencing used as an OS partition will change, whenever you provision the catalog.
+The unused NVMe disk may vary in your environment output.
+
+. Use unused 250GB nvme disk as swap partition.
++
+[source,bash,role=execute]
+----
+mkswap /dev/nvme1n1
 ----
 +
 .Sample output
 ----
-ls -alh /var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2
--rw-r--r--. 1 lab-user users 913M Aug 21 10:00 /var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2
+Setting up swapspace version 1, size = 238.5 GiB (256060510208 bytes)
+no label, UUID=455687c9-aaf7-46a6-9097-be4587a48f2f
 ----
-
-. Check the virtual and disk size of QCOW2 image.
 +
-To get information on QCOW2 image, run `qemu-img info` command on the QCOW2 image.
+[NOTE]
+The above UUID may differ in your environment.
+
+. Add swap entry in `/etc/fstab` to make it persistent throughout the reboot.
 +
-.Sample output
-----
-qemu-img info rhel-9.4-x86_64-kvm.qcow2
-
-image: rhel-9.4-x86_64-kvm.qcow2
-file format: qcow2
-virtual size: 10 GiB (10737418240 bytes)
-disk size: 913 MiB
-cluster_size: 65536
-...output omitted...
-----
-
-. Resize the image with additional size of 30G.
+Ensure to replace the UUID in following command with UUID from previous step.
 +
 [source,bash,role=execute]
 ----
-qemu-img resize rhel-9.4-x86_64-kvm.qcow2 +30G
-----
-+
-This increases the virtual size of the disk.
-+
-Ensure virtual size is increased by 30GB.
-+
-.Sample output
-----
-qemu-img info rhel-9.4-x86_64-kvm.qcow2
-
-image: rhel-9.4-x86_64-kvm.qcow2
-file format: qcow2
-virtual size: 40 GiB (42949672960 bytes)
-disk size: 913 MiB
-...output omitted...
-----
-
-. Change the ownership of the image to `qemu:qemu`.
-+
-[source,bash,role=execute]
-----
-chown -R qemu:qemu rhel-9.4-x86_64-kvm.qcow2
-----
-+
-https://www.redhat.com/en/blog/all-you-need-know-about-kvm-userspace[All you need to know about KVM userspace,window=read-later]
-
-. Resize the partition 4 of QCOW2 image.
-+
-[source,bash,role=execute]
-----
-virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --run-command 'growpart /dev/sda 4'
-----
-+
-This will resize the partition with additional size i.e. 30GB.
-+
-https://access.redhat.com/solutions/5540131[What is growpart utility and how to use it?,window=read-later]
-
-. Increase the filesystem on `/`.
-+
-[source,bash,role=execute]
-----
-virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --run-command 'xfs_growfs /'
-----
-+
-https://access.redhat.com/solutions/57263[How to extend a XFS filesytem using the xfs_growfs?,window=read-later]
-
-. Set the `root` user password for QCOW2 image.
-+
-[source,bash,role=execute]
-----
-virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --root-password password:redhat
-----
-+
-You can use this password for logging into VM via console.
-
-. Disable the `cloud-init` service in qcow2 image.
-+
-[source,bash,role=execute]
-----
-virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --run-command 'systemctl disable cloud-init'
-----
-
-. Inject the `root` user's public RSA key in QCOW2 image.
-+
-[source,bash,role=execute]
-----
-virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --ssh-inject root:file:/root/.ssh/id_rsa.pub
-----
-
-. SELinux relabel in QCOW2 image.
-+
-[source,bash,role=execute]
-----
-virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --selinux-relabel
-----
-
-. Create the image for `storage` VM using the _rhel9.X_ QCOW2 image.
-+
-[source,bash,role=execute]
-----
-qemu-img create -f qcow2 -F qcow2 -b /var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2 /var/lib/libvirt/images/storage.qcow2
+echo "UUID=455687c9-aaf7-46a6-9097-be4587a48f2f      none    swap    none    0       0" >> /etc/fstab
 ----
 +
 .Sample output
 ----
-Formatting '/var/lib/libvirt/images/storage.qcow2', fmt=qcow2 cluster_size=65536 extended_l2=off compression_type=zlib size=42949672960 backing_file=/var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2 backing_fmt=qcow2 lazy_refcounts=off refcount_bits=16
+cat /etc/fstab
+
+UUID=6D5D-C9B9	/boot/efi	vfat	errors=remount-ro	0	2
+UUID=071aef59-7224-4502-a526-bea01cc3e320	/	ext4	errors=remount-ro	0	1
+
+UUID=455687c9-aaf7-46a6-9097-be4587a48f2f	none	swap	none	0	0
 ----
 
-. Create the `storage` VM with three 2TB disks.
-Disk path should be storage pool path i.e. `/var/lib/libvirt/images/`.
-mac address for the `storage` VM should be same as from the dhcp configuration.
+. Enable the swap.
 +
 [source,bash,role=execute]
 ----
-virt-install --virt-type kvm --ram 16384 --vcpus 4 --cpu=host-passthrough --os-variant rhel9.3 \
---disk path=/var/lib/libvirt/images/storage.qcow2,device=disk,bus=virtio,format=qcow2 \
---disk path=/var/lib/libvirt/images/ceph-disk1.qcow2,device=disk,bus=virtio,format=qcow2,size=2000 \
---disk path=/var/lib/libvirt/images/ceph-disk2.qcow2,device=disk,bus=virtio,format=qcow2,size=2000 \
---disk path=/var/lib/libvirt/images/ceph-disk3.qcow2,device=disk,bus=virtio,format=qcow2,size=2000 \
---network bridge=virbr0,mac=52:54:00:0a:a9:88 --boot hd,network --noautoconsole \
---vnc --name storage --noreboot
+swapon -a
 ----
++
+Check the _Swap_ space using `free` command.
 +
 .Sample output
 ----
-Starting install...
-Allocating 'ceph-disk1qcow2'                     | 2.0 TB  00:00:02
-Allocating 'ceph-disk2.qcow2'                    | 2.0 TB  00:00:02
-Allocating 'ceph-disk3.qcow2'                    | 2.0 TB  00:00:02
-Creating domain...                               |         00:00:00
-Domain creation completed.
-You can restart your domain by running:
-  virsh --connect qemu:///system start storage
+free -mh
+               total        used        free      shared  buff/cache   available
+Mem:           503Gi       9.6Gi       493Gi        20Mi       3.1Gi       493Gi
+Swap:          238Gi          0B       238Gi
 ----
-+
-Verify `storage` VM is created and in `shut off` state.
+
+=== Create LV for VM storage pool
+
+The LV created in this section will be used as storage pool for virtual machine disks and backend shared OpenShift DataFoundation using Red Hat Ceph storage for _Tenant_ cluster.
+
+. Find the 3.5TB nvme disks.
 +
 .Sample output
 ----
-virsh list --all
+lsblk
 
- Id   Name      State
---------------------------
- -    storage   shut off
+NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+nvme1n1     259:0    0 238.5G  0 disk [SWAP]
+nvme0n1     259:1    0 238.5G  0 disk
+├─nvme0n1p1 259:2    0   512M  0 part /boot/efi
+├─nvme0n1p2 259:3    0   1.9G  0 part
+└─nvme0n1p3 259:4    0 236.1G  0 part /
+nvme3n1     259:5    0   3.5T  0 disk
+nvme2n1     259:6    0   3.5T  0 disk
 ----
++
+[NOTE]
+The NVMe disk sequencing used as an OS partition will change, whenever you provision the catalog.
+The unused NVMe disk may vary in your environment output.
 
-. Start the `storage` VM.
+. Create a PV of 7TB with disks.
 +
 [source,bash,role=execute]
 ----
-virsh start storage
+pvcreate /dev/nvme3n1 /dev/nvme2n1
+----
+
+. Create VG of 7TB.
++
+[source,bash,role=execute]
+----
+vgcreate vgstrorage /dev/nvme3n1 /dev/nvme2n1
+----
+
+. Create a LV of 7TB with remaining space in the volume group.
++
+[source,bash,role=execute]
+----
+lvcreate -l 100%FREE -n cephlv vgstrorage
+----
++
+Verify the LV size is 7TB.
++
+.Sample output
+----
+lvs
+
+  LV     VG         Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  cephlv vgstrorage -wi-a----- <6.99t
+----
+
+. Format LV of 7TB with the ext4 filesystem.
++
+[source,bash,role=execute]
+----
+mkfs.ext4 /dev/vgstrorage/cephlv
 ----
 +
 .Sample output
 ----
-Domain 'storage' started
+mke2fs 1.46.5 (30-Dec-2021)
+Discarding device blocks: done
+Creating filesystem with 1875367936 4k blocks and 234422272 inodes
+Filesystem UUID: 195dc91e-58be-4671-bbf5-b4fdf70945e2
+Superblock backups stored on blocks:
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
+	4096000, 7962624, 11239424, 20480000, 23887872, 71663616, 78675968,
+	102400000, 214990848, 512000000, 550731776, 644972544
 
+Allocating group tables: done
+Writing inode tables: done
+Creating journal (262144 blocks): done
+Writing superblocks and filesystem accounting information: done
 ----
 +
-Verify `storage` VM is in `running` state.
+[NOTE]
+The above UUID may differ in your environment.
+
+. Mount the 7TB LV on `/var/lib/libvirt/images`.
++
+Ensure to replace the UUID in following command with UUID from previous step.
++
+[source,bash,role=execute]
+----
+echo "UUID=195dc91e-58be-4671-bbf5-b4fdf70945e2	/var/lib/libvirt/images	ext4	errors=remount-ro	0	1" >> /etc/fstab
+----
++
+Run `mount` command to mount the LV on `/var/lib/libvirt/images`.
++
+[source,bash,role=execute]
+----
+mount -a
+----
++
+Use `systemctl daemon-reload` to reload.
+This will ensure the latest version of the `/etc/fstab` is referred.
++
+[source,bash,role=execute]
+----
+systemctl daemon-reload
+----
++
+Verify the 7TB LV is correctly mounted.
 +
 .Sample output
 ----
-virsh list --all
+df -h
 
- Id   Name      State
--------------------------
- 1    storage   running
+Filesystem                     Size  Used Avail Use% Mounted on
+devtmpfs                       4.0M     0  4.0M   0% /dev
+tmpfs                          252G     0  252G   0% /dev/shm
+tmpfs                          101G   18M  101G   1% /run
+/dev/nvme0n1p3                 232G  4.2G  216G   2% /
+/dev/nvme0n1p1                 511M  6.4M  505M   2% /boot/efi
+tmpfs                           51G     0   51G   0% /run/user/0
+/dev/mapper/vgstrorage-cephlv  7.0T   28K  6.6T   1% /var/lib/libvirt/images
+----
+
+=== Enable and start the libvirt and cockpit services
+
+After enabling and starting the libvirt services, `virbr0` bridge will be created.
+You can verify it by running the `ip addr` command.
+
+After enabling and starting the cockpit services, it creates cockpit web console access.
+You can login to cockpit web console with `lab-user's` credentials.
+
+[source,bash,role=execute]
+----
+systemctl enable libvirt-guests.service --now
+----
+
+[source,bash,role=execute]
+----
+systemctl enable libvirtd --now
+----
+
+[source,bash,role=execute]
+----
+systemctl enable cockpit.socket --now
+----
+
+[source,bash,role=execute]
+----
+systemctl start cockpit
+----
+
+[NOTE]
+You can use the cockpit web console (https://<your_hypervisor_IP>:9090/) to monitor the VM's resources and console access.
+
+=== Configure DHCP
+
+It is recommended to have DHCP server.
+In this section, you will be configuring the DHCP server.
+
+. Create the `/etc/dhcp/dhcpd.conf` file.
++
+[source,bash,role=execute]
+----
+cat >/etc/dhcp/dhcpd.conf<<EOF
+#
+# DHCP Server Configuration file.
+#   see /usr/share/doc/dhcp-server/dhcpd.conf.example
+#   see dhcpd.conf(5) man page
+#
+authoritative;
+ddns-update-style interim;
+allow booting;
+allow bootp;
+allow unknown-clients;
+ignore client-updates;
+default-lease-time 14400;
+max-lease-time 14400;
+subnet 192.168.122.0 netmask 255.255.255.0 {
+        option routers                  192.168.122.1;
+        option subnet-mask              255.255.255.0;
+        option domain-search            "lab.example.com";
+        option domain-name-servers      192.168.122.1, 8.8.8.8;
+	  range   192.168.122.30   192.168.122.100;
+}
+host storage.lab.example.com {
+   option host-name "storage.lab.example.com";
+   hardware ethernet 52:54:00:0a:a9:88;
+   fixed-address 192.168.122.9;
+}
+host hub.lab.example.com {
+   option host-name "hub.lab.example.com";
+   hardware ethernet 52:54:00:23:60:87;
+   fixed-address 192.168.122.10;
+}
+host sno1.lab.example.com {
+   option host-name "sno1.lab.example.com";
+   hardware ethernet 52:54:00:87:f4:2f;
+   fixed-address 192.168.122.11;
+}
+host sno2.lab.example.com {
+   option host-name "sno2.lab.example.com";
+   hardware ethernet 52:54:00:cc:51:86;
+   fixed-address 192.168.122.12;
+}
+host sno3.lab.example.com {
+   option host-name "sno3.lab.example.com";
+   hardware ethernet 52:54:00:67:34:25;
+   fixed-address 192.168.122.13;
+}
+host tcn1.lab.example.com {
+   option host-name "tcn1.lab.example.com";
+   hardware ethernet 52:54:00:68:35:27;
+   fixed-address 192.168.122.21;
+}
+host tcn2.lab.example.com {
+   option host-name "tcn2.lab.example.com";
+   hardware ethernet 52:54:00:69:36:28;
+   fixed-address 192.168.122.22;
+}
+host tcn3.lab.example.com {
+   option host-name "tcn3.lab.example.com";
+   hardware ethernet 52:54:00:70:37:29;
+   fixed-address 192.168.122.23;
+}
+EOF
+----
+
+. Set the correct SELinux context of the `/etc/dhcp/dhcpd.conf` file.
+For additional information on SELinux refer - https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/using_selinux/index#introduction-to-selinux_getting-started-with-selinux[Introduction to SELinux,window=read-later]
++
+[source,bash,role=execute]
+----
+chcon system_u:object_r:dhcp_etc_t:s0 /etc/dhcp/dhcpd.conf
+----
++
+[source,bash,role=execute]
+----
+restorecon -vF /etc/dhcp/dhcpd.conf
+----
+
+. Start the `dhcpd` service.
++
+[source,bash,role=execute]
+----
+systemctl start dhcpd
+----
+
+=== Configure DNS
+
+To have name resolution, DNS server is needed.
+In this section, you will be configuring the DNS server.
+
+. Create the `/etc/named.conf` file.
++
+[source,bash,role=execute]
+----
+cat >/etc/named.conf<<-"EOF"
+//
+// named.conf
+//
+// Provided by Red Hat bind package to configure the ISC BIND named(8) DNS
+// server as a caching only nameserver (as a localhost DNS resolver only).
+//
+// See /usr/share/doc/bind*/sample/ for example named configuration files.
+//
+// See the BIND Administrator's Reference Manual (ARM) for details about the
+
+options {
+        # change ( listen all )
+        listen-on port 53 { 127.0.0.1; 192.168.122.1; };
+        # change( if not use IPv6 )
+        listen-on-v6 { none; };
+	directory 	"/var/named";
+	dump-file 	"/var/named/data/cache_dump.db";
+	statistics-file "/var/named/data/named_stats.txt";
+	memstatistics-file "/var/named/data/named_mem_stats.txt";
+	secroots-file	"/var/named/data/named.secroots";
+	recursing-file	"/var/named/data/named.recursing";
+        allow-query         { localhost; 192.168.122.0/24; };
+        allow-transfer      { localhost; 192.168.122.0/24; };
+
+	/*
+	 - If you are building an AUTHORITATIVE DNS server, do NOT enable recursion.
+	 - If you are building a RECURSIVE (caching) DNS server, you need to enable
+	   recursion.
+	 - If your recursive DNS server has a public IP address, you MUST enable access
+	   control to limit queries to your legitimate users. Failing to do so will
+	   cause your server to become part of large scale DNS amplification
+	   attacks. Implementing BCP38 within your network would greatly
+	   reduce such attack surface
+	*/
+	recursion yes;
+
+        forwarders {192.168.122.1; 8.8.8.8; };
+	managed-keys-directory "/var/named/dynamic";
+
+	pid-file "/run/named/named.pid";
+	session-keyfile "/run/named/session.key";
+
+};
+
+logging {
+        channel default_debug {
+                file "data/named.run";
+                severity dynamic;
+        };
+};
+
+zone "." IN {
+	type hint;
+	file "named.ca";
+};
+
+include "/etc/named.rfc1912.zones";
+include "/etc/named.root.key";
+
+zone "lab.example.com" {
+      type master;
+      file "lab.example.com.zone";
+};
+
+zone   "122.168.192.in-addr.arpa" IN {
+       type master;
+       file "122.168.192.in-addr.arpa";
+};
+EOF
+----
+
+. Create `/var/named/lab.example.com.zone` file.
++
+[source,bash,role=execute]
+----
+cat >/var/named/lab.example.com.zone<<-"EOF"
+$TTL    604800
+@       IN      SOA    hypervisor. root.hypervisor. (
+                  3     ; Serial
+             604800     ; Refresh
+              86400     ; Retry
+            2419200     ; Expire
+             604800 )   ; Negative Cache TTL
+;
+; name servers - NS records
+     IN      NS      hypervisor.
+
+hypervisor.                      IN	     A 	     192.168.122.1
+
+storage.lab.example.com.         IN	     A	     192.168.122.9
+hub.lab.example.com. 		   IN	     A 	     192.168.122.10
+sno1.lab.example.com. 		   IN	     A 	     192.168.122.11
+sno2.lab.example.com. 		   IN	     A 	     192.168.122.12
+sno3.lab.example.com. 		   IN	     A      	192.168.122.13
+tcn1.lab.example.com.            IN	     A      	192.168.122.21
+tcn2.lab.example.com.            IN	     A      	192.168.122.22
+tcn3.lab.example.com.            IN	     A      	192.168.122.23
+
+api.hub.lab.example.com.                                               IN	     A 	     192.168.122.10
+oauth-openshift.apps.hub.lab.example.com.                              IN	     A 	     192.168.122.10
+console-openshift-console.apps.hub.lab.example.com.                    IN	     A 	     192.168.122.10
+grafana-openshift-monitoring.apps.hub.lab.example.com.                 IN	     A 	     192.168.122.10
+thanos-querier-openshift-monitoring.apps.hub.lab.example.com.          IN	     A 	     192.168.122.10
+prometheus-k8s-openshift-monitoring.apps.hub.lab.example.com.          IN	     A 	     192.168.122.10
+alertmanager-main-openshift-monitoring.apps.hub.lab.example.com.       IN	     A 	     192.168.122.10
+assisted-image-service-multicluster-engine.apps.hub.lab.example.com.   IN	     A 	     192.168.122.10
+assisted-service-multicluster-engine.apps.hub.lab.example.com.         IN	     A 	     192.168.122.10
+downloads-openshift-console.apps.hub.lab.example.com.                  IN	     A 	     192.168.122.10
+
+api.sno1.lab.example.com.                                               IN	     A 	     192.168.122.11
+oauth-openshift.apps.sno1.lab.example.com.                              IN	     A 	     192.168.122.11
+console-openshift-console.apps.sno1.lab.example.com.                    IN	     A 	     192.168.122.11
+grafana-openshift-monitoring.apps.sno1.lab.example.com.                 IN	     A 	     192.168.122.11
+thanos-querier-openshift-monitoring.apps.sno1.lab.example.com.          IN	     A 	     192.168.122.11
+prometheus-k8s-openshift-monitoring.apps.sno1.lab.example.com.          IN	     A 	     192.168.122.11
+alertmanager-main-openshift-monitoring.apps.sno1.lab.example.com.       IN	     A 	     192.168.122.11
+assisted-image-service-multicluster-engine.apps.sno1.lab.example.com.   IN	     A 	     192.168.122.11
+assisted-service-multicluster-engine.apps.sno1.lab.example.com.         IN	     A 	     192.168.122.11
+downloads-openshift-console.apps.sno1.lab.example.com.                  IN	     A 	     192.168.122.11
+
+api.sno2.lab.example.com.                                               IN	     A 	     192.168.122.12
+oauth-openshift.apps.sno2.lab.example.com.                              IN	     A 	     192.168.122.12
+console-openshift-console.apps.sno2.lab.example.com.                    IN	     A 	     192.168.122.12
+grafana-openshift-monitoring.apps.sno2.lab.example.com.                 IN	     A 	     192.168.122.12
+thanos-querier-openshift-monitoring.apps.sno2.lab.example.com.          IN	     A 	     192.168.122.12
+prometheus-k8s-openshift-monitoring.apps.sno2.lab.example.com.          IN	     A 	     192.168.122.12
+alertmanager-main-openshift-monitoring.apps.sno2.lab.example.com.       IN	     A 	     192.168.122.12
+assisted-image-service-multicluster-engine.apps.sno2.lab.example.com.   IN	     A 	     192.168.122.12
+assisted-service-multicluster-engine.apps.sno2.lab.example.com.         IN	     A 	     192.168.122.12
+downloads-openshift-console.apps.sno2.lab.example.com.                  IN	     A 	     192.168.122.12
+
+api.sno3.lab.example.com.                                               IN	     A 	     192.168.122.13
+oauth-openshift.apps.sno3.lab.example.com.                              IN	     A 	     192.168.122.13
+console-openshift-console.apps.sno3.lab.example.com.                    IN	     A 	     192.168.122.13
+grafana-openshift-monitoring.apps.sno3.lab.example.com.                 IN	     A 	     192.168.122.13
+thanos-querier-openshift-monitoring.apps.sno3.lab.example.com.          IN	     A 	     192.168.122.13
+prometheus-k8s-openshift-monitoring.apps.sno3.lab.example.com.          IN	     A 	     192.168.122.13
+alertmanager-main-openshift-monitoring.apps.sno3.lab.example.com.       IN	     A 	     192.168.122.13
+assisted-image-service-multicluster-engine.apps.sno3.lab.example.com.   IN	     A 	     192.168.122.13
+assisted-service-multicluster-engine.apps.sno3.lab.example.com.         IN	     A 	     192.168.122.13
+downloads-openshift-console.apps.sno3.lab.example.com.                  IN	     A 	     192.168.122.13
+
+api.tenant.lab.example.com.                                               IN	     A 	     192.168.122.24
+oauth-openshift.apps.tenant.lab.example.com.                              IN	     A 	     192.168.122.25
+console-openshift-console.apps.tenant.lab.example.com.                    IN	     A 	     192.168.122.25
+grafana-openshift-monitoring.apps.tenant.lab.example.com.                 IN	     A 	     192.168.122.25
+thanos-querier-openshift-monitoring.apps.tenant.lab.example.com.          IN	     A 	     192.168.122.25
+prometheus-k8s-openshift-monitoring.apps.tenant.lab.example.com.          IN	     A 	     192.168.122.25
+alertmanager-main-openshift-monitoring.apps.tenant.lab.example.com.       IN	     A 	     192.168.122.25
+assisted-image-service-multicluster-engine.apps.tenant.lab.example.com.   IN	     A 	     192.168.122.25
+assisted-service-multicluster-engine.apps.tenant.lab.example.com.         IN	     A 	     192.168.122.25
+downloads-openshift-console.apps.tenant.lab.example.com.                  IN	     A 	     192.168.122.25
+EOF
+----
+
+. Create `/var/named/122.168.192.in-addr.arpa` file.
++
+[source,bash,role=execute]
+----
+cat >/var/named/122.168.192.in-addr.arpa<<-"EOF"
+$TTL    604800
+@       IN      SOA    hypervisor. admin.hypervisor. (
+                  3     ; Serial
+             604800     ; Refresh
+              86400     ; Retry
+            2419200     ; Expire
+             604800 )   ; Negative Cache TTL
+;
+; name servers - NS records
+     IN      NS      hypervisor.
+
+1.122.168.192.in-addr.arpa.	   IN	PTR	hypervisor.
+
+9.122.168.192.in-addr.arpa.	   IN	PTR	storage.lab.example.com.
+10.122.168.192.in-addr.arpa.     IN	PTR	hub.lab.example.com.
+11.122.168.192.in-addr.arpa. 	   IN	PTR	sno1.lab.example.com.
+12.122.168.192.in-addr.arpa. 	   IN	PTR	sno2.lab.example.com.
+13.122.168.192.in-addr.arpa.	   IN	PTR	sno3.lab.example.com.
+21.122.168.192.in-addr.arpa.	   IN	PTR	tcn1.lab.example.com.
+22.122.168.192.in-addr.arpa.	   IN	PTR	tcn2.lab.example.com.
+23.122.168.192.in-addr.arpa.	   IN	PTR	tcn3.lab.example.com.
+
+10.122.168.192.in-addr.arpa.  IN	PTR api.hub.lab.example.com.
+10.122.168.192.in-addr.arpa.  IN	PTR oauth-openshift.apps.hub.lab.example.com.
+10.122.168.192.in-addr.arpa.  IN	PTR console-openshift-console.apps.hub.lab.example.com.
+10.122.168.192.in-addr.arpa.  IN	PTR grafana-openshift-monitoring.apps.hub.lab.example.com.
+10.122.168.192.in-addr.arpa.  IN	PTR thanos-querier-openshift-monitoring.apps.hub.lab.example.com.
+10.122.168.192.in-addr.arpa.  IN	PTR prometheus-k8s-openshift-monitoring.apps.hub.lab.example.com.
+10.122.168.192.in-addr.arpa.  IN	PTR alertmanager-main-openshift-monitoring.apps.hub.lab.example.com.
+10.122.168.192.in-addr.arpa.  IN	PTR assisted-image-service-multicluster-engine.apps.hub.lab.example.com.
+10.122.168.192.in-addr.arpa.  IN	PTR assisted-service-multicluster-engine.apps.hub.lab.example.com.
+10.122.168.192.in-addr.arpa.  IN	PTR downloads-openshift-console.apps.hub.lab.example.com.
+
+11.122.168.192.in-addr.arpa.  IN	PTR api.sno1.lab.example.com.
+11.122.168.192.in-addr.arpa.  IN	PTR oauth-openshift.apps.sno1.lab.example.com.
+11.122.168.192.in-addr.arpa.  IN	PTR console-openshift-console.apps.sno1.lab.example.com.
+11.122.168.192.in-addr.arpa.  IN	PTR grafana-openshift-monitoring.apps.sno1.lab.example.com.
+11.122.168.192.in-addr.arpa.  IN	PTR thanos-querier-openshift-monitoring.apps.sno1.lab.example.com.
+11.122.168.192.in-addr.arpa.  IN	PTR prometheus-k8s-openshift-monitoring.apps.sno1.lab.example.com.
+11.122.168.192.in-addr.arpa.  IN	PTR alertmanager-main-openshift-monitoring.apps.sno1.lab.example.com.
+11.122.168.192.in-addr.arpa.  IN	PTR assisted-image-service-multicluster-engine.apps.sno1.lab.example.com.
+11.122.168.192.in-addr.arpa.  IN	PTR assisted-service-multicluster-engine.apps.sno1.lab.example.com.
+11.122.168.192.in-addr.arpa.  IN	PTR downloads-openshift-console.apps.sno1.lab.example.com.
+
+12.122.168.192.in-addr.arpa.  IN	PTR api.sno2.lab.example.com.
+12.122.168.192.in-addr.arpa.  IN	PTR oauth-openshift.apps.sno2.lab.example.com.
+12.122.168.192.in-addr.arpa.  IN	PTR console-openshift-console.apps.sno2.lab.example.com.
+12.122.168.192.in-addr.arpa.  IN	PTR grafana-openshift-monitoring.apps.sno2.lab.example.com.
+12.122.168.192.in-addr.arpa.  IN	PTR thanos-querier-openshift-monitoring.apps.sno2.lab.example.com.
+12.122.168.192.in-addr.arpa.  IN	PTR prometheus-k8s-openshift-monitoring.apps.sno2.lab.example.com.
+12.122.168.192.in-addr.arpa.  IN	PTR alertmanager-main-openshift-monitoring.apps.sno2.lab.example.com.
+12.122.168.192.in-addr.arpa.  IN	PTR assisted-image-service-multicluster-engine.apps.sno2.lab.example.com.
+12.122.168.192.in-addr.arpa.  IN	PTR assisted-service-multicluster-engine.apps.sno2.lab.example.com.
+12.122.168.192.in-addr.arpa.  IN	PTR downloads-openshift-console.apps.sno2.lab.example.com.
+
+13.122.168.192.in-addr.arpa.  IN	PTR api.sno3.lab.example.com.
+13.122.168.192.in-addr.arpa.  IN	PTR oauth-openshift.apps.sno3.lab.example.com.
+13.122.168.192.in-addr.arpa.  IN	PTR console-openshift-console.apps.sno3.lab.example.com.
+13.122.168.192.in-addr.arpa.  IN	PTR grafana-openshift-monitoring.apps.sno3.lab.example.com.
+13.122.168.192.in-addr.arpa.  IN	PTR thanos-querier-openshift-monitoring.apps.sno3.lab.example.com.
+13.122.168.192.in-addr.arpa.  IN	PTR prometheus-k8s-openshift-monitoring.apps.sno3.lab.example.com.
+13.122.168.192.in-addr.arpa.  IN	PTR alertmanager-main-openshift-monitoring.apps.sno3.lab.example.com.
+13.122.168.192.in-addr.arpa.  IN	PTR assisted-image-service-multicluster-engine.apps.sno3.lab.example.com.
+13.122.168.192.in-addr.arpa.  IN	PTR assisted-service-multicluster-engine.apps.sno3.lab.example.com.
+13.122.168.192.in-addr.arpa.  IN	PTR downloads-openshift-console.apps.sno3.lab.example.com.
+
+24.122.168.192.in-addr.arpa.  IN	PTR api.tenant.lab.example.com.
+25.122.168.192.in-addr.arpa.  IN	PTR oauth-openshift.apps.tenant.lab.example.com.
+25.122.168.192.in-addr.arpa.  IN	PTR console-openshift-console.apps.tenant.lab.example.com.
+25.122.168.192.in-addr.arpa.  IN	PTR grafana-openshift-monitoring.apps.tenant.lab.example.com.
+25.122.168.192.in-addr.arpa.  IN	PTR thanos-querier-openshift-monitoring.apps.tenant.lab.example.com.
+25.122.168.192.in-addr.arpa.  IN	PTR prometheus-k8s-openshift-monitoring.apps.tenant.lab.example.com.
+25.122.168.192.in-addr.arpa.  IN	PTR alertmanager-main-openshift-monitoring.apps.tenant.lab.example.com.
+25.122.168.192.in-addr.arpa.  IN	PTR assisted-image-service-multicluster-engine.apps.tenant.lab.example.com.
+25.122.168.192.in-addr.arpa.  IN	PTR assisted-service-multicluster-engine.apps.tenant.lab.example.com.
+25.122.168.192.in-addr.arpa.  IN	PTR downloads-openshift-console.apps.tenant.lab.example.com.
+EOF
+----
+
+. Set the correct SELinux context of the dns configuration and zone files.
++
+[source,bash,role=execute]
+----
+chcon system_u:object_r:named_conf_t:s0 /etc/named.conf
+----
++
+[source,bash,role=execute]
+----
+chcon system_u:object_r:named_conf_t:s0 /var/named/lab.example.com.zone
+----
++
+[source,bash,role=execute]
+----
+chcon system_u:object_r:named_conf_t:s0 /var/named/122.168.192.in-addr.arpa
+----
++
+[source,bash,role=execute]
+----
+restorecon -vF /etc/named.conf
+----
++
+[source,bash,role=execute]
+----
+restorecon -vF /var/named/lab.example.com.zone
+----
++
+[source,bash,role=execute]
+----
+restorecon -vF /var/named/122.168.192.in-addr.arpa
+----
+
+. Start the `named` service.
++
+[source,bash,role=execute]
+----
+systemctl start named
+----
+
+. Update the `nameserver` entry in `/etc/resolv.conf` file.
++
+.Sample output
+----
+cat /etc/resolv.conf
+
+# Generated by NetworkManager
+nameserver 14X.XX.YY.ZZZ
+nameserver 14X.XX.YY.ZZX
+----
++
+[source,bash,role=execute]
+----
+sed -i '2s/^/search lab.example.com\nnameserver 192.168.122.1\n/' /etc/resolv.conf
+----
++
+.Sample output
+----
+cat /etc/resolv.conf
+
+# Generated by NetworkManager
+search lab.example.com
+nameserver 192.168.122.1
+nameserver 14X.XX.YY.ZZZ
+nameserver 14X.XX.YY.ZZX
+----
++
+[NOTE]
+`nameserver` entry at the top or first in `/etc/resolv.conf` file means that dns server is checked first for name resolution.
+
+. Test the DNS resolution by running `dig` command.
++
+[source,bash,role=execute]
+----
+dig -x 192.168.122.11
+----
++
+[source,bash,role=execute]
+----
+dig sno1.lab.example.com
+----
+
+=== Configure HTTP
+
+The HTTP server is needed to serve the ignition configuration files.
+These ignition configuration files will be pulled from HTTP server during the openshift node installation.
+In this section, you will be configuring the HTTP server.
+There are multiple ways to configure the HTTP server but here directory from user's home directory holds the files.
+
+. Create the `/etc/httpd/conf.d/userdir.conf` file.
++
+[source,bash,role=execute]
+----
+cat >/etc/httpd/conf.d/userdir.conf<<-"EOF"
+#
+# UserDir: The name of the directory that is appended onto a user's home
+# directory if a ~user request is received.
+#
+# The path to the end user account 'public_html' directory must be
+# accessible to the webserver userid.  This usually means that ~userid
+# must have permissions of 711, ~userid/public_html must have permissions
+# of 755, and documents contained therein must be world-readable.
+# Otherwise, the client will only receive a "403 Forbidden" message.
+#
+<IfModule mod_userdir.c>
+    #
+    # UserDir is disabled by default since it can confirm the presence
+    # of a username on the system (depending on home directory
+    # permissions).
+    #
+    UserDir enabled lab-user
+
+    #
+    # To enable requests to /~user/ to serve the user's public_html
+    # directory, remove the "UserDir disabled" line above, and uncomment
+    # the following line instead:
+    #
+    UserDir public_html
+</IfModule>
+
+#
+# Control access to UserDir directories.  The following is an example
+# for a site where these directories are restricted to read-only.
+#
+<Directory "/home/*/public_html">
+    AllowOverride FileInfo AuthConfig Limit Indexes
+    Options MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec
+    Require method GET POST OPTIONS
+</Directory>
+EOF
+----
+
+. Create the `public_html` directory in the `lab-user's` home directory and set the permissions as mentioned in the `/etc/httpd/conf.d/userdir.conf` file.
++
+[source,bash,role=execute]
+----
+mkdir /home/lab-user/public_html
+----
++
+[source,bash,role=execute]
+----
+chown lab-user:users /home/lab-user/public_html
+----
++
+[source,bash,role=execute]
+----
+chmod 0711 /home/lab-user
+----
++
+[source,bash,role=execute]
+----
+chmod 0755 /home/lab-user/public_html
+----
+
+. Set the correct SELinux context of the `/etc/httpd/conf.d/userdir.conf` file.
++
+[source,bash,role=execute]
+----
+chcon system_u:object_r:httpd_config_t:s0 /etc/httpd/conf.d/userdir.conf
+----
++
+[source,bash,role=execute]
+----
+restorecon -vF /etc/httpd/conf.d/userdir.conf
+----
+
+. Start the `httpd` service.
++
+[source,bash,role=execute]
+----
+systemctl start httpd
+----
+
+. Test the `http` server.
++
+[source,bash,role=execute]
+----
+touch /home/lab-user/public_html/cmd
+----
++
+[source,bash,role=execute]
+----
+chown lab-user:users /home/lab-user/public_html/cmd
+----
++
+[source,bash,role=execute]
+----
+curl -I http://192.168.122.1/~lab-user/cmd
+----
++
+.Sample output
+----
+curl -I http://192.168.122.1/~lab-user/cmd
+
+HTTP/1.1 200 OK
+Date: Mon, 19 Aug 2024 15:29:02 GMT
+Server: Apache/2.4.57 (Red Hat Enterprise Linux)
+Last-Modified: Mon, 19 Aug 2024 15:28:26 GMT
+ETag: "0-6200af5d343a9"
+Accept-Ranges: bytes
+Content-Type: text/plain; charset=UTF-8
+----
++
+[source,bash,role=execute]
+----
+rm /home/lab-user/public_html/cmd
+----
++
+[NOTE]
+"HTTP/1.1 200 OK" indicates http server is working.
+
+=== Create Storage Pool for KVMs
+
+All five KVMs need the storage pool for storing the VM disks.
+In this section, you will be creating the storage pool.
+
+. Define the storage pool with name as `images` and path as `/var/lib/libvirt/images`.
++
+Review the existing storage pool.
++
+.Sample output
+----
+virsh pool-list --all
+ Name   State   Autostart
+---------------------------
+----
++
+Define the storage pool.
++
+[source,bash,role=execute]
+----
+virsh pool-define-as images --type dir --target /var/lib/libvirt/images
+----
+
+. Build the storage pool `images`.
++
+[source,bash,role=execute]
+----
+virsh pool-build images
+----
+
+. Start the storage pool `images`.
++
+[source,bash,role=execute]
+----
+virsh pool-start images
+----
+
+. Autostart the storage pool `images`.
++
+[source,bash,role=execute]
+----
+virsh pool-autostart images
+----
+
+. Verify the storage pool `images` is active and autostart is enabled.
++
+.Sample output
+----
+virsh pool-list --all
+
+ Name     State    Autostart
+------------------------------
+ images   active   yes
 ----

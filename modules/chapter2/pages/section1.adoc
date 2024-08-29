@@ -6,20 +6,6 @@ image::MCAP_setup.png[]
 
 == Prerequisites
 
-. Download the _rhel9.X_ qcow2 image from the https://access.redhat.com/downloads/content/rhel[Red Hat Customer Portal,window=read-later] to your laptop/desktop.
-. Secured copy (scp) the _rhel9.X_ qcow2 image from your laptop/desktop to hypervisor and then place it in `/var/lib/libvirt/images` directory with name as `rhel9-guest.qcow2`.
-+
-.Sample output
-----
-[user@laptop]$ scp Downloads/rhel-9.4-x86_64-kvm.qcow2 lab-user@14X.XX.YY.Z:.
-
-[user@laptop]$ ssh lab-user@14X.XX.YY.Z
-
-[lab-user@hypervisor ~]$ sudo su -
-
-[root@hypervisor ~]# mv /home/lab-user/rhel-9.4-x86_64-kvm.qcow2 /var/lib/libvirt/images/rhel9-guest.qcow2
-----
-
 ##FIX this - Try Automation playbook##
 
 == Hub VM Deployment
@@ -85,7 +71,7 @@ chown -R qemu:qemu rhel9-guest.qcow2
 +
 https://www.redhat.com/en/blog/all-you-need-know-about-kvm-userspace[All you need to know about KVM userspace,window=read-later]
 
-. Resize the partition 4 i.e. `/` of qcow2 image.
+. Resize the partition 4 of QCOW2 image.
 +
 [source,bash,role=execute]
 ----
