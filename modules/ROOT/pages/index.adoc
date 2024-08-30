@@ -13,7 +13,7 @@ The PTL team acknowledges the valuable contributions of the following Red Hat as
 * Ricardo Garcia Cavero
 * Sarvesh Pandit
 * Ashish Shah
-* Annie Purcell
+* Annie Purcell.
 
 == Classroom Environment
 
