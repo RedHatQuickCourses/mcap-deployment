@@ -23,7 +23,7 @@ This introductory course has a few, simple hands-on labs. You will use the https
 
 Update the Catalog link - ##FIX THIS##
 
-When ordering this catalog item in RHDP!
+When ordering this catalog item in RHDP:
 
 . Select *Practice/Enablement* for the *Activity* field
 . Select the nearest or any region in the *Region* field
