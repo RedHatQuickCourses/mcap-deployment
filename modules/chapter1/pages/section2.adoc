@@ -1,5 +1,7 @@
 = Initial Setup on Hypervisor
 
+nate was here also
+
 [NOTE]
 You can refer how to configure manually i.e. without automation in at the end appendix chapter.
 
