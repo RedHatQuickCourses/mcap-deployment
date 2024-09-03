@@ -9,7 +9,7 @@ image::MCAP_setup_2.png[]
 . Download the _rhel9.X_ QCOW2 image from the https://access.redhat.com/downloads/content/rhel[Red Hat Customer Portal,window=read-later] to your laptop/desktop.
 . Use Secured copy (scp) command to copy the _rhel9.X_ QCOW2 image from your laptop/desktop to hypervisor and then place it in `/var/lib/libvirt/images` directory.
 +
-.Sample output
+.Sample output:
 ----
 [user@laptop]$ scp Downloads/rhel-9.4-x86_64-kvm.qcow2 lab-user@14X.XX.YY.Z:.
 
