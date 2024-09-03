@@ -27,9 +27,9 @@ touch /root/hub/kubeadmin-password; touch /root/hub/console-url
 +
 image::console_redhat_install_download.png[]
 
-.. Download the `kubeconfig` file to your laptop/desktop and then copy to `/root/hub` directory on hypervisor.
+.. Download the `kubeconfig` file to your laptop or desktop and then copy to `/root/hub` directory on hypervisor.
 +
-.Sample output
+.Sample output:
 ----
 [root@hypervisor ~]# ls -al hub/
 total 28
@@ -95,7 +95,7 @@ kubepass=$(cat /root/hub/kubeadmin-password)
 oc login -u kubeadmin -p $kubepass
 ----
 +
-.Sample output
+.Sample output:
 ----
 Login successful.
 
@@ -111,7 +111,7 @@ Using project "default".
 oc get nodes
 ----
 +
-.Sample output
+.Sample output:
 ----
 NAME                  STATUS   ROLES                         AGE   VERSION
 hub.lab.example.com   Ready    control-plane,master,worker   10h   v1.29.7+6abe8a1
@@ -119,7 +119,7 @@ hub.lab.example.com   Ready    control-plane,master,worker   10h   v1.29.7+6abe8
 
 == Access the _Hub_ Cluster from Web Console
 
-. Access the firefox browser on console of hypervisor using VNC viewer.
+. Access the Firefox browser on console of hypervisor using VNC viewer.
 +
 image::vnc_hub_cluster_access.png[]
 
