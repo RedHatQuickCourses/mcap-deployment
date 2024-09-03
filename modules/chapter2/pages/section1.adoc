@@ -1,15 +1,15 @@
 = Hub VM Configuration
 
-In this section, you will be creating one KVM with name `hub`.
+In this section, you will be creating one KVM with the name `hub`.
 
 image::MCAP_setup.png[]
 
 == Prerequisites
 
-. Download the _rhel9.X_ qcow2 image from the https://access.redhat.com/downloads/content/rhel[Red Hat Customer Portal,window=read-later] to your laptop/desktop.
-. Secured copy (scp) the _rhel9.X_ qcow2 image from your laptop/desktop to hypervisor and then place it in `/var/lib/libvirt/images` directory with name as `rhel9-guest.qcow2`.
+. Download the _rhel9.X_ qcow2 image from the https://access.redhat.com/downloads/content/rhel[Red Hat Customer Portal,window=read-later] to your laptop or desktop.
+. Secured copy (scp) the _rhel9.X_ qcow2 image from your laptop or desktop to hypervisor and then place it in `/var/lib/libvirt/images` directory with the name as `rhel9-guest.qcow2`.
 +
-.Sample output
+.Sample output:
 ----
 [user@laptop]$ scp Downloads/rhel-9.4-x86_64-kvm.qcow2 lab-user@14X.XX.YY.Z:.
 
@@ -24,14 +24,14 @@ image::MCAP_setup.png[]
 
 == Hub VM Deployment
 
-. Ensure the rhel9 qcow2 image is in `/var/lib/libvirt/images` directory.
+. Ensure that the rhel9 qcow2 image is in `/var/lib/libvirt/images` directory.
 +
 [source,bash,role=execute]
 ----
 cd /var/lib/libvirt/images/
 ----
 +
-.Sample output
+.Sample output:
 ----
 ls -alh /var/lib/libvirt/images/rhel9-guest.qcow2
 -rw-r--r--. 1 lab-user users 913M Aug 21 10:00 /var/lib/libvirt/images/rhel9-guest.qcow2
@@ -41,7 +41,7 @@ ls -alh /var/lib/libvirt/images/rhel9-guest.qcow2
 +
 To get information on qcow2 image, run `qemu-img info` command on the qcow2 image.
 +
-.Sample output
+.Sample output:
 ----
 qemu-img info rhel9-guest.qcow2
 
@@ -62,9 +62,9 @@ qemu-img resize rhel9-guest.qcow2 +120G
 +
 This increases the virtual size of the disk.
 +
-Ensure virtual size is increased by 120GB.
+Ensure that the virtual size is increased by 120GB.
 +
-.Sample output
+.Sample output:
 ----
 qemu-img info rhel9-guest.qcow2
 
@@ -142,7 +142,7 @@ virt-customize -a rhel9-guest.qcow2 --selinux-relabel
 qemu-img create -f qcow2 -F qcow2 -b /var/lib/libvirt/images/rhel9-guest.qcow2 /var/lib/libvirt/images/hub.qcow2
 ----
 +
-.Sample output
+.Sample output:
 ----
 Formatting '/var/lib/libvirt/images/hub.qcow2', fmt=qcow2 cluster_size=65536 extended_l2=off compression_type=zlib size=139586437120 backing_file=/var/lib/libvirt/images/rhel9-guest.qcow2 backing_fmt=qcow2 lazy_refcounts=off refcount_bits=16
 ----
@@ -160,7 +160,7 @@ virt-install --virt-type kvm --ram 122880 --vcpus 32 --cpu=host-passthrough --os
 --vnc --name hub --noreboot
 ----
 +
-.Sample output
+.Sample output:
 ----
 Starting install...
 Allocating 'hub-disk.qcow2'                    | 250 GB  00:00:00
@@ -172,7 +172,7 @@ You can restart your domain by running:
 +
 Verify `hub` VM is created and in `shut off` state.
 +
-.Sample output
+.Sample output:
 ----
 virsh list --all
 
@@ -189,7 +189,7 @@ virsh list --all
 virsh start hub
 ----
 +
-.Sample output
+.Sample output:
 ----
 Domain 'hub' started
 
@@ -197,7 +197,7 @@ Domain 'hub' started
 +
 Verify `hub` VM is in `running` state.
 +
-.Sample output
+.Sample output:
 ----
 virsh list --all
 
@@ -216,7 +216,7 @@ Take the console of the `hub` VM and login as _root_ user with _redhat_ as passw
 virsh console hub
 ----
 +
-.Sample output
+.Sample output:
 ----
 [root@hypervisor images]# virsh console hub
 Connected to domain 'hub'
