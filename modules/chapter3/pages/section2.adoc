@@ -112,7 +112,7 @@ image::hub_console_sno1_accept_risk.png[]
 
 .. Move iso from `Download` directory to `/var/lib/libvirt/images/` directory.
 +
-.Sample output
+.Sample output:
 ----
 [root@hypervisor ~]# mv Downloads/39c2b646-e122-435b-b85e-c8ec6dd18d04-discovery.iso /var/lib/libvirt/images/
 ----
@@ -181,7 +181,7 @@ image::hub_console_sno1_review_create.png[]
 +
 image::hub_console_sno1_install_progress.png[]
 
-. After 7 to 10 minutes, it waits on pending user action.
+. After 7-10 minutes, it waits on pending user action.
 +
 image::hub_console_sno1_pending_user_actions.png[]
 +
