@@ -1,6 +1,6 @@
 = Ceph Storage Deployment
 
-In this section, you will be deploying Ceph on `storage` VM. test
+In this section, you will be deploying Ceph on `storage` VM.
 This `storage` VM will be single node and three disks Ceph cluster.
 
 image::MCAP_setup_3.png[]
@@ -141,9 +141,9 @@ Replace "yourusername" with your username and "yourpassword" with your password 
 
 == Ceph Configuration and Deployment
 
-. Create the Ceph spec file `initial-config.yaml` which is used as initial configuration for Ceph cluster deployment.
-There is only single Ceph cluster node i.e. `storage` VM used to deploy Ceph cluster.
-Hence you need to provide `storage` VM details in spec file such as ip address, hostname, host and three disks attached to `storage` VM.
+. Create the Ceph spec file `initial-config.yaml`, which is used as initial configuration for Ceph cluster deployment.
+There is only a single Ceph cluster node i.e. `storage` VM, used to deploy Ceph cluster.
+You need to provide `storage` VM details in the spec file such as IP address, hostname, host and three disks attached to `storage` VM.
 +
 [source,bash,role=execute]
 ----
@@ -182,7 +182,7 @@ EOF
 ----
 
 . Deploy the Ceph storage cluster with following command.
-You will need to pass the spec file as `initial-config.yaml`, mon ip as `storage` VM's ip and registry json file as `/etc/auth.json`.
+You will need to pass the spec file as `initial-config.yaml`, mon IP as `storage` VM's IP and registry json file as `/etc/auth.json`.
 To deploy a Ceph cluster running on a single host, use the `--single-host-defaults` flag when bootstrapping.
 +
 [source,bash,role=execute]
@@ -238,7 +238,7 @@ You may track the progress with watch `ceph -s` command.
 HEALTH_OK
 ----
 
-. In case of failure, you can use following command to destroy the Ceph storage cluster
+. In case of failure, you can use following command to destroy the Ceph storage cluster.
 +
 [source,bash,role=execute]
 ----
