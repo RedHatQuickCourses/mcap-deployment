@@ -6,10 +6,10 @@ image::MCAP_setup.png[]
 
 == Prerequisites
 
-. Download the _rhel9.X_ qcow2 image from the https://access.redhat.com/downloads/content/rhel[Red Hat Customer Portal,window=read-later] to your laptop/desktop.
+. Download the _rhel9.X_ qcow2 image from the https://access.redhat.com/downloads/content/rhel[Red Hat Customer Portal,window=read-later] to your laptop or desktop.
 . Secured copy (scp) the _rhel9.X_ qcow2 image from your laptop/desktop to hypervisor and then place it in `/var/lib/libvirt/images` directory with name as `rhel9-guest-sno.qcow2`.
 +
-.Sample output
+.Sample output:
 ----
 [user@laptop]$ scp Downloads/rhel-9.4-x86_64-kvm.qcow2 lab-user@14X.XX.YY.Z:.
 
@@ -31,7 +31,7 @@ image::MCAP_setup.png[]
 cd /var/lib/libvirt/images/
 ----
 +
-.Sample output
+.Sample output:
 ----
 ls -alh /var/lib/libvirt/images/rhel9-guest-sno.qcow2
 -rw-r--r--. 1 lab-user users 913M Aug 21 10:00 /var/lib/libvirt/images/rhel9-guest-sno.qcow2
@@ -41,7 +41,7 @@ ls -alh /var/lib/libvirt/images/rhel9-guest-sno.qcow2
 +
 To get information on qcow2 image, run `qemu-img info` command on the qcow2 image.
 +
-.Sample output
+.Sample output:
 ----
 qemu-img info rhel9-guest-sno.qcow2
 
@@ -64,7 +64,7 @@ This increases the virtual size of the disk.
 +
 Ensure virtual size is increased by 120GB.
 +
-.Sample output
+.Sample output:
 ----
 qemu-img info rhel9-guest-sno.qcow2
 
@@ -112,7 +112,7 @@ https://access.redhat.com/solutions/57263[How to extend a XFS filesytem using th
 virt-customize -a rhel9-guest-sno.qcow2 --root-password password:redhat
 ----
 +
-You can use this password for logging into VM via console.
+You can use this password for logging into the VM via console.
 
 . Disable the `cloud-init` service in qcow2 image.
 +
@@ -128,7 +128,7 @@ virt-customize -a rhel9-guest-sno.qcow2 --run-command 'systemctl disable cloud-i
 virt-customize -a rhel9-guest-sno.qcow2 --ssh-inject root:file:/root/.ssh/id_rsa.pub
 ----
 
-. Selinux relabel in qcow2 image.
+. SELinux relabel in qcow2 image.
 +
 [source,bash,role=execute]
 ----
@@ -158,7 +158,7 @@ Create `sno3.qcow2` image.
 qemu-img create -f qcow2 -F qcow2 -b /var/lib/libvirt/images/rhel9-guest-sno.qcow2 /var/lib/libvirt/images/sno3.qcow2
 ----
 +
-.Sample output
+.Sample output:
 ----
 [root@hypervisor images]# qemu-img create -f qcow2 -F qcow2 -b /var/lib/libvirt/images/rhel9-guest-sno.qcow2 /var/lib/libvirt/images/sno1.qcow2
 Formatting '/var/lib/libvirt/images/sno1.qcow2', fmt=qcow2 cluster_size=65536 extended_l2=off compression_type=zlib size=139586437120 backing_file=/var/lib/libvirt/images/rhel9-guest-sno.qcow2 backing_fmt=qcow2 lazy_refcounts=off refcount_bits=16
@@ -172,7 +172,7 @@ Formatting '/var/lib/libvirt/images/sno3.qcow2', fmt=qcow2 cluster_size=65536 ex
 
 . Create the `sno1`, `sno2` and `sno3` VMs.
 Disk path should be storage pool path i.e. `/var/lib/libvirt/images/`.
-mac address for the `sno1`, `sno2` and `sno3` VMs should be same as from the dhcp configuration.
+MAC address for the `sno1`, `sno2` and `sno3` VMs should be same as from the DHCP configuration.
 +
 [source,bash,role=execute]
 ----
@@ -198,7 +198,7 @@ virt-install --virt-type kvm --ram 122880 --vcpus 24 --cpu=host-passthrough --os
 --noautoconsole --vnc --name sno3 --noreboot
 ----
 +
-.Sample output
+.Sample output:
 ----
 [root@hypervisor images]# virt-install --virt-type kvm --ram 122880 --vcpus 24 --cpu=host-passthrough --os-variant rhel9.3 \
 --disk path=/var/lib/libvirt/images/sno1.qcow2,device=disk,bus=virtio,format=qcow2 \
@@ -236,7 +236,7 @@ You can restart your domain by running:
 +
 Verify `sno1`, `sno2` and `sno3` VMs are created and in `shut off` state.
 +
-.Sample output
+.Sample output:
 ----
 virsh list --all
 
@@ -268,7 +268,7 @@ Domain 'sno3' started
 +
 Verify `sno1`, `sno2` and `sno3` VMs are in `running` state.
 +
-.Sample output
+.Sample output:
 ----
 virsh list --all
 
@@ -290,7 +290,7 @@ Take the console of the `sno1`, `sno2` and `sno3` VMs and login as _root_ user w
 virsh console sno1
 ----
 +
-.Sample output
+.Sample output:
 ----
 [root@hypervisor images]# virsh console sno1
 
