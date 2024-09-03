@@ -4,6 +4,8 @@ This course focus is to provision and configure a MCAP to host modern, cloud-nat
 
 I think we need to add some more content in here.
 
+oh yeah, one more thing
+
 # Creating Course Content
 
 We use a system called Antora (https://antora.org) to publish courses. Antora expects the files and folders in a source repository to be arranged in a certain opinionated way to simplify the process of writing course content using asciidoc, and then converting the asciidoc source to HTML.
