@@ -2,6 +2,8 @@
 
 This course focus is to provision and configure a MCAP to host modern, cloud-native applications. The solution can also host virtual machine (VM) based legacy monolithic applications using OpenShift Virtualization.
 
+I think we need to add some more content in here.
+
 # Creating Course Content
 
 We use a system called Antora (https://antora.org) to publish courses. Antora expects the files and folders in a source repository to be arranged in a certain opinionated way to simplify the process of writing course content using asciidoc, and then converting the asciidoc source to HTML.
@@ -18,6 +20,7 @@ This section is intended as a quick start guide for technically experienced memb
 * You have a somewhat recent version of the Git client installed on your workstation
 * You have a somewhat new Node.js LTS release (Node.js 16+) installed locally.
 * Install a recent version of Visual Studio Code. Other editors with asciidoc editing support may work - YMMV, and you are on your own...
+* another bullet here would be great too.
 
 ### Antora Files and Folder Structure
 
@@ -33,6 +36,7 @@ To add a new section under a chapter create an entry in the *modules/CHAPTER/nav
 
 ### Steps
 
+// Why are we using hard-ceoded numbers here?
 1. Clone or fork the course repository.
 ```
     $ git clone git@github.com:RedHatQuickCourses/mcap-deployment.git
