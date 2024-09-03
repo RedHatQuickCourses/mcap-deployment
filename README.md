@@ -4,7 +4,7 @@ This course focus is to provision and configure a MCAP to host modern, cloud-nat
 
 I think we need to add some more content in here.
 
-oh yeah, one more thing
+Oh yes, one more thing.
 
 # Creating Course Content
 
