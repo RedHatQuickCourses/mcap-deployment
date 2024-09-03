@@ -110,7 +110,7 @@ Click btn:[Accept the Risk and Continue] to proceed.
 +
 image::hub_console_sno1_accept_risk.png[]
 
-.. Move iso from `Download` directory to `/var/lib/libvirt/images/` directory.
+.. Move ISO from `Download` directory to `/var/lib/libvirt/images/` directory.
 +
 .Sample output:
 ----
@@ -165,7 +165,7 @@ Once `sno1.lab.example.com` host is in `Ready` status, click btn:[Next]
 +
 image::hub_console_sno1_host_ready.png[]
 
-. In networking section, you may notice the `Some validations failed` message.
+. In the networking section, you may notice the `Some validations failed` message.
 +
 image::hub_console_sno1_networking_ready.png[]
 +
@@ -195,11 +195,11 @@ image::sno1_shutdown_1.png[]
 +
 image::sno1_boot_order_1.png[]
 
-. After 2 minutes, installation proceeds and you will notice the progress.
+. After two minutes, installation proceeds and you will notice the progress.
 +
 image::hub_console_sno1_install_proceed.png[]
 
-. Installation completes in approximately in 20 minutes.
+. Installation completes in approximately 20 minutes.
 +
 image::hub_console_sno1_install_complete.png[]
 
@@ -207,9 +207,9 @@ image::hub_console_sno1_install_complete.png[]
 +
 image::hub_console_sno1_ready.png[]
 +
-This concludes successful deployment of OpenShift cluster and added to hub cluster using RHACM.
+This concludes the successful deployment of OpenShift cluster and added to hub cluster using RHACM.
 
 == Install remaining _Infrastructure_ clusters as SNO clusters
 
-. You can deploy remaining `sno2` and `sno3` clusters by following steps from previous section followed for `sno1` cluster deployment.
-. Each cluster deployment take 35 to 40 minutes to complete.
+. You can deploy remaining `sno2` and `sno3` clusters by following steps from the previous section for `sno1` cluster deployment.
+. Each cluster deployment will take 35 to 40 minutes to complete.
