@@ -1,6 +1,6 @@
 = Hands-on Lab Environment Setup for MCAP
 
-This chapter covers hands-on lab environment setup for MCAP.
+This chapter covers the hands-on lab environment setup for MCAP.
 
 Chapter goals:
 
