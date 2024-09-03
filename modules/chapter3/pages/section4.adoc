@@ -7,13 +7,13 @@ image::MCAP_setup_2.png[]
 
 == Prerequisites
 
-. Verify _sno1_ cluster is deployed successfully.
+. Verify that _sno1_ cluster is deployed successfully.
 
 . Access the _sno1_ cluster via CLI and web console.
 
-. Ensure `sno1.lab.example.com` node is in `Ready` status and all cluster operators are available.
+. Ensure that `sno1.lab.example.com` node is in `Ready` status and that all cluster operators are available.
 +
-.Sample output
+.Sample output:
 ----
 [root@hypervisor ~]# oc get nodes
 
@@ -28,21 +28,21 @@ version   4.16.8    True        False         23h     Cluster version is 4.16.8
 
 == Install OpenShift Virtualization Operator
 
-. Access the operator hub from web console of _sno1_ cluster.
+. Access the operator hub from the web console of _sno1_ cluster.
 +
-From left navigation pane, click menu:Operators[OperatorHub].
+From the left navigation pane, click menu:Operators[OperatorHub].
 +
 image::sno1_console_operator_hub.png[]
 
-. In search window, search _openshift virtualization_ and select the `OpenShift Virtualization`.
+. In a search window, search _openshift virtualization_ and select the `OpenShift Virtualization`.
 +
 image::sno1_console_operator_hub_1.png[]
 
-. Click btn:[Install] to open install options.
+. Click btn:[Install] to open the install options.
 +
 image::sno1_console_ocpvirt_install.png[]
 
-. Keep all options as it is with no change in selected options and click btn:[Install] to install the operator.
+. Keep all options as is, with no change in selected options and then click btn:[Install] to install the operator.
 +
 image::sno1_console_ocpvirt_install_1.png[]
 
@@ -50,7 +50,7 @@ image::sno1_console_ocpvirt_install_1.png[]
 +
 image::sno1_console_ocpvirt_install_2.png[]
 
-. Keep all options as it is with no change in selected options and click btn:[Create] to create the resource.
+. Keep all options as is, with no change, in selected options and then click btn:[Create] to create the resource.
 +
 image::sno1_console_ocpvirt_install_3.png[]
 
@@ -68,13 +68,13 @@ image::sno1_console_ocpvirt_install_6.png[]
 
 == Install OpenShift Data Foundation Operator
 
-. Access the operator hub from web console of _sno1_ cluster.
+. Access the operator hub from the web console of _sno1_ cluster.
 +
-From left navigation pane, click menu:Operators[OperatorHub].
+From the left navigation pane, click menu:Operators[OperatorHub].
 +
 image::sno1_console_operator_hub.png[]
 
-. In search window, search _odf_ and select the `OpenShift Data Foundation`.
+. In a search window, search _odf_ and then select the `OpenShift Data Foundation`.
 +
 image::sno1_console_odf_install.png[]
 
@@ -82,13 +82,13 @@ image::sno1_console_odf_install.png[]
 +
 image::sno1_console_odf_install_1.png[]
 
-. Keep all options as it is with no change in selected options and click btn:[Install] to install the operator.
+. Keep all options as is, with no change, in selected options and then click btn:[Install] to install the operator.
 +
 image::sno1_console_odf_install_2.png[]
 
 . After 3 to 4 minutes, notice the `Refresh web console` message on window.
 +
-First, refresh the web console then click btn:[Create StorageSystem] to create the resource.
+First, refresh the web console and then click btn:[Create StorageSystem] to create the resource.
 +
 image::sno1_console_odf_install_3.png[]
 
@@ -112,11 +112,11 @@ image::sno1_console_odf_install_5.png[]
 
 .. Provide connection details.
 +
-Use `Download script` option to download the python script.
+Use the `Download script` option to download the Python script.
 +
 image::sno1_console_odf_install_6.png[]
 +
-You need to run this script on the `storage` VM.
+You will need to run this script on the `storage` VM.
 +
 [source,bash,role=execute]
 ----
@@ -125,7 +125,7 @@ scp Downloads/ceph-external-cluster-details-exporter.py root@storage:.
 +
 Password for `root` user is `redhat`.
 +
-.Sample output
+.Sample output:
 ----
 [root@hypervisor ~]# ls Downloads/
 ceph-external-cluster-details-exporter.py
@@ -142,7 +142,7 @@ Run the `ceph-external-cluster-details-exporter.py` script on the `storage` VM a
 python ceph-external-cluster-details-exporter.py --rbd-data-pool-name default.rgw.control > output.json
 ----
 +
-.Sample output
+.Sample output:
 ----
 [root@hypervisor ~]# ssh root@storage
 root@storage's password:
@@ -164,7 +164,7 @@ Copy the `output.json` file from `storage` VM to hypervisor.
 scp root@storage:/root/output.json .
 ----
 +
-.Sample output
+.Sample output:
 ----
 [root@hypervisor ~]# scp root@storage:/root/output.json .
 root@storage's password:
@@ -194,7 +194,7 @@ image::sno1_console_odf_install_10.png[]
 +
 image::sno1_console_odf_install_11.png[]
 
-.. Verify operator is installed successfully in `openshift-storage` namespace.
+.. Verify that the operator is installed successfully in `openshift-storage` namespace.
 +
 image::sno1_console_odf_install_12.png[]
 
@@ -202,11 +202,11 @@ image::sno1_console_odf_install_12.png[]
 
 . Access the operator hub from web console of _sno1_ cluster.
 +
-From left navigation pane, click menu:Operators[OperatorHub].
+From the left navigation pane, click menu:Operators[OperatorHub].
 +
 image::sno1_console_operator_hub.png[]
 
-. In search window, search _NMstate_ and select the `Kubernetes NMState Operator`.
+. In a search window, search _NMstate_ and then select the `Kubernetes NMState Operator`.
 +
 image::sno1_console_operator_hub_nmstate.png[]
 
@@ -214,7 +214,7 @@ image::sno1_console_operator_hub_nmstate.png[]
 +
 image::sno1_console_nmstate_install.png[]
 
-. Keep all options as it is with no change in selected options and click btn:[Install] to install the operator.
+. Keep all options as is, with no change, in selected options and click btn:[Install] to install the operator.
 +
 image::sno1_console_nmstate_install_1.png[]
 
@@ -226,7 +226,7 @@ image::sno1_console_nmstate_install_2.png[]
 +
 image::sno1_console_nmstate_install_3.png[]
 
-. Keep all options as it is with no change in selected options and click btn:[Create] to create the resource.
+. Keep all options as is, with no change, in selected options and then click btn:[Create] to create the resource.
 +
 image::sno1_console_nmstate_install_4.png[]
 
