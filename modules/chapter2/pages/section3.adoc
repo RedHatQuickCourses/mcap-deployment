@@ -9,29 +9,11 @@ image::MCAP_setup_1.png[]
 
 . Ensure _Hub_ cluster is deployed successfully.
 
-. Create a directory as `/root/hub/` on hypervisor.
-+
-[source,bash,role=execute]
-----
-mkdir /root/hub
-----
-
-. Create `kubeadmin-password` and `console-url` files in `/root/hub/` directory.
-+
-[source,bash,role=execute]
-----
-touch /root/hub/kubeadmin-password; touch /root/hub/console-url
-----
-
-. Get the `kubeconfig` file, password for `kubeadmin` user and web console url from console.redhat.com.
-+
-image::console_redhat_install_download.png[]
-
-.. Download the `kubeconfig` file to your laptop or desktop and then copy to `/root/hub` directory on hypervisor.
+. Ensure `/root/hub/` directory and file structure created.
 +
 .Sample output:
 ----
-[root@hypervisor ~]# ls -al hub/
+[root@hypervisor ~]# ls -al /root/hub/
 total 28
 drwxr-xr-x.  2 root root  4096 Aug 22 15:20 .
 dr-xr-x---. 13 root root  4096 Aug 22 15:18 ..
@@ -40,15 +22,25 @@ dr-xr-x---. 13 root root  4096 Aug 22 15:18 ..
 -rw-r--r--.  1 root root 12127 Aug 22 15:20 kubeconfig
 ----
 
+. Get the `kubeconfig` file, password for `kubeadmin` user and web console url from console.redhat.com.
++
+image::console_redhat_install_download.png[]
+
+.. Download the `kubeconfig` file to your laptop or desktop and then copy to `/root/hub` directory on hypervisor.
+
 .. Copy the password for `kubeadmin` user and paste it in `/root/hub/kubeadmin-password` file.
 
 .. Copy the web console url and paste it in `/root/hub/console-url` file.
 
-. Create `.kube` directory and `config` file in `.kube` directory.
+. Ensure `/root/.kube` directory and `config` file in `/root/.kube` directory.
 +
-[source,bash,role=execute]
+.Sample output:
 ----
-mkdir /root/.kube; touch /root/.kube/config
+[root@hypervisor ~]# ls -al /root/.kube
+total 36
+drwxr-xr-x.  3 root root  4096 Sep  4 13:19 .
+dr-xr-x---. 18 root root  4096 Sep  5 08:28 ..
+-rw-r--r--.  1 root root 20513 Sep  5 08:29 config
 ----
 
 == Access the _Hub_ Cluster via CLI
@@ -144,7 +136,7 @@ Get the `kubadmin` user's passwrod from `/root/hub/kubeadmin-password` file.
 +
 image::vnc_hub_cluster_access_3.png[]
 
-. Once you logged in as `kubadmin` user, this is how the first screen looks like
+. Once you logged in as `kubadmin` user, this is how the first screen looks like.
 +
 image::vnc_hub_cluster_access_4.png[]
 

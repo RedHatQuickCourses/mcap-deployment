@@ -58,14 +58,14 @@ lvms-vg1   topolvm.io    Delete          WaitForFirstConsumer   true            
 +
 [source,bash,role=execute]
 ----
-oc edit sc lvms-vg1
+oc patch storageclass lvms-vg1 -p '{"metadata": {"annotations": {"storageclass.kubernetes.io/is-default-class": "true"}}}'
 ----
 +
 .Sample output:
 ----
-[root@hypervisor ~]# oc edit sc lvms-vg1
+[root@hypervisor ~]# oc patch storageclass lvms-vg1 -p '{"metadata": {"annotations": {"storageclass.kubernetes.io/is-default-class": "true"}}}'
 
-storageclass.storage.k8s.io/lvms-vg1 edited
+storageclass.storage.k8s.io/lvms-vg1 patched
 ----
 
 .. Verify it is set to default.
@@ -138,11 +138,11 @@ image::rhacm_install_3.png[]
 +
 image::rhacm_install_4.png[]
 
-. After 3 to 4 minutes, notice the `Refresh web console` message on window.
+. After 2-3 minutes, notice the `Refresh web console` message on window.
 +
 image::rhacm_install_5.png[]
 
-. After 3 to 4 minutes, _MultiClusterHub_ is in `Running` phase.
+. After 3-4 minutes, refresh the page and _MultiClusterHub_ is in `Running` phase.
 +
 image::rhacm_install_6.png[]
 
@@ -155,7 +155,7 @@ This will help to generate discovery ISO which will be used for deploying _Infra
 
 Ensure `AgentServiceConfig` exists and running.
 
-.Sample output
+.Sample output:
 ----
 [root@hypervisor ~]# oc get AgentServiceConfig
 
@@ -187,5 +187,11 @@ EOF
 oc create -f provisioning-configuration.yaml
 ----
 
-
-
+. Ensure provisioning custom resource is created.
++
+.Sample output:
+----
+[root@hypervisor ~]# oc get provisioning
+NAME                         AGE
+provisioning-configuration   6s
+----

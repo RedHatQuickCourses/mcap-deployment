@@ -15,7 +15,7 @@ image::MCAP_setup_1.png[]
 
 . Use secured copy (scp) to copy the `rhel-9.4-x86_64-kvm.qcow2` image from your laptop/desktop to hypervisor and then place it in `/root` directory.
 +
-.Sample output
+.Sample output:
 ----
 [user@laptop]$ scp Downloads/rhel-9.4-x86_64-kvm.qcow2 lab-user@14X.XX.YY.Z:.
 
