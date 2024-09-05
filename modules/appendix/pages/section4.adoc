@@ -1,50 +1,42 @@
-= Infrastructure VM Deployment
-
-[NOTE]
-You can refer how to configure manually i.e. without automation in at the end appendix chapter.
+= Infrastructure VM Deployment without Automation
 
 In this section, you will be creating three KVMs with name `sno1`, `sno2` and `sno3`.
 
-image::MCAP_setup.png[]
+image::MCAP_setup_4.png[]
 
 == Prerequisites
 
-. Download the _rhel9.X_ qcow2 image from the https://access.redhat.com/downloads/content/rhel[Red Hat Customer Portal,window=read-later] to your laptop or desktop.
-. Secured copy (scp) the _rhel9.X_ qcow2 image from your laptop/desktop to hypervisor and then place it in `/var/lib/libvirt/images` directory with name as `rhel9-guest-sno.qcow2`.
-+
-.Sample output:
-----
-[user@laptop]$ scp Downloads/rhel-9.4-x86_64-kvm.qcow2 lab-user@14X.XX.YY.Z:.
+Copy the `rhel-9.4-x86_64-kvm.qcow2` image from `/root` and place it in `/var/lib/libvirt/images` directory with name as `rhel9-guest-sno.qcow2`.
 
+.Sample output
+----
 [user@laptop]$ ssh lab-user@14X.XX.YY.Z
 
 [lab-user@hypervisor ~]$ sudo su -
 
-[root@hypervisor ~]# mv /home/lab-user/rhel-9.4-x86_64-kvm.qcow2 /var/lib/libvirt/images/rhel9-guest-sno.qcow2
+[root@hypervisor ~]# cp /root/rhel-9.4-x86_64-kvm.qcow2 /var/lib/libvirt/images/rhel9-guest-sno.qcow2
 ----
-
-##FIX this - Try Automation playbook##
 
 == SNO VMs Deployment
 
-. Ensure the rhel9 qcow2 image is in `/var/lib/libvirt/images` directory.
+. Ensure the `rhel9-guest-sno.qcow2` image is in `/var/lib/libvirt/images` directory.
 +
 [source,bash,role=execute]
 ----
 cd /var/lib/libvirt/images/
 ----
 +
-.Sample output:
+.Sample output
 ----
 ls -alh /var/lib/libvirt/images/rhel9-guest-sno.qcow2
--rw-r--r--. 1 lab-user users 913M Aug 21 10:00 /var/lib/libvirt/images/rhel9-guest-sno.qcow2
+-rw-r--r--. 1 root root 913M Aug 21 10:00 /var/lib/libvirt/images/rhel9-guest-sno.qcow2
 ----
 
 . Check the virtual and disk size of qcow2 image.
 +
 To get information on qcow2 image, run `qemu-img info` command on the qcow2 image.
 +
-.Sample output:
+.Sample output
 ----
 qemu-img info rhel9-guest-sno.qcow2
 
@@ -67,7 +59,7 @@ This increases the virtual size of the disk.
 +
 Ensure virtual size is increased by 120GB.
 +
-.Sample output:
+.Sample output
 ----
 qemu-img info rhel9-guest-sno.qcow2
 
@@ -88,7 +80,7 @@ chown -R qemu:qemu rhel9-guest-sno.qcow2
 +
 https://www.redhat.com/en/blog/all-you-need-know-about-kvm-userspace[All you need to know about KVM userspace,window=read-later]
 
-. Resize the partition 4 i.e. `/` of qcow2 image.
+. Resize the partition 4 of QCOW2 image.
 +
 [source,bash,role=execute]
 ----
@@ -115,11 +107,13 @@ https://access.redhat.com/solutions/57263[How to extend a XFS filesytem using th
 virt-customize -a rhel9-guest-sno.qcow2 --root-password password:redhat
 ----
 +
-You can use this password for logging into the VM via console.
+You can use this password for logging into VM via console.
 
+. Disable the `cloud-init` service in qcow2 image.
++
 [source,bash,role=execute]
 ----
-ansible-playbook playbooks/setup_sno.yaml -vvv | tee -a /tmp/setup_sno.log
+virt-customize -a rhel9-guest-sno.qcow2 --run-command 'systemctl disable cloud-init'
 ----
 
 . Inject the `root` user's public rsa key in qcow2 image.
@@ -129,7 +123,7 @@ ansible-playbook playbooks/setup_sno.yaml -vvv | tee -a /tmp/setup_sno.log
 virt-customize -a rhel9-guest-sno.qcow2 --ssh-inject root:file:/root/.ssh/id_rsa.pub
 ----
 
-. SELinux relabel in qcow2 image.
+. Selinux relabel in qcow2 image.
 +
 [source,bash,role=execute]
 ----
@@ -159,7 +153,7 @@ Create `sno3.qcow2` image.
 qemu-img create -f qcow2 -F qcow2 -b /var/lib/libvirt/images/rhel9-guest-sno.qcow2 /var/lib/libvirt/images/sno3.qcow2
 ----
 +
-.Sample output:
+.Sample output
 ----
 [root@hypervisor images]# qemu-img create -f qcow2 -F qcow2 -b /var/lib/libvirt/images/rhel9-guest-sno.qcow2 /var/lib/libvirt/images/sno1.qcow2
 Formatting '/var/lib/libvirt/images/sno1.qcow2', fmt=qcow2 cluster_size=65536 extended_l2=off compression_type=zlib size=139586437120 backing_file=/var/lib/libvirt/images/rhel9-guest-sno.qcow2 backing_fmt=qcow2 lazy_refcounts=off refcount_bits=16
@@ -173,7 +167,7 @@ Formatting '/var/lib/libvirt/images/sno3.qcow2', fmt=qcow2 cluster_size=65536 ex
 
 . Create the `sno1`, `sno2` and `sno3` VMs.
 Disk path should be storage pool path i.e. `/var/lib/libvirt/images/`.
-MAC address for the `sno1`, `sno2` and `sno3` VMs should be same as from the DHCP configuration.
+mac address for the `sno1`, `sno2` and `sno3` VMs should be same as from the dhcp configuration.
 +
 [source,bash,role=execute]
 ----
@@ -199,7 +193,7 @@ virt-install --virt-type kvm --ram 122880 --vcpus 24 --cpu=host-passthrough --os
 --noautoconsole --vnc --name sno3 --noreboot
 ----
 +
-.Sample output:
+.Sample output
 ----
 [root@hypervisor images]# virt-install --virt-type kvm --ram 122880 --vcpus 24 --cpu=host-passthrough --os-variant rhel9.3 \
 --disk path=/var/lib/libvirt/images/sno1.qcow2,device=disk,bus=virtio,format=qcow2 \
@@ -237,7 +231,7 @@ You can restart your domain by running:
 +
 Verify `sno1`, `sno2` and `sno3` VMs are created and in `shut off` state.
 +
-.Sample output:
+.Sample output
 ----
 virsh list --all
 
@@ -269,7 +263,7 @@ Domain 'sno3' started
 +
 Verify `sno1`, `sno2` and `sno3` VMs are in `running` state.
 +
-.Sample output:
+.Sample output
 ----
 virsh list --all
 
@@ -291,7 +285,7 @@ Take the console of the `sno1`, `sno2` and `sno3` VMs and login as _root_ user w
 virsh console sno1
 ----
 +
-.Sample output:
+.Sample output
 ----
 [root@hypervisor images]# virsh console sno1
 
@@ -304,4 +298,3 @@ Password:
 ----
 +
 Similarly verify `sno2` and `sno3` VMs are booted successfully.
-
