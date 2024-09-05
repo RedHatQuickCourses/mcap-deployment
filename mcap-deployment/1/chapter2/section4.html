@@ -217,7 +217,7 @@
 <li>
 <p>Verify <em>multicluster engine for Kubernetes</em> and <em>LVM Storage</em> operators are installed.</p>
 <div class="listingblock">
-<div class="title">Sample output</div>
+<div class="title">Sample output:</div>
 <div class="content">
 <pre>[root@hypervisor ~]# oc get operators
 
@@ -228,9 +228,9 @@ multicluster-engine.multicluster-engine   58m</pre>
 </div>
 </li>
 <li>
-<p>Ensure <code>hub.lab.example.com</code> node is in <code>Ready</code> status and all cluster operators are available.</p>
+<p>Ensure that <code>hub.lab.example.com</code> node is in <code>Ready</code> status and all cluster operators are available.</p>
 <div class="listingblock">
-<div class="title">Sample output</div>
+<div class="title">Sample output:</div>
 <div class="content">
 <pre>[root@hypervisor ~]# oc get nodes
 
@@ -256,7 +256,7 @@ version   4.16.7    True        False         16m     Cluster version is 4.16.7<
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Sample output</div>
+<div class="title">Sample output:</div>
 <div class="content">
 <pre>[root@hypervisor ~]# oc get sc
 
@@ -273,7 +273,7 @@ lvms-vg1   topolvm.io    Delete          WaitForFirstConsumer   true            
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Sample output</div>
+<div class="title">Sample output:</div>
 <div class="content">
 <pre>[root@hypervisor ~]# oc edit sc lvms-vg1
 
@@ -284,7 +284,7 @@ storageclass.storage.k8s.io/lvms-vg1 edited</pre>
 <li>
 <p>Verify it is set to default.</p>
 <div class="listingblock">
-<div class="title">Sample output</div>
+<div class="title">Sample output:</div>
 <div class="content">
 <pre>[root@hypervisor ~]# oc get sc
 
@@ -293,7 +293,7 @@ lvms-vg1 (default)   topolvm.io    Delete          WaitForFirstConsumer   true  
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Sample output</div>
+<div class="title">Sample output:</div>
 <div class="content">
 <pre>[root@hypervisor ~]# oc get sc lvms-vg1 -o yaml
 
@@ -367,7 +367,7 @@ metadata:
 </div>
 </li>
 <li>
-<p>Keep all options as it is with no change in selected options and click <b class="button">Install</b> to install the operator.</p>
+<p>Keep all options as is, with no change in selected options and click <b class="button">Install</b> to install the operator.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/rhacm_install_1.png" alt="rhacm install 1">
@@ -383,7 +383,7 @@ metadata:
 </div>
 </li>
 <li>
-<p>Keep all options as it is with no change in selected options and click <b class="button">Create</b> to create the resource.</p>
+<p>Keep all options as is, with no change in selected options and click <b class="button">Create</b> to create the resource.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/rhacm_install_3.png" alt="rhacm install 3">

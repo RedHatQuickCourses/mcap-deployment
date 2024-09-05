@@ -278,7 +278,7 @@ This <em>Hub</em> cluster will be Single Node OpenShift (SNO) cluster.</p>
 <li>
 <p>Click <b class="button">Add host</b>.</p>
 <div class="paragraph">
-<p>This will open a window to generate discovery iso.</p>
+<p>This will open a window to generate discovery ISO.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -306,7 +306,7 @@ This <em>Hub</em> cluster will be Single Node OpenShift (SNO) cluster.</p>
 <li>
 <p>Download the discovery ISO.</p>
 <div class="paragraph">
-<p>To download the discovery ISO on your laptop/desktop, click <b class="button">Download Discovery ISO</b>.
+<p>To download the discovery ISO on your laptop or desktop, click <b class="button">Download Discovery ISO</b>.
 In this case, you need to copy it to hypervisor manually.</p>
 </div>
 <div class="paragraph">
@@ -327,8 +327,8 @@ In this case, you need to copy it to hypervisor manually.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-You will need <code>virt-manager</code> to attach this discovery iso to <code>hub</code> VM.
-To access the GUI of hypervisor you need console access.
+You will need <code>virt-manager</code> to attach this discovery ISO to <code>hub</code> VM.
+To access the GUI of hypervisor, you will need console access.
 </td>
 </tr>
 </table>
@@ -360,7 +360,7 @@ You will use this password to access vnc console of hypervisor from your laptop/
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Sample output</div>
+<div class="title">Sample output:</div>
 <div class="content">
 <pre>Password:
 Verify:
@@ -369,18 +369,18 @@ A view-only password is not used</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>It is recommended to set strong password.</p>
+<p>It is recommended to set a strong password.</p>
 </div>
 </li>
 <li>
-<p>Run <code>vncserver</code> command to create a virtual desktop you can view or control remotely using a VNC viewer.</p>
+<p>Run the <code>vncserver</code> command to create a virtual desktop that you can view or control remotely using a VNC viewer.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">vncserver</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Sample output</div>
+<div class="title">Sample output:</div>
 <div class="content">
 <pre>WARNING: vncserver has been replaced by a systemd unit and is now considered deprecated and removed in upstream.
 Please read /usr/share/doc/tigervnc/HOWTO.md for more information.
@@ -408,7 +408,7 @@ As per above output, you will mention <code>&lt;hypervisor_ip_address&gt;:2</cod
 </div>
 </li>
 <li>
-<p>Download and install VNC viewer from <a href="https://www.realvnc.com/en/connect/download/viewer/" class="bare">https://www.realvnc.com/en/connect/download/viewer/</a> as per your laptop/desktop operating system.</p>
+<p>Download and install VNC viewer from <a href="https://www.realvnc.com/en/connect/download/viewer/" class="bare">https://www.realvnc.com/en/connect/download/viewer/</a> as per your laptop or desktop operating system.</p>
 </li>
 <li>
 <p>Use the <code>&lt;hypervisor_ip_address&gt;:2</code> as connection in VNC viewer.</p>
@@ -435,7 +435,7 @@ As per above output, you will mention <code>&lt;hypervisor_ip_address&gt;:2</cod
 </div>
 </li>
 <li>
-<p>Now, you can see the console with firefox browser and terminal open.</p>
+<p>Now, you can see the console with a Firefox browser and terminal open.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/vnc_viewer_screen.png" alt="vnc viewer screen">
@@ -448,7 +448,7 @@ As per above output, you will mention <code>&lt;hypervisor_ip_address&gt;:2</cod
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-You will not be able to drag the browser or terminal window as there is no menu bar.
+You will not be able to drag the browser or terminal window, as there is no menu bar.
 </td>
 </tr>
 </table>
@@ -477,11 +477,11 @@ Hit <kbd>enter</kbd> button, till you see the <code>[root@hypervisor images]#</c
 </div>
 </div>
 <div class="paragraph">
-<p>Running command in background i.e. with <code>&amp;</code> allows to run other commands on same terminal later.</p>
+<p>Running the command in background i.e. with <code>&amp;</code> allows you to run other commands on same terminal later.</p>
 </div>
 </li>
 <li>
-<p>Move the menu bar and place and resize the browser and terminal window as per your convenience.</p>
+<p>Move the menu bar and place and resize the browser and terminal window when convenient.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/vnc_menu_bar_1.png" alt="vnc menu bar 1">
@@ -509,7 +509,7 @@ Hit <kbd>enter</kbd> button, till you see the <code>[root@hypervisor images]#</c
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-You may need to close first instance of <code>virt-manager</code> and re-run <code>virt-manager &amp;</code> command to get virtual machine manager with menu bar.
+You may need to close the first instance of <code>virt-manager</code> and re-run <code>virt-manager &amp;</code> command to get virtual machine manager with menu bar.
 </td>
 </tr>
 </table>
@@ -521,7 +521,7 @@ You may need to close first instance of <code>virt-manager</code> and re-run <co
 </div>
 </li>
 <li>
-<p>First open the console of the <code>hub</code> VM and then shutdown the <code>hub</code> VM.</p>
+<p>First, open the console of the <code>hub</code> VM and then shutdown the <code>hub</code> VM.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_vm_1.png" alt="hub vm 1">
@@ -529,7 +529,7 @@ You may need to close first instance of <code>virt-manager</code> and re-run <co
 </div>
 </li>
 <li>
-<p>Click on bulb icon and then Click <b class="button">Add hardware</b>.</p>
+<p>Click on the bulb icon and then Click <b class="button">Add hardware</b>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_vm_2.png" alt="hub vm 2">
@@ -537,7 +537,7 @@ You may need to close first instance of <code>virt-manager</code> and re-run <co
 </div>
 </li>
 <li>
-<p>Select <code>Select or create custom image</code> option and click <b class="button">Manage</b>.</p>
+<p>Select the <code>Select or create custom image</code> option and click <b class="button">Manage</b>.</p>
 <div class="paragraph">
 <p>Select the discovery ISO and click <b class="button">Finish</b>.</p>
 </div>
@@ -561,7 +561,7 @@ You may need to close first instance of <code>virt-manager</code> and re-run <co
 </div>
 </div>
 <div class="paragraph">
-<p>Boot the VM and ensure it is booted with RHEL CoreOS (Live).</p>
+<p>Boot the VM, and ensure it is booted with RHEL CoreOS (Live).</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -620,7 +620,7 @@ Notice the host is getting discovered and status as <code>Ready</code>.</p>
 </div>
 </li>
 <li>
-<p>After 7 to 10 minutes, it waits on pending user action.</p>
+<p>After 7-10 minutes, it waits on pending user action.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/console_redhat_pending_user_actions.png" alt="console redhat pending user actions">
@@ -659,7 +659,7 @@ Notice the host is getting discovered and status as <code>Ready</code>.</p>
 </div>
 </li>
 <li>
-<p>After 2 minutes, installation proceeds and you will notice the progress.</p>
+<p>After two minutes, installation proceeds and you will notice the progress.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/console_redhat_install_proceed.png" alt="console redhat install proceed">

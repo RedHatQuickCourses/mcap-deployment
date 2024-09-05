@@ -379,9 +379,9 @@ Replace "yourusername" with your username and "yourpassword" with your password 
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Create the Ceph spec file <code>initial-config.yaml</code> which is used as initial configuration for Ceph cluster deployment.
-There is only single Ceph cluster node i.e. <code>storage</code> VM used to deploy Ceph cluster.
-Hence you need to provide <code>storage</code> VM details in spec file such as ip address, hostname, host and three disks attached to <code>storage</code> VM.</p>
+<p>Create the Ceph spec file <code>initial-config.yaml</code>, which is used as initial configuration for Ceph cluster deployment.
+There is only a single Ceph cluster node i.e. <code>storage</code> VM, used to deploy Ceph cluster.
+You need to provide <code>storage</code> VM details in the spec file such as IP address, hostname, host and three disks attached to <code>storage</code> VM.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt;initial-config.yaml&lt;&lt;EOF
@@ -421,7 +421,7 @@ EOF</code></pre>
 </li>
 <li>
 <p>Deploy the Ceph storage cluster with following command.
-You will need to pass the spec file as <code>initial-config.yaml</code>, mon ip as <code>storage</code> VM&#8217;s ip and registry json file as <code>/etc/auth.json</code>.
+You will need to pass the spec file as <code>initial-config.yaml</code>, mon IP as <code>storage</code> VM&#8217;s IP and registry json file as <code>/etc/auth.json</code>.
 To deploy a Ceph cluster running on a single host, use the <code>--single-host-defaults</code> flag when bootstrapping.</p>
 <div class="listingblock execute">
 <div class="content">
@@ -492,7 +492,7 @@ HEALTH_OK</pre>
 </div>
 </li>
 <li>
-<p>In case of failure, you can use following command to destroy the Ceph storage cluster</p>
+<p>In case of failure, you can use following command to destroy the Ceph storage cluster.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cephadm rm-cluster --force --zap-osds --fsid `ceph fsid`</code></pre>

@@ -209,7 +209,7 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Ensure <em>Infrastructure</em> clusters (<code>sno1</code>, <code>sno2</code> and <code>sno3</code>) are deployed successfully.</p>
+<p>Ensure that <em>Infrastructure</em> clusters (<code>sno1</code>, <code>sno2</code> and <code>sno3</code>) are deployed successfully.</p>
 </li>
 <li>
 <p>Create a directory as <code>/root/sno1/</code> on hypervisor.</p>
@@ -220,7 +220,7 @@
 </div>
 </li>
 <li>
-<p>Create <code>kubeadmin-password</code> file in <code>/root/sno1/</code> directory.</p>
+<p>Create a <code>kubeadmin-password</code> file in <code>/root/sno1/</code> directory.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">touch /root/sno1/kubeadmin-password</code></pre>
@@ -228,7 +228,7 @@
 </div>
 </li>
 <li>
-<p>Get the <code>kubeconfig</code> file and password for <code>kubeadmin</code> user from <em>Hub</em> cluster console.</p>
+<p>Get the <code>kubeconfig</code> file and password for <code>kubeadmin</code> user from the <em>Hub</em> cluster console.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/console_redhat_sno1_install_download.png" alt="console redhat sno1 install download">
@@ -237,15 +237,15 @@
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Download the <code>kubeconfig</code> file to hypervisor and then copy to <code>/root/sno1</code> directory on hypervisor.</p>
+<p>Download the <code>kubeconfig</code> file to hypervisor, and then copy to <code>/root/sno1</code> directory on hypervisor.</p>
 <div class="listingblock">
-<div class="title">Sample output</div>
+<div class="title">Sample output:</div>
 <div class="content">
 <pre>[root@hypervisor ~]# mv Downloads/sno1-kubeconfig.yaml sno1/kubeconfig</pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Sample output</div>
+<div class="title">Sample output:</div>
 <div class="content">
 <pre>[root@hypervisor ~]# ls -al sno1/
 total 28
@@ -257,14 +257,14 @@ dr-xr-x---. 13 root root  4096 Aug 22 15:18 ..
 </div>
 </li>
 <li>
-<p>Copy the password for <code>kubeadmin</code> user and paste it in new tab of firefox browser.</p>
+<p>Copy the password for <code>kubeadmin</code> user and paste it in new tab of a Firefox browser.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/console_redhat_sno1_copy_password.png" alt="console redhat sno1 copy password">
 </div>
 </div>
 <div class="paragraph">
-<p>Copy the password from tab of firefox browser and paste it in <code>/root/sno1/kubeadmin-password</code> file.</p>
+<p>Copy the password from the tab of the Firefox browser and paste it in <code>/root/sno1/kubeadmin-password</code> file.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -284,7 +284,7 @@ dr-xr-x---. 13 root root  4096 Aug 22 15:18 ..
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Follow same steps for <code>sno2</code> and <code>sno3</code> clusters.
+Follow the same steps for <code>sno2</code> and <code>sno3</code> clusters.
 </td>
 </tr>
 </table>
@@ -297,7 +297,7 @@ Follow same steps for <code>sno2</code> and <code>sno3</code> clusters.
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Copy <code>/root/sno1/kubeconfig</code> file as <code>/root/.kube/config</code> file.</p>
+<p>Copy the <code>/root/sno1/kubeconfig</code> file as <code>/root/.kube/config</code> file.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cp /root/sno1/kubeconfig /root/.kube/config</code></pre>
@@ -305,7 +305,7 @@ Follow same steps for <code>sno2</code> and <code>sno3</code> clusters.
 </div>
 </li>
 <li>
-<p>Set <code>kubepass</code> variable as <code>kubeadmin</code> user&#8217;s password.</p>
+<p>Set the <code>kubepass</code> variable as <code>kubeadmin</code> user&#8217;s password.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubepass=$(cat /root/sno1/kubeadmin-password)</code></pre>
@@ -320,7 +320,7 @@ Follow same steps for <code>sno2</code> and <code>sno3</code> clusters.
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Sample output</div>
+<div class="title">Sample output:</div>
 <div class="content">
 <pre>Login successful.
 
@@ -338,7 +338,7 @@ Using project "default".</pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Sample output</div>
+<div class="title">Sample output:</div>
 <div class="content">
 <pre>NAME                  STATUS   ROLES                         AGE   VERSION
 sno1.lab.example.com   Ready    control-plane,master,worker   10h   v1.29.7+6abe8a1</pre>
@@ -354,7 +354,7 @@ sno1.lab.example.com   Ready    control-plane,master,worker   10h   v1.29.7+6abe
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Follow same steps for <code>sno2</code> and <code>sno3</code> clusters.
+Follow the same steps for <code>sno2</code> and <code>sno3</code> clusters.
 </td>
 </tr>
 </table>
@@ -375,7 +375,7 @@ Follow same steps for <code>sno2</code> and <code>sno3</code> clusters.
 </div>
 </li>
 <li>
-<p>Click on link from <code>Web Console URL</code>.</p>
+<p>Click on the link from <code>Web Console URL</code>.</p>
 <div class="paragraph">
 <p>Click <b class="button">Advanced&#8230;&#8203;</b> to proceed.</p>
 </div>
@@ -408,7 +408,7 @@ You may need to accept the risk twice.
 <li>
 <p>Login as <code>kubadmin</code> user.</p>
 <div class="paragraph">
-<p>Get the <code>kubadmin</code> user&#8217;s passwrod from from <em>Hub</em> cluster console.</p>
+<p>Get the <code>kubadmin</code> user&#8217;s password from from <em>Hub</em> cluster console.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -425,7 +425,7 @@ You may need to accept the risk twice.
 </div>
 </li>
 <li>
-<p>Once you logged in as <code>kubadmin</code> user, this is how the first screen looks like</p>
+<p>Once you have logged in as <code>kubadmin</code> user, this is how the first screen should look:</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/vnc_sno1_cluster_access_4.png" alt="vnc sno1 cluster access 4">
@@ -450,10 +450,10 @@ You may need to accept the risk twice.
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Follow the same prerequisites from previous section for <code>sno2</code> and <code>sno3</code> clusters.</p>
+<p>Follow the same prerequisites from the previous section for <code>sno2</code> and <code>sno3</code> clusters.</p>
 </li>
 <li>
-<p>Follow same steps from previous section for accessing the <code>sno2</code> and <code>sno3</code> clusters.</p>
+<p>Follow same the steps from the previous section for accessing the <code>sno2</code> and <code>sno3</code> clusters.</p>
 </li>
 </ol>
 </div>
