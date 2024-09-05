@@ -9,7 +9,22 @@ image::MCAP_setup_2.png[]
 
 == Prerequisites
 
-Ensure you have already executed *_setup_hypervisor.yaml_* playbook from `Initial Setup on Hypervisor` page.
+
+. Download the _rhel9.X_ QCOW2 image from the https://access.redhat.com/downloads/content/rhel[Red Hat Customer Portal,window=read-later] to your laptop/desktop.
+. Use Secured copy (scp) command to copy the _rhel9.X_ QCOW2 image from your laptop/desktop to hypervisor and then place it in `/var/lib/libvirt/images` directory.
++
+.Sample output:
+----
+[user@laptop]$ scp Downloads/rhel-9.4-x86_64-kvm.qcow2 lab-user@14X.XX.YY.Z:.
+
+[user@laptop]$ ssh lab-user@14X.XX.YY.Z
+
+[lab-user@hypervisor ~]$ sudo su -
+
+[root@hypervisor ~]# mv /home/lab-user/rhel-9.4-x86_64-kvm.qcow2 /var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2
+----
+
+##FIX this - Try Automation playbook##
 
 == Storage VM Deployment
 

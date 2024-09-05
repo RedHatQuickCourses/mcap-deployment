@@ -7,31 +7,31 @@ After you install the Kubernetes NMState Operator, you can configure a Linux bri
 
 [IMPORTANT]
 ====
-In this POC setup, there is only one bridge `virbr0` and each SNO VM has single NIC.
+In this POC setup, there is only one bridge, `virbr0` and each SNO VM has single NIC.
 This NIC is used to deploy _Infrastructure_ SNO cluster on SNO VMs.
 As NIC is already used for deploying _Infrastructure_ SNO cluster, NMState configuration will not work using the same NIC.
 
-Consider, two NICs are attached to SNO VMs (connected to the same bridge `virbr0`) at the time of creating SNO VMs.
+For example, two NICs are attached to SNO VMs (connected to the same bridge `virbr0`) at the time of creating SNO VMs.
 In this case, deployment of _Infrastructure_ cluster from _Hub_ cluster using RHACM will not proceed.
-The reason behind this is two NICs are on the same network.
+The reason behind this is that the two NICs are on the same network.
 
-Ideally, there should be separate the network for _Infrastructure_ and _Tenant_ cluster.
-It is possible that in future release or update of this course, may include the separate network configuration.
+Ideally, there should be separate networks for _Infrastructure_ and _Tenant_ clusters.
+It is possible that in future releases or updates of this course, the separate network configurations may be included.
 
-There is workaround to address it in this POC setup by adding the second NIC to SNO VMs after deployment of SNO cluster.
+There is a workaround to address it in this POC setup, adding the second NIC to SNO VMs after the deployment of the SNO cluster.
 ====
 
 image::MCAP_setup_2.png[]
 
 == Prerequisites
 
-. Verify _sno1_ cluster is deployed successfully.
+. Verify that _sno1_ cluster is deployed successfully.
 
 . Access the _sno1_ cluster via CLI and web console.
 
-. Ensure `sno1.lab.example.com` node is in `Ready` status and all cluster operators are available.
+. Ensure that `sno1.lab.example.com` node is in `Ready` status and that all cluster operators are available.
 +
-.Sample output
+.Sample output:
 ----
 [root@hypervisor ~]# oc get nodes
 
@@ -44,7 +44,7 @@ NAME      VERSION   AVAILABLE   PROGRESSING   SINCE   STATUS
 version   4.16.8    True        False         23h     Cluster version is 4.16.8
 ----
 
-. Ensure NMState operator is installed on _sno1_ cluster.
+. Ensure that NMState operator is installed on _sno1_ cluster.
 
 == Add Additional Network Interface Card (NIC) to `sno1`, `sno2` and `sno3` VMs
 
@@ -74,7 +74,7 @@ You can create a `NodeNetworkConfigurationPolicy (NNCP)` manifest for a Linux br
 
 . Access the `sno1` cluster's web console.
 +
-From left navigation pane, click menu:Networking[NodeNetworkConfigurationPolicy].
+From the left navigation pane, click menu:Networking[NodeNetworkConfigurationPolicy].
 +
 image::sno1_console_nncp.png[]
 
@@ -96,7 +96,7 @@ Check box the `IPv4` and select `DHCP` in `IP configuration`.
 +
 Port: `enp2s0`.
 +
-This is the NIC which you added in previous section.
+This is the NIC, which you added in the previous section.
 +
 image::sno1_console_nncp_3.png[]
 +
@@ -104,7 +104,7 @@ Click btn:[Create] to create the `NodeNetworkConfigurationPolicy (NNCP)`.
 +
 image::sno1_console_nncp_4.png[]
 
-. Verify the `Enactment states` of the `br0-policy` is `Available`.
+. Verify that the `Enactment states` of the `br0-policy` is `Available`.
 +
 image::sno1_console_nncp_5.png[]
 
@@ -119,7 +119,7 @@ A Linux bridge network attachment definition is the most efficient method for co
 
 . Access the `sno1` cluster's web console.
 +
-From left navigation pane, click menu:Networking[NetworkAttachmentDefinitions].
+From the left navigation pane, click menu:Networking[NetworkAttachmentDefinitions].
 +
 image::sno1_console_nad.png[]
 
@@ -135,7 +135,7 @@ Click btn:[Create] to create the `NetworkAttachmentDefinitions (NAD)`.
 +
 image::sno1_console_nad_2.png[]
 
-. Verify the `NetworkAttachmentDefinitions (NAD)` is created successfully.
+. Verify that the `NetworkAttachmentDefinitions (NAD)` is created successfully.
 +
 image::sno1_console_nad_3.png[]
 
@@ -144,5 +144,5 @@ https://docs.redhat.com/en/documentation/openshift_container_platform/4.16/html-
 
 == Network Settings on `sno2` and `sno3` Clusters
 
-. Follow the same prerequisites from previous section for `sno2` and `sno3` clusters.
-. Follow same steps from previous section for configuring network settings on the `sno2` and `sno3` clusters.
+. Follow the same prerequisites from the previous section for `sno2` and `sno3` clusters.
+. Follow the same steps from the previous section for configuring network settings on the `sno2` and `sno3` clusters.

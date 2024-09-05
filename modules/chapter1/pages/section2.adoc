@@ -57,7 +57,7 @@ ansible-galaxy collection install -r requirements.yml
 
 == Setup and Configuration
 
-You can either use the *_setup_hypervisor.yaml_* playbook to install packages, configure swap, lv, dhcp, http and dns or else run commands manually on the hypervisor.
+You can either use the *_setup.yaml_* playbook to install packages, configure swap, LV, DHCP, HTTP and DNS or else run commands manually on the hypervisor.
 
 Ensure you are in *_ansible_* directory of the repo.
 
@@ -67,7 +67,396 @@ ansible-playbook playbooks/setup_hypervisor.yaml -vvv | tee -a /tmp/setup_hyperv
 ----
 
 Tha above command results in verbose play output.
-`tee -a` command redirects the output to `/tmp/setup_hypervisor.log` log file.
-In case of failure, `/tmp/setup_hypervisor.log` log file can be used for troubleshooting the issue.
 
+`tee -a` command redirects the output to `/tmp/setup.log` log file.
+In case of failure, `/tmp/setup.log` log file can be used for troubleshooting the issue.
+
+[NOTE]
+If you choose to configure manually, then only perform the tasks from the following sections.
+
+== Setup and Configuration without Automation
+
+=== Create SSH key for the root user
+
+The public key from the following command will be used while deploying _Hub_ and _Infrastructure_ clusters.
+You will be asked for public key while building the discovery iso for the host.
+
+[source,bash,role=execute]
+----
+ssh-keygen -t rsa -f /root/.ssh/id_rsa -N ''
+----
+
+=== Install the required packages
+
+The following required packages needed for DHCP server, HTTP server, DNS server, vnc server and creating virtual machines on hypervisor.
+It also include additional tools packages.
+
+[source,bash,role=execute]
+----
+dnf -y install jq dhcp-server bind bind-utils httpd httpd-tools podman \
+vim wget telnet curl lvm2 git libvirt qemu-kvm virt-manager virt-install libguestfs-tools tar \
+libguestfs-tools-c cockpit cockpit-machines unzip tigervnc tigervnc-server firefox gnome-kiosk
+----
+
+=== Increase the _Swap_ space
+
+_Swap_ space is extension of physical RAM.
+It offers virtual memory in case of physical RAM is fully used.
+MCAP needs considerable amount of memory and it is recommended to have proportionate amount of _Swap_ space configured in an environment.
+
+. Disable the existing _Swap_ first.
++
+[source,bash,role=execute]
+----
+swapoff -a
+----
++
+Check the _Swap_ space using `free` command.
++
+.Sample output
+----
+free -mh
+               total        used        free      shared  buff/cache   available
+Mem:           503Gi       9.4Gi       494Gi        20Mi       3.1Gi       493Gi
+Swap:             0B          0B          0B
+----
+
+. Remove swap entry from `/etc/fstab`.
++
+[source,bash,role=execute]
+----
+sed -i '/swap/d' /etc/fstab
+----
+
+. Find the unused 250GB nvme disk.
++
+.Sample output
+----
+lsblk
+
+NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+nvme1n1     259:0    0 238.5G  0 disk
+nvme0n1     259:1    0 238.5G  0 disk
+├─nvme0n1p1 259:2    0   512M  0 part /boot/efi
+├─nvme0n1p2 259:3    0   1.9G  0 part
+└─nvme0n1p3 259:4    0 236.1G  0 part /
+nvme3n1     259:5    0   3.5T  0 disk
+nvme2n1     259:6    0   3.5T  0 disk
+----
+Here `nvme1n1` disk can be used to create the swap space.
++
+[NOTE]
+The NVMe disk sequencing used as an OS partition will change, whenever you provision the catalog.
+The unused NVMe disk may vary in your environment output.
+
+. Use unused 250GB nvme disk as swap partition.
++
+[source,bash,role=execute]
+----
+mkswap /dev/nvme1n1
+----
++
+.Sample output
+----
+Setting up swapspace version 1, size = 238.5 GiB (256060510208 bytes)
+no label, UUID=455687c9-aaf7-46a6-9097-be4587a48f2f
+----
++
+[NOTE]
+The above UUID may differ in your environment.
+
+. Add swap entry in `/etc/fstab` to make it persistent throughout the reboot.
++
+Ensure to replace the UUID in following command with UUID from previous step.
++
+[source,bash,role=execute]
+----
+echo "UUID=455687c9-aaf7-46a6-9097-be4587a48f2f      none    swap    none    0       0" >> /etc/fstab
+----
++
+.Sample output
+----
+cat /etc/fstab
+
+UUID=6D5D-C9B9	/boot/efi	vfat	errors=remount-ro	0	2
+UUID=071aef59-7224-4502-a526-bea01cc3e320	/	ext4	errors=remount-ro	0	1
+
+UUID=455687c9-aaf7-46a6-9097-be4587a48f2f	none	swap	none	0	0
+----
+
+. Enable the swap.
++
+[source,bash,role=execute]
+----
+swapon -a
+----
++
+Check the _Swap_ space using `free` command.
++
+.Sample output
+----
+free -mh
+               total        used        free      shared  buff/cache   available
+Mem:           503Gi       9.6Gi       493Gi        20Mi       3.1Gi       493Gi
+Swap:          238Gi          0B       238Gi
+----
+
+=== Create LV for VM storage pool
+
+The LV created in this section will be used as storage pool for virtual machine disks and backend shared OpenShift DataFoundation using Red Hat Ceph storage for _Tenant_ cluster.
+
+. Find the 3.5TB nvme disks.
++
+.Sample output
+----
+lsblk
+
+NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+nvme1n1     259:0    0 238.5G  0 disk [SWAP]
+nvme0n1     259:1    0 238.5G  0 disk
+├─nvme0n1p1 259:2    0   512M  0 part /boot/efi
+├─nvme0n1p2 259:3    0   1.9G  0 part
+└─nvme0n1p3 259:4    0 236.1G  0 part /
+nvme3n1     259:5    0   3.5T  0 disk
+nvme2n1     259:6    0   3.5T  0 disk
+----
++
+[NOTE]
+The NVMe disk sequencing used as an OS partition will change, whenever you provision the catalog.
+The unused NVMe disk may vary in your environment output.
+
+. Create a PV of 7TB with disks.
++
+[source,bash,role=execute]
+----
+pvcreate /dev/nvme3n1 /dev/nvme2n1
+----
+
+. Create VG of 7TB.
++
+[source,bash,role=execute]
+----
+vgcreate vgstrorage /dev/nvme3n1 /dev/nvme2n1
+----
+
+. Create a LV of 7TB with remaining space in the volume group.
++
+[source,bash,role=execute]
+----
+lvcreate -l 100%FREE -n cephlv vgstrorage
+----
++
+Verify the LV size is 7TB.
++
+.Sample output
+----
+lvs
+
+  LV     VG         Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  cephlv vgstrorage -wi-a----- <6.99t
+----
+
+. Format LV of 7TB with the ext4 filesystem.
++
+[source,bash,role=execute]
+----
+mkfs.ext4 /dev/vgstrorage/cephlv
+----
++
+.Sample output
+----
+mke2fs 1.46.5 (30-Dec-2021)
+Discarding device blocks: done
+Creating filesystem with 1875367936 4k blocks and 234422272 inodes
+Filesystem UUID: 195dc91e-58be-4671-bbf5-b4fdf70945e2
+Superblock backups stored on blocks:
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
+	4096000, 7962624, 11239424, 20480000, 23887872, 71663616, 78675968,
+	102400000, 214990848, 512000000, 550731776, 644972544
+
+Allocating group tables: done
+Writing inode tables: done
+Creating journal (262144 blocks): done
+Writing superblocks and filesystem accounting information: done
+----
++
+[NOTE]
+The above UUID may differ in your environment.
+
+. Mount the 7TB LV on `/var/lib/libvirt/images`.
++
+Ensure to replace the UUID in following command with UUID from previous step.
++
+[source,bash,role=execute]
+----
+echo "UUID=195dc91e-58be-4671-bbf5-b4fdf70945e2	/var/lib/libvirt/images	ext4	errors=remount-ro	0	1" >> /etc/fstab
+----
++
+Run `mount` command to mount the LV on `/var/lib/libvirt/images`.
++
+[source,bash,role=execute]
+----
+mount -a
+----
++
+Use `systemctl daemon-reload` to reload.
+This will ensure the latest version of the `/etc/fstab` is referred.
++
+[source,bash,role=execute]
+----
+systemctl daemon-reload
+----
++
+Verify the 7TB LV is correctly mounted.
++
+.Sample output
+----
+df -h
+
+Filesystem                     Size  Used Avail Use% Mounted on
+devtmpfs                       4.0M     0  4.0M   0% /dev
+tmpfs                          252G     0  252G   0% /dev/shm
+tmpfs                          101G   18M  101G   1% /run
+/dev/nvme0n1p3                 232G  4.2G  216G   2% /
+/dev/nvme0n1p1                 511M  6.4M  505M   2% /boot/efi
+tmpfs                           51G     0   51G   0% /run/user/0
+/dev/mapper/vgstrorage-cephlv  7.0T   28K  6.6T   1% /var/lib/libvirt/images
+----
+
+=== Enable and start the libvirt and cockpit services
+
+After enabling and starting the libvirt services, `virbr0` bridge will be created.
+You can verify it by running the `ip addr` command.
+
+After enabling and starting the cockpit services, it creates cockpit web console access.
+You can login to cockpit web console with `lab-user's` credentials.
+
+[source,bash,role=execute]
+----
+systemctl enable libvirt-guests.service --now
+----
+
+[source,bash,role=execute]
+----
+systemctl enable libvirtd --now
+----
+
+[source,bash,role=execute]
+----
+systemctl enable cockpit.socket --now
+----
+
+[source,bash,role=execute]
+----
+systemctl start cockpit
+----
+
+[NOTE]
+You can use the cockpit web console (https://<your_hypervisor_IP>:9090/) to monitor the VM's resources and console access.
+
+=== Configure DHCP
+
+It is recommended to have a DHCP server.
+In this section, you will be configuring the DHCP server.
+
+. Create the `/etc/dhcp/dhcpd.conf` file.
++
+[source,bash,role=execute]
+----
+cat >/etc/dhcp/dhcpd.conf<<EOF
+#
+# DHCP Server Configuration file.
+#   see /usr/share/doc/dhcp-server/dhcpd.conf.example
+#   see dhcpd.conf(5) man page
+#
+authoritative;
+ddns-update-style interim;
+allow booting;
+allow bootp;
+allow unknown-clients;
+ignore client-updates;
+default-lease-time 14400;
+max-lease-time 14400;
+subnet 192.168.122.0 netmask 255.255.255.0 {
+        option routers                  192.168.122.1;
+        option subnet-mask              255.255.255.0;
+        option domain-search            "lab.example.com";
+        option domain-name-servers      192.168.122.1, 8.8.8.8;
+	  range   192.168.122.30   192.168.122.100;
+}
+host storage.lab.example.com {
+   option host-name "storage.lab.example.com";
+   hardware ethernet 52:54:00:0a:a9:88;
+   fixed-address 192.168.122.9;
+}
+host hub.lab.example.com {
+   option host-name "hub.lab.example.com";
+   hardware ethernet 52:54:00:23:60:87;
+   fixed-address 192.168.122.10;
+}
+host sno1.lab.example.com {
+   option host-name "sno1.lab.example.com";
+   hardware ethernet 52:54:00:87:f4:2f;
+   fixed-address 192.168.122.11;
+}
+host sno2.lab.example.com {
+   option host-name "sno2.lab.example.com";
+   hardware ethernet 52:54:00:cc:51:86;
+   fixed-address 192.168.122.12;
+}
+host sno3.lab.example.com {
+   option host-name "sno3.lab.example.com";
+   hardware ethernet 52:54:00:67:34:25;
+   fixed-address 192.168.122.13;
+}
+host tcn1.lab.example.com {
+   option host-name "tcn1.lab.example.com";
+   hardware ethernet 52:54:00:68:35:27;
+   fixed-address 192.168.122.21;
+}
+host tcn2.lab.example.com {
+   option host-name "tcn2.lab.example.com";
+   hardware ethernet 52:54:00:69:36:28;
+   fixed-address 192.168.122.22;
+}
+host tcn3.lab.example.com {
+   option host-name "tcn3.lab.example.com";
+   hardware ethernet 52:54:00:70:37:29;
+   fixed-address 192.168.122.23;
+}
+EOF
+----
+
+. Set the correct SELinux context of the `/etc/dhcp/dhcpd.conf` file.
+For additional information on SELinux refer - https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/using_selinux/index#introduction-to-selinux_getting-started-with-selinux[Introduction to SELinux,window=read-later]
++
+[source,bash,role=execute]
+----
+chcon system_u:object_r:dhcp_etc_t:s0 /etc/dhcp/dhcpd.conf
+----
++
+[source,bash,role=execute]
+----
+restorecon -vF /etc/dhcp/dhcpd.conf
+----
+
+. Start the `dhcpd` service.
++
+[source,bash,role=execute]
+----
+systemctl start dhcpd
+----
+
+=== Configure DNS
+
+To have name resolution, DNS server is needed.
+In this section, you will be configuring the DNS server.
+
+
+
+
+ Name     State    Autostart
+------------------------------
+ images   active   yes
+----
 

@@ -2,8 +2,8 @@
 :navtitle: Home
 
 Welcome to this quick course, _Deploy Mission Critical Application Platform (MCAP)_.
-This course helps you to learn the basic infrastructure required for MCAP and how to deploy nested OpenShift using OpenShift Virtualization.
-After completing this course, you will be able to deploy MCAP solution for production environment.
+This course will help you learn the basic infrastructure required for Red Hat MCAP and how to deploy nested OpenShift using OpenShift Virtualization.
+After completing this course, you will be able to deploy the MCAP solution for production environments.
 
 == Authors
 
@@ -25,9 +25,9 @@ Update the Catalog link - ##FIX THIS##
 
 When ordering this catalog item in RHDP:
 
-. Select *Practice/Enablement* for the *Activity* field
-. Select the nearest or any region in the *Region* field
-. Select *n3.xlarge.x86* as the flavor in *Type* field
+. Select *Practice/Enablement* for the *Activity* field.
+. Select the nearest or any region in the *Region* field.
+. Select *n3.xlarge.x86* as the flavor in *Type* field.
 
 === Red Hat Partners
 
@@ -41,23 +41,23 @@ For partner support - https://connect.redhat.com/en/support[Help and support,win
 
 For this course, you should have:
 
-* Red Hat Certified Systems Administrator certification or equivalent knowledge of Linux system administration is recommended for all roles.
-* https://rol.redhat.com/rol/app/courses/do280-4.14[Red Hat OpenShift Administration II: Configuring a Production Cluster (DO280),window=read-later] or equivalent knowledge on configuring a production Red Hat OpenShift cluster.
+* Red Hat Certified Systems Administrator certification, or equivalent knowledge of Linux system administration is recommended for all roles.
+* https://rol.redhat.com/rol/app/courses/do280-4.14[Red Hat OpenShift Administration II: Configuring a Production Cluster (DO280),window=read-later], or equivalent knowledge on configuring a production Red Hat OpenShift cluster.
 * https://rol.redhat.com/rol/app/technical-overview/do016-4.14[Red Hat OpenShift Virtualization (OCP Virt) Technical Overview (DO016),window=read-later]
-* https://rol.redhat.com/rol/app/courses/do316-4.14[Managing Virtual Machines with Red Hat OpenShift Virtualization (DO316),window=read-later] or equivalent knowledge on how to create virtual machines on Red Hat OpenShift cluster using Red Hat OpenShift Virtualization.
+* https://rol.redhat.com/rol/app/courses/do316-4.14[Managing Virtual Machines with Red Hat OpenShift Virtualization (DO316),window=read-later], or equivalent knowledge on how to create virtual machines on Red Hat OpenShift cluster using Red Hat OpenShift Virtualization.
 * Knowledge on installing Red Hat Advanced Cluster Management (RHACM) operator
 
 == Objectives
 
 The overall objectives of this course include:
 
-* Provision the base infrastructure (HW, Storage, Networking) for the hands-on lab environment
-* Install utility services needed for the hands-on labs
-* Configure the base OpenShift infrastructure cluster to host tenant clusters
-* Configure the Infrastructure Cluster to host Virtual Machines
-* Provision multiple tenant clusters on top of the infrastructure cluster
-* Deploy and configure applications and Virtual Machines on Tenant Clusters
-* Test the high availability and resilience of deployed workloads
+* Provision the base infrastructure (HW, Storage, Networking) for the hands-on lab environment.
+* Install utility services needed for the hands-on labs.
+* Configure the base OpenShift infrastructure cluster to host tenant clusters.
+* Configure the Infrastructure Cluster to host Virtual Machines.
+* Provision multiple tenant clusters on top of the infrastructure cluster.
+* Deploy and configure applications and Virtual Machines on Tenant Clusters.
+* Test the high availability and resilience of deployed workloads.
 
 == References
 

@@ -13,7 +13,7 @@ image::MCAP_setup_2.png[]
 
 . Verify _multicluster engine for Kubernetes_ and _LVM Storage_ operators are installed.
 +
-.Sample output
+.Sample output:
 ----
 [root@hypervisor ~]# oc get operators
 
@@ -22,9 +22,9 @@ lvms-operator.openshift-storage           58m
 multicluster-engine.multicluster-engine   58m
 ----
 
-. Ensure `hub.lab.example.com` node is in `Ready` status and all cluster operators are available.
+. Ensure that `hub.lab.example.com` node is in `Ready` status and all cluster operators are available.
 +
-.Sample output
+.Sample output:
 ----
 [root@hypervisor ~]# oc get nodes
 
@@ -46,7 +46,7 @@ version   4.16.7    True        False         16m     Cluster version is 4.16.7
 oc get sc
 ----
 +
-.Sample output
+.Sample output:
 ----
 [root@hypervisor ~]# oc get sc
 
@@ -61,7 +61,7 @@ lvms-vg1   topolvm.io    Delete          WaitForFirstConsumer   true            
 oc edit sc lvms-vg1
 ----
 +
-.Sample output
+.Sample output:
 ----
 [root@hypervisor ~]# oc edit sc lvms-vg1
 
@@ -70,7 +70,7 @@ storageclass.storage.k8s.io/lvms-vg1 edited
 
 .. Verify it is set to default.
 +
-.Sample output
+.Sample output:
 ----
 [root@hypervisor ~]# oc get sc
 
@@ -78,7 +78,7 @@ NAME                 PROVISIONER   RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWV
 lvms-vg1 (default)   topolvm.io    Delete          WaitForFirstConsumer   true                   63m
 ----
 +
-.Sample output
+.Sample output:
 ----
 [root@hypervisor ~]# oc get sc lvms-vg1 -o yaml
 
@@ -122,7 +122,7 @@ image::rhacm_search.png[]
 +
 image::rhacm_install.png[]
 
-. Keep all options as it is with no change in selected options and click btn:[Install] to install the operator.
+. Keep all options as is, with no change in selected options and click btn:[Install] to install the operator.
 +
 image::rhacm_install_1.png[]
 
@@ -130,7 +130,7 @@ image::rhacm_install_1.png[]
 +
 image::rhacm_install_2.png[]
 
-. Keep all options as it is with no change in selected options and click btn:[Create] to create the resource.
+. Keep all options as is, with no change in selected options and click btn:[Create] to create the resource.
 +
 image::rhacm_install_3.png[]
 
