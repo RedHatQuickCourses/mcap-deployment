@@ -1,6 +1,150 @@
-= Tenant VM Configuration
+= Tenant VMs Deployment
+:experimental:
 
-OCP Virt VMs - Tenant1 VM on SNO1, Tenant2 VM on SNO2 and Tenant3 VM on SNO3
-Download virtctl from any SNO’s console
-Upload discover iso to all SNOs
-Assisted way compact deployment using RHACM from Hub cluster
+In this section, you will be creating three VMs using OpenShift Virtualization with name `tcn1.lab.example.com`, `tcn2.lab.example.com` and `tcn3.lab.example.com`.
+
+image::MCAP_setup.png[]
+
+== Prerequisites
+
+. Ensure the all sno clusters i.e. _Infrastructure_ clusters are deployed and available.
++
+.Sample output:
+----
+[root@hypervisor ~]# oc get ManagedCluster
+
+NAME            HUB ACCEPTED   MANAGED CLUSTER URLS                    JOINED   AVAILABLE   AGE
+local-cluster   true           https://api.hub.lab.example.com:6443    True     True        3h14m
+sno1            true           https://api.sno1.lab.example.com:6443   True     True        164m
+sno2            true           https://api.sno2.lab.example.com:6443   True     True        124m
+sno3            true           https://api.sno3.lab.example.com:6443   True     True        68m
+----
+
+. Ensure OpenShift Virtualization operator is installed on _Infrastructure_ clusters.
+
+. Download `virtctl` command line tool from any SNO’s console.
+
+.. Visit the web console home page of `sno1` cluster.
++
+image::sno1_console_home.png[]
+
+.. Click btn:[?] and select `Command Line Tools`.
++
+image::sno1_console_cli_tools.png[]
+
+.. In this page, scroll down to the `virtctl - KubeVirt command line interface` section.
++
+Select the `Download virtctl for Linux for x86_64` to open download link in new tab.
++
+image::sno1_console_virtctl.png[]
++
+Click btn:[Advanced...] to proceed.
++
+image::sno1_console_virtctl_1.png[]
++
+Click btn:[Accept the Risk and Continue] to proceed and download the `virtctl` command line tool on hypervisor.
++
+image::sno1_console_virtctl_2.png[]
+
+. Extract the archive of `virtctl` command line tool.
++
+[source,bash,role=execute]
+----
+tar -xzvf /root/Downloads/virtctl.tar.gz
+----
+
+. Move `virtctl` binary to `/usr/local/bin` directory.
++
+[source,bash,role=execute]
+----
+mv virtctl /usr/local/bin/
+----
+
+== Tenant VMs Deployment
+
+. Access the web console of _sno1_ cluster.
++
+image::sno1_console_home.png[]
++
+From left navigation pane, click menu:Virtualization[VirtualMachines].
++
+image::sno1_console_create_vm.png[]
+
+. Create virtual machine from template.
++
+Click menu:Create VirtualMachine[From template]
++
+image::sno1_console_create_vm_1.png[]
+
+. Search `rhel9` in template catalog.
++
+Select the `rhel9` bootable source template from catalog.
++
+image::sno1_console_create_vm_2.png[]
+
+. This is the VM create window.
++
+image::sno1_console_create_vm_3.png[]
+
+. Scroll down in VM create window and update disk size from 30GB to 120GB.
++
+image::sno1_console_create_vm_4.png[]
+
+. Scroll down in VM create window and edit the CPU and memory.
++
+image::sno1_console_create_vm_5.png[]
+
+. Set the 16 cores as CPU and 32GB as memory.
++
+Click btn:[Customize VirtualMachine] to customize the virtual machine.
++
+image::sno1_console_create_vm_6.png[]
+
+. In virtual machine's overview tab, edit the virtual machine name.
++
+image::sno1_console_create_vm_7.png[]
+
+. Get the virtual machine's name from `/etc/dhcp/dhcpd.conf` file.
++
+image::sno1_console_create_vm_8.png[]
+
+. Set the virtual machine name as `tcn1.lab.example.com`.
++
+image::sno1_console_create_vm_9.png[]
+
+. To update the network interface, change the tab to network interfaces tab.
++
+image::sno1_console_create_vm_10.png[]
+
+.. Edit the network interface of the virtual machine.
++
+image::sno1_console_create_vm_11.png[]
++
+Network: Bridge network (in previous chapter created the network attachment definition)
++
+Get the mac address for virtual machine from `/etc/dhcp/dhcpd.conf` file.
++
+image::sno1_console_create_vm_12.png[]
+
+.. Update the mac address of virtual machine.
++
+image::sno1_console_create_vm_13.png[]
+
+.. Ensure all network interface related details are updated.
++
+Click btn:[Create VirtualMachine] to create the VM and start the VM.
++
+image::sno1_console_create_vm_14.png[]
+
+. In VM's overview tab, you can see virtual machine is in running state.
++
+image::sno1_console_create_vm_15.png[]
+
+. Once VM is booted, ensure IP address and hostname is assigned as per the `/etc/dhcp/dhcpd.conf` file.
++
+image::sno1_console_create_vm_16.png[]
+
+== Deploy remaining _Tenant_ VMs on `sno2` and `sno3` clusters
+
+. You can deploy remaining `tcn2.lab.example.com` and `tcn3.lab.example.com` VMs by following steps from previous section followed for `tcn1.lab.example.com` VM deployment.
+. Each VM deployment takes 5 to 10 minutes to complete.

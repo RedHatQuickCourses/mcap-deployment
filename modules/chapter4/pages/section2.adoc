@@ -1,2 +1,300 @@
-= Install Sample Application on Tenant Cluster
+= Assisted Clusters - Tenant Cluster
+:experimental:
 
+In this section, you will be deploying _Tenant_ cluster using RHACM from _Hub_ cluster.
+These _Tenant_ cluster will be _Three-Node OpenShift Compact_ cluster.
+
+image::MCAP_setup_1.png[]
+
+== Prerequisites
+
+`tcn1.lab.example.com`, `tcn2.lab.example.com` and `tcn3.lab.example.com` VMs (created using OpenShift Virtualization) are up and running.
+
+== Deploy _Tenant_ cluster as _Three-Node OpenShift Compact_ cluster
+
+. Login to web console of _Hub_ cluster.
++
+Ensure you have switched to the `All Clusters` from `local-cluster`.
++
+image::hub_console_switch.png[]
+
+. Create cluster using btn:[Create cluster].
++
+image::hub_console_create_cluster.png[]
+
+. Select `Host inventory`.
++
+image::hub_console_host_inventory.png[]
+
+. Select `Standalone`.
++
+image::hub_console_standalone.png[]
+
+. Select `Add new hosts`.
++
+image::hub_console_add_new_hosts.png[]
+
+. Provide cluster details.
++
+Cluster name: `tenant`
++
+Cluster set: `default`
++
+image::hub_console_tenant_details.png[]
++
+Base domain: `lab.example.com`
++
+Select `4.16.8` version of OpenShift from the menu.
++
+image::hub_console_tenant_details_1.png[]
+
+.. Get the pull secret from `pull_secret.txt` and provide the pull secret in `Pull secret` field.
++
+Click btn:[Next]
++
+image::hub_console_tenant_pull_secret.png[]
+
+. No automation template.
++
+Click btn:[Next]
++
+image::hub_console_tenant_automation.png[]
+
+. Review and save.
++
+Click btn:[Save]
++
+image::hub_console_tenant_review_save.png[]
+
+. Add `tcn1.lab.example.com`, `tcn2.lab.example.com` and `tcn3.lab.example.com` VMs as host.
+
+.. Select menu:Add hosts[With Discovery ISO].
++
+image::hub_console_tenant_add_host_discovery_iso.png[]
+
+.. Here you need to provide the public ssh key of `root` user.
++
+image::hub_console_tenant_public_key.png[]
+
+.. Get the public ssh key of `root` user.
++
+image::hub_console_tenant_public_key_1.png[]
+
+.. Provide the public ssh key of `root` user in `SSH public key` field.
++
+Click btn:[Generate Discovery ISO] to generate discovery ISO.
++
+image::hub_console_tenant_generate_discovery_iso.png[]
+
+.. Click btn:[Download Discovery ISO] to download discovery ISO on hypervisor.
++
+image::hub_console_tenant_download_discovery_iso.png[]
+
+.. Upload iso from `/root/Download` directory to _Infrastructure_ clusters.
++
+Login to `sno1` cluster.
++
+.Sample output
+----
+[root@hypervisor ~]# oc get nodes
+NAME                  STATUS   ROLES                         AGE   VERSION
+hub.lab.example.com   Ready    control-plane,master,worker   21h   v1.29.7+4510e9c
+
+[root@hypervisor ~]# oc logout
+Logged "kube:admin" out on "https://api.hub.lab.example.com:6443"
+
+[root@hypervisor ~]# cp /root/sno1/kubeconfig .kube/config
+cp: overwrite '.kube/config'? y
+
+[root@hypervisor ~]# kubepass=$(cat /root/sno1/kubeadmin-password)
+
+[root@hypervisor ~]# oc login -u kubeadmin -p $kubepass
+Login successful.
+
+You have access to 77 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+[root@hypervisor ~]# oc get nodes
+NAME                   STATUS   ROLES                         AGE   VERSION
+sno1.lab.example.com   Ready    control-plane,master,worker   20h   v1.29.7+4510e9c
+----
++
+Upload the discovery iso using `virtctl image-upload` command.
++
+.Sample output
+----
+[root@hypervisor ~]# ls /root/Downloads/
+3b6f60e8-ad5e-4466-a1ad-add735801ad1-discovery.iso  ceph-external-cluster-details-exporter.py  virtctl.tar.gz
+
+[root@hypervisor ~]# virtctl image-upload dv tenant-iso-pvc --size=1Gi --image-path=/root/Downloads/3b6f60e8-ad5e-4466-a1ad-add735801ad1-discovery.iso --insecure --force-bind
+
+Using existing PVC default/prime-a5b6464f-2244-4c31-ab93-5219abf15849
+Uploading data to https://cdi-uploadproxy-openshift-cnv.apps.sno1.lab.example.com
+
+ 107.46 MiB / 107.46 MiB [============================================================================================================================================================================] 100.00% 0s
+
+Uploading data completed successfully, waiting for processing to complete, you can hit ctrl-c without interrupting the progress
+Processing completed successfully
+Uploading /root/Downloads/eea97cca-cda5-47b9-bfdf-51929b4a7067-discovery.iso completed successfully
+
+[root@hypervisor ~]# oc logout
+----
++
+Verify the PVC is created on `sno1` cluster.
++
+In `sno1` cluster web console, from left navigation pane; click menu:Storage[PersistentVolumeClaims].
++
+image::sno1_console_tenant_iso_pvc.png[]
++
+[IMPORTANT]
+Upload the discovery iso to `sno2` and `sno3` clusters by performing the above steps.
+
+.. Boot the `tcn1.lab.example.com`, `tcn2.lab.example.com` and `tcn3.lab.example.com` VMs with discovery ISO.
++
+In `sno1` cluster web console, from left navigation pane; click menu:Virtualization[VirtualMachines].
++
+image::sno1_console_create_vm.png[]
++
+Stop the `tcn1.lab.example.com` VM.
++
+image::sno1_console_vm_stop.png[]
++
+Verify the `tcn1.lab.example.com` VM is stopped.
++
+image::sno1_console_vm_stopped.png[]
++
+From `tcn1.lab.example.com` VM's `Configuration` tab, select `Storage`.
++
+image::sno1_console_vm_config_tab.png[]
++
+Click btn:[Add disk] to add the discovery ISO as the PVC.
++
+image::sno1_console_vm_add_disk.png[]
++
+Select menu:Source[PVC] and then select menu:Select PersistentVolumeClaim[tenant-iso-pvc].
++
+image::sno1_console_vm_add_disk_iso.png[]
++
+Keep interface as `VirtIO` and click btn:[Save] to add the disk.
++
+image::sno1_console_vm_add_disk_iso_1.png[]
++
+Edit the boot order of the `tcn1.lab.example.com` VM from `Configuration` tab, select `Details`.
++
+image::sno1_console_vm_boot_order.png[]
++
+Move up the newly added disk at the top and click btn:[Save].
++
+image::sno1_console_vm_boot_order_1.png[]
++
+Start the `tcn1.lab.example.com` VM.
++
+image::sno1_console_vm_start.png[]
++
+Ensure the `tcn1.lab.example.com` VM boots with discovery ISO.
++
+image::sno1_console_vm_boot_rhcos.png[]
++
+[IMPORTANT]
+Follow the same above steps for `tcn2.lab.example.com` and `tcn3.lab.example.com` VMs to boot them with discovery ISO.
+
+.. Back to web console of _Hub_ cluster to proceed cluster installation.
++
+Approve the discovered host `tcn1.lab.example.com`.
++
+image::hub_console_tenant_approve_host.png[]
++
+Ensure the discovered host `tcn1.lab.example.com` is ready.
++
+image::hub_console_tenant_approve_host_ready.png[]
++
+Similarly approve remaining hosts `tcn2.lab.example.com` and `tcn3.lab.example.com`.
++
+Click btn:[Next] to proceed.
++
+image::hub_console_tenant_approve_host_ready_1.png[]
+
+. In networking section, ensure all hosts are ready.
++
+Provide the `API IP` and `Ingress IP` from zone file.
++
+image::hub_console_tenant_networking.png[]
++
+Click btn:[Next] to proceed.
++
+image::hub_console_tenant_networking_ready.png[]
+
+. If you notice `All checks passed` for cluster and host validations then click btn:[Install cluster].
++
+image::hub_console_tenant_review_create.png[]
+
+. Notice the installation has started.
++
+image::hub_console_tenant_install_progress.png[]
++
+image::hub_console_tenant_install_progress_1.png[]
++
+image::hub_console_tenant_install_progress_2.png[]
++
+image::hub_console_tenant_install_progress_3.png[]
+
+. After 7 to 10 minutes, it waits on pending user action.
++
+image::hub_console_tenant_pending_user_actions.png[]
++
+This means you need to disconnect the discovery ISO from the `tcn3.lab.example.com` VM and boot the `tcn3.lab.example.com` VM from disk.
++
+image::hub_console_tenant_pending_user_actions_1.png[]
++
+This means you need to disconnect the discovery ISO from the `tcn2.lab.example.com` VM and boot the `tcn2.lab.example.com` VM from disk.
+
+.. Shutdown the `tcn2.lab.example.com` VM.
++
+image::sno1_console_vm_stopped_tcn2.png[]
+
+.. Update the boot order to boot the `tcn2.lab.example.com` VM from disk.
++
+image::sno1_console_vm_boot_order_tcn2.png[]
++
+image::sno1_console_vm_boot_order_tcn2_1.png[]
++
+image::sno1_console_vm_boot_order_tcn2_2.png[]
++
+Ensure the `tcn2.lab.example.com` VM boots from disk.
++
+image::sno1_console_vm_boot_tcn2.png[]
++
+[IMPORTANT]
+Follow the same above steps to boot the `tcn3.lab.example.com` VM from disk.
+
+. After 2 minutes, installation proceeds and you will notice the progress.
++
+After 5 minutes, `tcn2.lab.example.com` and `tcn3.lab.example.com` nodes are installed.
++
+image::hub_console_tenant_install_progress_4.png[]
+
+. Installation proceeds and continue with `tcn1.lab.example.com` node.
++
+image::hub_console_tenant_install_progress_5.png[]
++
+image::hub_console_tenant_install_progress_6.png[]
+
+. After 7 to 10 minutes, it waits on pending user action.
++
+image::hub_console_tenant_pending_user_actions_2.png[]
++
+This means you need to disconnect the discovery ISO from the `tcn1.lab.example.com` VM and boot the `tcn1.lab.example.com` VM from disk.
++
+Follow the same steps which were followed for `tcn2.lab.example.com` VM to boot the `tcn1.lab.example.com` VM from disk.
+
+. Installation completes in approximately in 20 minutes.
++
+image::hub_console_tenant_install_progress_7.png[]
++
+image::hub_console_tenant_install_complete.png[] ##FIX THIS##
+
+. Notice the `tenant` cluster is added to cluster list in `default` cluster set.
++
+image::hub_console_tenant_ready.png[]
++
+This concludes successful deployment of OpenShift cluster and added to hub cluster using RHACM.

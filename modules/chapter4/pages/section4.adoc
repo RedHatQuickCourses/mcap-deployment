@@ -1,0 +1,6 @@
+= Install Sample Application on Tenant Cluster
+:experimental:
+
+image::MCAP_setup_1.png[]
+
+== Prerequisites

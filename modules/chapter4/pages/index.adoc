@@ -1,1 +1,10 @@
 = Tenant Cluster Deployment
+
+This chapter covers deployment of _Tenant_ cluster.
+
+Chapter goals:
+
+* Deploy _Three-Node OpenShift Compact Tenant_ cluster as OpenShift Virtualization VMs using RHACM from _Hub_ cluster.
+* Install OpenShift Data Foundation operator on _Tenant_ cluster.
+* Deploy and configure applications on _Tenant_ Clusters.
+* Test the high availability and resilience of deployed workloads.
