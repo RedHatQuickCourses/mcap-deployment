@@ -7,9 +7,9 @@ image::MCAP_setup_1.png[]
 
 == Prerequisites
 
-. Ensure that _Tenant_ cluster is deployed successfully.
+. Ensure that the _Tenant_ cluster is deployed successfully.
 
-. Ensure `/root/tenant/` directory and file structure created.
+. Ensure that the `/root/tenant/` directory and file structure are created.
 +
 .Sample output:
 ----
@@ -25,23 +25,23 @@ dr-xr-x---. 13 root root  4096 Aug 22 15:18 ..
 +
 image::hub_console_tenant_install_download.png[]
 
-.. Download the `kubeconfig` file to hypervisor, and then copy to `/root/tenant` directory on hypervisor.
+.. Download the `kubeconfig` file to the hypervisor, and then copy it to the `/root/tenant` directory on the hypervisor.
 +
 .Sample output:
 ----
 [root@hypervisor ~]# mv /root/Downloads/tenant-kubeconfig.yaml /root/tenant/kubeconfig
 ----
 
-.. Copy the password for `kubeadmin` user, and paste it in new tab of a Firefox browser.
+.. Copy the password for `kubeadmin` user, and paste it in a new tab of a Firefox browser.
 +
 image::hub_console_tenant_copy_password.png[]
 +
-Copy the password from the tab of Firefox browser, and paste it in `/root/tenant/kubeadmin-password` file.
+Copy the password from the tab of the Firefox browser, and paste it in the `/root/tenant/kubeadmin-password` file.
 +
 image::hub_console_tenant_copy_password_1.png[]
 
 [IMPORTANT]
-Follow the same steps for `sno2` and `sno3` clusters.
+Follow the same steps for the `sno2` and `sno3` clusters.
 
 == Access the _tenant_ Cluster via CLI
 
@@ -52,14 +52,14 @@ Follow the same steps for `sno2` and `sno3` clusters.
 cp /root/tenant/kubeconfig /root/.kube/config
 ----
 
-. Set the `kubepass` variable as `kubeadmin` user's password.
+. Set the `kubepass` variable as the `kubeadmin` user's password.
 +
 [source,bash,role=execute]
 ----
 kubepass=$(cat /root/tenant/kubeadmin-password)
 ----
 
-. Login to _tenant_ cluster with `oc login` command.
+. Login to the _tenant_ cluster with the `oc login` command.
 +
 [source,bash,role=execute]
 ----
@@ -89,11 +89,11 @@ tenant.lab.example.com   Ready    control-plane,master,worker   10h   v1.29.7+6a
 ----
 
 [NOTE]
-Follow the same steps for `sno2` and `sno3` clusters.
+Follow the same steps for the `sno2` and `sno3` clusters.
 
 == Access the _tenant_ Cluster from Web Console
 
-. Get the web console url from _Hub_ cluster console.
+. Get the web console URL from _Hub_ cluster console.
 +
 image::hub_console_tenant_install_download.png[]
 +
