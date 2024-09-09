@@ -36,9 +36,13 @@ Select `4.16.8` version of OpenShift from the menu.
 +
 Check box the `Install single node OpenShift (SNO)`
 +
+image::console_redhat_cluster_details.png[]
++
+Select DHCP.
++
 Click btn:[Next].
 +
-image::console_redhat_cluster_details.png[link="images/console_redhat_cluster_details.png",window=read-later]
+image::console_redhat_cluster_details_1.png[]
 
 . Check box the `Install multicluster engine` and `Install Logical Volume Manager Storage` operators.
 +

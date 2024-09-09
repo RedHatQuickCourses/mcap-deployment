@@ -34,7 +34,7 @@ hub.lab.example.com   Ready    control-plane,master,worker   30m   v1.29.7+6abe8
 [root@hypervisor ~]# oc get clusterversion
 
 NAME      VERSION   AVAILABLE   PROGRESSING   SINCE   STATUS
-version   4.16.7    True        False         16m     Cluster version is 4.16.7
+version   4.16.8    True        False         86m     Cluster version is 4.16.8
 ----
 
 . Set the storage class created by LVMS operator as default storage class.

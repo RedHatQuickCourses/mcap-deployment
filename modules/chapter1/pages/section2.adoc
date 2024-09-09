@@ -37,17 +37,17 @@ dnf install -y ansible-core
 +
 [source,bash,role=execute]
 ----
-git clone <repo_link>.git
+git clone https://github.com/RedHatQuickCourses/mcap-deployment-files.git
 ----
 +
 [NOTE]
-##Fix the Repo##
+Clone the repo in case it is not already cloned while provisioning.
 
 . Install the required ansible collections needed for running the playbooks.
 +
 [source,bash,role=execute]
 ----
-cd <repo>/src/ansible/
+cd mcap-deployment-files/src/ansible/
 ----
 +
 [source,bash,role=execute]
