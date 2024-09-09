@@ -242,6 +242,16 @@ These <em>Infrastructure</em> clusters will be Single Node OpenShift (SNO) clust
 </li>
 <li>
 <p>Set the <em>visible</em> label as <em>true</em> and <em>channel</em> label as <em>stable</em> for <code>4.16.8</code> image.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc patch clusterimagesets.hive.openshift.io img4.16.8-multi-appsub --type='json' -p='[{"op":"replace","path": "/metadata/labels/visible","value":"true"}]'</code></pre>
+</div>
+</div>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc patch clusterimagesets.hive.openshift.io img4.16.8-multi-appsub --type='json' -p='[{"op":"replace","path": "/metadata/labels/channel","value":"stable"}]'</code></pre>
+</div>
+</div>
 <div class="listingblock">
 <div class="title">Sample output:</div>
 <div class="content">
