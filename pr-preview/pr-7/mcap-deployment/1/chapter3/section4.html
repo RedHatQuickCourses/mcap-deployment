@@ -95,7 +95,7 @@
     <a class="nav-link" href="index.html">Infrastructure Cluster Deployment</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section1.html">Infrastructure VM Deployment</a>
+    <a class="nav-link" href="section1.html">Infrastructure VMs Deployment</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="section2.html">Assisted Clusters - Infrastructure Clusters</a>
@@ -221,7 +221,7 @@
 <p>Access the <em>sno1</em> cluster via CLI and web console.</p>
 </li>
 <li>
-<p>Ensure that <code>sno1.lab.example.com</code> node is in <code>Ready</code> status and that all cluster operators are available.</p>
+<p>Ensure that <code>sno1.lab.example.com</code> node is in <code>Ready</code> status and all cluster operators are available.</p>
 <div class="listingblock">
 <div class="title">Sample output:</div>
 <div class="content">
@@ -306,7 +306,7 @@ version   4.16.8    True        False         23h     Cluster version is 4.16.8<
 </div>
 </li>
 <li>
-<p>After 3 to 4 minutes, notice the <code>Refresh web console</code> message on window.</p>
+<p>After 3-4 minutes, notice the <code>Refresh web console</code> message on window.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/sno1_console_ocpvirt_install_5.png" alt="sno1 console ocpvirt install 5">
@@ -314,7 +314,7 @@ version   4.16.8    True        False         23h     Cluster version is 4.16.8<
 </div>
 </li>
 <li>
-<p>After 3 to 4 minutes, <em>HyperConverged</em> is in <code>Reconcile, Complete, Available, Upgradable</code> conditions.</p>
+<p>After 3-4 minutes, <em>HyperConverged</em> is in <code>Reconcile, Complete, Available, Upgradable</code> conditions.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/sno1_console_ocpvirt_install_6.png" alt="sno1 console ocpvirt install 6">
@@ -342,7 +342,7 @@ version   4.16.8    True        False         23h     Cluster version is 4.16.8<
 </div>
 </li>
 <li>
-<p>In a search window, search <em>odf</em> and then select the <code>OpenShift Data Foundation</code>.</p>
+<p>In a search window, search <em>odf</em> and select the <code>OpenShift Data Foundation</code>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/sno1_console_odf_install.png" alt="sno1 console odf install">
@@ -366,7 +366,7 @@ version   4.16.8    True        False         23h     Cluster version is 4.16.8<
 </div>
 </li>
 <li>
-<p>After 3 to 4 minutes, notice the <code>Refresh web console</code> message on window.</p>
+<p>After 3-4 minutes, notice the <code>Refresh web console</code> message on window.</p>
 <div class="paragraph">
 <p>First, refresh the web console and then click <b class="button">Create StorageSystem</b> to create the resource.</p>
 </div>
@@ -423,7 +423,7 @@ version   4.16.8    True        False         23h     Cluster version is 4.16.8<
 </div>
 <div class="listingblock execute">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">scp Downloads/ceph-external-cluster-details-exporter.py root@storage:.</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">scp /root/Downloads/ceph-external-cluster-details-exporter.py root@storage:.</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -432,10 +432,10 @@ version   4.16.8    True        False         23h     Cluster version is 4.16.8<
 <div class="listingblock">
 <div class="title">Sample output:</div>
 <div class="content">
-<pre>[root@hypervisor ~]# ls Downloads/
+<pre>[root@hypervisor ~]# ls /root/Downloads/
 ceph-external-cluster-details-exporter.py
 
-[root@hypervisor ~]# scp Downloads/ceph-external-cluster-details-exporter.py root@storage:.
+[root@hypervisor ~]# scp /root/Downloads/ceph-external-cluster-details-exporter.py root@storage:.
 root@storage's password:
 ceph-external-cluster-details-exporter.py</pre>
 </div>
@@ -467,9 +467,12 @@ root@storage's password:
 <div class="paragraph">
 <p>Copy the <code>output.json</code> file from <code>storage</code> VM to hypervisor.</p>
 </div>
+<div class="paragraph">
+<p>Run following command on hypervisor.</p>
+</div>
 <div class="listingblock execute">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">scp root@storage:/root/output.json .</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">scp root@storage:/root/output.json /root/</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -517,7 +520,7 @@ output.json                                                                     
 </div>
 </li>
 <li>
-<p>Notice the conditions as <code>Available, VendorCsv Ready, Vendor System Present</code>.</p>
+<p>Notice the raw and used capacity.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/sno1_console_odf_install_11.png" alt="sno1 console odf install 11">
@@ -525,10 +528,18 @@ output.json                                                                     
 </div>
 </li>
 <li>
-<p>Verify that the operator is installed successfully in <code>openshift-storage</code> namespace.</p>
+<p>Notice the conditions as <code>Available, VendorCsv Ready, Vendor System Present</code>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/sno1_console_odf_install_12.png" alt="sno1 console odf install 12">
+</div>
+</div>
+</li>
+<li>
+<p>Verify that the operator is installed successfully in <code>openshift-storage</code> namespace.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_console_odf_install_13.png" alt="sno1 console odf install 13">
 </div>
 </div>
 </li>
@@ -545,7 +556,7 @@ output.json                                                                     
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Access the operator hub from web console of <em>sno1</em> cluster.</p>
+<p>Access the operator hub from the web console of <em>sno1</em> cluster.</p>
 <div class="paragraph">
 <p>From the left navigation pane, click <span class="menuseq"><b class="menu">Operators</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">OperatorHub</b></span>.</p>
 </div>
@@ -556,7 +567,7 @@ output.json                                                                     
 </div>
 </li>
 <li>
-<p>In a search window, search <em>NMstate</em> and then select the <code>Kubernetes NMState Operator</code>.</p>
+<p>In a search window, search <em>NMstate</em> and select the <code>Kubernetes NMState Operator</code>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/sno1_console_operator_hub_nmstate.png" alt="sno1 console operator hub nmstate">
@@ -612,7 +623,7 @@ output.json                                                                     
 </div>
 </li>
 <li>
-<p>After 3 to 4 minutes, notice the <code>Refresh web console</code> message on window.</p>
+<p>After 3-4 minutes, notice the <code>Refresh web console</code> message on window.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/sno1_console_nmstate_install_6.png" alt="sno1 console nmstate install 6">

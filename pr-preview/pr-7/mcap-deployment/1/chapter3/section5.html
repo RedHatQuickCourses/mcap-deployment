@@ -95,7 +95,7 @@
     <a class="nav-link" href="index.html">Infrastructure Cluster Deployment</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section1.html">Infrastructure VM Deployment</a>
+    <a class="nav-link" href="section1.html">Infrastructure VMs Deployment</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="section2.html">Assisted Clusters - Infrastructure Clusters</a>
@@ -252,7 +252,7 @@ It is possible that in future releases or updates of this course, the separate n
 <p>Access the <em>sno1</em> cluster via CLI and web console.</p>
 </li>
 <li>
-<p>Ensure that <code>sno1.lab.example.com</code> node is in <code>Ready</code> status and that all cluster operators are available.</p>
+<p>Ensure that <code>sno1.lab.example.com</code> node is in <code>Ready</code> status and all cluster operators are available.</p>
 <div class="listingblock">
 <div class="title">Sample output:</div>
 <div class="content">
@@ -371,6 +371,10 @@ version   4.16.8    True        False         23h     Cluster version is 4.16.8<
 </div>
 <div class="paragraph">
 <p>This is the NIC, which you added in the previous section.</p>
+</div>
+<div class="paragraph">
+<p>The NIC <code>enp2s0</code> value can be different in your environment.
+Check in VM&#8217;s console from <code>virt-manager</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">

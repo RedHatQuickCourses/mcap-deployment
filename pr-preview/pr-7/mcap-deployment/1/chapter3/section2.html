@@ -95,7 +95,7 @@
     <a class="nav-link" href="index.html">Infrastructure Cluster Deployment</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section1.html">Infrastructure VM Deployment</a>
+    <a class="nav-link" href="section1.html">Infrastructure VMs Deployment</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="section2.html">Assisted Clusters - Infrastructure Clusters</a>
@@ -221,6 +221,75 @@ These <em>Infrastructure</em> clusters will be Single Node OpenShift (SNO) clust
 <li>
 <p>Download or copy your <a href="https://console.redhat.com/openshift/install/pull-secret" target="read-later">pull-secret</a> and put it in <code>pull_secret.txt</code> file on hypervisor.</p>
 </li>
+<li>
+<p>Set the OpenShift <code>clusterimageset</code> to 4.16.8 on stable channel.</p>
+<div class="paragraph">
+<p>This will allow to deploy the <em>Infrastructure</em> and <em>Tenant</em> clusters with same OpenShift version.</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Get the images with <em>visible</em> label as <em>true</em> from <code>clusterimageset</code>.</p>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre>[root@hypervisor ~]# oc get clusterimageset -o yaml | grep -i true -A 1
+
+      visible: "true"
+    name: img4.14.35-multi-appsub
+--
+      visible: "true"
+    name: img4.15.29-multi-appsub
+--
+      visible: "true"
+    name: img4.16.10-multi-appsub</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set the <em>visible</em> label as <em>true</em> and <em>channel</em> label as <em>stable</em> for <code>4.16.8</code> image.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc patch clusterimagesets.hive.openshift.io img4.16.8-multi-appsub --type='json' -p='[{"op":"replace","path": "/metadata/labels/visible","value":"true"}]'</code></pre>
+</div>
+</div>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc patch clusterimagesets.hive.openshift.io img4.16.8-multi-appsub --type='json' -p='[{"op":"replace","path": "/metadata/labels/channel","value":"stable"}]'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre>[root@hypervisor ~]# oc patch clusterimagesets.hive.openshift.io img4.16.8-multi-appsub --type='json' -p='[{"op":"replace","path": "/metadata/labels/visible","value":"true"}]'
+clusterimageset.hive.openshift.io/img4.16.8-multi-appsub patched
+
+[root@hypervisor ~]# oc patch clusterimagesets.hive.openshift.io img4.16.8-multi-appsub --type='json' -p='[{"op":"replace","path": "/metadata/labels/channel","value":"stable"}]'
+clusterimageset.hive.openshift.io/img4.16.8-multi-appsub patched
+
+[root@hypervisor ~]# oc get clusterimageset -o yaml | grep -i true -A 1 -B 1
+
+      channel: fast
+      visible: "true"
+    name: img4.14.35-multi-appsub
+--
+      channel: fast
+      visible: "true"
+    name: img4.15.29-multi-appsub
+--
+      channel: fast
+      visible: "true"
+    name: img4.16.10-multi-appsub
+--
+      channel: stable
+      visible: "true"
+    name: img4.16.8-multi-appsub</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
 </ol>
 </div>
 </div>
@@ -285,7 +354,7 @@ These <em>Infrastructure</em> clusters will be Single Node OpenShift (SNO) clust
 <p>Base domain: <code>lab.example.com</code></p>
 </div>
 <div class="paragraph">
-<p>Select latest available stable version of OpenShift from the menu</p>
+<p>Select <code>4.16.8</code> version of OpenShift from the menu.</p>
 </div>
 <div class="paragraph">
 <p>Check box the <code>Install single node OpenShift (SNO)</code></p>
@@ -599,7 +668,49 @@ These <em>Infrastructure</em> clusters will be Single Node OpenShift (SNO) clust
 </div>
 </li>
 <li>
-<p>Notice the <code>sno1</code> is added to cluster list in default cluster set.</p>
+<p>If you notice any failure in importing the cluster to <em>Hub</em> cluster then wait for 35 to 40 minutes.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_import_fail.png" alt="hub console sno1 import fail">
+</div>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Detach the cluster.</p>
+<div class="paragraph">
+<p>Click <span class="menuseq"><b class="menu">Actions</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Detach cluster</b></span></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_detach.png" alt="hub console sno1 detach">
+</div>
+</div>
+</li>
+<li>
+<p>Try to import manually again.</p>
+<div class="paragraph">
+<p>Click <span class="menuseq"><b class="menu">Actions</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Import cluster</b></span></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_import.png" alt="hub console sno1 import">
+</div>
+</div>
+<div class="paragraph">
+<p>Click <b class="button">Import</b> to import cluster.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_import_1.png" alt="hub console sno1 import 1">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Notice the <code>sno1</code> is added to cluster list in <code>default</code> cluster set.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_ready.png" alt="hub console sno1 ready">
@@ -629,7 +740,7 @@ These <em>Infrastructure</em> clusters will be Single Node OpenShift (SNO) clust
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="section1.html">Infrastructure VM Deployment</a></span>
+  <span class="prev"><a href="section1.html">Infrastructure VMs Deployment</a></span>
   <span class="next"><a href="section3.html">Access the Infrastructure Cluster</a></span>
 </nav>
 </article>

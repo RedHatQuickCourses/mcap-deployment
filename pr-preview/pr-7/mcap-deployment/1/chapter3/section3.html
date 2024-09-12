@@ -95,7 +95,7 @@
     <a class="nav-link" href="index.html">Infrastructure Cluster Deployment</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section1.html">Infrastructure VM Deployment</a>
+    <a class="nav-link" href="section1.html">Infrastructure VMs Deployment</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="section2.html">Assisted Clusters - Infrastructure Clusters</a>
@@ -218,42 +218,11 @@
 <p>Ensure that <em>Infrastructure</em> clusters (<code>sno1</code>, <code>sno2</code> and <code>sno3</code>) are deployed successfully.</p>
 </li>
 <li>
-<p>Create a directory as <code>/root/sno1/</code> on hypervisor.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir /root/sno1</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Create a <code>kubeadmin-password</code> file in <code>/root/sno1/</code> directory.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">touch /root/sno1/kubeadmin-password</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Get the <code>kubeconfig</code> file and password for <code>kubeadmin</code> user from the <em>Hub</em> cluster console.</p>
-<div class="imageblock">
-<div class="content">
-<img src="_images/console_redhat_sno1_install_download.png" alt="console redhat sno1 install download">
-</div>
-</div>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Download the <code>kubeconfig</code> file to hypervisor, and then copy to <code>/root/sno1</code> directory on hypervisor.</p>
+<p>Ensure <code>/root/sno1/</code> directory and file structure created.</p>
 <div class="listingblock">
 <div class="title">Sample output:</div>
 <div class="content">
-<pre>[root@hypervisor ~]# mv Downloads/sno1-kubeconfig.yaml sno1/kubeconfig</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Sample output:</div>
-<div class="content">
-<pre>[root@hypervisor ~]# ls -al sno1/
+<pre>[root@hypervisor ~]# ls -al /root/sno1/
 total 28
 drwxr-xr-x.  2 root root  4096 Aug 22 15:20 .
 dr-xr-x---. 13 root root  4096 Aug 22 15:18 ..
@@ -263,18 +232,36 @@ dr-xr-x---. 13 root root  4096 Aug 22 15:18 ..
 </div>
 </li>
 <li>
-<p>Copy the password for <code>kubeadmin</code> user and paste it in new tab of a Firefox browser.</p>
+<p>Get the <code>kubeconfig</code> file and password for <code>kubeadmin</code> user from the <em>Hub</em> cluster console.</p>
 <div class="imageblock">
 <div class="content">
-<img src="_images/console_redhat_sno1_copy_password.png" alt="console redhat sno1 copy password">
+<img src="_images/hub_console_sno1_install_download.png" alt="hub console sno1 install download">
+</div>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Download the <code>kubeconfig</code> file to hypervisor, and then copy to <code>/root/sno1</code> directory on hypervisor.</p>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre>[root@hypervisor ~]# mv /root/Downloads/sno1-kubeconfig.yaml /root/sno1/kubeconfig</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Copy the password for <code>kubeadmin</code> user, and paste it in new tab of a Firefox browser.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_copy_password.png" alt="hub console sno1 copy password">
 </div>
 </div>
 <div class="paragraph">
-<p>Copy the password from the tab of the Firefox browser and paste it in <code>/root/sno1/kubeadmin-password</code> file.</p>
+<p>Copy the password from the tab of Firefox browser, and paste it in <code>/root/sno1/kubeadmin-password</code> file.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/console_redhat_sno1_copy_password_1.png" alt="console redhat sno1 copy password 1">
+<img src="_images/hub_console_sno1_copy_password_1.png" alt="hub console sno1 copy password 1">
 </div>
 </div>
 </li>
@@ -283,11 +270,11 @@ dr-xr-x---. 13 root root  4096 Aug 22 15:18 ..
 </li>
 </ol>
 </div>
-<div class="admonitionblock note">
+<div class="admonitionblock important">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
 Follow the same steps for <code>sno2</code> and <code>sno3</code> clusters.
@@ -376,7 +363,7 @@ Follow the same steps for <code>sno2</code> and <code>sno3</code> clusters.
 <p>Get the web console url from <em>Hub</em> cluster console.</p>
 <div class="imageblock">
 <div class="content">
-<img src="_images/console_redhat_sno1_install_download.png" alt="console redhat sno1 install download">
+<img src="_images/hub_console_sno1_install_download.png" alt="hub console sno1 install download">
 </div>
 </div>
 </li>
@@ -418,11 +405,11 @@ You may need to accept the risk twice.
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/console_redhat_sno1_install_download.png" alt="console redhat sno1 install download">
+<img src="_images/hub_console_sno1_install_download.png" alt="hub console sno1 install download">
 </div>
 </div>
 <div class="paragraph">
-<p>Copy the <code>kubadmin</code> user&#8217;s passwrod from from <em>Hub</em> cluster console and paste it in <code>Password</code> field.</p>
+<p>Copy the <code>kubadmin</code> user&#8217;s password from from <em>Hub</em> cluster console and paste it in <code>Password</code> field.</p>
 </div>
 <div class="imageblock">
 <div class="content">

@@ -95,7 +95,7 @@
     <a class="nav-link" href="../chapter3/index.html">Infrastructure Cluster Deployment</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter3/section1.html">Infrastructure VM Deployment</a>
+    <a class="nav-link" href="../chapter3/section1.html">Infrastructure VMs Deployment</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../chapter3/section2.html">Assisted Clusters - Infrastructure Clusters</a>
@@ -224,30 +224,8 @@ You can refer how to configure manually i.e. without automation in at the end ap
 <div class="sect1">
 <h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
 <div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Download the <em>rhel9.X</em> QCOW2 image from the <a href="https://access.redhat.com/downloads/content/rhel" target="read-later">Red Hat Customer Portal</a> to your laptop/desktop.</p>
-</li>
-<li>
-<p>Use Secured copy (scp) command to copy the <em>rhel9.X</em> QCOW2 image from your laptop/desktop to hypervisor and then place it in <code>/var/lib/libvirt/images</code> directory.</p>
-<div class="listingblock">
-<div class="title">Sample output:</div>
-<div class="content">
-<pre>[user@laptop]$ scp Downloads/rhel-9.4-x86_64-kvm.qcow2 lab-user@14X.XX.YY.Z:.
-
-[user@laptop]$ ssh lab-user@14X.XX.YY.Z
-
-[lab-user@hypervisor ~]$ sudo su -
-
-[root@hypervisor ~]# mv /home/lab-user/rhel-9.4-x86_64-kvm.qcow2 /var/lib/libvirt/images/rhel-9.4-x86_64-kvm.qcow2</pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
 <div class="paragraph">
-<p><mark>FIX this - Try Automation playbook</mark></p>
+<p>Ensure you have already executed <strong><em>setup_hypervisor.yaml</em></strong> playbook from <code>Initial Setup on Hypervisor</code> page.</p>
 </div>
 </div>
 </div>

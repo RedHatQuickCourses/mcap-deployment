@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Infrastructure VM Deployment :: Deploy Mission Critical Application Platform (MCAP)</title>
+    <title>Infrastructure VMs Deployment :: Deploy Mission Critical Application Platform (MCAP)</title>
     <link rel="prev" href="index.html">
     <link rel="next" href="section2.html">
     <meta name="generator" content="Antora 3.1.3">
@@ -95,7 +95,7 @@
     <a class="nav-link" href="index.html">Infrastructure Cluster Deployment</a>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="section1.html">Infrastructure VM Deployment</a>
+    <a class="nav-link" href="section1.html">Infrastructure VMs Deployment</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="section2.html">Assisted Clusters - Infrastructure Clusters</a>
@@ -187,7 +187,7 @@
   <ul>
     <li><a href="../index.html">Deploy Mission Critical Application Platform (MCAP)</a></li>
     <li><a href="index.html">Infrastructure Cluster Deployment</a></li>
-    <li><a href="section1.html">Infrastructure VM Deployment</a></li>
+    <li><a href="section1.html">Infrastructure VMs Deployment</a></li>
   </ul>
 </nav>
 </div>
@@ -196,7 +196,7 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Infrastructure VM Deployment</h1>
+<h1 class="page">Infrastructure VMs Deployment</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="admonitionblock note">
@@ -224,357 +224,29 @@ You can refer how to configure manually i.e. without automation in at the end ap
 <div class="sect1">
 <h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
 <div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Download the <em>rhel9.X</em> qcow2 image from the <a href="https://access.redhat.com/downloads/content/rhel" target="read-later">Red Hat Customer Portal</a> to your laptop or desktop.</p>
-</li>
-<li>
-<p>Secured copy (scp) the <em>rhel9.X</em> qcow2 image from your laptop/desktop to hypervisor and then place it in <code>/var/lib/libvirt/images</code> directory with name as <code>rhel9-guest-sno.qcow2</code>.</p>
-<div class="listingblock">
-<div class="title">Sample output:</div>
-<div class="content">
-<pre>[user@laptop]$ scp Downloads/rhel-9.4-x86_64-kvm.qcow2 lab-user@14X.XX.YY.Z:.
-
-[user@laptop]$ ssh lab-user@14X.XX.YY.Z
-
-[lab-user@hypervisor ~]$ sudo su -
-
-[root@hypervisor ~]# mv /home/lab-user/rhel-9.4-x86_64-kvm.qcow2 /var/lib/libvirt/images/rhel9-guest-sno.qcow2</pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
 <div class="paragraph">
-<p><mark>FIX this - Try Automation playbook</mark></p>
+<p>Ensure you have already executed <strong><em>setup_hypervisor.yaml</em></strong> playbook from <code>Initial Setup on Hypervisor</code> page.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_sno_vms_deployment"><a class="anchor" href="#_sno_vms_deployment"></a>SNO VMs Deployment</h2>
 <div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Ensure the rhel9 qcow2 image is in <code>/var/lib/libvirt/images</code> directory.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd /var/lib/libvirt/images/</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Sample output:</div>
-<div class="content">
-<pre>ls -alh /var/lib/libvirt/images/rhel9-guest-sno.qcow2
--rw-r--r--. 1 lab-user users 913M Aug 21 10:00 /var/lib/libvirt/images/rhel9-guest-sno.qcow2</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Check the virtual and disk size of qcow2 image.</p>
 <div class="paragraph">
-<p>To get information on qcow2 image, run <code>qemu-img info</code> command on the qcow2 image.</p>
-</div>
-<div class="listingblock">
-<div class="title">Sample output:</div>
-<div class="content">
-<pre>qemu-img info rhel9-guest-sno.qcow2
-
-image: rhel9-guest-sno.qcow2
-file format: qcow2
-virtual size: 10 GiB (10737418240 bytes)
-disk size: 913 MiB
-cluster_size: 65536
-...output omitted...</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Resize the image with additional size of 120G.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">qemu-img resize rhel9-guest-sno.qcow2 +120G</code></pre>
-</div>
+<p>You can either use the <strong><em>setup_sno.yaml</em></strong> playbook to create QCOW2 image for <code>sno</code> VMs and then deploy <code>sno</code> VMs on the hypervisor.</p>
 </div>
 <div class="paragraph">
-<p>This increases the virtual size of the disk.</p>
-</div>
-<div class="paragraph">
-<p>Ensure virtual size is increased by 120GB.</p>
-</div>
-<div class="listingblock">
-<div class="title">Sample output:</div>
-<div class="content">
-<pre>qemu-img info rhel9-guest-sno.qcow2
-
-image: rhel9-guest-sno.qcow2
-file format: qcow2
-virtual size: 130 GiB (139586437120 bytes)
-disk size: 913 MiB
-cluster_size: 65536
-...output omitted...</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Change the ownership of the image to <code>qemu:qemu</code>.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chown -R qemu:qemu rhel9-guest-sno.qcow2</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><a href="https://www.redhat.com/en/blog/all-you-need-know-about-kvm-userspace" target="read-later">All you need to know about KVM userspace</a></p>
-</div>
-</li>
-<li>
-<p>Resize the partition 4 i.e. <code>/</code> of qcow2 image.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-customize -a rhel9-guest-sno.qcow2 --run-command 'growpart /dev/sda 4'</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This will resize the partition with additional size i.e. 120GB.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://access.redhat.com/solutions/5540131" target="read-later">What is growpart utility and how to use it?</a></p>
-</div>
-</li>
-<li>
-<p>Increase the filesystem on <code>/</code>.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-customize -a rhel9-guest-sno.qcow2 --run-command 'xfs_growfs /'</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><a href="https://access.redhat.com/solutions/57263" target="read-later">How to extend a XFS filesytem using the xfs_growfs?</a></p>
-</div>
-</li>
-<li>
-<p>Set the <code>root</code> user password for qcow2 image.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-customize -a rhel9-guest-sno.qcow2 --root-password password:redhat</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You can use this password for logging into the VM via console.</p>
-</div>
-</li>
-</ol>
+<p>Ensure you are in <strong><em>ansible</em></strong> directory of the repo.</p>
 </div>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-playbook playbooks/setup_sno.yaml -vvv | tee -a /tmp/setup_sno.log</code></pre>
 </div>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Inject the <code>root</code> user&#8217;s public rsa key in qcow2 image.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-customize -a rhel9-guest-sno.qcow2 --ssh-inject root:file:/root/.ssh/id_rsa.pub</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>SELinux relabel in qcow2 image.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-customize -a rhel9-guest-sno.qcow2 --selinux-relabel</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Create the image for <code>sno1</code>, <code>sno2</code> and <code>sno3</code> VMs using the <em>rhel9.X</em> qcow2 image.</p>
 <div class="paragraph">
-<p>Create <code>sno1.qcow2</code> image.</p>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">qemu-img create -f qcow2 -F qcow2 -b /var/lib/libvirt/images/rhel9-guest-sno.qcow2 /var/lib/libvirt/images/sno1.qcow2</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Create <code>sno2.qcow2</code> image.</p>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">qemu-img create -f qcow2 -F qcow2 -b /var/lib/libvirt/images/rhel9-guest-sno.qcow2 /var/lib/libvirt/images/sno2.qcow2</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Create <code>sno3.qcow2</code> image.</p>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">qemu-img create -f qcow2 -F qcow2 -b /var/lib/libvirt/images/rhel9-guest-sno.qcow2 /var/lib/libvirt/images/sno3.qcow2</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Sample output:</div>
-<div class="content">
-<pre>[root@hypervisor images]# qemu-img create -f qcow2 -F qcow2 -b /var/lib/libvirt/images/rhel9-guest-sno.qcow2 /var/lib/libvirt/images/sno1.qcow2
-Formatting '/var/lib/libvirt/images/sno1.qcow2', fmt=qcow2 cluster_size=65536 extended_l2=off compression_type=zlib size=139586437120 backing_file=/var/lib/libvirt/images/rhel9-guest-sno.qcow2 backing_fmt=qcow2 lazy_refcounts=off refcount_bits=16
-
-[root@hypervisor images]# qemu-img create -f qcow2 -F qcow2 -b /var/lib/libvirt/images/rhel9-guest-sno.qcow2 /var/lib/libvirt/images/sno2.qcow2
-Formatting '/var/lib/libvirt/images/sno2.qcow2', fmt=qcow2 cluster_size=65536 extended_l2=off compression_type=zlib size=139586437120 backing_file=/var/lib/libvirt/images/rhel9-guest-sno.qcow2 backing_fmt=qcow2 lazy_refcounts=off refcount_bits=16
-
-[root@hypervisor images]# qemu-img create -f qcow2 -F qcow2 -b /var/lib/libvirt/images/rhel9-guest-sno.qcow2 /var/lib/libvirt/images/sno3.qcow2
-Formatting '/var/lib/libvirt/images/sno3.qcow2', fmt=qcow2 cluster_size=65536 extended_l2=off compression_type=zlib size=139586437120 backing_file=/var/lib/libvirt/images/rhel9-guest-sno.qcow2 backing_fmt=qcow2 lazy_refcounts=off refcount_bits=16</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Create the <code>sno1</code>, <code>sno2</code> and <code>sno3</code> VMs.
-Disk path should be storage pool path i.e. <code>/var/lib/libvirt/images/</code>.
-MAC address for the <code>sno1</code>, <code>sno2</code> and <code>sno3</code> VMs should be same as from the DHCP configuration.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-install --virt-type kvm --ram 122880 --vcpus 24 --cpu=host-passthrough --os-variant rhel9.3 \
---disk path=/var/lib/libvirt/images/sno1.qcow2,device=disk,bus=virtio,format=qcow2 \
---network bridge=virbr0,mac=52:54:00:87:f4:2f --boot hd,network \
---noautoconsole --vnc --name sno1 --noreboot</code></pre>
-</div>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-install --virt-type kvm --ram 122880 --vcpus 24 --cpu=host-passthrough --os-variant rhel9.3 \
---disk path=/var/lib/libvirt/images/sno2.qcow2,device=disk,bus=virtio,format=qcow2 \
---network bridge=virbr0,mac=52:54:00:cc:51:86 --boot hd,network \
---noautoconsole --vnc --name sno2 --noreboot</code></pre>
-</div>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-install --virt-type kvm --ram 122880 --vcpus 24 --cpu=host-passthrough --os-variant rhel9.3 \
---disk path=/var/lib/libvirt/images/sno3.qcow2,device=disk,bus=virtio,format=qcow2 \
---network bridge=virbr0,mac=52:54:00:67:34:25 --boot hd,network \
---noautoconsole --vnc --name sno3 --noreboot</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Sample output:</div>
-<div class="content">
-<pre>[root@hypervisor images]# virt-install --virt-type kvm --ram 122880 --vcpus 24 --cpu=host-passthrough --os-variant rhel9.3 \
---disk path=/var/lib/libvirt/images/sno1.qcow2,device=disk,bus=virtio,format=qcow2 \
---network bridge=virbr0,mac=52:54:00:87:f4:2f --boot hd,network \
---noautoconsole --vnc --name sno1 --noreboot
-
-Starting install...
-Creating domain...                                   |         00:00:00
-Domain creation completed.
-You can restart your domain by running:
-  virsh --connect qemu:///system start sno1
-
-[root@hypervisor images]# virt-install --virt-type kvm --ram 122880 --vcpus 24 --cpu=host-passthrough --os-variant rhel9.3 \
---disk path=/var/lib/libvirt/images/sno2.qcow2,device=disk,bus=virtio,format=qcow2 \
---network bridge=virbr0,mac=52:54:00:cc:51:86 --boot hd,network \
---noautoconsole --vnc --name sno2 --noreboot
-
-Starting install...
-Creating domain...                                   |         00:00:00
-Domain creation completed.
-You can restart your domain by running:
-  virsh --connect qemu:///system start sno2
-
-[root@hypervisor images]# virt-install --virt-type kvm --ram 122880 --vcpus 24 --cpu=host-passthrough --os-variant rhel9.3 \
---disk path=/var/lib/libvirt/images/sno3.qcow2,device=disk,bus=virtio,format=qcow2 \
---network bridge=virbr0,mac=52:54:00:67:34:25 --boot hd,network \
---noautoconsole --vnc --name sno3 --noreboot
-
-Starting install...
-Creating domain...                                   |         00:00:00
-Domain creation completed.
-You can restart your domain by running:
-  virsh --connect qemu:///system start sno3</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Verify <code>sno1</code>, <code>sno2</code> and <code>sno3</code> VMs are created and in <code>shut off</code> state.</p>
-</div>
-<div class="listingblock">
-<div class="title">Sample output:</div>
-<div class="content">
-<pre>virsh list --all
-
- Id   Name      State
---------------------------
- 7    storage   running
- 16   hub       running
- -    sno1      shut off
- -    sno2      shut off
- -    sno3      shut off</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Start the <code>sno1</code>, <code>sno2</code> and <code>sno3</code> VMs.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virsh start sno1; virsh start sno2; virsh start sno3</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Sample output</div>
-<div class="content">
-<pre>Domain 'sno1' started
-
-Domain 'sno2' started
-
-Domain 'sno3' started</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Verify <code>sno1</code>, <code>sno2</code> and <code>sno3</code> VMs are in <code>running</code> state.</p>
-</div>
-<div class="listingblock">
-<div class="title">Sample output:</div>
-<div class="content">
-<pre>virsh list --all
-
- Id   Name      State
--------------------------
- 7    storage   running
- 16   hub       running
- 23   sno1      running
- 24   sno2      running
- 25   sno3      running</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Verify <code>sno1</code>, <code>sno2</code> and <code>sno3</code> VMs are booted successfully.</p>
-<div class="paragraph">
-<p>Take the console of the <code>sno1</code>, <code>sno2</code> and <code>sno3</code> VMs and login as <em>root</em> user with <em>redhat</em> as password.</p>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virsh console sno1</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Sample output:</div>
-<div class="content">
-<pre>[root@hypervisor images]# virsh console sno1
-
-Connected to domain 'sno1'
-Escape character is ^] (Ctrl + ])
-
-sno1 login: root
-Password:
-[root@sno1 ~]#</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Similarly verify <code>sno2</code> and <code>sno3</code> VMs are booted successfully.</p>
-</div>
-</li>
-</ol>
+<p>Tha above command results in verbose play output.
+<code>tee -a</code> command redirects the output to <code>/tmp/setup_sno.log</code> log file.
+In case of failure, <code>/tmp/setup_sno.log</code> log file can be used for troubleshooting the issue.</p>
 </div>
 </div>
 </div>

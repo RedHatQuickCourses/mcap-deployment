@@ -95,7 +95,7 @@
     <a class="nav-link" href="../chapter3/index.html">Infrastructure Cluster Deployment</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter3/section1.html">Infrastructure VM Deployment</a>
+    <a class="nav-link" href="../chapter3/section1.html">Infrastructure VMs Deployment</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../chapter3/section2.html">Assisted Clusters - Infrastructure Clusters</a>
@@ -246,7 +246,7 @@ hub.lab.example.com   Ready    control-plane,master,worker   30m   v1.29.7+6abe8
 [root@hypervisor ~]# oc get clusterversion
 
 NAME      VERSION   AVAILABLE   PROGRESSING   SINCE   STATUS
-version   4.16.7    True        False         16m     Cluster version is 4.16.7</pre>
+version   4.16.8    True        False         86m     Cluster version is 4.16.8</pre>
 </div>
 </div>
 </li>
@@ -275,15 +275,15 @@ lvms-vg1   topolvm.io    Delete          WaitForFirstConsumer   true            
 <p>Set the storage class as default by adding annotations as <code>storageclass.kubernetes.io/is-default-class: 'true'</code>.</p>
 <div class="listingblock execute">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc edit sc lvms-vg1</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc patch storageclass lvms-vg1 -p '{"metadata": {"annotations": {"storageclass.kubernetes.io/is-default-class": "true"}}}'</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Sample output:</div>
 <div class="content">
-<pre>[root@hypervisor ~]# oc edit sc lvms-vg1
+<pre>[root@hypervisor ~]# oc patch storageclass lvms-vg1 -p '{"metadata": {"annotations": {"storageclass.kubernetes.io/is-default-class": "true"}}}'
 
-storageclass.storage.k8s.io/lvms-vg1 edited</pre>
+storageclass.storage.k8s.io/lvms-vg1 patched</pre>
 </div>
 </div>
 </li>
@@ -405,7 +405,7 @@ metadata:
 </div>
 </li>
 <li>
-<p>After 3 to 4 minutes, notice the <code>Refresh web console</code> message on window.</p>
+<p>After 2-3 minutes, notice the <code>Refresh web console</code> message on window.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/rhacm_install_5.png" alt="rhacm install 5">
@@ -413,7 +413,7 @@ metadata:
 </div>
 </li>
 <li>
-<p>After 3 to 4 minutes, <em>MultiClusterHub</em> is in <code>Running</code> phase.</p>
+<p>After 3-4 minutes, refresh the page and <em>MultiClusterHub</em> is in <code>Running</code> phase.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/rhacm_install_6.png" alt="rhacm install 6">
@@ -438,7 +438,7 @@ CIM is deployed when you enable the <em>MultiClusterHub Operator</em> on the hub
 <p>Ensure <code>AgentServiceConfig</code> exists and running.</p>
 </div>
 <div class="listingblock">
-<div class="title">Sample output</div>
+<div class="title">Sample output:</div>
 <div class="content">
 <pre>[root@hypervisor ~]# oc get AgentServiceConfig
 
@@ -471,6 +471,17 @@ EOF</code></pre>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc create -f provisioning-configuration.yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Ensure provisioning custom resource is created.</p>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre>[root@hypervisor ~]# oc get provisioning
+NAME                         AGE
+provisioning-configuration   6s</pre>
 </div>
 </div>
 </li>

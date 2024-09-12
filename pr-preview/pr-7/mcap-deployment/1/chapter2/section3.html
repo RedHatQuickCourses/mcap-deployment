@@ -95,7 +95,7 @@
     <a class="nav-link" href="../chapter3/index.html">Infrastructure Cluster Deployment</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter3/section1.html">Infrastructure VM Deployment</a>
+    <a class="nav-link" href="../chapter3/section1.html">Infrastructure VMs Deployment</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../chapter3/section2.html">Assisted Clusters - Infrastructure Clusters</a>
@@ -218,18 +218,17 @@
 <p>Ensure <em>Hub</em> cluster is deployed successfully.</p>
 </li>
 <li>
-<p>Create a directory as <code>/root/hub/</code> on hypervisor.</p>
-<div class="listingblock execute">
+<p>Ensure <code>/root/hub/</code> directory and file structure created.</p>
+<div class="listingblock">
+<div class="title">Sample output:</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir /root/hub</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Create <code>kubeadmin-password</code> and <code>console-url</code> files in <code>/root/hub/</code> directory.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">touch /root/hub/kubeadmin-password; touch /root/hub/console-url</code></pre>
+<pre>[root@hypervisor ~]# ls -al /root/hub/
+total 28
+drwxr-xr-x.  2 root root  4096 Aug 22 15:20 .
+dr-xr-x---. 13 root root  4096 Aug 22 15:18 ..
+-rw-r--r--.  1 root root    94 Aug 22 15:11 console-url
+-rw-r--r--.  1 root root    24 Aug 22 15:11 kubeadmin-password
+-rw-r--r--.  1 root root 12127 Aug 22 15:20 kubeconfig</pre>
 </div>
 </div>
 </li>
@@ -244,18 +243,6 @@
 <ol class="loweralpha" type="a">
 <li>
 <p>Download the <code>kubeconfig</code> file to your laptop or desktop and then copy to <code>/root/hub</code> directory on hypervisor.</p>
-<div class="listingblock">
-<div class="title">Sample output:</div>
-<div class="content">
-<pre>[root@hypervisor ~]# ls -al hub/
-total 28
-drwxr-xr-x.  2 root root  4096 Aug 22 15:20 .
-dr-xr-x---. 13 root root  4096 Aug 22 15:18 ..
--rw-r--r--.  1 root root    94 Aug 22 15:11 console-url
--rw-r--r--.  1 root root    24 Aug 22 15:11 kubeadmin-password
--rw-r--r--.  1 root root 12127 Aug 22 15:20 kubeconfig</pre>
-</div>
-</div>
 </li>
 <li>
 <p>Copy the password for <code>kubeadmin</code> user and paste it in <code>/root/hub/kubeadmin-password</code> file.</p>
@@ -267,10 +254,15 @@ dr-xr-x---. 13 root root  4096 Aug 22 15:18 ..
 </div>
 </li>
 <li>
-<p>Create <code>.kube</code> directory and <code>config</code> file in <code>.kube</code> directory.</p>
-<div class="listingblock execute">
+<p>Ensure <code>/root/.kube</code> directory and <code>config</code> file in <code>/root/.kube</code> directory.</p>
+<div class="listingblock">
+<div class="title">Sample output:</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir /root/.kube; touch /root/.kube/config</code></pre>
+<pre>[root@hypervisor ~]# ls -al /root/.kube
+total 36
+drwxr-xr-x.  3 root root  4096 Sep  4 13:19 .
+dr-xr-x---. 18 root root  4096 Sep  5 08:28 ..
+-rw-r--r--.  1 root root 20513 Sep  5 08:29 config</pre>
 </div>
 </div>
 </li>
@@ -419,7 +411,7 @@ You may need to accept the risk twice.
 </div>
 </li>
 <li>
-<p>Once you logged in as <code>kubadmin</code> user, this is how the first screen looks like</p>
+<p>Once you logged in as <code>kubadmin</code> user, this is how the first screen looks like.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/vnc_hub_cluster_access_4.png" alt="vnc hub cluster access 4">
