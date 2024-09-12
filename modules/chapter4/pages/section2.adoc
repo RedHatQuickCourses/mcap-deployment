@@ -133,9 +133,9 @@ Uploading data to https://cdi-uploadproxy-openshift-cnv.apps.sno1.lab.example.co
 
  107.46 MiB / 107.46 MiB [============================================================================================================================================================================] 100.00% 0s
 
-After uploading the data is completed successfully, while waiting for processing to complete, you can hit CTRL-C without interrupting the process.
-Processing completed successfully.
-Uploading /root/Downloads/eea97cca-cda5-47b9-bfdf-51929b4a7067-discovery.iso completed successfully.
+Uploading data completed successfully, waiting for processing to complete, you can hit ctrl-c without interrupting the progress
+Processing completed successfully
+Uploading /root/Downloads/eea97cca-cda5-47b9-bfdf-51929b4a7067-discovery.iso completed successfully
 
 [root@hypervisor ~]# oc logout
 ----
