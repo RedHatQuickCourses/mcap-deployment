@@ -214,7 +214,7 @@ These <em>Tenant</em> cluster will be <em>Three-Node OpenShift Compact</em> clus
 <h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>tcn1.lab.example.com</code>, <code>tcn2.lab.example.com</code> and <code>tcn3.lab.example.com</code> VMs (created using OpenShift Virtualization) are up and running.</p>
+<p>The <code>tcn1.lab.example.com</code>, <code>tcn2.lab.example.com</code> and <code>tcn3.lab.example.com</code> VMs (created using OpenShift Virtualization) are up and running.</p>
 </div>
 </div>
 </div>
@@ -224,9 +224,9 @@ These <em>Tenant</em> cluster will be <em>Three-Node OpenShift Compact</em> clus
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Login to web console of <em>Hub</em> cluster.</p>
+<p>Login to the web console of <em>Hub</em> cluster.</p>
 <div class="paragraph">
-<p>Ensure you have switched to the <code>All Clusters</code> from <code>local-cluster</code>.</p>
+<p>Ensure that you have switched to <code>All Clusters</code> from <code>local-cluster</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -235,7 +235,7 @@ These <em>Tenant</em> cluster will be <em>Three-Node OpenShift Compact</em> clus
 </div>
 </li>
 <li>
-<p>Create cluster using <b class="button">Create cluster</b>.</p>
+<p>Create the cluster using <b class="button">Create cluster</b>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_create_cluster.png" alt="hub console create cluster">
@@ -341,7 +341,7 @@ These <em>Tenant</em> cluster will be <em>Three-Node OpenShift Compact</em> clus
 </div>
 </li>
 <li>
-<p>Here you need to provide the public ssh key of <code>root</code> user.</p>
+<p>Here you will need to provide the public SSH key of <code>root</code> user.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_tenant_public_key.png" alt="hub console tenant public key">
@@ -349,7 +349,7 @@ These <em>Tenant</em> cluster will be <em>Three-Node OpenShift Compact</em> clus
 </div>
 </li>
 <li>
-<p>Get the public ssh key of <code>root</code> user.</p>
+<p>Get the public SSH key of <code>root</code> user.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_tenant_public_key_1.png" alt="hub console tenant public key 1">
@@ -357,7 +357,7 @@ These <em>Tenant</em> cluster will be <em>Three-Node OpenShift Compact</em> clus
 </div>
 </li>
 <li>
-<p>Provide the public ssh key of <code>root</code> user in <code>SSH public key</code> field.</p>
+<p>Provide the public SSH key of <code>root</code> user in <code>SSH public key</code> field.</p>
 <div class="paragraph">
 <p>Click <b class="button">Generate Discovery ISO</b> to generate discovery ISO.</p>
 </div>
@@ -376,12 +376,12 @@ These <em>Tenant</em> cluster will be <em>Three-Node OpenShift Compact</em> clus
 </div>
 </li>
 <li>
-<p>Upload iso from <code>/root/Download</code> directory to <em>Infrastructure</em> clusters.</p>
+<p>Upload ISO from <code>/root/Download</code> directory to <em>Infrastructure</em> clusters.</p>
 <div class="paragraph">
 <p>Login to <code>sno1</code> cluster.</p>
 </div>
 <div class="listingblock">
-<div class="title">Sample output</div>
+<div class="title">Sample output:</div>
 <div class="content">
 <pre>[root@hypervisor ~]# oc get nodes
 NAME                  STATUS   ROLES                         AGE   VERSION
@@ -407,10 +407,10 @@ sno1.lab.example.com   Ready    control-plane,master,worker   20h   v1.29.7+4510
 </div>
 </div>
 <div class="paragraph">
-<p>Upload the discovery iso using <code>virtctl image-upload</code> command.</p>
+<p>Upload the discovery ISO using the <code>virtctl image-upload</code> command.</p>
 </div>
 <div class="listingblock">
-<div class="title">Sample output</div>
+<div class="title">Sample output:</div>
 <div class="content">
 <pre>[root@hypervisor ~]# ls /root/Downloads/
 3b6f60e8-ad5e-4466-a1ad-add735801ad1-discovery.iso  ceph-external-cluster-details-exporter.py  virtctl.tar.gz
@@ -430,10 +430,10 @@ Uploading /root/Downloads/eea97cca-cda5-47b9-bfdf-51929b4a7067-discovery.iso com
 </div>
 </div>
 <div class="paragraph">
-<p>Verify the PVC is created on <code>sno1</code> cluster.</p>
+<p>Verify that the PVC is created on <code>sno1</code> cluster.</p>
 </div>
 <div class="paragraph">
-<p>In <code>sno1</code> cluster web console, from left navigation pane; click <span class="menuseq"><b class="menu">Storage</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">PersistentVolumeClaims</b></span>.</p>
+<p>In <code>sno1</code> cluster web console, from the left navigation pane; click <span class="menuseq"><b class="menu">Storage</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">PersistentVolumeClaims</b></span>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -447,7 +447,7 @@ Uploading /root/Downloads/eea97cca-cda5-47b9-bfdf-51929b4a7067-discovery.iso com
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-Upload the discovery iso to <code>sno2</code> and <code>sno3</code> clusters by performing the above steps.
+Upload the discovery ISO to <code>sno2</code> and <code>sno3</code> clusters by performing the above steps.
 </td>
 </tr>
 </table>
@@ -456,7 +456,7 @@ Upload the discovery iso to <code>sno2</code> and <code>sno3</code> clusters by 
 <li>
 <p>Boot the <code>tcn1.lab.example.com</code>, <code>tcn2.lab.example.com</code> and <code>tcn3.lab.example.com</code> VMs with discovery ISO.</p>
 <div class="paragraph">
-<p>In <code>sno1</code> cluster web console, from left navigation pane; click <span class="menuseq"><b class="menu">Virtualization</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">VirtualMachines</b></span>.</p>
+<p>In the <code>sno1</code> cluster web console, from the left navigation pane; click <span class="menuseq"><b class="menu">Virtualization</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">VirtualMachines</b></span>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -504,7 +504,7 @@ Upload the discovery iso to <code>sno2</code> and <code>sno3</code> clusters by 
 </div>
 </div>
 <div class="paragraph">
-<p>Keep interface as <code>VirtIO</code> and click <b class="button">Save</b> to add the disk.</p>
+<p>Keep the interface as <code>VirtIO</code> and click <b class="button">Save</b> to add the disk.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -512,7 +512,7 @@ Upload the discovery iso to <code>sno2</code> and <code>sno3</code> clusters by 
 </div>
 </div>
 <div class="paragraph">
-<p>Edit the boot order of the <code>tcn1.lab.example.com</code> VM from <code>Configuration</code> tab, select <code>Details</code>.</p>
+<p>Edit the boot order of the <code>tcn1.lab.example.com</code> VM from <code>Configuration</code> tab, and select <code>Details</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -550,14 +550,14 @@ Upload the discovery iso to <code>sno2</code> and <code>sno3</code> clusters by 
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-Follow the same above steps for <code>tcn2.lab.example.com</code> and <code>tcn3.lab.example.com</code> VMs to boot them with discovery ISO.
+Follow the same steps above for the <code>tcn2.lab.example.com</code> and <code>tcn3.lab.example.com</code> VMs to boot them with discovery ISO.
 </td>
 </tr>
 </table>
 </div>
 </li>
 <li>
-<p>Back to web console of <em>Hub</em> cluster to proceed cluster installation.</p>
+<p>Return to web console of <em>Hub</em> cluster to proceed cluster installation.</p>
 <div class="paragraph">
 <p>Approve the discovered host <code>tcn1.lab.example.com</code>.</p>
 </div>
@@ -567,7 +567,7 @@ Follow the same above steps for <code>tcn2.lab.example.com</code> and <code>tcn3
 </div>
 </div>
 <div class="paragraph">
-<p>Ensure the discovered host <code>tcn1.lab.example.com</code> is ready.</p>
+<p>Ensure that the discovered host <code>tcn1.lab.example.com</code> is ready.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -575,7 +575,7 @@ Follow the same above steps for <code>tcn2.lab.example.com</code> and <code>tcn3
 </div>
 </div>
 <div class="paragraph">
-<p>Similarly approve remaining hosts <code>tcn2.lab.example.com</code> and <code>tcn3.lab.example.com</code>.</p>
+<p>Approve the remaining hosts <code>tcn2.lab.example.com</code> and <code>tcn3.lab.example.com</code>.</p>
 </div>
 <div class="paragraph">
 <p>Click <b class="button">Next</b> to proceed.</p>
@@ -590,7 +590,7 @@ Follow the same above steps for <code>tcn2.lab.example.com</code> and <code>tcn3
 </div>
 </li>
 <li>
-<p>In networking section, ensure all hosts are ready.</p>
+<p>In the networking section, ensure all hosts are ready.</p>
 <div class="paragraph">
 <p>Provide the <code>API IP</code> and <code>Ingress IP</code> from zone file.</p>
 </div>
@@ -609,7 +609,7 @@ Follow the same above steps for <code>tcn2.lab.example.com</code> and <code>tcn3
 </div>
 </li>
 <li>
-<p>If you notice <code>All checks passed</code> for cluster and host validations then click <b class="button">Install cluster</b>.</p>
+<p>If you notice <code>All checks passed</code> for the cluster and host validations, then click <b class="button">Install cluster</b>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_tenant_review_create.png" alt="hub console tenant review create">
@@ -617,7 +617,7 @@ Follow the same above steps for <code>tcn2.lab.example.com</code> and <code>tcn3
 </div>
 </li>
 <li>
-<p>Notice the installation has started.</p>
+<p>Notice that the installation has started.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_tenant_install_progress.png" alt="hub console tenant install progress">
@@ -647,7 +647,7 @@ Follow the same above steps for <code>tcn2.lab.example.com</code> and <code>tcn3
 </div>
 </div>
 <div class="paragraph">
-<p>This means you need to disconnect the discovery ISO from the <code>tcn3.lab.example.com</code> VM and boot the <code>tcn3.lab.example.com</code> VM from disk.</p>
+<p>This means that you will need to disconnect the discovery ISO from the <code>tcn3.lab.example.com</code> VM and boot the <code>tcn3.lab.example.com</code> VM from disk.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -655,7 +655,7 @@ Follow the same above steps for <code>tcn2.lab.example.com</code> and <code>tcn3
 </div>
 </div>
 <div class="paragraph">
-<p>This means you need to disconnect the discovery ISO from the <code>tcn2.lab.example.com</code> VM and boot the <code>tcn2.lab.example.com</code> VM from disk.</p>
+<p>This means you will also need to disconnect the discovery ISO from the <code>tcn2.lab.example.com</code> VM and boot the <code>tcn2.lab.example.com</code> VM from disk.</p>
 </div>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
@@ -699,7 +699,7 @@ Follow the same above steps for <code>tcn2.lab.example.com</code> and <code>tcn3
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-Follow the same above steps to boot the <code>tcn3.lab.example.com</code> VM from disk.
+Follow the same steps above to boot the <code>tcn3.lab.example.com</code> VM from disk.
 </td>
 </tr>
 </table>
@@ -711,7 +711,7 @@ Follow the same above steps to boot the <code>tcn3.lab.example.com</code> VM fro
 <li>
 <p>After 2 minutes, installation proceeds and you will notice the progress.</p>
 <div class="paragraph">
-<p>After 5 minutes, <code>tcn2.lab.example.com</code> and <code>tcn3.lab.example.com</code> nodes are installed.</p>
+<p>After 5 minutes, the <code>tcn2.lab.example.com</code> and <code>tcn3.lab.example.com</code> nodes are installed.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -720,7 +720,7 @@ Follow the same above steps to boot the <code>tcn3.lab.example.com</code> VM fro
 </div>
 </li>
 <li>
-<p>Installation proceeds and continue with <code>tcn1.lab.example.com</code> node.</p>
+<p>Installation proceeds and continues with <code>tcn1.lab.example.com</code> node.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_tenant_install_progress_5.png" alt="hub console tenant install progress 5">
@@ -740,14 +740,14 @@ Follow the same above steps to boot the <code>tcn3.lab.example.com</code> VM fro
 </div>
 </div>
 <div class="paragraph">
-<p>This means you need to disconnect the discovery ISO from the <code>tcn1.lab.example.com</code> VM and boot the <code>tcn1.lab.example.com</code> VM from disk.</p>
+<p>This means you will need to disconnect the discovery ISO from the <code>tcn1.lab.example.com</code> VM and boot the <code>tcn1.lab.example.com</code> VM from disk.</p>
 </div>
 <div class="paragraph">
-<p>Follow the same steps which were followed for <code>tcn2.lab.example.com</code> VM to boot the <code>tcn1.lab.example.com</code> VM from disk.</p>
+<p>Follow the same steps you followed for <code>tcn2.lab.example.com</code> VM to boot the <code>tcn1.lab.example.com</code> VM from disk.</p>
 </div>
 </li>
 <li>
-<p>Installation completes in approximately in 20 minutes.</p>
+<p>Installation will complete in approximately in 20 minutes.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_tenant_install_progress_7.png" alt="hub console tenant install progress 7">
@@ -758,7 +758,7 @@ Follow the same above steps to boot the <code>tcn3.lab.example.com</code> VM fro
 </div>
 </li>
 <li>
-<p>Notice the <code>tenant</code> cluster is added to cluster list in <code>default</code> cluster set.</p>
+<p>Notice that the <code>tenant</code> cluster is added to the cluster list in <code>default</code> cluster set.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_tenant_ready.png" alt="hub console tenant ready">
