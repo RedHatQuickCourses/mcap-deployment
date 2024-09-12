@@ -1,6 +1,6 @@
 = Hub Cluster Deployment
 
-This chapter covers deployment of _Hub_ cluster.
+This chapter covers deployment of the _Hub_ cluster.
 
 Chapter goals:
 

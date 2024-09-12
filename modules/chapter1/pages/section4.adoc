@@ -18,7 +18,7 @@ image::MCAP_setup_3.png[]
 virsh console storage
 ----
 +
-.Sample output
+.Sample output:
 ----
 [root@hypervisor images]# virsh console storage
 Connected to domain 'storage'
@@ -197,7 +197,7 @@ cephadm bootstrap --apply-spec initial-config.yaml --mon-ip 192.168.122.9 --regi
 /usr/sbin/cephadm shell
 ----
 +
-.Sample output
+.Sample output:
 ----
 Inferring fsid 47cd0eae-5e5c-11ef-a284-5254000aa988
 Inferring config /var/lib/ceph/47cd0eae-5e5c-11ef-a284-5254000aa988/mon.storage/config
@@ -206,7 +206,7 @@ registry.redhat.io/rhceph/rhceph-7-rhel9@sha256:75bd8969ab3f86f2203a1ceb187876f4
 [ceph: root@storage /]#
 ----
 +
-.Sample output
+.Sample output:
 ----
 [ceph: root@storage /]# ceph -s
   cluster:
@@ -232,7 +232,7 @@ You may track the progress with watch `ceph -s` command.
 
 . You may also run `ceph health` command to verify cluster status.
 +
-.Sample output
+.Sample output:
 ----
 [ceph: root@storage /]# ceph health
 HEALTH_OK
