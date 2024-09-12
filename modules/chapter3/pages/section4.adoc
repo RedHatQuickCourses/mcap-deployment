@@ -11,7 +11,7 @@ image::MCAP_setup_2.png[]
 
 . Access the _sno1_ cluster via CLI and web console.
 
-. Ensure that `sno1.lab.example.com` node is in `Ready` status and that all cluster operators are available.
+. Ensure that `sno1.lab.example.com` node is in `Ready` status and all cluster operators are available.
 +
 .Sample output:
 ----
@@ -58,11 +58,11 @@ image::sno1_console_ocpvirt_install_3.png[]
 +
 image::sno1_console_ocpvirt_install_4.png[]
 
-. After 3 to 4 minutes, notice the `Refresh web console` message on window.
+. After 3-4 minutes, notice the `Refresh web console` message on window.
 +
 image::sno1_console_ocpvirt_install_5.png[]
 
-. After 3 to 4 minutes, _HyperConverged_ is in `Reconcile, Complete, Available, Upgradable` conditions.
+. After 3-4 minutes, _HyperConverged_ is in `Reconcile, Complete, Available, Upgradable` conditions.
 +
 image::sno1_console_ocpvirt_install_6.png[]
 
@@ -74,7 +74,7 @@ From the left navigation pane, click menu:Operators[OperatorHub].
 +
 image::sno1_console_operator_hub.png[]
 
-. In a search window, search _odf_ and then select the `OpenShift Data Foundation`.
+. In a search window, search _odf_ and select the `OpenShift Data Foundation`.
 +
 image::sno1_console_odf_install.png[]
 
@@ -86,7 +86,7 @@ image::sno1_console_odf_install_1.png[]
 +
 image::sno1_console_odf_install_2.png[]
 
-. After 3 to 4 minutes, notice the `Refresh web console` message on window.
+. After 3-4 minutes, notice the `Refresh web console` message on window.
 +
 First, refresh the web console and then click btn:[Create StorageSystem] to create the resource.
 +
@@ -120,17 +120,17 @@ You will need to run this script on the `storage` VM.
 +
 [source,bash,role=execute]
 ----
-scp Downloads/ceph-external-cluster-details-exporter.py root@storage:.
+scp /root/Downloads/ceph-external-cluster-details-exporter.py root@storage:.
 ----
 +
 Password for `root` user is `redhat`.
 +
 .Sample output:
 ----
-[root@hypervisor ~]# ls Downloads/
+[root@hypervisor ~]# ls /root/Downloads/
 ceph-external-cluster-details-exporter.py
 
-[root@hypervisor ~]# scp Downloads/ceph-external-cluster-details-exporter.py root@storage:.
+[root@hypervisor ~]# scp /root/Downloads/ceph-external-cluster-details-exporter.py root@storage:.
 root@storage's password:
 ceph-external-cluster-details-exporter.py
 ----
@@ -159,9 +159,11 @@ root@storage's password:
 +
 Copy the `output.json` file from `storage` VM to hypervisor.
 +
+Run following command on hypervisor.
++
 [source,bash,role=execute]
 ----
-scp root@storage:/root/output.json .
+scp root@storage:/root/output.json /root/
 ----
 +
 .Sample output:
@@ -190,23 +192,27 @@ image::sno1_console_odf_install_9.png[]
 +
 image::sno1_console_odf_install_10.png[]
 
-.. Notice the conditions as `Available, VendorCsv Ready, Vendor System Present`.
+.. Notice the raw and used capacity.
 +
 image::sno1_console_odf_install_11.png[]
 
-.. Verify that the operator is installed successfully in `openshift-storage` namespace.
+.. Notice the conditions as `Available, VendorCsv Ready, Vendor System Present`.
 +
 image::sno1_console_odf_install_12.png[]
 
+.. Verify that the operator is installed successfully in `openshift-storage` namespace.
++
+image::sno1_console_odf_install_13.png[]
+
 == Install NMState Operator
 
-. Access the operator hub from web console of _sno1_ cluster.
+. Access the operator hub from the web console of _sno1_ cluster.
 +
 From the left navigation pane, click menu:Operators[OperatorHub].
 +
 image::sno1_console_operator_hub.png[]
 
-. In a search window, search _NMstate_ and then select the `Kubernetes NMState Operator`.
+. In a search window, search _NMstate_ and select the `Kubernetes NMState Operator`.
 +
 image::sno1_console_operator_hub_nmstate.png[]
 
@@ -234,7 +240,7 @@ image::sno1_console_nmstate_install_4.png[]
 +
 image::sno1_console_nmstate_install_5.png[]
 
-. After 3 to 4 minutes, notice the `Refresh web console` message on window.
+. After 3-4 minutes, notice the `Refresh web console` message on window.
 +
 image::sno1_console_nmstate_install_6.png[]
 

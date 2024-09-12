@@ -1,6 +1,6 @@
 = Infrastructure Cluster Deployment
 
-This chapter covers deployment of _Infrastructure_ clusters.
+This chapter covers deployment of the _Infrastructure_ clusters.
 
 Chapter goals:
 

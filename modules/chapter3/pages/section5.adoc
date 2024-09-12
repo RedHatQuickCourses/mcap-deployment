@@ -29,7 +29,7 @@ image::MCAP_setup_2.png[]
 
 . Access the _sno1_ cluster via CLI and web console.
 
-. Ensure that `sno1.lab.example.com` node is in `Ready` status and that all cluster operators are available.
+. Ensure that `sno1.lab.example.com` node is in `Ready` status and all cluster operators are available.
 +
 .Sample output:
 ----
@@ -97,6 +97,9 @@ Check box the `IPv4` and select `DHCP` in `IP configuration`.
 Port: `enp2s0`.
 +
 This is the NIC, which you added in the previous section.
++
+The NIC `enp2s0` value can be different in your environment.
+Check in VM's console from `virt-manager`.
 +
 image::sno1_console_nncp_3.png[]
 +
