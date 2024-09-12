@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Assisted Clusters - Hub Cluster :: Deploy Mission Critical Application Platform (MCAP)</title>
+    <link rel="prev" href="section1.html">
+    <link rel="next" href="section3.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Deploy Mission Critical Application Platform (MCAP)</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/mcap-deployment/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="mcap-deployment" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Deploy Mission Critical Application Platform (MCAP)</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter1/index.html">Hands-on Lab Environment Setup for MCAP</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section1.html">MCAP Setup in RHDP Lab</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section2.html">Initial Setup on Hypervisor</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section3.html">Storage VM Deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section4.html">Ceph Storage Deployment</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Hub Cluster Deployment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section1.html">Hub VM Deployment</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="section2.html">Assisted Clusters - Hub Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section3.html">Access the Hub Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section4.html">Install Operators and Configure Service</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter3/index.html">Infrastructure Cluster Deployment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section1.html">Infrastructure VMs Deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section2.html">Assisted Clusters - Infrastructure Clusters</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section3.html">Access the Infrastructure Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section4.html">Install and Configure Operators</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section5.html">Network Settings</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter4/index.html">Tenant Cluster Deployment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section1.html">Tenant VMs Deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section2.html">Assisted Clusters - Tenant Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section3.html">Access the Tenant Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section4.html">Install Sample Application on Tenant Cluster</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../appendix/appendix.html">Appendix A</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/section1.html">Initial Setup on Hypervisor without Automation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/section2.html">Storage VM Deployment without Automation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/section3.html">Hub VM Deployment without Automation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/section4.html">Infrastructure VM Deployment without Automation</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Deploy Mission Critical Application Platform (MCAP)</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Deploy Mission Critical Application Platform (MCAP)</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Deploy Mission Critical Application Platform (MCAP)</a></li>
+    <li><a href="index.html">Hub Cluster Deployment</a></li>
+    <li><a href="section2.html">Assisted Clusters - Hub Cluster</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Assisted Clusters - Hub Cluster</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this section, you will be deploying <em>Hub</em> cluster using <code>hub</code> VM.
+This <em>Hub</em> cluster will be Single Node OpenShift (SNO) cluster.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/MCAP_setup_1.png" alt="MCAP setup 1">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>hub</code> VM is deployed and running.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deploy_hub_cluster_as_sno_cluster"><a class="anchor" href="#_deploy_hub_cluster_as_sno_cluster"></a>Deploy <em>Hub</em> cluster as SNO cluster</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Visit <a href="https://console.redhat.com/openshift" target="read-later">console.redhat.com</a></p>
+<div class="paragraph">
+<p>Click <b class="button">Create cluster</b> to create the Assisted Cluster.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/console_redhat_screen.png" alt="console redhat screen">
+</div>
+</div>
+</li>
+<li>
+<p>Select <code>Bare Metal (x86_64)</code> as cluster type from <code>Datacenter</code> tab.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/console_redhat_cluster_type.png" alt="console redhat cluster type">
+</div>
+</div>
+</li>
+<li>
+<p>Select <code>Interactive</code> web based mode.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/console_redhat_baremetal_interactive.png" alt="console redhat baremetal interactive">
+</div>
+</div>
+</li>
+<li>
+<p>Provide the Cluster details.</p>
+<div class="paragraph">
+<p>Cluster name: <code>hub</code></p>
+</div>
+<div class="paragraph">
+<p>Base domain: <code>lab.example.com</code></p>
+</div>
+<div class="paragraph">
+<p>Select <code>4.16.8</code> version of OpenShift from the menu.</p>
+</div>
+<div class="paragraph">
+<p>Check box the <code>Install single node OpenShift (SNO)</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/console_redhat_cluster_details.png" alt="console redhat cluster details">
+</div>
+</div>
+<div class="paragraph">
+<p>Select DHCP.</p>
+</div>
+<div class="paragraph">
+<p>Click <b class="button">Next</b>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/console_redhat_cluster_details_1.png" alt="console redhat cluster details 1">
+</div>
+</div>
+</li>
+<li>
+<p>Check box the <code>Install multicluster engine</code> and <code>Install Logical Volume Manager Storage</code> operators.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/console_redhat_operators.png" alt="console redhat operators">
+</div>
+</div>
+</li>
+<li>
+<p>Click <b class="button">Add host</b>.</p>
+<div class="paragraph">
+<p>This will open a window to generate discovery ISO.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/console_redhat_host_discovery.png" alt="console redhat host discovery">
+</div>
+</div>
+</li>
+<li>
+<p>Generate discovery ISO.</p>
+<div class="paragraph">
+<p>Select <span class="menuseq"><b class="menu">Provisioning type</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Full image file - Download a self-contained ISO</b></span>.</p>
+</div>
+<div class="paragraph">
+<p>SSH public key: provide the <code>root</code> user&#8217;s public rsa key from hypervisor.</p>
+</div>
+<div class="paragraph">
+<p>Click <b class="button">Generate Discovery ISO</b>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/console_redhat_host_add.png" alt="console redhat host add">
+</div>
+</div>
+</li>
+<li>
+<p>Download the discovery ISO.</p>
+<div class="paragraph">
+<p>To download the discovery ISO on your laptop or desktop, click <b class="button">Download Discovery ISO</b>.
+In this case, you need to copy it to hypervisor manually.</p>
+</div>
+<div class="paragraph">
+<p>or</p>
+</div>
+<div class="paragraph">
+<p>Use <code>Command to download the ISO</code> option and run the given <code>wget</code> command to download the discovery ISO in <code>/var/lib/libvirt/images/</code> on hypervisor.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/console_redhat_discovery_iso_download.png" alt="console redhat discovery iso download">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You will need <code>virt-manager</code> to attach this discovery ISO to <code>hub</code> VM.
+To access the GUI of hypervisor, you will need console access.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Access the vnc console of hypervisor.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>tigervnc-server</code> is installed on the hypervisor.
+Using vnc viewer, you can access the console of hypervisor.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Set password for vncserver.
+You will use this password to access vnc console of hypervisor from your laptop/desktop.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">vncpasswd</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre>Password:
+Verify:
+Would you like to enter a view-only password (y/n)? n
+A view-only password is not used</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It is recommended to set a strong password.</p>
+</div>
+</li>
+<li>
+<p>Run the <code>vncserver</code> command to create a virtual desktop that you can view or control remotely using a VNC viewer.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">vncserver</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre>WARNING: vncserver has been replaced by a systemd unit and is now considered deprecated and removed in upstream.
+Please read /usr/share/doc/tigervnc/HOWTO.md for more information.
+xauth:  file /root/.Xauthority does not exist
+
+New 'hypervisor:2 (root)' desktop is hypervisor:2
+
+Creating default startup script /root/.vnc/xstartup
+Creating default config /root/.vnc/config
+Starting applications specified in /root/.vnc/xstartup
+Log file is /root/.vnc/hypervisor:2.log</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+As per above output, you will mention <code>&lt;hypervisor_ip_address&gt;:2</code> as connection in VNC viewer.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Download and install VNC viewer from <a href="https://www.realvnc.com/en/connect/download/viewer/" class="bare">https://www.realvnc.com/en/connect/download/viewer/</a> as per your laptop or desktop operating system.</p>
+</li>
+<li>
+<p>Use the <code>&lt;hypervisor_ip_address&gt;:2</code> as connection in VNC viewer.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/vnc_connect.png" alt="vnc connect">
+</div>
+</div>
+</li>
+<li>
+<p>Click <b class="button">Continue</b> to proceed.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/vnc_connection_server.png" alt="vnc connection server">
+</div>
+</div>
+</li>
+<li>
+<p>Enter the vncserver password set by you.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/vnc_authenticate_server.png" alt="vnc authenticate server">
+</div>
+</div>
+</li>
+<li>
+<p>Now, you can see the console with a Firefox browser and terminal open.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/vnc_viewer_screen.png" alt="vnc viewer screen">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You will not be able to drag the browser or terminal window, as there is no menu bar.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Get the menu bar to ease the movement of the browser and terminal window.</p>
+<div class="paragraph">
+<p>Click in terminal space.
+Hit <kbd>enter</kbd> button, till you see the <code>[root@hypervisor images]#</code> command line.</p>
+</div>
+<div class="paragraph">
+<p>Run <code>gnome-kiosk &amp;</code> command in terminal.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/vnc_gnome_kiosk.png" alt="vnc gnome kiosk">
+</div>
+</div>
+<div class="paragraph">
+<p>This command provides those missing menu bars.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/vnc_menu_bar.png" alt="vnc menu bar">
+</div>
+</div>
+<div class="paragraph">
+<p>Running the command in background i.e. with <code>&amp;</code> allows you to run other commands on same terminal later.</p>
+</div>
+</li>
+<li>
+<p>Move the menu bar and place and resize the browser and terminal window when convenient.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/vnc_menu_bar_1.png" alt="vnc menu bar 1">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Attach the downloaded discovery iso to <code>hub</code> VM.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Run the <code>virt-manager &amp;</code> command on terminal to launch virtual machine manager.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/vnc_virt_manager.png" alt="vnc virt manager">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You may need to close the first instance of <code>virt-manager</code> and re-run <code>virt-manager &amp;</code> command to get virtual machine manager with menu bar.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/vnc_virt_manager_1.png" alt="vnc virt manager 1">
+</div>
+</div>
+</li>
+<li>
+<p>First, open the console of the <code>hub</code> VM and then shutdown the <code>hub</code> VM.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_vm_1.png" alt="hub vm 1">
+</div>
+</div>
+</li>
+<li>
+<p>Click on the bulb icon and then Click <b class="button">Add hardware</b>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_vm_2.png" alt="hub vm 2">
+</div>
+</div>
+</li>
+<li>
+<p>Select the <code>Select or create custom image</code> option and click <b class="button">Manage</b>.</p>
+<div class="paragraph">
+<p>Select the discovery ISO and click <b class="button">Finish</b>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_vm_3.png" alt="hub vm 3">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Update the <code>Boot device order</code> to boot system with discovery ISO.</p>
+<div class="paragraph">
+<p>Click <b class="button">Apply</b>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_vm_4.png" alt="hub vm 4">
+</div>
+</div>
+<div class="paragraph">
+<p>Boot the VM, and ensure it is booted with RHEL CoreOS (Live).</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_vm_5.png" alt="hub vm 5">
+</div>
+</div>
+</li>
+<li>
+<p>Go back to <a href="https://console.redhat.com/openshift/cluster-list">console.redhat.com</a> to resume assisted installation of <em>Hub</em> cluster.
+Notice the host is getting discovered and status as <code>Ready</code>.</p>
+<div class="paragraph">
+<p>Click <b class="button">Next</b>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/console_redhat_host_discovery_ready.png" alt="console redhat host discovery ready">
+</div>
+</div>
+<div class="paragraph">
+<p>It may take few minutes to update status as <code>Ready</code>.</p>
+</div>
+</li>
+<li>
+<p>Once status is <code>Ready</code>, click <b class="button">Next</b>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/console_redhat_storage.png" alt="console redhat storage">
+</div>
+</div>
+</li>
+<li>
+<p>Once status is <code>Ready</code>, click <b class="button">Next</b>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/console_redhat_networking.png" alt="console redhat networking">
+</div>
+</div>
+</li>
+<li>
+<p>Ensure all <code>Preflight checks</code> are passed.</p>
+<div class="paragraph">
+<p>Click <b class="button">Install cluster</b>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/console_redhat_review_create.png" alt="console redhat review create">
+</div>
+</div>
+</li>
+<li>
+<p>Cluster installation starts.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/console_redhat_cluster_installation_start.png" alt="console redhat cluster installation start">
+</div>
+</div>
+</li>
+<li>
+<p>After 7-10 minutes, it waits on pending user action.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/console_redhat_pending_user_actions.png" alt="console redhat pending user actions">
+</div>
+</div>
+<div class="paragraph">
+<p>This means you need to disconnect the discovery ISO from the <code>hub</code> VM and boot the <code>hub</code> VM from disk.</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>You can notice the user config is applied from the <code>hub</code> VM&#8217;s console.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_vm_6.png" alt="hub vm 6">
+</div>
+</div>
+</li>
+<li>
+<p>Shutdown the <code>hub</code> VM.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_vm_7.png" alt="hub vm 7">
+</div>
+</div>
+</li>
+<li>
+<p>Change the boot order and start the <code>hub</code> VM.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_vm_8.png" alt="hub vm 8">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>After two minutes, installation proceeds and you will notice the progress.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/console_redhat_install_proceed.png" alt="console redhat install proceed">
+</div>
+</div>
+</li>
+<li>
+<p>You will notice at <code>80%</code> the installation goes into finalizing state.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/console_redhat_cluster_install_finalizing.png" alt="console redhat cluster install finalizing">
+</div>
+</div>
+</li>
+<li>
+<p>Installation completes in approximately in 15 minutes.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/console_redhat_install_complete.png" alt="console redhat install complete">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="section1.html">Hub VM Deployment</a></span>
+  <span class="next"><a href="section3.html">Access the Hub Cluster</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
