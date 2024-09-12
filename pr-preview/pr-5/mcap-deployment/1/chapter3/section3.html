@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Access the Infrastructure Cluster :: Deploy Mission Critical Application Platform (MCAP)</title>
+    <link rel="prev" href="section2.html">
+    <link rel="next" href="section4.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Deploy Mission Critical Application Platform (MCAP)</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/mcap-deployment/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="mcap-deployment" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Deploy Mission Critical Application Platform (MCAP)</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter1/index.html">Hands-on Lab Environment Setup for MCAP</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section1.html">MCAP Setup in RHDP Lab</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section2.html">Initial Setup on Hypervisor</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section3.html">Storage VM Deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section4.html">Ceph Storage Deployment</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter2/index.html">Hub Cluster Deployment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter2/section1.html">Hub VM Deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter2/section2.html">Assisted Clusters - Hub Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter2/section3.html">Access the Hub Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter2/section4.html">Install Operators and Configure Service</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Infrastructure Cluster Deployment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section1.html">Infrastructure VMs Deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section2.html">Assisted Clusters - Infrastructure Clusters</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="section3.html">Access the Infrastructure Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section4.html">Install and Configure Operators</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section5.html">Network Settings</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter4/index.html">Tenant Cluster Deployment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section1.html">Tenant VM Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section2.html">Install Sample Application on Tenant Cluster</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../appendix/appendix.html">Appendix A</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/section1.html">Initial Setup on Hypervisor without Automation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/section2.html">Storage VM Deployment without Automation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/section3.html">Hub VM Deployment without Automation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/section4.html">Infrastructure VM Deployment without Automation</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Deploy Mission Critical Application Platform (MCAP)</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Deploy Mission Critical Application Platform (MCAP)</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Deploy Mission Critical Application Platform (MCAP)</a></li>
+    <li><a href="index.html">Infrastructure Cluster Deployment</a></li>
+    <li><a href="section3.html">Access the Infrastructure Cluster</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Access the Infrastructure Cluster</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this section, you will be accessing <em>Infrastructure</em> clusters.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/MCAP_setup_1.png" alt="MCAP setup 1">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Ensure that <em>Infrastructure</em> clusters (<code>sno1</code>, <code>sno2</code> and <code>sno3</code>) are deployed successfully.</p>
+</li>
+<li>
+<p>Ensure <code>/root/sno1/</code> directory and file structure created.</p>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre>[root@hypervisor ~]# ls -al /root/sno1/
+total 28
+drwxr-xr-x.  2 root root  4096 Aug 22 15:20 .
+dr-xr-x---. 13 root root  4096 Aug 22 15:18 ..
+-rw-r--r--.  1 root root    24 Aug 22 15:11 kubeadmin-password
+-rw-r--r--.  1 root root 12127 Aug 22 15:20 kubeconfig</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Get the <code>kubeconfig</code> file and password for <code>kubeadmin</code> user from the <em>Hub</em> cluster console.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_install_download.png" alt="hub console sno1 install download">
+</div>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Download the <code>kubeconfig</code> file to hypervisor, and then copy to <code>/root/sno1</code> directory on hypervisor.</p>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre>[root@hypervisor ~]# mv /root/Downloads/sno1-kubeconfig.yaml /root/sno1/kubeconfig</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Copy the password for <code>kubeadmin</code> user, and paste it in new tab of a Firefox browser.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_copy_password.png" alt="hub console sno1 copy password">
+</div>
+</div>
+<div class="paragraph">
+<p>Copy the password from the tab of Firefox browser, and paste it in <code>/root/sno1/kubeadmin-password</code> file.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_copy_password_1.png" alt="hub console sno1 copy password 1">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Follow the same steps for <code>sno2</code> and <code>sno3</code> clusters.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_access_the_sno1_cluster_via_cli"><a class="anchor" href="#_access_the_sno1_cluster_via_cli"></a>Access the <em>sno1</em> Cluster via CLI</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Copy the <code>/root/sno1/kubeconfig</code> file as <code>/root/.kube/config</code> file.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cp /root/sno1/kubeconfig /root/.kube/config</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set the <code>kubepass</code> variable as <code>kubeadmin</code> user&#8217;s password.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubepass=$(cat /root/sno1/kubeadmin-password)</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Login to <em>sno1</em> cluster with <code>oc login</code> command.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc login -u kubeadmin -p $kubepass</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre>Login successful.
+
+You have access to 79 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Review the nodes.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get nodes</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre>NAME                  STATUS   ROLES                         AGE   VERSION
+sno1.lab.example.com   Ready    control-plane,master,worker   10h   v1.29.7+6abe8a1</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Follow the same steps for <code>sno2</code> and <code>sno3</code> clusters.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_access_the_sno1_cluster_from_web_console"><a class="anchor" href="#_access_the_sno1_cluster_from_web_console"></a>Access the <em>sno1</em> Cluster from Web Console</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Get the web console url from <em>Hub</em> cluster console.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_install_download.png" alt="hub console sno1 install download">
+</div>
+</div>
+</li>
+<li>
+<p>Click on the link from <code>Web Console URL</code>.</p>
+<div class="paragraph">
+<p>Click <b class="button">Advanced&#8230;&#8203;</b> to proceed.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/vnc_sno1_cluster_access_1.png" alt="vnc sno1 cluster access 1">
+</div>
+</div>
+<div class="paragraph">
+<p>Click <b class="button">Accept the Risk and Continue</b> to proceed.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/vnc_sno1_cluster_access_2.png" alt="vnc sno1 cluster access 2">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You may need to accept the risk twice.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Login as <code>kubadmin</code> user.</p>
+<div class="paragraph">
+<p>Get the <code>kubadmin</code> user&#8217;s password from from <em>Hub</em> cluster console.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_sno1_install_download.png" alt="hub console sno1 install download">
+</div>
+</div>
+<div class="paragraph">
+<p>Copy the <code>kubadmin</code> user&#8217;s password from from <em>Hub</em> cluster console and paste it in <code>Password</code> field.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/vnc_sno1_cluster_access_3.png" alt="vnc sno1 cluster access 3">
+</div>
+</div>
+</li>
+<li>
+<p>Once you have logged in as <code>kubadmin</code> user, this is how the first screen should look:</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/vnc_sno1_cluster_access_4.png" alt="vnc sno1 cluster access 4">
+</div>
+</div>
+</li>
+<li>
+<p>Verify <em>sno1</em> cluster is in <code>Ready</code> state in <em>Hub</em> cluster console.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/vnc_sno1_cluster_access_5.png" alt="vnc sno1 cluster access 5">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_access_the_sno2_and_sno3_clusters_via_cli_and_from_web_console"><a class="anchor" href="#_access_the_sno2_and_sno3_clusters_via_cli_and_from_web_console"></a>Access the <em>sno2</em> and <em>sno3</em> Clusters via CLI and from Web Console</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Follow the same prerequisites from the previous section for <code>sno2</code> and <code>sno3</code> clusters.</p>
+</li>
+<li>
+<p>Follow same the steps from the previous section for accessing the <code>sno2</code> and <code>sno3</code> clusters.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="section2.html">Assisted Clusters - Infrastructure Clusters</a></span>
+  <span class="next"><a href="section4.html">Install and Configure Operators</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
