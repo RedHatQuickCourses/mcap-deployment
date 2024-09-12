@@ -95,7 +95,7 @@
     <a class="nav-link" href="../chapter3/index.html">Infrastructure Cluster Deployment</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter3/section1.html">Infrastructure VM Deployment</a>
+    <a class="nav-link" href="../chapter3/section1.html">Infrastructure VMs Deployment</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../chapter3/section2.html">Assisted Clusters - Infrastructure Clusters</a>
@@ -225,7 +225,7 @@ This <code>storage</code> VM will be single node and three disks Ceph cluster.</
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Sample output</div>
+<div class="title">Sample output:</div>
 <div class="content">
 <pre>[root@hypervisor images]# virsh console storage
 Connected to domain 'storage'
@@ -437,7 +437,7 @@ To deploy a Ceph cluster running on a single host, use the <code>--single-host-d
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Sample output</div>
+<div class="title">Sample output:</div>
 <div class="content">
 <pre>Inferring fsid 47cd0eae-5e5c-11ef-a284-5254000aa988
 Inferring config /var/lib/ceph/47cd0eae-5e5c-11ef-a284-5254000aa988/mon.storage/config
@@ -447,7 +447,7 @@ registry.redhat.io/rhceph/rhceph-7-rhel9@sha256:75bd8969ab3f86f2203a1ceb187876f4
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Sample output</div>
+<div class="title">Sample output:</div>
 <div class="content">
 <pre>[ceph: root@storage /]# ceph -s
   cluster:
@@ -484,7 +484,7 @@ You may track the progress with watch <code>ceph -s</code> command.
 <li>
 <p>You may also run <code>ceph health</code> command to verify cluster status.</p>
 <div class="listingblock">
-<div class="title">Sample output</div>
+<div class="title">Sample output:</div>
 <div class="content">
 <pre>[ceph: root@storage /]# ceph health
 HEALTH_OK</pre>
