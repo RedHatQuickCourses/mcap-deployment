@@ -1,0 +1,129 @@
+= Access the Tenant Cluster
+:experimental:
+
+In this section, you will be accessing _Tenant_ clusters.
+
+image::MCAP_setup_1.png[]
+
+== Prerequisites
+
+. Ensure that _Tenant_ cluster is deployed successfully.
+
+. Ensure `/root/tenant/` directory and file structure created.
++
+.Sample output:
+----
+[root@hypervisor ~]# ls -al /root/tenant/
+total 28
+drwxr-xr-x.  2 root root  4096 Aug 22 15:20 .
+dr-xr-x---. 13 root root  4096 Aug 22 15:18 ..
+-rw-r--r--.  1 root root    24 Aug 22 15:11 kubeadmin-password
+-rw-r--r--.  1 root root 12127 Aug 22 15:20 kubeconfig
+----
+
+. Get the `kubeconfig` file and password for `kubeadmin` user from the _Hub_ cluster console.
++
+image::hub_console_tenant_install_download.png[]
+
+.. Download the `kubeconfig` file to hypervisor, and then copy to `/root/tenant` directory on hypervisor.
++
+.Sample output:
+----
+[root@hypervisor ~]# mv /root/Downloads/tenant-kubeconfig.yaml /root/tenant/kubeconfig
+----
+
+.. Copy the password for `kubeadmin` user, and paste it in new tab of a Firefox browser.
++
+image::hub_console_tenant_copy_password.png[]
++
+Copy the password from the tab of Firefox browser, and paste it in `/root/tenant/kubeadmin-password` file.
++
+image::hub_console_tenant_copy_password_1.png[]
+
+[IMPORTANT]
+Follow the same steps for `sno2` and `sno3` clusters.
+
+== Access the _tenant_ Cluster via CLI
+
+. Copy the `/root/tenant/kubeconfig` file as `/root/.kube/config` file.
++
+[source,bash,role=execute]
+----
+cp /root/tenant/kubeconfig /root/.kube/config
+----
+
+. Set the `kubepass` variable as `kubeadmin` user's password.
++
+[source,bash,role=execute]
+----
+kubepass=$(cat /root/tenant/kubeadmin-password)
+----
+
+. Login to _tenant_ cluster with `oc login` command.
++
+[source,bash,role=execute]
+----
+oc login -u kubeadmin -p $kubepass
+----
++
+.Sample output:
+----
+Login successful.
+
+You have access to 79 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+----
+
+. Review the nodes.
++
+[source,bash,role=execute]
+----
+oc get nodes
+----
++
+.Sample output:
+----
+NAME                  STATUS   ROLES                         AGE   VERSION
+tenant.lab.example.com   Ready    control-plane,master,worker   10h   v1.29.7+6abe8a1
+----
+
+[NOTE]
+Follow the same steps for `sno2` and `sno3` clusters.
+
+== Access the _tenant_ Cluster from Web Console
+
+. Get the web console url from _Hub_ cluster console.
++
+image::hub_console_tenant_install_download.png[]
++
+. Click on the link from `Web Console URL`.
++
+Click btn:[Advanced...] to proceed.
++
+image::hub_console_tenant_advanced_risk.png[]
++
+Click btn:[Accept the Risk and Continue] to proceed.
++
+image::hub_console_tenant_accept_risk.png[]
++
+[NOTE]
+You may need to accept the risk twice.
+
+. Login as `kubadmin` user.
++
+Get the `kubadmin` user's password from from _Hub_ cluster console.
++
+image::hub_console_tenant_install_download.png[]
++
+Copy the `kubadmin` user's password from from _Hub_ cluster console and paste it in `Password` field.
++
+image::tenant_console_access.png[]
+
+. Once you have logged in as `kubadmin` user, this is how the first screen should look:
++
+image::tenant_console_access_1.png[]
+
+. Verify _tenant_ cluster is in `Ready` state in _Hub_ cluster console.
++
+image::hub_console_tenant_ready.png[]
