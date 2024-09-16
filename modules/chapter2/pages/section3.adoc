@@ -22,7 +22,7 @@ dr-xr-x---. 13 root root  4096 Aug 22 15:18 ..
 -rw-r--r--.  1 root root 12127 Aug 22 15:20 kubeconfig
 ----
 
-. Get the `kubeconfig` file, password for `kubeadmin` user and web console url from console.redhat.com.
+. Get the `kubeconfig` file, the password for `kubeadmin` user, and the web console URL from console.redhat.com.
 +
 image::console_redhat_install_download.png[]
 
@@ -136,7 +136,7 @@ Get the `kubadmin` user's passwrod from `/root/hub/kubeadmin-password` file.
 +
 image::vnc_hub_cluster_access_3.png[]
 
-. Once you logged in as `kubadmin` user, this is how the first screen looks like.
+. Once you logged in as `kubadmin` user, this is what the first screen looks like.
 +
 image::vnc_hub_cluster_access_4.png[]
 

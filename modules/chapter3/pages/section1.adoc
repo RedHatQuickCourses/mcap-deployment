@@ -1,7 +1,7 @@
 = Infrastructure VMs Deployment
 
 [NOTE]
-You can refer how to configure manually i.e. without automation in at the end appendix chapter.
+You can refer to how to configure manually i.e. without automation at the end appendix chapter.
 
 In this section, you will be creating three KVMs with name `sno1`, `sno2` and `sno3`.
 
@@ -22,6 +22,6 @@ Ensure you are in *_ansible_* directory of the repo.
 ansible-playbook playbooks/setup_sno.yaml -vvv | tee -a /tmp/setup_sno.log
 ----
 
-Tha above command results in verbose play output.
+The above command results in verbose play output.
 `tee -a` command redirects the output to `/tmp/setup_sno.log` log file.
 In case of failure, `/tmp/setup_sno.log` log file can be used for troubleshooting the issue.

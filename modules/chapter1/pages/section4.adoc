@@ -1,7 +1,7 @@
 = Ceph Storage Deployment
 
 In this section, you will be deploying Ceph on `storage` VM.
-This `storage` VM will be single node and three disks Ceph cluster.
+This `storage` VM will be a single node with three disks Ceph cluster.
 
 image::MCAP_setup_3.png[]
 

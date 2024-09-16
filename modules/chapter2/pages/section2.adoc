@@ -202,7 +202,7 @@ Boot the VM, and ensure it is booted with RHEL CoreOS (Live).
 image::hub_vm_5.png[]
 
 . Go back to https://console.redhat.com/openshift/cluster-list[console.redhat.com] to resume assisted installation of _Hub_ cluster.
-Notice the host is getting discovered and status as `Ready`.
+Notice the host is getting discovered and status is `Ready`.
 +
 Click btn:[Next].
 +
@@ -210,11 +210,11 @@ image::console_redhat_host_discovery_ready.png[]
 +
 It may take few minutes to update status as `Ready`.
 
-. Once status is `Ready`, click btn:[Next].
+. In storage section, once status is `Ready`, click btn:[Next].
 +
 image::console_redhat_storage.png[]
 
-. Once status is `Ready`, click btn:[Next].
+. In networking section, once status is `Ready`, click btn:[Next].
 +
 image::console_redhat_networking.png[]
 
@@ -254,6 +254,6 @@ image::console_redhat_install_proceed.png[]
 +
 image::console_redhat_cluster_install_finalizing.png[]
 
-. Installation completes in approximately in 15 minutes.
+. Installation completes in approximately 15 minutes.
 +
 image::console_redhat_install_complete.png[]

@@ -14,7 +14,7 @@ image::MCAP_setup_1.png[]
 
 . Set the OpenShift `clusterimageset` to 4.16.8 on stable channel.
 +
-This will allow to deploy the _Infrastructure_ and _Tenant_ clusters with same OpenShift version.
+This will allow you to deploy the _Infrastructure_ and _Tenant_ clusters with same OpenShift version.
 
 .. Get the images with _visible_ label as _true_ from `clusterimageset`.
 +
@@ -105,7 +105,7 @@ Base domain: `lab.example.com`
 +
 Select `4.16.8` version of OpenShift from the menu.
 +
-Check box the `Install single node OpenShift (SNO)`
+Check the box `Install single node OpenShift (SNO)`.
 +
 image::hub_console_sno1_details.png[]
 
