@@ -1,6 +1,191 @@
-= Install Sample Application on Tenant Cluster
+= Install and Configure Operators
 :experimental:
+
+In this section, you will be installing OpenShift Data Foundation operator on _Tenant_ cluster.
 
 image::MCAP_setup_1.png[]
 
 == Prerequisites
+
+. Verify that _tenant_ cluster is deployed successfully.
+
+. Access the _tenant_ cluster via CLI and web console.
+
+. Ensure that all nodes are in `Ready` status and all cluster operators are available.
++
+.Sample output:
+----
+[root@hypervisor ~]# oc get nodes
+NAME                   STATUS     ROLES                         AGE   VERSION
+tcn1.lab.example.com   Ready      control-plane,master,worker   15h   v1.29.7+4510e9c
+tcn2.lab.example.com   NotReady   control-plane,master,worker   14h   v1.29.7+4510e9c
+tcn3.lab.example.com   Ready      control-plane,master,worker   15h   v1.29.7+4510e9c
+
+[root@hypervisor ~]# oc get clusterversion
+
+NAME      VERSION   AVAILABLE   PROGRESSING   SINCE   STATUS
+version   4.16.8    True        False         23h     Cluster version is 4.16.8
+----
+
+== Install OpenShift Data Foundation Operator
+
+. Access the operator hub from the web console of _tenant_ cluster.
++
+From the left navigation pane, click menu:Operators[OperatorHub].
++
+image::tenant_console_operator_hub.png[]
+
+. In a search window, search _odf_ and select the `OpenShift Data Foundation`.
++
+image::tenant_console_odf_install.png[]
+
+. Click btn:[Install] to open install options.
++
+image::tenant_console_odf_install_1.png[]
+
+. Keep all options as is, with no change, in selected options and then click btn:[Install] to install the operator.
++
+image::tenant_console_odf_install_2.png[]
+
+. After 3-4 minutes, notice the `Refresh web console` message on window.
++
+First, refresh the web console and then click btn:[Create StorageSystem] to create the resource.
++
+image::tenant_console_odf_install_3.png[]
+
+. Create the StorageSystem.
+
+.. Provide backing storage details.
++
+Deployment type: `Full deployment`.
++
+Select `Connect an external storage platform`.
++
+Storage platform: `Red Hat Ceph Storage`.
++
+image::tenant_console_odf_install_4.png[]
++
+Check box the `Use Ceph RBD as the default StorageClass`.
++
+Click btn:[Next] to proceed.
++
+image::tenant_console_odf_install_5.png[]
+
+.. Click btn:[Browse] to provide the content of the `output.json` file.
++
+image::tenant_console_odf_install_7.png[]
+
+.. Select the `output.json` file and click btn:[Open].
++
+image::tenant_console_odf_install_8.png[]
+
+.. Click btn:[Next] to proceed.
++
+image::tenant_console_odf_install_9.png[]
+
+.. Click btn:[Create StorageSystem] to create the StorageSystem.
++
+image::tenant_console_odf_install_10.png[]
+
+.. Notice the raw and used capacity.
++
+image::tenant_console_odf_install_11.png[]
+
+.. Notice the conditions as `Available, VendorCsv Ready, Vendor System Present`.
++
+image::tenant_console_odf_install_12.png[]
+
+.. Verify that the operator is installed successfully in `openshift-storage` namespace.
++
+image::tenant_console_odf_install_13.png[]
+
+== Configure the Image Registry Operator to use Noobaa storage with Red Hat OpenShift Data Foundation
+
+[NOTE]
+https://docs.redhat.com/en/documentation/openshift_container_platform/4.11/html/registry/setting-up-and-configuring-the-registry#registry-configuring-registry-storage-rhodf-nooba_configuring-registry-storage-baremetal[Configuring the Image Registry Operator to use Noobaa storage with Red Hat OpenShift Data Foundation,window=read-later]
+
+. Create the object bucket claim using the `openshift-storage.noobaa.io` storage class.
++
+[source,bash,role=execute]
+----
+cat <<EOF | oc apply -f -
+apiVersion: objectbucket.io/v1alpha1
+kind: ObjectBucketClaim
+metadata:
+  name: noobaatest
+  namespace: openshift-storage
+spec:
+  storageClassName: openshift-storage.noobaa.io
+  generateBucketName: noobaatest
+EOF
+----
+
+. Get the bucket name by entering the following command.
++
+[source,bash,role=execute]
+----
+bucket_name=$(oc get obc -n openshift-storage noobaatest -o jsonpath='{.spec.bucketName}')
+----
+
+. Get the AWS credentials by entering the following commands.
++
+[source,bash,role=execute]
+----
+AWS_ACCESS_KEY_ID=$(oc get secret -n openshift-storage noobaatest -o yaml | grep -w "AWS_ACCESS_KEY_ID:" | head -n1 | awk '{print $2}' | base64 --decode)
+----
++
+[source,bash,role=execute]
+----
+AWS_SECRET_ACCESS_KEY=$(oc get secret -n openshift-storage noobaatest -o yaml | grep -w "AWS_SECRET_ACCESS_KEY:" | head -n1 | awk '{print $2}' | base64 --decode)
+----
+
+. Create the secret `image-registry-private-configuration-user` with the AWS credentials for the new bucket under `openshift-image-registry` project by entering the following command.
++
+[source,bash,role=execute]
+----
+oc create secret generic image-registry-private-configuration-user --from-literal=REGISTRY_STORAGE_S3_ACCESSKEY=${AWS_ACCESS_KEY_ID} --from-literal=REGISTRY_STORAGE_S3_SECRETKEY=${AWS_SECRET_ACCESS_KEY} --namespace openshift-image-registry
+----
+
+. Get the route host by entering the following command.
++
+[source,bash,role=execute]
+----
+route_host=$(oc get route s3 -n openshift-storage -o=jsonpath='{.spec.host}')
+----
+
+. Create a config map that uses an ingress certificate by entering the following commands.
++
+[source,bash,role=execute]
+----
+oc extract secret/router-certs-default -n openshift-ingress --confirm
+----
++
+[source,bash,role=execute]
+----
+oc create configmap image-registry-s3-bundle --from-file=ca-bundle.crt=./tls.crt  -n openshift-config
+----
+
+. Configure the image registry to use the `Nooba` object storage by entering the following command:
++
+[source,bash,role=execute]
+----
+oc patch config.image/cluster -p '{"spec":{"managementState":"Managed","replicas":2,"storage":{"managementState":"Unmanaged","s3":{"bucket":'\"${bucket_name}\"',"region":"us-east-1","regionEndpoint":'\"https://${route_host}\"',"virtualHostedStyle":false,"encrypt":false,"trustedCA":{"name":"image-registry-s3-bundle"}}}}}' --type=merge
+----
+
+. Notice the `image-registry` cluster operator is in progressing state.
++
+.Sample output:
+----
+[root@hypervisor ~]# oc get co image-registry
+NAME             VERSION   AVAILABLE   PROGRESSING   DEGRADED   SINCE   MESSAGE
+image-registry   4.16.8    False       True          False      13s     Available: The deployment does not have available replicas...
+----
+
+. In a minute, `image-registry` cluster operator is available.
++
+.Sample output:
+----
+[root@hypervisor ~]# oc get co image-registry
+NAME             VERSION   AVAILABLE   PROGRESSING   DEGRADED   SINCE   MESSAGE
+image-registry   4.16.8    True        False         False      61s
+----
