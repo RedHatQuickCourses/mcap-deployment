@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Install Operators and Configure Service :: Deploy Mission Critical Application Platform (MCAP)</title>
+    <link rel="prev" href="section3.html">
+    <link rel="next" href="../chapter3/index.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Deploy Mission Critical Application Platform (MCAP)</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/mcap-deployment/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="mcap-deployment" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Deploy Mission Critical Application Platform (MCAP)</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter1/index.html">Hands-on Lab Environment Setup for MCAP</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section1.html">MCAP Setup in RHDP Lab</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section2.html">Initial Setup on Hypervisor</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section3.html">Storage VM Deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section4.html">Ceph Storage Deployment</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Hub Cluster Deployment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section1.html">Hub VM Deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section2.html">Assisted Clusters - Hub Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section3.html">Access the Hub Cluster</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="section4.html">Install Operators and Configure Service</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter3/index.html">Infrastructure Cluster Deployment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section1.html">Infrastructure VMs Deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section2.html">Assisted Clusters - Infrastructure Clusters</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section3.html">Access the Infrastructure Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section4.html">Install and Configure Operators</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section5.html">Network Settings</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter4/index.html">Tenant Cluster Deployment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section1.html">Tenant VMs Deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section2.html">Assisted Clusters - Tenant Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section3.html">Access the Tenant Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section4.html">Install Sample Application on Tenant Cluster</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../appendix/appendix.html">Appendix A</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/section1.html">Initial Setup on Hypervisor without Automation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/section2.html">Storage VM Deployment without Automation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/section3.html">Hub VM Deployment without Automation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/section4.html">Infrastructure VM Deployment without Automation</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Deploy Mission Critical Application Platform (MCAP)</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Deploy Mission Critical Application Platform (MCAP)</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Deploy Mission Critical Application Platform (MCAP)</a></li>
+    <li><a href="index.html">Hub Cluster Deployment</a></li>
+    <li><a href="section4.html">Install Operators and Configure Service</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Install Operators and Configure Service</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this section, you will be installing additional operators and configuring service(s) needed for deploying <em>Infrastructure</em> and <em>Tenant</em> clusters.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/MCAP_setup_2.png" alt="MCAP setup 2">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Verify <em>Hub</em> cluster is deployed successfully.</p>
+</li>
+<li>
+<p>Access the <em>Hub</em> cluster via CLI and web console.</p>
+</li>
+<li>
+<p>Verify <em>multicluster engine for Kubernetes</em> and <em>LVM Storage</em> operators are installed.</p>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre>[root@hypervisor ~]# oc get operators
+
+NAME                                      AGE
+lvms-operator.openshift-storage           58m
+multicluster-engine.multicluster-engine   58m</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Ensure that <code>hub.lab.example.com</code> node is in <code>Ready</code> status and all cluster operators are available.</p>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre>[root@hypervisor ~]# oc get nodes
+
+NAME                  STATUS   ROLES                         AGE   VERSION
+hub.lab.example.com   Ready    control-plane,master,worker   30m   v1.29.7+6abe8a1
+
+[root@hypervisor ~]# oc get clusterversion
+
+NAME      VERSION   AVAILABLE   PROGRESSING   SINCE   STATUS
+version   4.16.8    True        False         86m     Cluster version is 4.16.8</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set the storage class created by LVMS operator as default storage class.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Get the storage class.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get sc</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre>[root@hypervisor ~]# oc get sc
+
+NAME       PROVISIONER   RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+lvms-vg1   topolvm.io    Delete          WaitForFirstConsumer   true                   54m</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set the storage class as default by adding annotations as <code>storageclass.kubernetes.io/is-default-class: 'true'</code>.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc patch storageclass lvms-vg1 -p '{"metadata": {"annotations": {"storageclass.kubernetes.io/is-default-class": "true"}}}'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre>[root@hypervisor ~]# oc patch storageclass lvms-vg1 -p '{"metadata": {"annotations": {"storageclass.kubernetes.io/is-default-class": "true"}}}'
+
+storageclass.storage.k8s.io/lvms-vg1 patched</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify it is set to default.</p>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre>[root@hypervisor ~]# oc get sc
+
+NAME                 PROVISIONER   RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+lvms-vg1 (default)   topolvm.io    Delete          WaitForFirstConsumer   true                   63m</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre>[root@hypervisor ~]# oc get sc lvms-vg1 -o yaml
+
+allowVolumeExpansion: true
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  annotations:
+    description: Provides RWO and RWOP Filesystem &amp; Block volumes
+    storageclass.kubernetes.io/is-default-class: "true"
+  creationTimestamp: "2024-08-26T10:55:00Z"
+  labels:
+    owned-by.topolvm.io/group: lvm.topolvm.io
+    owned-by.topolvm.io/kind: LVMCluster
+    owned-by.topolvm.io/name: lvmcluster-sample
+    owned-by.topolvm.io/namespace: openshift-storage
+    owned-by.topolvm.io/uid: d0b45cfd-44c8-44ba-98ad-82cb2f72c1ae
+    owned-by.topolvm.io/version: v1alpha1
+...output omitted...</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_install_rhacm_operator"><a class="anchor" href="#_install_rhacm_operator"></a>Install RHACM Operator</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Access the <code>local-cluster</code>.</p>
+<div class="paragraph">
+<p>Click to <span class="menuseq"><b class="menu">All Clusters</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">local-cluster</b></span></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/local_cluster_access.png" alt="local cluster access">
+</div>
+</div>
+</li>
+<li>
+<p>Access the operator hub.</p>
+<div class="paragraph">
+<p>From left navigation pane, click <span class="menuseq"><b class="menu">Operators</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">OperatorHub</b></span>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/operator_hub.png" alt="operator hub">
+</div>
+</div>
+</li>
+<li>
+<p>In search window, search <em>rhacm</em> and select the <code>Advanced Cluster Management for Kubernetes</code>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhacm_search.png" alt="rhacm search">
+</div>
+</div>
+</li>
+<li>
+<p>Click <b class="button">Install</b> to open install options.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhacm_install.png" alt="rhacm install">
+</div>
+</div>
+</li>
+<li>
+<p>Keep all options as is, with no change in selected options and click <b class="button">Install</b> to install the operator.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhacm_install_1.png" alt="rhacm install 1">
+</div>
+</div>
+</li>
+<li>
+<p>Click <b class="button">Create MultiClusterHub</b> to create the resource.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhacm_install_2.png" alt="rhacm install 2">
+</div>
+</div>
+</li>
+<li>
+<p>Keep all options as is, with no change in selected options and click <b class="button">Create</b> to create the resource.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhacm_install_3.png" alt="rhacm install 3">
+</div>
+</div>
+</li>
+<li>
+<p>Notice it goes into <code>Installing</code> phase.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhacm_install_4.png" alt="rhacm install 4">
+</div>
+</div>
+</li>
+<li>
+<p>After 2-3 minutes, notice the <code>Refresh web console</code> message on window.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhacm_install_5.png" alt="rhacm install 5">
+</div>
+</div>
+</li>
+<li>
+<p>After 3-4 minutes, refresh the page and <em>MultiClusterHub</em> is in <code>Running</code> phase.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhacm_install_6.png" alt="rhacm install 6">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_enable_the_central_infrastructure_management_service"><a class="anchor" href="#_enable_the_central_infrastructure_management_service"></a>Enable the Central Infrastructure Management service</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.5/html/clusters/managing-your-clusters#enable-cim" target="read-later">The Central Infrastructure Management (CIM)</a> service is provided with the <code>mce-short</code> and deploys OpenShift Container Platform clusters.
+CIM is deployed when you enable the <em>MultiClusterHub Operator</em> on the hub cluster, but must be enabled.</p>
+</div>
+<div class="paragraph">
+<p>This will help to generate discovery ISO which will be used for deploying <em>Infrastructure</em> clusters from <em>Hub</em> cluster using RHACM.</p>
+</div>
+<div class="paragraph">
+<p>Ensure <code>AgentServiceConfig</code> exists and running.</p>
+</div>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre>[root@hypervisor ~]# oc get AgentServiceConfig
+
+NAME    AGE
+agent   3h37m</pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_manually_create_the_provisioning_custom_resource_cr"><a class="anchor" href="#_manually_create_the_provisioning_custom_resource_cr"></a>Manually create the Provisioning custom resource (CR)</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create <code>Provisioning</code> custom resource.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt;provisioning-configuration.yaml&lt;&lt;-"EOF"
+apiVersion: metal3.io/v1alpha1
+kind: Provisioning
+metadata:
+  name: provisioning-configuration
+spec:
+  provisioningNetwork: "Disabled"
+  watchAllNamespaces: true
+EOF</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a <code>Provisioning</code> CR to enable services for automated provisioning by using the following command.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc create -f provisioning-configuration.yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Ensure provisioning custom resource is created.</p>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre>[root@hypervisor ~]# oc get provisioning
+NAME                         AGE
+provisioning-configuration   6s</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="section3.html">Access the Hub Cluster</a></span>
+  <span class="next"><a href="../chapter3/index.html">Infrastructure Cluster Deployment</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
