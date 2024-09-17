@@ -87,8 +87,8 @@ Non-volatile Memory Express (NVMe) is an interface that allows host software uti
 On the hypervisor, first create 7TB (3.5TB + 3.5TB disks) logical volume (LV) and mount on storage pool directory path.
 This stores VMs images.
 
-There is separate storage virtual machine (VM) for shared storage for _Tenant_ cluster.
-Create three disks each of 2TB from the 7TB LV and attach it to storage VM.
+There is a separate storage virtual machine (VM) for shared storage for _Tenant_ cluster.
+Create three disks each of 2TB from the 7TB LV and attach it to the storage VM.
 These disks are needed in Ceph deployment on storage VM.
 
 Next, install https://docs.redhat.com/en/documentation/red_hat_openshift_data_foundation/4.16/html/red_hat_openshift_data_foundation_architecture/openshift_data_foundation_operators[OpenShift Data Foundation (ODF) operator,window=read-later] on the _Infrastructure_ clusters.
@@ -107,17 +107,17 @@ Install following operators on _Hub_ cluster which acts as hub cluster.
 * Red Hat Advanced Cluster Management (RHACM)
 * Logical Volume Manager Storage (LVMS)
 
-Ensure https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.11/html-single/clusters/index#enable-cim[Provisioning and Central Infrastructure Management (CIM),window=read-later] service are deployed on _Hub_ cluster.
+Ensure https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.11/html-single/clusters/index#enable-cim[Provisioning and Central Infrastructure Management (CIM),window=read-later] services are deployed on _Hub_ cluster.
 
 === Infrastructure Cluster
 
 The main role of _Infrastructure_ clusters is to deploy Nested OpenShift VMs using OpenShift Virtualization.
-Each _Infrastructure_ cluster has one virtual machine acts as OpenShift node in _Tenant_ cluster.
+Each _Infrastructure_ cluster has one virtual machine that acts as OpenShift node in _Tenant_ cluster.
 
 There are three _Infrastructure_ clusters.
 Deploy _Infrastructure_ clusters as _Single Node OpenShift (SNO)_ cluster from _Hub_ cluster using RHACM.
 
-Install https://docs.openshift.com/container-platform/4.16/virt/about_virt/about-virt.html[OpenShift Virtualization,window=read-later], OpenShift Data Foundation (ODF) and nmstate operators on _Infrastructure_ clusters.
+Install https://docs.openshift.com/container-platform/4.16/virt/about_virt/about-virt.html[OpenShift Virtualization,window=read-later], OpenShift Data Foundation (ODF) and NMState operators on _Infrastructure_ clusters.
 
 Upload discovery ISO to all _Infrastructure_ clusters to boot the _Tenant_ cluster nodes from discovery ISO.
 

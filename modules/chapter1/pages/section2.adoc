@@ -1,10 +1,10 @@
 = Initial Setup on Hypervisor
 
 [NOTE]
-You can refer how to configure manually i.e. without automation in at the end appendix chapter.
+You can refer to how to configure manually i.e. without automation at the end appendix chapter.
 
-Before proceeding the actual MCAP deployment, let's first ensure the initial setup and configuration is done on the hypervisor.
-You will need to perform few tasks before actual deployment of openshift clusters.
+Before proceeding with the actual MCAP deployment, let's first ensure the initial setup and configuration is done on the hypervisor.
+You will need to perform few tasks before the actual deployment of OpenShift clusters.
 Few of the tasks are automated with the help of ansible playbooks.
 
 image::MCAP_setup_1.png[]
@@ -66,7 +66,7 @@ Ensure you are in *_ansible_* directory of the repo.
 ansible-playbook playbooks/setup_hypervisor.yaml -vvv | tee -a /tmp/setup_hypervisor.log
 ----
 
-Tha above command results in verbose play output.
+The above command results in verbose play output.
 `tee -a` command redirects the output to `/tmp/setup_hypervisor.log` log file.
 In case of failure, `/tmp/setup_hypervisor.log` log file can be used for troubleshooting the issue.
 
