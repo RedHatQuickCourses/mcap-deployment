@@ -2,7 +2,7 @@
 :experimental:
 
 In this section, you will be deploying _Tenant_ cluster using RHACM from _Hub_ cluster.
-These _Tenant_ cluster will be _Three-Node OpenShift Compact_ cluster.
+The _Tenant_ cluster will be the _Three-Node OpenShift Compact_ cluster.
 
 image::MCAP_setup_1.png[]
 
@@ -159,11 +159,11 @@ Stop the `tcn1.lab.example.com` VM.
 +
 image::sno1_console_vm_stop.png[]
 +
-Verify the `tcn1.lab.example.com` VM is stopped.
+Verify that the `tcn1.lab.example.com` VM is stopped.
 +
 image::sno1_console_vm_stopped.png[]
 +
-From `tcn1.lab.example.com` VM's `Configuration` tab, select `Storage`.
+From the `tcn1.lab.example.com` VM's `Configuration` tab, select `Storage`.
 +
 image::sno1_console_vm_config_tab.png[]
 +
@@ -191,14 +191,14 @@ Start the `tcn1.lab.example.com` VM.
 +
 image::sno1_console_vm_start.png[]
 +
-Ensure the `tcn1.lab.example.com` VM boots with discovery ISO.
+Ensure the `tcn1.lab.example.com` VM boots with the discovery ISO.
 +
 image::sno1_console_vm_boot_rhcos.png[]
 +
 [IMPORTANT]
-Follow the same steps above for the `tcn2.lab.example.com` and `tcn3.lab.example.com` VMs to boot them with discovery ISO.
+Follow the same steps above for the `tcn2.lab.example.com` and `tcn3.lab.example.com` VMs to boot them with the discovery ISO.
 
-.. Return to web console of _Hub_ cluster to proceed cluster installation.
+.. Return to the web console of _Hub_ cluster to proceed cluster installation.
 +
 Approve the discovered host `tcn1.lab.example.com`.
 +
@@ -238,7 +238,7 @@ image::hub_console_tenant_install_progress_2.png[]
 +
 image::hub_console_tenant_install_progress_3.png[]
 
-. After 7 to 10 minutes, it waits on pending user action.
+. After 7 to 10 minutes, the installation will wait for _Pending user action_.
 +
 image::hub_console_tenant_pending_user_actions.png[]
 +
@@ -246,7 +246,7 @@ This means that you will need to disconnect the discovery ISO from the `tcn3.lab
 +
 image::hub_console_tenant_pending_user_actions_1.png[]
 +
-This means you will also need to disconnect the discovery ISO from the `tcn2.lab.example.com` VM and boot the `tcn2.lab.example.com` VM from disk.
+This means that you will also need to disconnect the discovery ISO from the `tcn2.lab.example.com` VM, and boot the `tcn2.lab.example.com` VM from disk.
 
 .. Shutdown the `tcn2.lab.example.com` VM.
 +
@@ -260,7 +260,7 @@ image::sno1_console_vm_boot_order_tcn2_1.png[]
 +
 image::sno1_console_vm_boot_order_tcn2_2.png[]
 +
-Ensure the `tcn2.lab.example.com` VM boots from disk.
+Ensure that the `tcn2.lab.example.com` VM boots from disk.
 +
 image::sno1_console_vm_boot_tcn2.png[]
 +
@@ -279,22 +279,22 @@ image::hub_console_tenant_install_progress_5.png[]
 +
 image::hub_console_tenant_install_progress_6.png[]
 
-. After 7 to 10 minutes, it waits on pending user action.
+. After 7 to 10 minutes, the installation will wait for _Pending user action_.
 +
 image::hub_console_tenant_pending_user_actions_2.png[]
 +
-This means you will need to disconnect the discovery ISO from the `tcn1.lab.example.com` VM and boot the `tcn1.lab.example.com` VM from disk.
+This means that you will need to disconnect the discovery ISO from the `tcn1.lab.example.com` VM and boot the `tcn1.lab.example.com` VM from disk.
 +
-Follow the same steps you followed for `tcn2.lab.example.com` VM to boot the `tcn1.lab.example.com` VM from disk.
+Follow the same steps that you followed for `tcn2.lab.example.com` VM to boot the `tcn1.lab.example.com` VM from disk.
 
-. Installation will complete in approximately in 20 minutes.
+. Installation will complete in approximately 20 minutes.
 +
 image::hub_console_tenant_install_progress_7.png[]
 +
-image::hub_console_tenant_install_complete.png[] ##FIX THIS##
+image::hub_console_tenant_install_complete.png[]
 
 . Notice that the `tenant` cluster is added to the cluster list in `default` cluster set.
 +
 image::hub_console_tenant_ready.png[]
 +
-This concludes successful deployment of OpenShift cluster and added to hub cluster using RHACM.
+This concludes the successful deployment of OpenShift cluster and added to hub cluster using RHACM.
