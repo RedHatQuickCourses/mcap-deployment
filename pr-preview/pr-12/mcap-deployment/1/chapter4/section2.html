@@ -204,7 +204,7 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>In this section, you will be deploying <em>Tenant</em> cluster using RHACM from <em>Hub</em> cluster.
-These <em>Tenant</em> cluster will be <em>Three-Node OpenShift Compact</em> cluster.</p>
+The <em>Tenant</em> cluster will be the <em>Three-Node OpenShift Compact</em> cluster.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -475,7 +475,7 @@ Upload the discovery ISO to <code>sno2</code> and <code>sno3</code> clusters by 
 </div>
 </div>
 <div class="paragraph">
-<p>Verify the <code>tcn1.lab.example.com</code> VM is stopped.</p>
+<p>Verify that the <code>tcn1.lab.example.com</code> VM is stopped.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -483,7 +483,7 @@ Upload the discovery ISO to <code>sno2</code> and <code>sno3</code> clusters by 
 </div>
 </div>
 <div class="paragraph">
-<p>From <code>tcn1.lab.example.com</code> VM&#8217;s <code>Configuration</code> tab, select <code>Storage</code>.</p>
+<p>From the <code>tcn1.lab.example.com</code> VM&#8217;s <code>Configuration</code> tab, select <code>Storage</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -539,7 +539,7 @@ Upload the discovery ISO to <code>sno2</code> and <code>sno3</code> clusters by 
 </div>
 </div>
 <div class="paragraph">
-<p>Ensure the <code>tcn1.lab.example.com</code> VM boots with discovery ISO.</p>
+<p>Ensure the <code>tcn1.lab.example.com</code> VM boots with the discovery ISO.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -553,14 +553,14 @@ Upload the discovery ISO to <code>sno2</code> and <code>sno3</code> clusters by 
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-Follow the same steps above for the <code>tcn2.lab.example.com</code> and <code>tcn3.lab.example.com</code> VMs to boot them with discovery ISO.
+Follow the same steps above for the <code>tcn2.lab.example.com</code> and <code>tcn3.lab.example.com</code> VMs to boot them with the discovery ISO.
 </td>
 </tr>
 </table>
 </div>
 </li>
 <li>
-<p>Return to web console of <em>Hub</em> cluster to proceed cluster installation.</p>
+<p>Return to the web console of <em>Hub</em> cluster to proceed cluster installation.</p>
 <div class="paragraph">
 <p>Approve the discovered host <code>tcn1.lab.example.com</code>.</p>
 </div>
@@ -643,7 +643,7 @@ Follow the same steps above for the <code>tcn2.lab.example.com</code> and <code>
 </div>
 </li>
 <li>
-<p>After 7 to 10 minutes, it waits on pending user action.</p>
+<p>After 7 to 10 minutes, the installation will wait for <em>Pending user action</em>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_tenant_pending_user_actions.png" alt="hub console tenant pending user actions">
@@ -658,7 +658,7 @@ Follow the same steps above for the <code>tcn2.lab.example.com</code> and <code>
 </div>
 </div>
 <div class="paragraph">
-<p>This means you will also need to disconnect the discovery ISO from the <code>tcn2.lab.example.com</code> VM and boot the <code>tcn2.lab.example.com</code> VM from disk.</p>
+<p>This means that you will also need to disconnect the discovery ISO from the <code>tcn2.lab.example.com</code> VM, and boot the <code>tcn2.lab.example.com</code> VM from disk.</p>
 </div>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
@@ -688,7 +688,7 @@ Follow the same steps above for the <code>tcn2.lab.example.com</code> and <code>
 </div>
 </div>
 <div class="paragraph">
-<p>Ensure the <code>tcn2.lab.example.com</code> VM boots from disk.</p>
+<p>Ensure that the <code>tcn2.lab.example.com</code> VM boots from disk.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -736,28 +736,30 @@ Follow the same steps above to boot the <code>tcn3.lab.example.com</code> VM fro
 </div>
 </li>
 <li>
-<p>After 7 to 10 minutes, it waits on pending user action.</p>
+<p>After 7 to 10 minutes, the installation will wait for <em>Pending user action</em>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_tenant_pending_user_actions_2.png" alt="hub console tenant pending user actions 2">
 </div>
 </div>
 <div class="paragraph">
-<p>This means you will need to disconnect the discovery ISO from the <code>tcn1.lab.example.com</code> VM and boot the <code>tcn1.lab.example.com</code> VM from disk.</p>
+<p>This means that you will need to disconnect the discovery ISO from the <code>tcn1.lab.example.com</code> VM and boot the <code>tcn1.lab.example.com</code> VM from disk.</p>
 </div>
 <div class="paragraph">
-<p>Follow the same steps you followed for <code>tcn2.lab.example.com</code> VM to boot the <code>tcn1.lab.example.com</code> VM from disk.</p>
+<p>Follow the same steps that you followed for <code>tcn2.lab.example.com</code> VM to boot the <code>tcn1.lab.example.com</code> VM from disk.</p>
 </div>
 </li>
 <li>
-<p>Installation will complete in approximately in 20 minutes.</p>
+<p>Installation will complete in approximately 20 minutes.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_tenant_install_progress_7.png" alt="hub console tenant install progress 7">
 </div>
 </div>
-<div class="paragraph">
-<p>image::hub_console_tenant_install_complete.png[] <mark>FIX THIS</mark></p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_install_complete.png" alt="hub console tenant install complete">
+</div>
 </div>
 </li>
 <li>
@@ -768,7 +770,7 @@ Follow the same steps above to boot the <code>tcn3.lab.example.com</code> VM fro
 </div>
 </div>
 <div class="paragraph">
-<p>This concludes successful deployment of OpenShift cluster and added to hub cluster using RHACM.</p>
+<p>This concludes the successful deployment of OpenShift cluster and added to hub cluster using RHACM.</p>
 </div>
 </li>
 </ol>
