@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Access the Tenant Cluster :: Deploy Mission Critical Application Platform (MCAP)</title>
-    <link rel="prev" href="section2.html">
-    <link rel="next" href="section4.html">
+    <title>Install Sample Application on Tenant Cluster :: Deploy Mission Critical Application Platform (MCAP)</title>
+    <link rel="prev" href="section4.html">
+    <link rel="next" href="../appendix/appendix.html">
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script>var uiRootPath = '../../../_'</script>
@@ -125,13 +125,13 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="section2.html">Assisted Clusters - Tenant Cluster</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="section3.html">Access the Tenant Cluster</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="section4.html">Install and Configure Operators</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="section5.html">Install Sample Application on Tenant Cluster</a>
   </li>
 </ul>
@@ -190,7 +190,7 @@
   <ul>
     <li><a href="../index.html">Deploy Mission Critical Application Platform (MCAP)</a></li>
     <li><a href="index.html">Tenant Cluster Deployment</a></li>
-    <li><a href="section3.html">Access the Tenant Cluster</a></li>
+    <li><a href="section5.html">Install Sample Application on Tenant Cluster</a></li>
   </ul>
 </nav>
 </div>
@@ -199,11 +199,12 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Access the Tenant Cluster</h1>
+<h1 class="page">Install Sample Application on Tenant Cluster</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this section, you will be accessing <em>Tenant</em> clusters.</p>
+<p>In this section, you will be installing basic <em>Node.js</em> application on <em>Tenant</em> cluster.
+You will also be testing the high availability and resilience of deployed <em>Node.js</em> application.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -218,174 +219,228 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Ensure that the <em>Tenant</em> cluster is deployed successfully.</p>
+<p>Ensure that the <em>OpenShift Data Foundation</em> operator is installed.</p>
 </li>
 <li>
-<p>Ensure that the <code>/root/tenant/</code> directory and file structure are created.</p>
+<p>Ensure that the <em>Image Registry</em> operator is using <code>Noobaa</code> storage with Red Hat OpenShift Data Foundation.</p>
 <div class="listingblock">
 <div class="title">Sample output:</div>
 <div class="content">
-<pre>[root@hypervisor ~]# ls -al /root/tenant/
-total 28
-drwxr-xr-x.  2 root root  4096 Aug 22 15:20 .
-dr-xr-x---. 13 root root  4096 Aug 22 15:18 ..
--rw-r--r--.  1 root root    24 Aug 22 15:11 kubeadmin-password
--rw-r--r--.  1 root root 12127 Aug 22 15:20 kubeconfig</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Get the <code>kubeconfig</code> file and password for <code>kubeadmin</code> user from the <em>Hub</em> cluster console.</p>
-<div class="imageblock">
-<div class="content">
-<img src="_images/hub_console_tenant_install_download.png" alt="hub console tenant install download">
-</div>
-</div>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Download the <code>kubeconfig</code> file to the hypervisor, and then copy it to the <code>/root/tenant</code> directory on the hypervisor.</p>
-<div class="listingblock">
-<div class="title">Sample output:</div>
-<div class="content">
-<pre>[root@hypervisor ~]# mv /root/Downloads/tenant-kubeconfig.yaml /root/tenant/kubeconfig</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Copy the password for <code>kubeadmin</code> user, and paste it in a new tab of a Firefox browser.</p>
-<div class="imageblock">
-<div class="content">
-<img src="_images/hub_console_tenant_copy_password.png" alt="hub console tenant copy password">
-</div>
-</div>
-<div class="paragraph">
-<p>Copy the password from the tab of the Firefox browser, and paste it in the <code>/root/tenant/kubeadmin-password</code> file.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/hub_console_tenant_copy_password_1.png" alt="hub console tenant copy password 1">
+<pre>[root@hypervisor ~]# oc get co image-registry
+NAME             VERSION   AVAILABLE   PROGRESSING   DEGRADED   SINCE   MESSAGE
+image-registry   4.16.8    True        False         False      61s</pre>
 </div>
 </div>
 </li>
 </ol>
-</div>
-</li>
-</ol>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-Follow the same steps for the <code>sno2</code> and <code>sno3</code> clusters.
-</td>
-</tr>
-</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_access_the_tenant_cluster_via_cli"><a class="anchor" href="#_access_the_tenant_cluster_via_cli"></a>Access the <em>tenant</em> Cluster via CLI</h2>
+<h2 id="_install_node_js_application_on_tenant_cluster"><a class="anchor" href="#_install_node_js_application_on_tenant_cluster"></a>Install <em>Node.js</em> application on <em>Tenant</em> cluster</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Copy the <code>/root/tenant/kubeconfig</code> file as <code>/root/.kube/config</code> file.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cp /root/tenant/kubeconfig /root/.kube/config</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Set the <code>kubepass</code> variable as the <code>kubeadmin</code> user&#8217;s password.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubepass=$(cat /root/tenant/kubeadmin-password)</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Login to the <em>tenant</em> cluster with the <code>oc login</code> command.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc login -u kubeadmin -p $kubepass</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Sample output:</div>
-<div class="content">
-<pre>Login successful.
-
-You have access to 79 projects, the list has been suppressed. You can list all projects with 'oc projects'
-
-Using project "default".</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Review the nodes.</p>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get nodes</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Sample output:</div>
-<div class="content">
-<pre>NAME                  STATUS   ROLES                         AGE   VERSION
-tenant.lab.example.com   Ready    control-plane,master,worker   10h   v1.29.7+6abe8a1</pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Follow the same steps for the <code>sno2</code> and <code>sno3</code> clusters.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_access_the_tenant_cluster_from_web_console"><a class="anchor" href="#_access_the_tenant_cluster_from_web_console"></a>Access the <em>tenant</em> Cluster from Web Console</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Get the web console URL from <em>Hub</em> cluster console.</p>
+<p>From the left navigation pane, click <span class="menuseq"><b class="menu">Administrator</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Developer</b></span>.</p>
 <div class="imageblock">
 <div class="content">
-<img src="_images/hub_console_tenant_install_download.png" alt="hub console tenant install download">
+<img src="_images/tenant_console_switch_view.png" alt="tenant console switch view">
 </div>
 </div>
 </li>
 <li>
-<p>Click on the link from <code>Web Console URL</code>.</p>
+<p>You will be redirected to the developer view.</p>
 <div class="paragraph">
+<p>Click on text <b class="button">create a Project</b>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/tenant_console_developer_view.png" alt="tenant console developer view">
+</div>
+</div>
+</li>
+<li>
+<p>In the create project window, provide the project details.</p>
+<div class="paragraph">
+<p>Name: <code>sample</code>.</p>
+</div>
+<div class="paragraph">
+<p>Display name: <code>sample</code>.</p>
+</div>
+<div class="paragraph">
+<p>Description: <code>This is sample project</code>.</p>
+</div>
+<div class="paragraph">
+<p>Click <b class="button">Create</b> to create the project.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/tenant_console_create_project.png" alt="tenant console create project">
+</div>
+</div>
+</li>
+<li>
+<p>In the project view, click on text <b class="button">Add page</b> to add the sample application.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/tenant_console_nodejs_app_add.png" alt="tenant console nodejs app add">
+</div>
+</div>
+</li>
+<li>
+<p>In the add page window, click on text <b class="button">View all samples</b>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/tenant_console_nodejs_app_sample.png" alt="tenant console nodejs app sample">
+</div>
+</div>
+</li>
+<li>
+<p>In the search section, search for <code>basic node</code>.</p>
+<div class="paragraph">
+<p>Select the <code>Basic Node.js</code> application from samples.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/tenant_console_nodejs_app_search.png" alt="tenant console nodejs app search">
+</div>
+</div>
+</li>
+<li>
+<p>In the <code>Basic Node.js</code> application building window, keep all options as is and click <b class="button">Create</b> to create the application.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/tenant_console_nodejs_app_create.png" alt="tenant console nodejs app create">
+</div>
+</div>
+</li>
+<li>
+<p>In the topology view, you will see application is created.</p>
+<div class="paragraph">
+<p>Click on the circle to view the application overview.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/tenant_console_nodejs_app_create_1.png" alt="tenant console nodejs app create 1">
+</div>
+</div>
+</li>
+<li>
+<p>In resources tab, notice that the application is building.</p>
+<div class="paragraph">
+<p>If you click on the URL from routes section, it will open the application page in new tab.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/tenant_console_nodejs_app_build_running.png" alt="tenant console nodejs app build running">
+</div>
+</div>
+</li>
+<li>
 <p>Click <b class="button">Advanced&#8230;&#8203;</b> to proceed.</p>
-</div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/hub_console_tenant_advanced_risk.png" alt="hub console tenant advanced risk">
+<img src="_images/tenant_console_nodejs_app_advanced_risk.png" alt="tenant console nodejs app advanced risk">
+</div>
+</div>
+</li>
+<li>
+<p>Click <b class="button">Accept the Risk and Continue</b> to accept the risk and proceed.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/tenant_console_nodejs_app_accept_risk.png" alt="tenant console nodejs app accept risk">
+</div>
+</div>
+</li>
+<li>
+<p>While the application is still building, note that the message displayed on the page is <em>Application is not available</em>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/tenant_console_nodejs_app_page_failure.png" alt="tenant console nodejs app page failure">
+</div>
+</div>
+</li>
+<li>
+<p>In a minute, you will notice the application is in running state.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/tenant_console_nodejs_app_build_success.png" alt="tenant console nodejs app build success">
+</div>
+</div>
+</li>
+<li>
+<p>Refresh the application page to see the default page message.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/tenant_console_nodejs_app_page_success.png" alt="tenant console nodejs app page success">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_test_the_high_availability_and_resilience"><a class="anchor" href="#_test_the_high_availability_and_resilience"></a>Test the High Availability and Resilience</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Find out the where the application pod is running.</p>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre>[root@hypervisor ~]# oc get pods -n sample -o wide
+NAME                            READY   STATUS      RESTARTS   AGE     IP            NODE                   NOMINATED NODE   READINESS GATES
+nodejs-basic-1-build            0/1     Completed   0          2m51s   10.130.0.63   tcn2.lab.example.com   &lt;none&gt;           &lt;none&gt;
+nodejs-basic-6d55569c9c-gps2d   1/1     Running     0          2m51s   10.130.0.62   tcn2.lab.example.com   &lt;none&gt;           &lt;none&gt;</pre>
+</div>
+</div>
+</li>
+<li>
+<p>In this case, the application pod is running on the <code>tcn2.lab.example.com</code> node.</p>
+<div class="paragraph">
+<p>This means that the <code>tcn2.lab.example.com</code> node is running on <code>sno2</code> <em>Infrastructure</em> cluster.</p>
+</div>
+</li>
+<li>
+<p>To test high availability and resilience, first shut down the <code>sno2</code> VM, which will shutdown the <em>Infrastructure</em> cluster.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/tenant_console_nodejs_app_shutdwon_vm.png" alt="tenant console nodejs app shutdwon vm">
 </div>
 </div>
 <div class="paragraph">
-<p>Click <b class="button">Accept the Risk and Continue</b> to proceed.</p>
+<p>Ensure that <code>sno2</code> VM is in shutoff state.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/hub_console_tenant_accept_risk.png" alt="hub console tenant accept risk">
+<img src="_images/tenant_console_nodejs_app_shutdwon_vm_1.png" alt="tenant console nodejs app shutdwon vm 1">
+</div>
+</div>
+</li>
+<li>
+<p>If you refresh the application page, you will note the failure message again.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/tenant_console_nodejs_app_page_failure.png" alt="tenant console nodejs app page failure">
+</div>
+</div>
+</li>
+<li>
+<p>The <code>pod-eviction-timeout</code> and <code>node-monitor-grace-period</code> parameters have the default value of <code>5m</code> and <code>40s</code> respectively.
+This means it takes <code>5m40s</code> to trigger the pod eviction process after the last node status update.</p>
+<div class="paragraph">
+<p>After 5 minutes (eviction timeout), note that the application is successfully migrated to the <code>tcn1.lab.example.com</code> node.</p>
+</div>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre>[root@hypervisor ~]# oc get pods -n sample -o wide
+NAME                            READY   STATUS        RESTARTS   AGE   IP             NODE                   NOMINATED NODE   READINESS GATES
+nodejs-basic-6d55569c9c-gps2d   1/1     Terminating   0          23m   10.130.0.62    tcn2.lab.example.com   &lt;none&gt;           &lt;none&gt;
+nodejs-basic-6d55569c9c-tdkbm   1/1     Running       0          13m   10.128.1.115   tcn1.lab.example.com   &lt;none&gt;           &lt;none&gt;</pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -395,54 +450,30 @@ Follow the same steps for the <code>sno2</code> and <code>sno3</code> clusters.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-You may need to accept the risk twice.
+Eviction timeout - <a href="https://access.redhat.com/solutions/5359001" target="read-later">How to modify the pod reschedule timeout in OpenShift 4?</a>
 </td>
 </tr>
 </table>
 </div>
 </li>
 <li>
-<p>Login as <code>kubadmin</code> user.</p>
-<div class="paragraph">
-<p>Get the <code>kubadmin</code> user&#8217;s password from from <em>Hub</em> cluster console.</p>
-</div>
+<p>Refresh the application page again to view the default message again.</p>
 <div class="imageblock">
 <div class="content">
-<img src="_images/hub_console_tenant_install_download.png" alt="hub console tenant install download">
-</div>
-</div>
-<div class="paragraph">
-<p>Copy the <code>kubadmin</code> user&#8217;s password from from <em>Hub</em> cluster console and paste it in <code>Password</code> field.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/tenant_console_access.png" alt="tenant console access">
+<img src="_images/tenant_console_nodejs_app_page_success.png" alt="tenant console nodejs app page success">
 </div>
 </div>
 </li>
 <li>
-<p>Once you have logged in as <code>kubadmin</code> user, this is how the first screen should look:</p>
-<div class="imageblock">
-<div class="content">
-<img src="_images/tenant_console_access_1.png" alt="tenant console access 1">
-</div>
-</div>
-</li>
-<li>
-<p>Verify <em>tenant</em> cluster is in <code>Ready</code> state in <em>Hub</em> cluster console.</p>
-<div class="imageblock">
-<div class="content">
-<img src="_images/hub_console_tenant_ready.png" alt="hub console tenant ready">
-</div>
-</div>
+<p>This test shows that even if one infrastructure node is down; application automatically migrate to other infrastructure node.</p>
 </li>
 </ol>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="section2.html">Assisted Clusters - Tenant Cluster</a></span>
-  <span class="next"><a href="section4.html">Install and Configure Operators</a></span>
+  <span class="prev"><a href="section4.html">Install and Configure Operators</a></span>
+  <span class="next"><a href="../appendix/appendix.html">Appendix A</a></span>
 </nav>
 </article>
   </div>
