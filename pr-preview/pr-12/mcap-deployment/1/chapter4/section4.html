@@ -224,7 +224,7 @@
 <p>Access the <em>tenant</em> cluster via CLI and web console.</p>
 </li>
 <li>
-<p>Ensure that all nodes are in <code>Ready</code> status and all cluster operators are available.</p>
+<p>Ensure that all nodes are in <code>Ready</code> status and that all cluster operators are available.</p>
 <div class="listingblock">
 <div class="title">Sample output:</div>
 <div class="content">
@@ -278,7 +278,7 @@ version   4.16.8    True        False         23h     Cluster version is 4.16.8<
 </div>
 </li>
 <li>
-<p>Keep all options as is, with no change, in selected options and then click <b class="button">Install</b> to install the operator.</p>
+<p>Keep all options as is (with no change) in selected options and then click <b class="button">Install</b> to install the operator.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/tenant_console_odf_install_2.png" alt="tenant console odf install 2">
@@ -286,7 +286,7 @@ version   4.16.8    True        False         23h     Cluster version is 4.16.8<
 </div>
 </li>
 <li>
-<p>After 3-4 minutes, notice the <code>Refresh web console</code> message on window.</p>
+<p>After 3-4 minutes, you should notice a message telling you to <code>Refresh web console</code> message on window.</p>
 <div class="paragraph">
 <p>First, refresh the web console and then click <b class="button">Create StorageSystem</b> to create the resource.</p>
 </div>
@@ -317,7 +317,7 @@ version   4.16.8    True        False         23h     Cluster version is 4.16.8<
 </div>
 </div>
 <div class="paragraph">
-<p>Check box the <code>Use Ceph RBD as the default StorageClass</code>.</p>
+<p>Check the <code>Use Ceph RBD as the default StorageClass</code> box.</p>
 </div>
 <div class="paragraph">
 <p>Click <b class="button">Next</b> to proceed.</p>
@@ -361,7 +361,7 @@ version   4.16.8    True        False         23h     Cluster version is 4.16.8<
 </div>
 </li>
 <li>
-<p>Notice the raw and used capacity.</p>
+<p>Note the raw and used capacity.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/tenant_console_odf_install_11.png" alt="tenant console odf install 11">
@@ -369,7 +369,7 @@ version   4.16.8    True        False         23h     Cluster version is 4.16.8<
 </div>
 </li>
 <li>
-<p>Notice the conditions as <code>Available, VendorCsv Ready, Vendor System Present</code>.</p>
+<p>Note the conditions as <code>Available, VendorCsv Ready, Vendor System Present</code>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/tenant_console_odf_install_12.png" alt="tenant console odf install 12">
@@ -426,7 +426,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Get the bucket name by entering the following command.</p>
+<p>Get the bucket name by entering the following command:</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">bucket_name=$(oc get obc -n openshift-storage noobaatest -o jsonpath='{.spec.bucketName}')</code></pre>
@@ -434,7 +434,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Get the AWS credentials by entering the following commands.</p>
+<p>Get the AWS credentials by entering the following commands:</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">AWS_ACCESS_KEY_ID=$(oc get secret -n openshift-storage noobaatest -o yaml | grep -w "AWS_ACCESS_KEY_ID:" | head -n1 | awk '{print $2}' | base64 --decode)</code></pre>
@@ -447,7 +447,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Create the secret <code>image-registry-private-configuration-user</code> with the AWS credentials for the new bucket under <code>openshift-image-registry</code> project by entering the following command.</p>
+<p>Create the secret <code>image-registry-private-configuration-user</code> with the AWS credentials for the new bucket under <code>openshift-image-registry</code> project by entering the following command:</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc create secret generic image-registry-private-configuration-user --from-literal=REGISTRY_STORAGE_S3_ACCESSKEY=${AWS_ACCESS_KEY_ID} --from-literal=REGISTRY_STORAGE_S3_SECRETKEY=${AWS_SECRET_ACCESS_KEY} --namespace openshift-image-registry</code></pre>
@@ -455,7 +455,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Get the route host by entering the following command.</p>
+<p>Get the route host by entering the following command:</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">route_host=$(oc get route s3 -n openshift-storage -o=jsonpath='{.spec.host}')</code></pre>
@@ -463,7 +463,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Create a config map that uses an ingress certificate by entering the following commands.</p>
+<p>Create a config map that uses an ingress certificate by entering the following commands:</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc extract secret/router-certs-default -n openshift-ingress --confirm</code></pre>
@@ -484,7 +484,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Notice the <code>image-registry</code> cluster operator is in progressing state.</p>
+<p>Note that <code>image-registry</code> cluster operator is in progressing state.</p>
 <div class="listingblock">
 <div class="title">Sample output:</div>
 <div class="content">
@@ -495,7 +495,7 @@ image-registry   4.16.8    False       True          False      13s     Availabl
 </div>
 </li>
 <li>
-<p>In a minute, <code>image-registry</code> cluster operator is available.</p>
+<p>In a minute, <code>image-registry</code> cluster operator will be available.</p>
 <div class="listingblock">
 <div class="title">Sample output:</div>
 <div class="content">

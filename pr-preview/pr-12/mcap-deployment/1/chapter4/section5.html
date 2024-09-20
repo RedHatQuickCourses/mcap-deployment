@@ -219,10 +219,10 @@ You will also be testing the high availability and resilience of deployed <em>No
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Ensure <em>OpenShift Data Foundation</em> operator is installed.</p>
+<p>Ensure that the <em>OpenShift Data Foundation</em> operator is installed.</p>
 </li>
 <li>
-<p>Ensure <em>Image Registry</em> operator is using <code>Noobaa</code> storage with Red Hat OpenShift Data Foundation.</p>
+<p>Ensure that the <em>Image Registry</em> operator is using <code>Noobaa</code> storage with Red Hat OpenShift Data Foundation.</p>
 <div class="listingblock">
 <div class="title">Sample output:</div>
 <div class="content">
@@ -250,7 +250,7 @@ image-registry   4.16.8    True        False         False      61s</pre>
 </div>
 </li>
 <li>
-<p>You will be redirected to developer view.</p>
+<p>You will be redirected to the developer view.</p>
 <div class="paragraph">
 <p>Click on text <b class="button">create a Project</b>.</p>
 </div>
@@ -281,7 +281,7 @@ image-registry   4.16.8    True        False         False      61s</pre>
 </div>
 </li>
 <li>
-<p>In the project view, to add the sample application click on text <b class="button">Add page</b>.</p>
+<p>In the project view, click on text <b class="button">Add page</b> to add the sample application.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/tenant_console_nodejs_app_add.png" alt="tenant console nodejs app add">
@@ -308,7 +308,7 @@ image-registry   4.16.8    True        False         False      61s</pre>
 </div>
 </li>
 <li>
-<p>In <code>Basic Node.js</code> application building window, keep all options as is and click <b class="button">Create</b> to create the application.</p>
+<p>In the <code>Basic Node.js</code> application building window, keep all options as is and click <b class="button">Create</b> to create the application.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/tenant_console_nodejs_app_create.png" alt="tenant console nodejs app create">
@@ -316,9 +316,9 @@ image-registry   4.16.8    True        False         False      61s</pre>
 </div>
 </li>
 <li>
-<p>In topology view, you will see application is created.</p>
+<p>In the topology view, you will see application is created.</p>
 <div class="paragraph">
-<p>Click on the circle to view application overview.</p>
+<p>Click on the circle to view the application overview.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -327,9 +327,9 @@ image-registry   4.16.8    True        False         False      61s</pre>
 </div>
 </li>
 <li>
-<p>In resources tab, notice the application is building.</p>
+<p>In resources tab, notice that the application is building.</p>
 <div class="paragraph">
-<p>If you click the URL from routes section, it will open the application page in new tab.</p>
+<p>If you click on the URL from routes section, it will open the application page in new tab.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -354,7 +354,7 @@ image-registry   4.16.8    True        False         False      61s</pre>
 </div>
 </li>
 <li>
-<p>As application is still building stage, you will notice the message as <em>Application is not available</em> in page.</p>
+<p>While the application is still building, note that the message displayed on the page is <em>Application is not available</em>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/tenant_console_nodejs_app_page_failure.png" alt="tenant console nodejs app page failure">
@@ -401,18 +401,18 @@ nodejs-basic-6d55569c9c-gps2d   1/1     Running     0          2m51s   10.130.0.
 <li>
 <p>In this case, the application pod is running on the <code>tcn2.lab.example.com</code> node.</p>
 <div class="paragraph">
-<p>This means <code>tcn2.lab.example.com</code> node is running on <code>sno2</code> <em>Infrastructure</em> cluster.</p>
+<p>This means that the <code>tcn2.lab.example.com</code> node is running on <code>sno2</code> <em>Infrastructure</em> cluster.</p>
 </div>
 </li>
 <li>
-<p>To test high availability and resilience, shutdown the <code>sno2</code> <em>Infrastructure</em> cluster and to do this you need to shutdown the <code>sno2</code> VM.</p>
+<p>To test high availability and resilience, first shut down the <code>sno2</code> VM, which will shutdown the <em>Infrastructure</em> cluster.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/tenant_console_nodejs_app_shutdwon_vm.png" alt="tenant console nodejs app shutdwon vm">
 </div>
 </div>
 <div class="paragraph">
-<p>Ensure <code>sno2</code> VM is in shutoff state.</p>
+<p>Ensure that <code>sno2</code> VM is in shutoff state.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -421,7 +421,7 @@ nodejs-basic-6d55569c9c-gps2d   1/1     Running     0          2m51s   10.130.0.
 </div>
 </li>
 <li>
-<p>If you refresh the application page, you will notice failure message again.</p>
+<p>If you refresh the application page, you will note the failure message again.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/tenant_console_nodejs_app_page_failure.png" alt="tenant console nodejs app page failure">
@@ -429,9 +429,10 @@ nodejs-basic-6d55569c9c-gps2d   1/1     Running     0          2m51s   10.130.0.
 </div>
 </li>
 <li>
-<p>The <code>pod-eviction-timeout</code> and <code>node-monitor-grace-period</code> parameters have the default value of <code>5m and 40s</code> respectively, which means by default, it takes <code>5m40s</code> to get pod eviction process triggered since the last status update from the node.</p>
+<p>The <code>pod-eviction-timeout</code> and <code>node-monitor-grace-period</code> parameters have the default value of <code>5m</code> and <code>40s</code> respectively.
+This means it takes <code>5m40s</code> to trigger the pod eviction process after the last node status update.</p>
 <div class="paragraph">
-<p>After five minutes i.e. eviction timeout, you will notice the application is successfully migrated to <code>tcn1.lab.example.com</code> node.</p>
+<p>After 5 minutes (eviction timeout), note that the application is successfully migrated to the <code>tcn1.lab.example.com</code> node.</p>
 </div>
 <div class="listingblock">
 <div class="title">Sample output:</div>
@@ -464,7 +465,7 @@ Eviction timeout - <a href="https://access.redhat.com/solutions/5359001" target=
 </div>
 </li>
 <li>
-<p>This test shows, even though one infrastructure node is down; application automatically migrate to other infrastructure node.</p>
+<p>This test shows that even if one infrastructure node is down; application automatically migrate to other infrastructure node.</p>
 </li>
 </ol>
 </div>
