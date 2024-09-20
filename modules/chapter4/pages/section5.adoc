@@ -8,9 +8,9 @@ image::MCAP_setup_1.png[]
 
 == Prerequisites
 
-. Ensure _OpenShift Data Foundation_ operator is installed.
+. Ensure that the _OpenShift Data Foundation_ operator is installed.
 
-. Ensure _Image Registry_ operator is using `Noobaa` storage with Red Hat OpenShift Data Foundation.
+. Ensure that the _Image Registry_ operator is using `Noobaa` storage with Red Hat OpenShift Data Foundation.
 +
 .Sample output:
 ----
@@ -25,7 +25,7 @@ image-registry   4.16.8    True        False         False      61s
 +
 image::tenant_console_switch_view.png[]
 
-. You will be redirected to developer view.
+. You will be redirected to the developer view.
 +
 Click on text btn:[create a Project].
 +
@@ -43,7 +43,7 @@ Click btn:[Create] to create the project.
 +
 image::tenant_console_create_project.png[]
 
-. In the project view, to add the sample application click on text btn:[Add page].
+. In the project view, click on text btn:[Add page] to add the sample application.
 +
 image::tenant_console_nodejs_app_add.png[]
 
@@ -57,19 +57,19 @@ Select the `Basic Node.js` application from samples.
 +
 image::tenant_console_nodejs_app_search.png[]
 
-. In `Basic Node.js` application building window, keep all options as is and click btn:[Create] to create the application.
+. In the `Basic Node.js` application building window, keep all options as is and click btn:[Create] to create the application.
 +
 image::tenant_console_nodejs_app_create.png[]
 
-. In topology view, you will see application is created.
+. In the topology view, you will see application is created.
 +
-Click on the circle to view application overview.
+Click on the circle to view the application overview.
 +
 image::tenant_console_nodejs_app_create_1.png[]
 
-. In resources tab, notice the application is building.
+. In resources tab, notice that the application is building.
 +
-If you click the URL from routes section, it will open the application page in new tab.
+If you click on the URL from routes section, it will open the application page in new tab.
 +
 image::tenant_console_nodejs_app_build_running.png[]
 
@@ -81,7 +81,7 @@ image::tenant_console_nodejs_app_advanced_risk.png[]
 +
 image::tenant_console_nodejs_app_accept_risk.png[]
 
-. As application is still building stage, you will notice the message as _Application is not available_ in page.
+. While the application is still building, note that the message displayed on the page is _Application is not available_.
 +
 image::tenant_console_nodejs_app_page_failure.png[]
 
@@ -107,23 +107,24 @@ nodejs-basic-6d55569c9c-gps2d   1/1     Running     0          2m51s   10.130.0.
 
 . In this case, the application pod is running on the `tcn2.lab.example.com` node.
 +
-This means `tcn2.lab.example.com` node is running on `sno2` _Infrastructure_ cluster.
+This means that the `tcn2.lab.example.com` node is running on `sno2` _Infrastructure_ cluster.
 
-. To test high availability and resilience, shutdown the `sno2` _Infrastructure_ cluster and to do this you need to shutdown the `sno2` VM.
+. To test high availability and resilience, first shut down the `sno2` VM, which will shutdown the _Infrastructure_ cluster.
 +
 image::tenant_console_nodejs_app_shutdwon_vm.png[]
 +
-Ensure `sno2` VM is in shutoff state.
+Ensure that `sno2` VM is in shutoff state.
 +
 image::tenant_console_nodejs_app_shutdwon_vm_1.png[]
 
-. If you refresh the application page, you will notice failure message again.
+. If you refresh the application page, you will note the failure message again.
 +
 image::tenant_console_nodejs_app_page_failure.png[]
 
-. The `pod-eviction-timeout` and `node-monitor-grace-period` parameters have the default value of `5m and 40s` respectively, which means by default, it takes `5m40s` to get pod eviction process triggered since the last status update from the node.
+. The `pod-eviction-timeout` and `node-monitor-grace-period` parameters have the default value of `5m` and `40s` respectively.
+This means it takes `5m40s` to trigger the pod eviction process after the last node status update.
 +
-After five minutes i.e. eviction timeout, you will notice the application is successfully migrated to `tcn1.lab.example.com` node.
+After 5 minutes (eviction timeout), note that the application is successfully migrated to the `tcn1.lab.example.com` node.
 +
 .Sample output:
 ----
@@ -140,4 +141,4 @@ Eviction timeout - https://access.redhat.com/solutions/5359001[How to modify the
 +
 image::tenant_console_nodejs_app_page_success.png[]
 
-. This test shows, even though one infrastructure node is down; application automatically migrate to other infrastructure node.
+. This test shows that even if one infrastructure node is down; application automatically migrate to other infrastructure node.

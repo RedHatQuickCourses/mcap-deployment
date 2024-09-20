@@ -11,7 +11,7 @@ image::MCAP_setup_1.png[]
 
 . Access the _tenant_ cluster via CLI and web console.
 
-. Ensure that all nodes are in `Ready` status and all cluster operators are available.
+. Ensure that all nodes are in `Ready` status and that all cluster operators are available.
 +
 .Sample output:
 ----
@@ -43,11 +43,11 @@ image::tenant_console_odf_install.png[]
 +
 image::tenant_console_odf_install_1.png[]
 
-. Keep all options as is, with no change, in selected options and then click btn:[Install] to install the operator.
+. Keep all options as is (with no change) in selected options and then click btn:[Install] to install the operator.
 +
 image::tenant_console_odf_install_2.png[]
 
-. After 3-4 minutes, notice the `Refresh web console` message on window.
+. After 3-4 minutes, you should notice a message telling you to `Refresh web console` message on window.
 +
 First, refresh the web console and then click btn:[Create StorageSystem] to create the resource.
 +
@@ -65,7 +65,7 @@ Storage platform: `Red Hat Ceph Storage`.
 +
 image::tenant_console_odf_install_4.png[]
 +
-Check box the `Use Ceph RBD as the default StorageClass`.
+Check the `Use Ceph RBD as the default StorageClass` box.
 +
 Click btn:[Next] to proceed.
 +
@@ -87,11 +87,11 @@ image::tenant_console_odf_install_9.png[]
 +
 image::tenant_console_odf_install_10.png[]
 
-.. Notice the raw and used capacity.
+.. Note the raw and used capacity.
 +
 image::tenant_console_odf_install_11.png[]
 
-.. Notice the conditions as `Available, VendorCsv Ready, Vendor System Present`.
+.. Note the conditions as `Available, VendorCsv Ready, Vendor System Present`.
 +
 image::tenant_console_odf_install_12.png[]
 
@@ -120,14 +120,14 @@ spec:
 EOF
 ----
 
-. Get the bucket name by entering the following command.
+. Get the bucket name by entering the following command:
 +
 [source,bash,role=execute]
 ----
 bucket_name=$(oc get obc -n openshift-storage noobaatest -o jsonpath='{.spec.bucketName}')
 ----
 
-. Get the AWS credentials by entering the following commands.
+. Get the AWS credentials by entering the following commands:
 +
 [source,bash,role=execute]
 ----
@@ -139,21 +139,21 @@ AWS_ACCESS_KEY_ID=$(oc get secret -n openshift-storage noobaatest -o yaml | grep
 AWS_SECRET_ACCESS_KEY=$(oc get secret -n openshift-storage noobaatest -o yaml | grep -w "AWS_SECRET_ACCESS_KEY:" | head -n1 | awk '{print $2}' | base64 --decode)
 ----
 
-. Create the secret `image-registry-private-configuration-user` with the AWS credentials for the new bucket under `openshift-image-registry` project by entering the following command.
+. Create the secret `image-registry-private-configuration-user` with the AWS credentials for the new bucket under `openshift-image-registry` project by entering the following command:
 +
 [source,bash,role=execute]
 ----
 oc create secret generic image-registry-private-configuration-user --from-literal=REGISTRY_STORAGE_S3_ACCESSKEY=${AWS_ACCESS_KEY_ID} --from-literal=REGISTRY_STORAGE_S3_SECRETKEY=${AWS_SECRET_ACCESS_KEY} --namespace openshift-image-registry
 ----
 
-. Get the route host by entering the following command.
+. Get the route host by entering the following command:
 +
 [source,bash,role=execute]
 ----
 route_host=$(oc get route s3 -n openshift-storage -o=jsonpath='{.spec.host}')
 ----
 
-. Create a config map that uses an ingress certificate by entering the following commands.
+. Create a config map that uses an ingress certificate by entering the following commands:
 +
 [source,bash,role=execute]
 ----
@@ -172,7 +172,7 @@ oc create configmap image-registry-s3-bundle --from-file=ca-bundle.crt=./tls.crt
 oc patch config.image/cluster -p '{"spec":{"managementState":"Managed","replicas":2,"storage":{"managementState":"Unmanaged","s3":{"bucket":'\"${bucket_name}\"',"region":"us-east-1","regionEndpoint":'\"https://${route_host}\"',"virtualHostedStyle":false,"encrypt":false,"trustedCA":{"name":"image-registry-s3-bundle"}}}}}' --type=merge
 ----
 
-. Notice the `image-registry` cluster operator is in progressing state.
+. Note that `image-registry` cluster operator is in progressing state.
 +
 .Sample output:
 ----
@@ -181,7 +181,7 @@ NAME             VERSION   AVAILABLE   PROGRESSING   DEGRADED   SINCE   MESSAGE
 image-registry   4.16.8    False       True          False      13s     Available: The deployment does not have available replicas...
 ----
 
-. In a minute, `image-registry` cluster operator is available.
+. In a minute, `image-registry` cluster operator will be available.
 +
 .Sample output:
 ----
