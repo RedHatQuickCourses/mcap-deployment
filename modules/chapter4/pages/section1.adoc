@@ -146,5 +146,5 @@ image::sno1_console_create_vm_16.png[]
 
 == Deploy remaining _Tenant_ VMs on `sno2` and `sno3` clusters
 
-. You can deploy the remaining `tcn2.lab.example.com` and `tcn3.lab.example.com` VMs by following the steps from previous section that you followed for a `tcn1.lab.example.com` VM deployment.
+. You can deploy the remaining `tcn2.lab.example.com` and `tcn3.lab.example.com` VMs by following the steps from the previous section for a `tcn1.lab.example.com` VM deployment.
 . Each VM deployment takes 5 to 10 minutes to complete.
