@@ -286,7 +286,7 @@ The <em>Tenant</em> cluster will be the <em>Three-Node OpenShift Compact</em> cl
 <p>Base domain: <code>lab.example.com</code></p>
 </div>
 <div class="paragraph">
-<p>Select <code>4.16.8</code> version of OpenShift from the menu.</p>
+<p>Select the same OpenShift version selected for the <em>Hub</em> cluster from the menu.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -450,7 +450,7 @@ Uploading /root/Downloads/eea97cca-cda5-47b9-bfdf-51929b4a7067-discovery.iso com
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-Upload the discovery ISO to <code>sno2</code> and <code>sno3</code> clusters by performing the above steps.
+Upload the discovery ISO to <code>sno2</code> and <code>sno3</code> clusters by performing the above same steps.
 </td>
 </tr>
 </table>
@@ -644,6 +644,22 @@ Follow the same steps above for the <code>tcn2.lab.example.com</code> and <code>
 </li>
 <li>
 <p>After 7 to 10 minutes, the installation will wait for <em>Pending user action</em>.</p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+In your environment, the bootstrap role can be assigned to any of the nodes.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Here the bootstrap role is assigned to the <code>tcn1.lab.example.com</code> VM.
+Hence the <em>Pending user action</em> is performed first on other two VMs.</p>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_tenant_pending_user_actions.png" alt="hub console tenant pending user actions">

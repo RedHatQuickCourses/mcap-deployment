@@ -225,7 +225,18 @@ These <em>Infrastructure</em> clusters will be Single Node OpenShift (SNO) clust
 <p>Download or copy your <a href="https://console.redhat.com/openshift/install/pull-secret" target="read-later">pull-secret</a> and put it in <code>pull_secret.txt</code> file on the hypervisor.</p>
 </li>
 <li>
-<p>Set the OpenShift <code>clusterimageset</code> to 4.16.8 on a stable channel.</p>
+<p>Set the OpenShift <code>clusterimageset</code>.</p>
+<div class="paragraph">
+<p>Here for example, it is set as <code>4.16.8</code> on <code>stable</code> channel.</p>
+</div>
+<div class="paragraph">
+<p>You can set it as the same version selected for the <em>Hub</em> cluster.</p>
+</div>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ocp_version=4.16.8</code></pre>
+</div>
+</div>
 <div class="paragraph">
 <p>This will allow you to deploy the <em>Infrastructure</em> and <em>Tenant</em> clusters with the same OpenShift version.</p>
 </div>
@@ -250,15 +261,15 @@ These <em>Infrastructure</em> clusters will be Single Node OpenShift (SNO) clust
 </div>
 </li>
 <li>
-<p>Set the <em>visible</em> label as <em>true</em> and <em>channel</em> label as <em>stable</em> for <code>4.16.8</code> image.</p>
+<p>Set the <em>visible</em> label as <em>true</em> and <em>channel</em> label as <em>stable</em> for the image.</p>
 <div class="listingblock execute">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc patch clusterimagesets.hive.openshift.io img4.16.8-multi-appsub --type='json' -p='[{"op":"replace","path": "/metadata/labels/visible","value":"true"}]'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc patch clusterimagesets.hive.openshift.io img${ocp_version}-multi-appsub --type='json' -p='[{"op":"replace","path": "/metadata/labels/visible","value":"true"}]'</code></pre>
 </div>
 </div>
 <div class="listingblock execute">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc patch clusterimagesets.hive.openshift.io img4.16.8-multi-appsub --type='json' -p='[{"op":"replace","path": "/metadata/labels/channel","value":"stable"}]'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc patch clusterimagesets.hive.openshift.io img${ocp_version}-multi-appsub --type='json' -p='[{"op":"replace","path": "/metadata/labels/channel","value":"stable"}]'</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -357,7 +368,7 @@ clusterimageset.hive.openshift.io/img4.16.8-multi-appsub patched
 <p>Base domain: <code>lab.example.com</code></p>
 </div>
 <div class="paragraph">
-<p>Select <code>4.16.8</code> version of OpenShift from the menu.</p>
+<p>Select the same OpenShift version selected for the <em>Hub</em> cluster from the menu.</p>
 </div>
 <div class="paragraph">
 <p>Check the box <code>Install single node OpenShift (SNO)</code>.</p>
@@ -492,7 +503,7 @@ clusterimageset.hive.openshift.io/img4.16.8-multi-appsub patched
 <div class="listingblock">
 <div class="title">Sample output:</div>
 <div class="content">
-<pre>[root@hypervisor ~]# mv Downloads/39c2b646-e122-435b-b85e-c8ec6dd18d04-discovery.iso /var/lib/libvirt/images/</pre>
+<pre>[root@hypervisor ~]# mv /root/Downloads/39c2b646-e122-435b-b85e-c8ec6dd18d04-discovery.iso /var/lib/libvirt/images/</pre>
 </div>
 </div>
 </li>
