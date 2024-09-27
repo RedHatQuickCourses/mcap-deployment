@@ -58,17 +58,18 @@ https://linux-kvm.org/page/Main_Page[Linux-KVM,window=read-later]
 
 === Utility and Services
 
-The bare metal is acting as hypervisor, http server, dhcp server and dns server.
+The bare metal is acting as a hypervisor, http server, dhcp server, and dns server.
+// Should the above names - HTTP, DHCP be capitalized?
 Configure all these services on the bare metal.
 
 === Networking
 
-In this example there are three Infrastructure clusters.
+In this example, there are three Infrastructure clusters.
 This setup uses KVMs as the base infrastructure.
 All external communication between your clusters will happen via a https://developers.redhat.com/blog/2018/10/22/introduction-to-linux-interfaces-for-virtual-networking#bridge[virtual bridge,window=read-later] on the bare metal.
 
 Install the https://docs.openshift.com/container-platform/4.16/networking/k8s_nmstate/k8s-nmstate-about-the-k8s-nmstate-operator.html[Kubernetes NMState Operator,window=read-later] on the _Infrastructure_ clusters.
-NMstate operator allows users to configure various network interface types, DNS and routing on cluster nodes.
+NMstate operator allows users to configure various network interface types, DNS, and routing on cluster nodes.
 Two main object types drive the configuration.
 
 * NodeNetworkConfigurationPolicy (Policy)
@@ -82,18 +83,18 @@ Non-volatile Memory Express (NVMe) disks are attached to this hypervisor.
 In this lab setup, use https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_logical_volumes/index[LVM,window=read-later] to configure storage.
 
 [NOTE]
-Non-volatile Memory Express (NVMe) is an interface that allows host software utility to communicate with solid state drives.
+Non-volatile Memory Express (NVMe) is an interface that allows host software utility to communicate with solid-state drives.
 
-On the hypervisor, first create 7TB (3.5TB + 3.5TB disks) logical volume (LV) and mount on storage pool directory path.
+On the hypervisor, first create a 7TB (3.5TB + 3.5TB disks) logical volume (LV) and mount it on the storage pool directory path.
 This stores VMs images.
 
 There is a separate storage virtual machine (VM) for shared storage for _Tenant_ cluster.
-Create three disks each of 2TB from the 7TB LV and attach it to the storage VM.
-These disks are needed in Ceph deployment on storage VM.
+Create three disks each of 2TB from the 7TB LV and attach them to the storage VM.
+These disks are needed in Ceph deployment on the storage VM.
 
 Next, install https://docs.redhat.com/en/documentation/red_hat_openshift_data_foundation/4.16/html/red_hat_openshift_data_foundation_architecture/openshift_data_foundation_operators[OpenShift Data Foundation (ODF) operator,window=read-later] on the _Infrastructure_ clusters.
 Create an OpenShift Data Foundation cluster for https://docs.redhat.com/en/documentation/red_hat_openshift_data_foundation/4.16/html/deploying_openshift_data_foundation_in_external_mode/deploy-openshift-data-foundation-using-red-hat-ceph-storage#creating-an-openshift-data-foundation-cluster-service-for-external-storage_ceph-external[external Ceph storage system,window=read-later].
-This is the backend shared storage for _Tenant_ cluster.
+This is the backend shared storage for the _Tenant_ cluster.
 
 === Hub Cluster
 
@@ -101,18 +102,18 @@ The main role of _Hub_ cluster is to deploy _Infrastructure_ clusters and _Tenan
 
 Deploy _Hub_ cluster as https://docs.openshift.com/container-platform/4.16/installing/installing_sno/install-sno-installing-sno.html[Single Node OpenShift (SNO) cluster,window=read-later].
 
-Install following operators on _Hub_ cluster which acts as hub cluster.
+Install the following operators on the  _Hub_ cluster which acts as the hub cluster.
 
 * Multi cluster engine
 * Red Hat Advanced Cluster Management (RHACM)
 * Logical Volume Manager Storage (LVMS)
 
-Ensure https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.11/html-single/clusters/index#enable-cim[Provisioning and Central Infrastructure Management (CIM),window=read-later] services are deployed on _Hub_ cluster.
+Ensure https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.11/html-single/clusters/index#enable-cim[Provisioning and Central Infrastructure Management (CIM),window=read-later] services are deployed on the _Hub_ cluster.
 
 === Infrastructure Cluster
 
 The main role of _Infrastructure_ clusters is to deploy Nested OpenShift VMs using OpenShift Virtualization.
-Each _Infrastructure_ cluster has one virtual machine that acts as OpenShift node in _Tenant_ cluster.
+Each _Infrastructure_ cluster has one virtual machine that acts as an OpenShift node in the _Tenant_ cluster.
 
 There are three _Infrastructure_ clusters.
 Deploy _Infrastructure_ clusters as _Single Node OpenShift (SNO)_ cluster from _Hub_ cluster using RHACM.
@@ -124,7 +125,7 @@ Upload discovery ISO to all _Infrastructure_ clusters to boot the _Tenant_ clust
 === Tenant Cluster
 
 There is only one _Tenant_ cluster.
-Deploy _Tenant_ cluster as https://docs.openshift.com/container-platform/4.5/release_notes/ocp-4-5-release-notes.html#ocp-4-5-three-node-bare-metal-deployments[_Three-Node OpenShift Compact_ cluster,window=read-later] from _Hub_ cluster using RHACM.
+Deploy _Tenant_ cluster as https://docs.openshift.com/container-platform/4.5/release_notes/ocp-4-5-release-notes.html#ocp-4-5-three-node-bare-metal-deployments[_Three-Node OpenShift Compact_ cluster,window=read-later] from the _Hub_ cluster using RHACM.
 These three nodes are the virtual machines running on _Infrastructure_ clusters.
 
 All applications and workloads are running on _Tenant_ cluster nodes.

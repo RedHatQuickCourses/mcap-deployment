@@ -8,7 +8,7 @@ image::MCAP_setup_2.png[]
 
 . Download the `rhel-9.4-x86_64-kvm.qcow2` image from the https://access.redhat.com/downloads/content/rhel[Red Hat Customer Portal,window=read-later] to your laptop/desktop.
 
-. Use secured copy (scp) to copy the `rhel-9.4-x86_64-kvm.qcow2` image from your laptop/desktop to hypervisor and then place it in `/root` directory.
+. Use secured copy (scp) to copy the `rhel-9.4-x86_64-kvm.qcow2` image from your laptop/desktop to the hypervisor and then place it in `/root` directory.
 +
 .Sample output
 ----
@@ -63,7 +63,7 @@ cluster_size: 65536
 ...output omitted...
 ----
 
-. Resize the image with additional size of 30G.
+. Resize the image with an additional size of 30G.
 +
 [source,bash,role=execute]
 ----
@@ -72,7 +72,7 @@ qemu-img resize rhel-9.4-x86_64-kvm.qcow2 +30G
 +
 This increases the virtual size of the disk.
 +
-Ensure virtual size is increased by 30GB.
+Ensure the virtual size is increased by 30GB.
 +
 .Sample output
 ----
@@ -121,7 +121,7 @@ https://access.redhat.com/solutions/57263[How to extend a XFS filesytem using th
 virt-customize -a rhel-9.4-x86_64-kvm.qcow2 --root-password password:redhat
 ----
 +
-You can use this password for logging into VM via console.
+You can use this password for logging into VM via the console.
 
 . Disable the `cloud-init` service in qcow2 image.
 +
@@ -207,7 +207,7 @@ Domain 'storage' started
 
 ----
 +
-Verify `storage` VM is in `running` state.
+Verify `storage` VM is in a `running` state.
 +
 .Sample output
 ----

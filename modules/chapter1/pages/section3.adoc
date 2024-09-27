@@ -1,7 +1,7 @@
 = Storage VM Deployment
 
 [NOTE]
-You can refer how to configure manually i.e. without automation in at the end appendix chapter.
+You can refer to the appendix at the end for manual configuration instructions without automation.
 
 In this section, you will be creating one KVM with name `storage`.
 
@@ -9,7 +9,7 @@ image::MCAP_setup_2.png[]
 
 == Prerequisites
 
-Ensure you have already executed *_setup_hypervisor.yaml_* playbook from `Initial Setup on Hypervisor` page.
+Ensure you have already executed *_setup_hypervisor.yaml_* playbook from `Initial Setup on the Hypervisor` page.
 
 == Storage VM Deployment
 

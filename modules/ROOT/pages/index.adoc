@@ -22,18 +22,20 @@ The PTL team acknowledges the valuable contributions of the following Red Hat as
 This introductory course has a few, simple hands-on labs. You will use the https://demo.redhat.com/catalog?item=babylon-catalog-prod/equinix-metal.eqx-blank.prod&utm_source=webapp&utm_medium=share-link.ocp4-workshop-rhods-base-aws.prod[Equinix Metal baremetal blank server,window=read-later] catalog item in the Red Hat Demo Platform (RHDP) to run the hands-on exercises in this course.
 
 Update the Catalog link - ##FIX THIS##
+// Can you fix the above link?
 
 When ordering this catalog item in RHDP:
 
 . Select *Practice/Enablement* for the *Activity* field.
 . Select the nearest or any region in the *Region* field.
-. Select *n3.xlarge.x86* as the flavor in *Type* field.
+. Select *n3.xlarge.x86* as the flavor in the  *Type* field.
 
 === Red Hat Partners
 
 Partners should be able to access the new https://partner.demo.redhat.com[Red Hat Demo Platform for Partners,window=read-later] by logging in with their RHN account credentials. For more information on this you can refer https://content.redhat.com/us/en/product/cross-portfolio-initiatives/rhdp.html#tabs-333fa7ebb9-item-b6fc845e73-tab[about Red Hat Demo Platform (RHDP),window=read-later]
 
 Catalog link - ##FIX THIS##
+// Can you fix the above link?
 
 For partner support - https://connect.redhat.com/en/support[Help and support,window=read-later]
 
@@ -44,8 +46,10 @@ For this course, you should have:
 * Red Hat Certified Systems Administrator certification, or equivalent knowledge of Linux system administration is recommended for all roles.
 * https://rol.redhat.com/rol/app/courses/do280-4.14[Red Hat OpenShift Administration II: Configuring a Production Cluster (DO280),window=read-later], or equivalent knowledge on configuring a production Red Hat OpenShift cluster.
 * https://rol.redhat.com/rol/app/technical-overview/do016-4.14[Red Hat OpenShift Virtualization (OCP Virt) Technical Overview (DO016),window=read-later]
+// Above course showed - temporarily unavailable for me. Can you please check?
 * https://rol.redhat.com/rol/app/courses/do316-4.14[Managing Virtual Machines with Red Hat OpenShift Virtualization (DO316),window=read-later], or equivalent knowledge on how to create virtual machines on Red Hat OpenShift cluster using Red Hat OpenShift Virtualization.
-* Knowledge on installing Red Hat Advanced Cluster Management (RHACM) operator
+// Avove course showed - temporarily unavailable for me. Can you please check?
+* Knowledge of installing Red Hat Advanced Cluster Management (RHACM) operator
 
 == Objectives
 
