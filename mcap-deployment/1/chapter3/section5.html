@@ -203,7 +203,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this section, you will be configuring additional network settings needed for deploying <em>Tenant</em> cluster.</p>
+<p>In this section, you will be configuring additional network settings needed for deploying the <em>Tenant</em> cluster.</p>
 </div>
 <div class="paragraph">
 <p>After you install the Kubernetes NMState Operator, you can configure a Linux bridge network for live migration or external access to virtual machines (VMs).</p>
@@ -216,18 +216,18 @@
 </td>
 <td class="content">
 <div class="paragraph">
-<p>In this POC setup, there is only one bridge, <code>virbr0</code> and each SNO VM has single NIC.
-This NIC is used to deploy <em>Infrastructure</em> SNO cluster on SNO VMs.
-As NIC is already used for deploying <em>Infrastructure</em> SNO cluster, NMState configuration will not work using the same NIC.</p>
+<p>In this POC setup, there is only one bridge, <code>virbr0</code>, and each SNO VM has a single NIC.
+This NIC is used to deploy the <em>Infrastructure</em> SNO cluster on SNO VMs.
+As NIC is already used for deploying the <em>Infrastructure</em> SNO cluster, NMState configuration will not work using the same NIC.</p>
 </div>
 <div class="paragraph">
 <p>For example, two NICs are attached to SNO VMs (connected to the same bridge <code>virbr0</code>) at the time of creating SNO VMs.
-In this case, deployment of <em>Infrastructure</em> cluster from <em>Hub</em> cluster using RHACM will not proceed.
+In this case, deployment of the <em>Infrastructure</em> cluster from the <em>Hub</em> cluster using RHACM will not proceed.
 The reason behind this is that the two NICs are on the same network.</p>
 </div>
 <div class="paragraph">
 <p>Ideally, there should be separate networks for <em>Infrastructure</em> and <em>Tenant</em> clusters.
-It is possible that in future releases or updates of this course, the separate network configurations may be included.</p>
+It is possible that in future releases or updates of this course, separate network configurations may be included.</p>
 </div>
 <div class="paragraph">
 <p>There is a workaround to address it in this POC setup, adding the second NIC to SNO VMs after the deployment of the SNO cluster.</p>
@@ -249,13 +249,13 @@ It is possible that in future releases or updates of this course, the separate n
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Verify that <em>sno1</em> cluster is deployed successfully.</p>
+<p>Verify that the <em>sno1</em> cluster is deployed successfully.</p>
 </li>
 <li>
 <p>Access the <em>sno1</em> cluster via CLI and web console.</p>
 </li>
 <li>
-<p>Ensure that <code>sno1.lab.example.com</code> node is in <code>Ready</code> status and all cluster operators are available.</p>
+<p>Ensure that the <code>sno1.lab.example.com</code> node is in the <code>Ready</code> status and all cluster operators are available.</p>
 <div class="listingblock">
 <div class="title">Sample output:</div>
 <div class="content">
@@ -272,7 +272,7 @@ version   4.16.8    True        False         23h     Cluster version is 4.16.8<
 </div>
 </li>
 <li>
-<p>Ensure that NMState operator is installed on <em>sno1</em> cluster.</p>
+<p>Ensure that the NMState operator is installed on the <em>sno1</em> cluster.</p>
 </li>
 </ol>
 </div>
@@ -312,7 +312,7 @@ version   4.16.8    True        False         23h     Cluster version is 4.16.8<
 </div>
 </li>
 <li>
-<p>Notice, NIC is added on the fly.</p>
+<p>Notice, that NIC is added on the fly.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/sno1_add_nic_2.png" alt="sno1 add nic 2">

@@ -203,7 +203,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this section, you will be deploying <em>Hub</em> cluster using <code>hub</code> VM.
+<p>In this section, you will be deploying the <em>Hub</em> cluster using the <code>hub</code> VM.
 This <em>Hub</em> cluster will be Single Node OpenShift (SNO) cluster.</p>
 </div>
 <div class="imageblock">
@@ -238,7 +238,7 @@ This <em>Hub</em> cluster will be Single Node OpenShift (SNO) cluster.</p>
 </div>
 </li>
 <li>
-<p>Select <code>Bare Metal (x86_64)</code> as cluster type from <code>Datacenter</code> tab.</p>
+<p>Select <code>Bare Metal (x86_64)</code> as the cluster type from the <code>Datacenter</code> tab.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/console_redhat_cluster_type.png" alt="console redhat cluster type">
@@ -246,7 +246,7 @@ This <em>Hub</em> cluster will be Single Node OpenShift (SNO) cluster.</p>
 </div>
 </li>
 <li>
-<p>Select <code>Interactive</code> web based mode.</p>
+<p>Select <code>Interactive</code> web-based mode.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/console_redhat_baremetal_interactive.png" alt="console redhat baremetal interactive">
@@ -309,7 +309,7 @@ This <em>Hub</em> cluster will be Single Node OpenShift (SNO) cluster.</p>
 <p>Select <span class="menuseq"><b class="menu">Provisioning type</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Full image file - Download a self-contained ISO</b></span>.</p>
 </div>
 <div class="paragraph">
-<p>SSH public key: provide the <code>root</code> user&#8217;s public rsa key from hypervisor.</p>
+<p>SSH public key: provide the <code>root</code> user&#8217;s public rsa key from the hypervisor.</p>
 </div>
 <div class="paragraph">
 <p>Click <b class="button">Generate Discovery ISO</b>.</p>
@@ -324,7 +324,7 @@ This <em>Hub</em> cluster will be Single Node OpenShift (SNO) cluster.</p>
 <p>Download the discovery ISO.</p>
 <div class="paragraph">
 <p>To download the discovery ISO on your laptop or desktop, click <b class="button">Download Discovery ISO</b>.
-In this case, you need to copy it to hypervisor manually.</p>
+In this case, you need to copy it to the hypervisor manually.</p>
 </div>
 <div class="paragraph">
 <p>or</p>
@@ -344,15 +344,15 @@ In this case, you need to copy it to hypervisor manually.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-You will need <code>virt-manager</code> to attach this discovery ISO to <code>hub</code> VM.
-To access the GUI of hypervisor, you will need console access.
+You will need <code>virt-manager</code> to attach this discovery ISO to the <code>hub</code> VM.
+To access the GUI of the hypervisor, you will need console access.
 </td>
 </tr>
 </table>
 </div>
 </li>
 <li>
-<p>Access the vnc console of hypervisor.</p>
+<p>Access the vnc console of the hypervisor.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -361,7 +361,7 @@ To access the GUI of hypervisor, you will need console access.
 </td>
 <td class="content">
 <code>tigervnc-server</code> is installed on the hypervisor.
-Using vnc viewer, you can access the console of hypervisor.
+Using vnc viewer, you can access the console of the hypervisor.
 </td>
 </tr>
 </table>
@@ -370,7 +370,7 @@ Using vnc viewer, you can access the console of hypervisor.
 <ol class="loweralpha" type="a">
 <li>
 <p>Set password for vncserver.
-You will use this password to access vnc console of hypervisor from your laptop/desktop.</p>
+You will use this password to access vnc console of the hypervisor from your laptop/desktop.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">vncpasswd</code></pre>
@@ -418,7 +418,7 @@ Log file is /root/.vnc/hypervisor:2.log</pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-As per above output, you will mention <code>&lt;hypervisor_ip_address&gt;:2</code> as connection in VNC viewer.
+As per the above output, you will mention <code>&lt;hypervisor_ip_address&gt;:2</code> as connection in VNC viewer.
 </td>
 </tr>
 </table>
@@ -494,7 +494,7 @@ Hit <kbd>enter</kbd> button, till you see the <code>[root@hypervisor images]#</c
 </div>
 </div>
 <div class="paragraph">
-<p>Running the command in background i.e. with <code>&amp;</code> allows you to run other commands on same terminal later.</p>
+<p>Running the command in the background i.e. with <code>&amp;</code> allows you to run other commands on the same terminal later.</p>
 </div>
 </li>
 <li>
@@ -509,11 +509,11 @@ Hit <kbd>enter</kbd> button, till you see the <code>[root@hypervisor images]#</c
 </div>
 </li>
 <li>
-<p>Attach the downloaded discovery iso to <code>hub</code> VM.</p>
+<p>Attach the downloaded discovery iso to the <code>hub</code> VM.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Run the <code>virt-manager &amp;</code> command on terminal to launch virtual machine manager.</p>
+<p>Run the <code>virt-manager &amp;</code> command on the terminal to launch the virtual machine manager.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/vnc_virt_manager.png" alt="vnc virt manager">
@@ -587,8 +587,8 @@ You may need to close the first instance of <code>virt-manager</code> and re-run
 </div>
 </li>
 <li>
-<p>Go back to <a href="https://console.redhat.com/openshift/cluster-list">console.redhat.com</a> to resume assisted installation of <em>Hub</em> cluster.
-Notice the host is getting discovered and status is <code>Ready</code>.</p>
+<p>Go back to <a href="https://console.redhat.com/openshift/cluster-list">console.redhat.com</a> to resume the assisted installation of the <em>Hub</em> cluster.
+Notice that the host is getting discovered and it&#8217;s status is <code>Ready</code>.</p>
 <div class="paragraph">
 <p>Click <b class="button">Next</b>.</p>
 </div>
@@ -598,11 +598,11 @@ Notice the host is getting discovered and status is <code>Ready</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>It may take few minutes to update status as <code>Ready</code>.</p>
+<p>It may take a few minutes to update the status as <code>Ready</code>.</p>
 </div>
 </li>
 <li>
-<p>In storage section, once status is <code>Ready</code>, click <b class="button">Next</b>.</p>
+<p>In the storage section, once the status is <code>Ready</code>, click <b class="button">Next</b>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/console_redhat_storage.png" alt="console redhat storage">
@@ -610,7 +610,7 @@ Notice the host is getting discovered and status is <code>Ready</code>.</p>
 </div>
 </li>
 <li>
-<p>In networking section, once status is <code>Ready</code>, click <b class="button">Next</b>.</p>
+<p>In the networking section, once the status is <code>Ready</code>, click <b class="button">Next</b>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/console_redhat_networking.png" alt="console redhat networking">
@@ -637,14 +637,14 @@ Notice the host is getting discovered and status is <code>Ready</code>.</p>
 </div>
 </li>
 <li>
-<p>After 7-10 minutes, it waits on pending user action.</p>
+<p>After 7-10 minutes, it waits for pending user action.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/console_redhat_pending_user_actions.png" alt="console redhat pending user actions">
 </div>
 </div>
 <div class="paragraph">
-<p>This means you need to disconnect the discovery ISO from the <code>hub</code> VM and boot the <code>hub</code> VM from disk.</p>
+<p>This means you need to disconnect the discovery ISO from the <code>hub</code> VM and boot the <code>hub</code> VM from the disk.</p>
 </div>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
@@ -684,7 +684,7 @@ Notice the host is getting discovered and status is <code>Ready</code>.</p>
 </div>
 </li>
 <li>
-<p>You will notice at <code>80%</code> the installation goes into finalizing state.</p>
+<p>You will notice at <code>80%</code> the installation goes into a finalizing state.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/console_redhat_cluster_install_finalizing.png" alt="console redhat cluster install finalizing">
@@ -692,7 +692,7 @@ Notice the host is getting discovered and status is <code>Ready</code>.</p>
 </div>
 </li>
 <li>
-<p>Installation completes in approximately 15 minutes.</p>
+<p>Installation is completed in approximately 15 minutes.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/console_redhat_install_complete.png" alt="console redhat install complete">

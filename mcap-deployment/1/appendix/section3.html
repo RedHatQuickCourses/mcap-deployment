@@ -203,7 +203,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this section, you will be creating one KVM with name <code>hub</code>.</p>
+<p>In this section, you will be creating one KVM with the name <code>hub</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -216,7 +216,7 @@
 <h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copy the <code>rhel-9.4-x86_64-kvm.qcow2</code> image from <code>/root</code> and place it in /var/lib/libvirt/images directory with name as <code>rhel9-guest.qcow2</code>.</p>
+<p>Copy the <code>rhel-9.4-x86_64-kvm.qcow2</code> image from <code>/root</code> and place it in /var/lib/libvirt/images directory with the name as <code>rhel9-guest.qcow2</code>.</p>
 </div>
 <div class="listingblock">
 <div class="title">Sample output</div>
@@ -270,7 +270,7 @@ cluster_size: 65536
 </div>
 </li>
 <li>
-<p>Resize the image with additional size of 120G.</p>
+<p>Resize the image with an additional size of 120G.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">qemu-img resize rhel9-guest.qcow2 +120G</code></pre>
@@ -280,7 +280,7 @@ cluster_size: 65536
 <p>This increases the virtual size of the disk.</p>
 </div>
 <div class="paragraph">
-<p>Ensure virtual size is increased by 120GB.</p>
+<p>Ensure the virtual size is increased by 120GB.</p>
 </div>
 <div class="listingblock">
 <div class="title">Sample output</div>
@@ -340,7 +340,7 @@ cluster_size: 65536
 </div>
 </div>
 <div class="paragraph">
-<p>You can use this password for logging into VM via console.</p>
+<p>You can use this password for logging into the VM via the console.</p>
 </div>
 </li>
 <li>
@@ -368,7 +368,7 @@ cluster_size: 65536
 </div>
 </li>
 <li>
-<p>Create the image for <code>hub</code> VM using the <em>rhel9.X</em> qcow2 image.</p>
+<p>Create the image for the <code>hub</code> VM using the <em>rhel9.X</em> qcow2 image.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">qemu-img create -f qcow2 -F qcow2 -b /var/lib/libvirt/images/rhel9-guest.qcow2 /var/lib/libvirt/images/hub.qcow2</code></pre>
@@ -384,7 +384,7 @@ cluster_size: 65536
 <li>
 <p>Create the <code>hub</code> VM with three 2TB disks.
 Disk path should be storage pool path i.e. <code>/var/lib/libvirt/images/</code>.
-mac address for the <code>hub</code> VM should be same as from the dhcp configuration.</p>
+mac address for the <code>hub</code> VM should be the same as from the dhcp configuration.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virt-install --virt-type kvm --ram 122880 --vcpus 32 --cpu=host-passthrough --os-variant rhel9.3 \
@@ -434,7 +434,7 @@ You can restart your domain by running:
 </div>
 </div>
 <div class="paragraph">
-<p>Verify <code>hub</code> VM is in <code>running</code> state.</p>
+<p>Verify <code>hub</code> VM is in a <code>running</code> state.</p>
 </div>
 <div class="listingblock">
 <div class="title">Sample output</div>
@@ -451,7 +451,7 @@ You can restart your domain by running:
 <li>
 <p>Verify <code>hub</code> VM is booted successfully.</p>
 <div class="paragraph">
-<p>Take the console of the <code>hub</code> VM and login as <em>root</em> user with <em>redhat</em> as password.</p>
+<p>Take the console of the <code>hub</code> VM and log in as <em>root</em> user with <em>redhat</em> as the password.</p>
 </div>
 <div class="listingblock execute">
 <div class="content">

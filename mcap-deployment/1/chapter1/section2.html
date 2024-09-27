@@ -209,14 +209,14 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-You can refer to how to configure manually i.e. without automation at the end appendix chapter.
+You can refer to the appendix at the end for manual configuration instructions without automation.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Before proceeding with the actual MCAP deployment, let&#8217;s first ensure the initial setup and configuration is done on the hypervisor.
-You will need to perform few tasks before the actual deployment of OpenShift clusters.
+<p>Before proceeding with the actual MCAP deployment, let&#8217;s first ensure that the initial setup and configuration are done on the hypervisor.
+You will need to perform a few tasks before the actual deployment of OpenShift clusters.
 Few of the tasks are automated with the help of ansible playbooks.</p>
 </div>
 <div class="imageblock">
@@ -235,7 +235,7 @@ Few of the tasks are automated with the help of ansible playbooks.</p>
 <p>Download the <code>rhel-9.4-x86_64-kvm.qcow2</code> image from the <a href="https://access.redhat.com/downloads/content/rhel" target="read-later">Red Hat Customer Portal</a> to your laptop/desktop.</p>
 </li>
 <li>
-<p>Use secured copy (scp) to copy the <code>rhel-9.4-x86_64-kvm.qcow2</code> image from your laptop/desktop to hypervisor and then place it in <code>/root</code> directory.</p>
+<p>Use secured copy (scp) to copy the <code>rhel-9.4-x86_64-kvm.qcow2</code> image from your laptop/desktop to the hypervisor and then place it in <code>/root</code> directory.</p>
 <div class="listingblock">
 <div class="title">Sample output:</div>
 <div class="content">
@@ -298,7 +298,7 @@ Clone the repo in case it is not already cloned while provisioning.
 <h2 id="_setup_and_configuration"><a class="anchor" href="#_setup_and_configuration"></a>Setup and Configuration</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can either use the <strong><em>setup_hypervisor.yaml</em></strong> playbook to install packages, configure swap, LV, DHCP, HTTP and DNS or else run commands manually on the hypervisor.</p>
+<p>You can either use the <strong><em>setup_hypervisor.yaml</em></strong> playbook to install packages, configure swap, LV, DHCP, HTTP, and DNS, or else run commands manually on the hypervisor.</p>
 </div>
 <div class="paragraph">
 <p>Ensure you are in <strong><em>ansible</em></strong> directory of the repo.</p>

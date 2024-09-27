@@ -203,8 +203,8 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Before proceeding the actual MCAP deployment, let&#8217;s first ensure the initial setup and configuration is done on the hypervisor.
-You will need to perform few tasks before actual deployment of openshift clusters.</p>
+<p>Before proceeding with the actual MCAP deployment, let&#8217;s first ensure the initial setup and configuration are done on the hypervisor.
+You will need to perform a few tasks before the actual deployment of openshift clusters.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -235,10 +235,10 @@ You will need to perform few tasks before actual deployment of openshift cluster
 <h2 id="_setup_and_configuration_without_automation"><a class="anchor" href="#_setup_and_configuration_without_automation"></a>Setup and Configuration without Automation</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_create_ssh_key_for_the_root_user"><a class="anchor" href="#_create_ssh_key_for_the_root_user"></a>Create SSH key for the root user</h3>
+<h3 id="_create_an_ssh_key_for_the_root_user"><a class="anchor" href="#_create_an_ssh_key_for_the_root_user"></a>Create an SSH key for the root user</h3>
 <div class="paragraph">
 <p>The public key from the following command will be used while deploying <em>Hub</em> and <em>Infrastructure</em> clusters.
-You will be asked for public key while building the discovery iso for the host.</p>
+You will be asked for a public key while building the discovery iso for the host.</p>
 </div>
 <div class="listingblock execute">
 <div class="content">
@@ -249,8 +249,8 @@ You will be asked for public key while building the discovery iso for the host.<
 <div class="sect2">
 <h3 id="_install_the_required_packages"><a class="anchor" href="#_install_the_required_packages"></a>Install the required packages</h3>
 <div class="paragraph">
-<p>The following required packages needed for DHCP server, HTTP server, DNS server, VNC server and creating virtual machines on hypervisor.
-It also include additional tools packages.</p>
+<p>The following required packages are needed for DHCP server, HTTP server, DNS server, VNC server, and creating virtual machines on the hypervisor.
+It also includes additional tools and packages.</p>
 </div>
 <div class="listingblock execute">
 <div class="content">
@@ -263,9 +263,9 @@ libguestfs-tools-c cockpit cockpit-machines unzip tigervnc tigervnc-server firef
 <div class="sect2">
 <h3 id="_increase_the_swap_space"><a class="anchor" href="#_increase_the_swap_space"></a>Increase the <em>Swap</em> space</h3>
 <div class="paragraph">
-<p><em>Swap</em> space is extension of physical RAM.
+<p><em>Swap</em> space is an extension of physical RAM.
 It offers virtual memory in case of physical RAM is fully used.
-MCAP needs considerable amount of memory and it is recommended to have proportionate amount of <em>Swap</em> space configured in an environment.</p>
+MCAP needs a considerable amount of memory and it is recommended to have a proportionate amount of <em>Swap</em> space configured in an environment.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -277,7 +277,7 @@ MCAP needs considerable amount of memory and it is recommended to have proportio
 </div>
 </div>
 <div class="paragraph">
-<p>Check the <em>Swap</em> space using <code>free</code> command.</p>
+<p>Check the <em>Swap</em> space using the <code>free</code> command.</p>
 </div>
 <div class="listingblock">
 <div class="title">Sample output</div>
@@ -332,7 +332,7 @@ The unused NVMe disk may vary in your environment output.
 </div>
 </li>
 <li>
-<p>Use unused 250GB nvme disk as swap partition.</p>
+<p>Use unused 250GB nvme disk as a swap partition.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkswap /dev/nvme1n1</code></pre>
@@ -361,7 +361,7 @@ The above UUID may differ in your environment.
 <li>
 <p>Add swap entry in <code>/etc/fstab</code> to make it persistent throughout the reboot.</p>
 <div class="paragraph">
-<p>Ensure to replace the UUID in following command with UUID from previous step.</p>
+<p>Ensure to replace the UUID in following command with the UUID from the previous step.</p>
 </div>
 <div class="listingblock execute">
 <div class="content">
@@ -406,7 +406,7 @@ Swap:          238Gi          0B       238Gi</pre>
 <div class="sect2">
 <h3 id="_create_lv_for_vm_storage_pool"><a class="anchor" href="#_create_lv_for_vm_storage_pool"></a>Create LV for VM storage pool</h3>
 <div class="paragraph">
-<p>The LV created in this section will be used as storage pool for virtual machine disks and backend shared OpenShift DataFoundation using Red Hat Ceph storage for <em>Tenant</em> cluster.</p>
+<p>The LV created in this section will be used as a storage pool for virtual machine disks and backend-shared OpenShift DataFoundation using Red Hat Ceph storage for the <em>Tenant</em> cluster.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -518,7 +518,7 @@ The above UUID may differ in your environment.
 <li>
 <p>Mount the 7TB LV on <code>/var/lib/libvirt/images</code>.</p>
 <div class="paragraph">
-<p>Ensure to replace the UUID in following command with UUID from previous step.</p>
+<p>Ensure to replace the UUID in the following command with UUID from the previous step.</p>
 </div>
 <div class="listingblock execute">
 <div class="content">
@@ -526,7 +526,7 @@ The above UUID may differ in your environment.
 </div>
 </div>
 <div class="paragraph">
-<p>Run <code>mount</code> command to mount the LV on <code>/var/lib/libvirt/images</code>.</p>
+<p>Run the <code>mount</code> command to mount the LV on <code>/var/lib/libvirt/images</code>.</p>
 </div>
 <div class="listingblock execute">
 <div class="content">
@@ -572,7 +572,7 @@ You can verify it by running the <code>ip addr</code> command.</p>
 </div>
 <div class="paragraph">
 <p>After enabling and starting the cockpit services, it creates cockpit web console access.
-You can login to cockpit web console with <code>lab-user&#8217;s</code> credentials.</p>
+You can log in to the cockpit web console with the <code>lab-user&#8217;s</code> credentials.</p>
 </div>
 <div class="listingblock execute">
 <div class="content">
@@ -610,7 +610,7 @@ You can use the cockpit web console (<a href="https://&lt;your_hypervisor_IP&gt;
 <div class="sect2">
 <h3 id="_configure_dhcp"><a class="anchor" href="#_configure_dhcp"></a>Configure DHCP</h3>
 <div class="paragraph">
-<p>It is recommended to have DHCP server.
+<p>It is recommended to have the DHCP server.
 In this section, you will be configuring the DHCP server.</p>
 </div>
 <div class="olist arabic">
@@ -712,7 +712,7 @@ For additional information on SELinux refer - <a href="https://docs.redhat.com/e
 <div class="sect2">
 <h3 id="_configure_dns"><a class="anchor" href="#_configure_dns"></a>Configure DNS</h3>
 <div class="paragraph">
-<p>To have name resolution, DNS server is needed.
+<p>To have name resolution, the DNS server is needed.
 In this section, you will be configuring the DNS server.</p>
 </div>
 <div class="olist arabic">
@@ -1035,9 +1035,9 @@ nameserver 14X.XX.YY.ZZX</pre>
 <h3 id="_configure_http"><a class="anchor" href="#_configure_http"></a>Configure HTTP</h3>
 <div class="paragraph">
 <p>The HTTP server is needed to serve the ignition configuration files.
-These ignition configuration files will be pulled from HTTP server during the openshift node installation.
+These ignition configuration files will be pulled from the HTTP server during the openshift node installation.
 In this section, you will be configuring the HTTP server.
-There are multiple ways to configure the HTTP server but here directory from user&#8217;s home directory holds the files.</p>
+There are multiple ways to configure the HTTP server but here directory from the user&#8217;s home directory holds the files.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1182,7 +1182,7 @@ Content-Type: text/plain; charset=UTF-8</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_create_storage_pool_for_kvms"><a class="anchor" href="#_create_storage_pool_for_kvms"></a>Create Storage Pool for KVMs</h3>
+<h3 id="_create_a_storage_pool_for_kvms"><a class="anchor" href="#_create_a_storage_pool_for_kvms"></a>Create a Storage Pool for KVMs</h3>
 <div class="paragraph">
 <p>All five KVMs need the storage pool for storing the VM disks.
 In this section, you will be creating the storage pool.</p>

@@ -203,7 +203,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this section, you will be deploying <em>Tenant</em> cluster using RHACM from <em>Hub</em> cluster.
+<p>In this section, you will be deploying the <em>Tenant</em> cluster using RHACM from the <em>Hub</em> cluster.
 The <em>Tenant</em> cluster will be the <em>Three-Node OpenShift Compact</em> cluster.</p>
 </div>
 <div class="imageblock">
@@ -217,19 +217,19 @@ The <em>Tenant</em> cluster will be the <em>Three-Node OpenShift Compact</em> cl
 <h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <code>tcn1.lab.example.com</code>, <code>tcn2.lab.example.com</code> and <code>tcn3.lab.example.com</code> VMs (created using OpenShift Virtualization) are up and running.</p>
+<p>The <code>tcn1.lab.example.com</code>, <code>tcn2.lab.example.com</code>, and <code>tcn3.lab.example.com</code> VMs (created using OpenShift Virtualization) are up and running.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_deploy_tenant_cluster_as_three_node_openshift_compact_cluster"><a class="anchor" href="#_deploy_tenant_cluster_as_three_node_openshift_compact_cluster"></a>Deploy <em>Tenant</em> cluster as <em>Three-Node OpenShift Compact</em> cluster</h2>
+<h2 id="_deploy_tenant_cluster_as_three_node_openshift_compact_cluster"><a class="anchor" href="#_deploy_tenant_cluster_as_three_node_openshift_compact_cluster"></a>Deploy <em>Tenant</em> cluster as <em>Three-Node OpenShift Compact</em> Cluster</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Login to the web console of <em>Hub</em> cluster.</p>
+<p>Login to the web console of the <em>Hub</em> cluster.</p>
 <div class="paragraph">
-<p>Ensure that you have switched to <code>All Clusters</code> from <code>local-cluster</code>.</p>
+<p>Ensure that you have switched to <code>All Clusters</code> from the <code>local-cluster</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -296,7 +296,7 @@ The <em>Tenant</em> cluster will be the <em>Three-Node OpenShift Compact</em> cl
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Get the pull secret from <code>pull_secret.txt</code> and provide the pull secret in <code>Pull secret</code> field.</p>
+<p>Get the pull secret from <code>pull_secret.txt</code> and provide the pull secret in the <code>Pull secret</code> field.</p>
 <div class="paragraph">
 <p>Click <b class="button">Next</b></p>
 </div>
@@ -332,7 +332,7 @@ The <em>Tenant</em> cluster will be the <em>Three-Node OpenShift Compact</em> cl
 </div>
 </li>
 <li>
-<p>Add <code>tcn1.lab.example.com</code>, <code>tcn2.lab.example.com</code> and <code>tcn3.lab.example.com</code> VMs as host.</p>
+<p>Add <code>tcn1.lab.example.com</code>, <code>tcn2.lab.example.com</code>, and <code>tcn3.lab.example.com</code> VMs as host.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -344,7 +344,7 @@ The <em>Tenant</em> cluster will be the <em>Three-Node OpenShift Compact</em> cl
 </div>
 </li>
 <li>
-<p>Here you will need to provide the public SSH key of <code>root</code> user.</p>
+<p>Here you will need to provide the public SSH key of the <code>root</code> user.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_tenant_public_key.png" alt="hub console tenant public key">
@@ -352,7 +352,7 @@ The <em>Tenant</em> cluster will be the <em>Three-Node OpenShift Compact</em> cl
 </div>
 </li>
 <li>
-<p>Get the public SSH key of <code>root</code> user.</p>
+<p>Get the public SSH key of the <code>root</code> user.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_tenant_public_key_1.png" alt="hub console tenant public key 1">
@@ -360,7 +360,7 @@ The <em>Tenant</em> cluster will be the <em>Three-Node OpenShift Compact</em> cl
 </div>
 </li>
 <li>
-<p>Provide the public SSH key of <code>root</code> user in <code>SSH public key</code> field.</p>
+<p>Provide the public SSH key of the <code>root</code> user in the <code>SSH public key</code> field.</p>
 <div class="paragraph">
 <p>Click <b class="button">Generate Discovery ISO</b> to generate discovery ISO.</p>
 </div>
@@ -371,7 +371,7 @@ The <em>Tenant</em> cluster will be the <em>Three-Node OpenShift Compact</em> cl
 </div>
 </li>
 <li>
-<p>Click <b class="button">Download Discovery ISO</b> to download discovery ISO on hypervisor.</p>
+<p>Click <b class="button">Download Discovery ISO</b> to download discovery ISO on the hypervisor.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_tenant_download_discovery_iso.png" alt="hub console tenant download discovery iso">
@@ -381,7 +381,7 @@ The <em>Tenant</em> cluster will be the <em>Three-Node OpenShift Compact</em> cl
 <li>
 <p>Upload ISO from <code>/root/Download</code> directory to <em>Infrastructure</em> clusters.</p>
 <div class="paragraph">
-<p>Login to <code>sno1</code> cluster.</p>
+<p>Login to the <code>sno1</code> cluster.</p>
 </div>
 <div class="listingblock">
 <div class="title">Sample output:</div>
@@ -425,7 +425,7 @@ Uploading data to https://cdi-uploadproxy-openshift-cnv.apps.sno1.lab.example.co
 
  107.46 MiB / 107.46 MiB [============================================================================================================================================================================] 100.00% 0s
 
-Uploading data completed successfully, waiting for processing to complete, you can hit ctrl-c without interrupting the progress
+Uploading data completed successfully, and waiting for processing to complete, you can hit ctrl-c without interrupting the progress.
 Processing completed successfully
 Uploading /root/Downloads/eea97cca-cda5-47b9-bfdf-51929b4a7067-discovery.iso completed successfully
 
@@ -433,10 +433,10 @@ Uploading /root/Downloads/eea97cca-cda5-47b9-bfdf-51929b4a7067-discovery.iso com
 </div>
 </div>
 <div class="paragraph">
-<p>Verify that the PVC is created on <code>sno1</code> cluster.</p>
+<p>Verify that the PVC is created on the <code>sno1</code> cluster.</p>
 </div>
 <div class="paragraph">
-<p>In <code>sno1</code> cluster web console, from the left navigation pane; click <span class="menuseq"><b class="menu">Storage</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">PersistentVolumeClaims</b></span>.</p>
+<p>In the <code>sno1</code> cluster web console, from the left navigation pane; click <span class="menuseq"><b class="menu">Storage</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">PersistentVolumeClaims</b></span>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -457,7 +457,7 @@ Upload the discovery ISO to <code>sno2</code> and <code>sno3</code> clusters by 
 </div>
 </li>
 <li>
-<p>Boot the <code>tcn1.lab.example.com</code>, <code>tcn2.lab.example.com</code> and <code>tcn3.lab.example.com</code> VMs with discovery ISO.</p>
+<p>Boot the <code>tcn1.lab.example.com</code>, <code>tcn2.lab.example.com</code>, and <code>tcn3.lab.example.com</code> VMs with discovery ISO.</p>
 <div class="paragraph">
 <p>In the <code>sno1</code> cluster web console, from the left navigation pane; click <span class="menuseq"><b class="menu">Virtualization</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">VirtualMachines</b></span>.</p>
 </div>
@@ -515,7 +515,7 @@ Upload the discovery ISO to <code>sno2</code> and <code>sno3</code> clusters by 
 </div>
 </div>
 <div class="paragraph">
-<p>Edit the boot order of the <code>tcn1.lab.example.com</code> VM from <code>Configuration</code> tab, and select <code>Details</code>.</p>
+<p>Edit the boot order of the <code>tcn1.lab.example.com</code> VM from the <code>Configuration</code> tab, and select <code>Details</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -560,7 +560,7 @@ Follow the same steps above for the <code>tcn2.lab.example.com</code> and <code>
 </div>
 </li>
 <li>
-<p>Return to the web console of <em>Hub</em> cluster to proceed cluster installation.</p>
+<p>Return to the web console of the <em>Hub</em> cluster to proceed with the cluster installation.</p>
 <div class="paragraph">
 <p>Approve the discovered host <code>tcn1.lab.example.com</code>.</p>
 </div>
@@ -595,7 +595,7 @@ Follow the same steps above for the <code>tcn2.lab.example.com</code> and <code>
 <li>
 <p>In the networking section, ensure all hosts are ready.</p>
 <div class="paragraph">
-<p>Provide the <code>API IP</code> and <code>Ingress IP</code> from zone file.</p>
+<p>Provide the <code>API IP</code> and <code>Ingress IP</code> from the zone file.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -763,14 +763,14 @@ Follow the same steps above to boot the <code>tcn3.lab.example.com</code> VM fro
 </div>
 </li>
 <li>
-<p>Notice that the <code>tenant</code> cluster is added to the cluster list in <code>default</code> cluster set.</p>
+<p>Notice that the <code>tenant</code> cluster is added to the cluster list in the <code>default</code> cluster set.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_tenant_ready.png" alt="hub console tenant ready">
 </div>
 </div>
 <div class="paragraph">
-<p>This concludes the successful deployment of OpenShift cluster and added to hub cluster using RHACM.</p>
+<p>This concludes the successful deployment of the OpenShift cluster and added to hub cluster using RHACM.</p>
 </div>
 </li>
 </ol>

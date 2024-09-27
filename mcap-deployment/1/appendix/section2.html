@@ -221,7 +221,7 @@
 <p>Download the <code>rhel-9.4-x86_64-kvm.qcow2</code> image from the <a href="https://access.redhat.com/downloads/content/rhel" target="read-later">Red Hat Customer Portal</a> to your laptop/desktop.</p>
 </li>
 <li>
-<p>Use secured copy (scp) to copy the <code>rhel-9.4-x86_64-kvm.qcow2</code> image from your laptop/desktop to hypervisor and then place it in <code>/root</code> directory.</p>
+<p>Use secured copy (scp) to copy the <code>rhel-9.4-x86_64-kvm.qcow2</code> image from your laptop/desktop to the hypervisor and then place it in <code>/root</code> directory.</p>
 <div class="listingblock">
 <div class="title">Sample output</div>
 <div class="content">
@@ -292,7 +292,7 @@ cluster_size: 65536
 </div>
 </li>
 <li>
-<p>Resize the image with additional size of 30G.</p>
+<p>Resize the image with an additional size of 30G.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">qemu-img resize rhel-9.4-x86_64-kvm.qcow2 +30G</code></pre>
@@ -302,7 +302,7 @@ cluster_size: 65536
 <p>This increases the virtual size of the disk.</p>
 </div>
 <div class="paragraph">
-<p>Ensure virtual size is increased by 30GB.</p>
+<p>Ensure the virtual size is increased by 30GB.</p>
 </div>
 <div class="listingblock">
 <div class="title">Sample output</div>
@@ -361,7 +361,7 @@ disk size: 913 MiB
 </div>
 </div>
 <div class="paragraph">
-<p>You can use this password for logging into VM via console.</p>
+<p>You can use this password for logging into VM via the console.</p>
 </div>
 </li>
 <li>
@@ -458,7 +458,7 @@ You can restart your domain by running:
 </div>
 </div>
 <div class="paragraph">
-<p>Verify <code>storage</code> VM is in <code>running</code> state.</p>
+<p>Verify <code>storage</code> VM is in a <code>running</code> state.</p>
 </div>
 <div class="listingblock">
 <div class="title">Sample output</div>

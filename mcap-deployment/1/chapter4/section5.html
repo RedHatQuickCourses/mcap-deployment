@@ -203,7 +203,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this section, you will be installing basic <em>Node.js</em> application on <em>Tenant</em> cluster.
+<p>In this section, you will be installing a basic <em>Node.js</em> application on the <em>Tenant</em> cluster.
 You will also be testing the high availability and resilience of deployed <em>Node.js</em> application.</p>
 </div>
 <div class="imageblock">
@@ -237,7 +237,7 @@ image-registry   4.16.8    True        False         False      61s</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_install_node_js_application_on_tenant_cluster"><a class="anchor" href="#_install_node_js_application_on_tenant_cluster"></a>Install <em>Node.js</em> application on <em>Tenant</em> cluster</h2>
+<h2 id="_install_node_js_application_on_tenant_cluster"><a class="anchor" href="#_install_node_js_application_on_tenant_cluster"></a>Install <em>Node.js</em> application on <em>Tenant</em> Cluster</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
@@ -252,7 +252,7 @@ image-registry   4.16.8    True        False         False      61s</pre>
 <li>
 <p>You will be redirected to the developer view.</p>
 <div class="paragraph">
-<p>Click on text <b class="button">create a Project</b>.</p>
+<p>Click on the text <b class="button">create a Project</b>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -269,7 +269,7 @@ image-registry   4.16.8    True        False         False      61s</pre>
 <p>Display name: <code>sample</code>.</p>
 </div>
 <div class="paragraph">
-<p>Description: <code>This is sample project</code>.</p>
+<p>Description: <code>This is a sample project</code>.</p>
 </div>
 <div class="paragraph">
 <p>Click <b class="button">Create</b> to create the project.</p>
@@ -281,7 +281,7 @@ image-registry   4.16.8    True        False         False      61s</pre>
 </div>
 </li>
 <li>
-<p>In the project view, click on text <b class="button">Add page</b> to add the sample application.</p>
+<p>In the project view, click on the text <b class="button">Add page</b> to add the sample application.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/tenant_console_nodejs_app_add.png" alt="tenant console nodejs app add">
@@ -289,7 +289,7 @@ image-registry   4.16.8    True        False         False      61s</pre>
 </div>
 </li>
 <li>
-<p>In the add page window, click on text <b class="button">View all samples</b>.</p>
+<p>In the add page window, click on the text <b class="button">View all samples</b>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/tenant_console_nodejs_app_sample.png" alt="tenant console nodejs app sample">
@@ -297,9 +297,9 @@ image-registry   4.16.8    True        False         False      61s</pre>
 </div>
 </li>
 <li>
-<p>In the search section, search for <code>basic node</code>.</p>
+<p>In the search section, search for the <code>basic node</code>.</p>
 <div class="paragraph">
-<p>Select the <code>Basic Node.js</code> application from samples.</p>
+<p>Select the <code>Basic Node.js</code> application from the samples.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -329,7 +329,7 @@ image-registry   4.16.8    True        False         False      61s</pre>
 <li>
 <p>In resources tab, notice that the application is building.</p>
 <div class="paragraph">
-<p>If you click on the URL from routes section, it will open the application page in new tab.</p>
+<p>If you click on the URL from the routes section, it will open the application page in a new tab.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -362,7 +362,7 @@ image-registry   4.16.8    True        False         False      61s</pre>
 </div>
 </li>
 <li>
-<p>In a minute, you will notice the application is in running state.</p>
+<p>In a minute, you will notice the application is in the running state.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/tenant_console_nodejs_app_build_success.png" alt="tenant console nodejs app build success">
@@ -387,7 +387,7 @@ image-registry   4.16.8    True        False         False      61s</pre>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Find out the where the application pod is running.</p>
+<p>Find out where the application pod is running.</p>
 <div class="listingblock">
 <div class="title">Sample output:</div>
 <div class="content">
@@ -401,7 +401,7 @@ nodejs-basic-6d55569c9c-gps2d   1/1     Running     0          2m51s   10.130.0.
 <li>
 <p>In this case, the application pod is running on the <code>tcn2.lab.example.com</code> node.</p>
 <div class="paragraph">
-<p>This means that the <code>tcn2.lab.example.com</code> node is running on <code>sno2</code> <em>Infrastructure</em> cluster.</p>
+<p>This means that the <code>tcn2.lab.example.com</code> node is running on the <code>sno2</code> <em>Infrastructure</em> cluster.</p>
 </div>
 </li>
 <li>
@@ -412,7 +412,7 @@ nodejs-basic-6d55569c9c-gps2d   1/1     Running     0          2m51s   10.130.0.
 </div>
 </div>
 <div class="paragraph">
-<p>Ensure that <code>sno2</code> VM is in shutoff state.</p>
+<p>Ensure that the <code>sno2</code> VM is in a shutoff state.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -429,7 +429,7 @@ nodejs-basic-6d55569c9c-gps2d   1/1     Running     0          2m51s   10.130.0.
 </div>
 </li>
 <li>
-<p>The <code>pod-eviction-timeout</code> and <code>node-monitor-grace-period</code> parameters have the default value of <code>5m</code> and <code>40s</code> respectively.
+<p>The <code>pod-eviction-timeout</code> and <code>node-monitor-grace-period</code> parameters have the default values of <code>5m</code> and <code>40s</code> respectively.
 This means it takes <code>5m40s</code> to trigger the pod eviction process after the last node status update.</p>
 <div class="paragraph">
 <p>After 5 minutes (eviction timeout), note that the application is successfully migrated to the <code>tcn1.lab.example.com</code> node.</p>
@@ -465,7 +465,7 @@ Eviction timeout - <a href="https://access.redhat.com/solutions/5359001" target=
 </div>
 </li>
 <li>
-<p>This test shows that even if one infrastructure node is down; application automatically migrate to other infrastructure node.</p>
+<p>This test shows that even if one infrastructure node is down; the application automatically migrates to other infrastructure node.</p>
 </li>
 </ol>
 </div>

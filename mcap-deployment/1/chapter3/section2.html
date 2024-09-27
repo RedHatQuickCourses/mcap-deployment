@@ -203,7 +203,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this section, you will be deploying <em>Infrastructure</em> clusters using RHACM from <em>Hub</em> cluster.
+<p>In this section, you will be deploying <em>Infrastructure</em> clusters using RHACM from the <em>Hub</em> cluster.
 These <em>Infrastructure</em> clusters will be Single Node OpenShift (SNO) clusters.</p>
 </div>
 <div class="imageblock">
@@ -219,15 +219,15 @@ These <em>Infrastructure</em> clusters will be Single Node OpenShift (SNO) clust
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><code>sno1</code>, <code>sno2</code> and <code>sno3</code> VMs are up and running.</p>
+<p><code>sno1</code>, <code>sno2</code>, and <code>sno3</code> VMs are up and running.</p>
 </li>
 <li>
-<p>Download or copy your <a href="https://console.redhat.com/openshift/install/pull-secret" target="read-later">pull-secret</a> and put it in <code>pull_secret.txt</code> file on hypervisor.</p>
+<p>Download or copy your <a href="https://console.redhat.com/openshift/install/pull-secret" target="read-later">pull-secret</a> and put it in <code>pull_secret.txt</code> file on the hypervisor.</p>
 </li>
 <li>
-<p>Set the OpenShift <code>clusterimageset</code> to 4.16.8 on stable channel.</p>
+<p>Set the OpenShift <code>clusterimageset</code> to 4.16.8 on a stable channel.</p>
 <div class="paragraph">
-<p>This will allow you to deploy the <em>Infrastructure</em> and <em>Tenant</em> clusters with same OpenShift version.</p>
+<p>This will allow you to deploy the <em>Infrastructure</em> and <em>Tenant</em> clusters with the same OpenShift version.</p>
 </div>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
@@ -303,9 +303,9 @@ clusterimageset.hive.openshift.io/img4.16.8-multi-appsub patched
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Login to web console of <em>Hub</em> cluster.</p>
+<p>Login to the web console of the <em>Hub</em> cluster.</p>
 <div class="paragraph">
-<p>Switch to the <code>All Clusters</code> from <code>local-cluster</code>.</p>
+<p>Switch to the <code>All Clusters</code> from the <code>local-cluster</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -314,7 +314,7 @@ clusterimageset.hive.openshift.io/img4.16.8-multi-appsub patched
 </div>
 </li>
 <li>
-<p>Create cluster using <b class="button">Create cluster</b>.</p>
+<p>Create a cluster using <b class="button">Create cluster</b>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_create_cluster.png" alt="hub console create cluster">
@@ -378,7 +378,7 @@ clusterimageset.hive.openshift.io/img4.16.8-multi-appsub patched
 </div>
 </li>
 <li>
-<p>Provide the pull secret in <code>Pull secret</code> field.</p>
+<p>Provide the pull secret in the <code>Pull secret</code> field.</p>
 <div class="paragraph">
 <p>Click <b class="button">Next</b></p>
 </div>
@@ -434,7 +434,7 @@ clusterimageset.hive.openshift.io/img4.16.8-multi-appsub patched
 </div>
 </li>
 <li>
-<p>Here you need to provide the public ssh key of <code>root</code> user.</p>
+<p>Here you need to provide the public ssh key of the <code>root</code> user.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_public_key.png" alt="hub console sno1 public key">
@@ -442,7 +442,7 @@ clusterimageset.hive.openshift.io/img4.16.8-multi-appsub patched
 </div>
 </li>
 <li>
-<p>Get the public ssh key of <code>root</code> user.</p>
+<p>Get the public ssh key of the <code>root</code> user.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_public_key_1.png" alt="hub console sno1 public key 1">
@@ -450,7 +450,7 @@ clusterimageset.hive.openshift.io/img4.16.8-multi-appsub patched
 </div>
 </li>
 <li>
-<p>Provide the public ssh key of <code>root</code> user in <code>SSH public key</code> field.</p>
+<p>Provide the public ssh key of the <code>root</code> user in the <code>SSH public key</code> field.</p>
 <div class="paragraph">
 <p>Click <b class="button">Generate Discovery ISO</b> to generate discovery ISO.</p>
 </div>
@@ -461,7 +461,7 @@ clusterimageset.hive.openshift.io/img4.16.8-multi-appsub patched
 </div>
 </li>
 <li>
-<p>Click <b class="button">Download Discovery ISO</b> to download discovery ISO on hypervisor.</p>
+<p>Click <b class="button">Download Discovery ISO</b> to download discovery ISO on the hypervisor.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_download_discovery_iso.png" alt="hub console sno1 download discovery iso">
@@ -469,7 +469,7 @@ clusterimageset.hive.openshift.io/img4.16.8-multi-appsub patched
 </div>
 </li>
 <li>
-<p>This will open link in new tab.</p>
+<p>This will open the link in the new tab.</p>
 <div class="paragraph">
 <p>Click <b class="button">Advanced&#8230;&#8203;</b> to proceed.</p>
 </div>
@@ -542,7 +542,7 @@ clusterimageset.hive.openshift.io/img4.16.8-multi-appsub patched
 </div>
 </div>
 <div class="paragraph">
-<p>Update the <code>Boot device order</code> to boot system with discovery ISO.</p>
+<p>Update the <code>Boot device order</code> to boot the system with discovery ISO.</p>
 </div>
 <div class="paragraph">
 <p>Click <b class="button">Apply</b>.</p>
@@ -562,7 +562,7 @@ clusterimageset.hive.openshift.io/img4.16.8-multi-appsub patched
 </div>
 </li>
 <li>
-<p>In hub console, notice <code>sno1</code> VM as host is discovered and select <code>Approve host</code>.</p>
+<p>In the hub console, notice <code>sno1</code> VM as host is discovered and select <code>Approve host</code>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_approve_host.png" alt="hub console sno1 approve host">
@@ -599,7 +599,7 @@ clusterimageset.hive.openshift.io/img4.16.8-multi-appsub patched
 </div>
 </div>
 <div class="paragraph">
-<p>After few minutes, the message goes away and notice the host is in <code>Ready</code> status.</p>
+<p>After a few minutes, the message goes away and notice that the host is in the <code>Ready</code> status.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -624,14 +624,14 @@ clusterimageset.hive.openshift.io/img4.16.8-multi-appsub patched
 </div>
 </li>
 <li>
-<p>After 7-10 minutes, it waits on pending user action.</p>
+<p>After 7-10 minutes, it waits for <em>Pending user action</em>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_pending_user_actions.png" alt="hub console sno1 pending user actions">
 </div>
 </div>
 <div class="paragraph">
-<p>This means you need to disconnect the discovery ISO from the <code>sno1</code> VM and boot the <code>sno1</code> VM from disk.</p>
+<p>This means you need to disconnect the discovery ISO from the <code>sno1</code> VM and boot the <code>sno1</code> VM from the disk.</p>
 </div>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
@@ -644,7 +644,7 @@ clusterimageset.hive.openshift.io/img4.16.8-multi-appsub patched
 </div>
 </li>
 <li>
-<p>Update the boot order to boot <code>sno1</code> VM from disk.</p>
+<p>Update the boot order to boot <code>sno1</code> VM from the disk.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/sno1_boot_order_1.png" alt="sno1 boot order 1">
@@ -671,7 +671,7 @@ clusterimageset.hive.openshift.io/img4.16.8-multi-appsub patched
 </div>
 </li>
 <li>
-<p>If you notice any failure in importing the cluster to <em>Hub</em> cluster then wait for 35 to 40 minutes.</p>
+<p>If you notice any failure in importing the cluster to the <em>Hub</em> cluster then wait for 35 to 40 minutes.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_import_fail.png" alt="hub console sno1 import fail">
@@ -713,14 +713,14 @@ clusterimageset.hive.openshift.io/img4.16.8-multi-appsub patched
 </div>
 </li>
 <li>
-<p>Notice the <code>sno1</code> is added to cluster list in <code>default</code> cluster set.</p>
+<p>Notice that <code>sno1</code> is added to the cluster list in the <code>default</code> cluster set.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/hub_console_sno1_ready.png" alt="hub console sno1 ready">
 </div>
 </div>
 <div class="paragraph">
-<p>This concludes the successful deployment of OpenShift cluster and added to hub cluster using RHACM.</p>
+<p>This concludes the successful deployment of the OpenShift cluster and added to the hub cluster using RHACM.</p>
 </div>
 </li>
 </ol>
@@ -728,12 +728,12 @@ clusterimageset.hive.openshift.io/img4.16.8-multi-appsub patched
 </div>
 </div>
 <div class="sect1">
-<h2 id="_install_remaining_infrastructure_clusters_as_sno_clusters"><a class="anchor" href="#_install_remaining_infrastructure_clusters_as_sno_clusters"></a>Install remaining <em>Infrastructure</em> clusters as SNO clusters</h2>
+<h2 id="_install_remaining_infrastructure_clusters_as_sno_clusters"><a class="anchor" href="#_install_remaining_infrastructure_clusters_as_sno_clusters"></a>Install remaining <em>Infrastructure</em> clusters as SNO Clusters</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>You can deploy remaining <code>sno2</code> and <code>sno3</code> clusters by following steps from the previous section for <code>sno1</code> cluster deployment.</p>
+<p>You can deploy the remaining <code>sno2</code> and <code>sno3</code> clusters by following the steps from the previous section for <code>sno1</code> cluster deployment.</p>
 </li>
 <li>
 <p>Each cluster deployment will take 35 to 40 minutes to complete.</p>

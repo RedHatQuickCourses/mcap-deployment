@@ -202,7 +202,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this section, you will be creating three KVMs with name <code>sno1</code>, <code>sno2</code> and <code>sno3</code>.</p>
+<p>In this section, you will be creating three KVMs with the name <code>sno1</code>, <code>sno2</code>, and <code>sno3</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -215,7 +215,7 @@
 <h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copy the <code>rhel-9.4-x86_64-kvm.qcow2</code> image from <code>/root</code> and place it in <code>/var/lib/libvirt/images</code> directory with name as <code>rhel9-guest-sno.qcow2</code>.</p>
+<p>Copy the <code>rhel-9.4-x86_64-kvm.qcow2</code> image from <code>/root</code> and place it in <code>/var/lib/libvirt/images</code> directory with the name <code>rhel9-guest-sno.qcow2</code>.</p>
 </div>
 <div class="listingblock">
 <div class="title">Sample output</div>
@@ -269,7 +269,7 @@ cluster_size: 65536
 </div>
 </li>
 <li>
-<p>Resize the image with additional size of 120G.</p>
+<p>Resize the image with an additional size of 120G.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">qemu-img resize rhel9-guest-sno.qcow2 +120G</code></pre>
@@ -279,7 +279,7 @@ cluster_size: 65536
 <p>This increases the virtual size of the disk.</p>
 </div>
 <div class="paragraph">
-<p>Ensure virtual size is increased by 120GB.</p>
+<p>Ensure the virtual size is increased by 120GB.</p>
 </div>
 <div class="listingblock">
 <div class="title">Sample output</div>
@@ -339,7 +339,7 @@ cluster_size: 65536
 </div>
 </div>
 <div class="paragraph">
-<p>You can use this password for logging into VM via console.</p>
+<p>You can use this password for logging into the VM via the console.</p>
 </div>
 </li>
 <li>
@@ -407,7 +407,7 @@ Formatting '/var/lib/libvirt/images/sno3.qcow2', fmt=qcow2 cluster_size=65536 ex
 </div>
 </li>
 <li>
-<p>Create the <code>sno1</code>, <code>sno2</code> and <code>sno3</code> VMs.
+<p>Create the <code>sno1</code>, <code>sno2</code>, and <code>sno3</code> VMs.
 Disk path should be storage pool path i.e. <code>/var/lib/libvirt/images/</code>.
 mac address for the <code>sno1</code>, <code>sno2</code> and <code>sno3</code> VMs should be same as from the dhcp configuration.</p>
 <div class="listingblock execute">
@@ -472,7 +472,7 @@ You can restart your domain by running:
 </div>
 </div>
 <div class="paragraph">
-<p>Verify <code>sno1</code>, <code>sno2</code> and <code>sno3</code> VMs are created and in <code>shut off</code> state.</p>
+<p>Verify that <code>sno1</code>, <code>sno2</code> and <code>sno3</code> VMs are created and are in <code>shut off</code> state.</p>
 </div>
 <div class="listingblock">
 <div class="title">Sample output</div>
@@ -490,7 +490,7 @@ You can restart your domain by running:
 </div>
 </li>
 <li>
-<p>Start the <code>sno1</code>, <code>sno2</code> and <code>sno3</code> VMs.</p>
+<p>Start the <code>sno1</code>, <code>sno2</code>, and <code>sno3</code> VMs.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virsh start sno1; virsh start sno2; virsh start sno3</code></pre>
@@ -507,7 +507,7 @@ Domain 'sno3' started</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Verify <code>sno1</code>, <code>sno2</code> and <code>sno3</code> VMs are in <code>running</code> state.</p>
+<p>Verify <code>sno1</code>, <code>sno2</code>, and <code>sno3</code> VMs are in <code>running</code> state.</p>
 </div>
 <div class="listingblock">
 <div class="title">Sample output</div>
@@ -525,9 +525,9 @@ Domain 'sno3' started</pre>
 </div>
 </li>
 <li>
-<p>Verify <code>sno1</code>, <code>sno2</code> and <code>sno3</code> VMs are booted successfully.</p>
+<p>Verify <code>sno1</code>, <code>sno2</code> and, <code>sno3</code> VMs are booted successfully.</p>
 <div class="paragraph">
-<p>Take the console of the <code>sno1</code>, <code>sno2</code> and <code>sno3</code> VMs and login as <em>root</em> user with <em>redhat</em> as password.</p>
+<p>Take the console of the <code>sno1</code>, <code>sno2</code>, and <code>sno3</code> VMs and login as <em>root</em> user with <em>redhat</em> as password.</p>
 </div>
 <div class="listingblock execute">
 <div class="content">
@@ -548,7 +548,7 @@ Password:
 </div>
 </div>
 <div class="paragraph">
-<p>Similarly verify <code>sno2</code> and <code>sno3</code> VMs are booted successfully.</p>
+<p>Similarly, verify that <code>sno2</code> and <code>sno3</code> VMs are booted successfully.</p>
 </div>
 </li>
 </ol>

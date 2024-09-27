@@ -203,8 +203,8 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this section, you will be deploying Ceph on <code>storage</code> VM.
-This <code>storage</code> VM will be a single node with three disks Ceph cluster.</p>
+<p>In this section, you will be deploying Ceph on a <code>storage</code> VM.
+This <code>storage</code> VM will be a single node with three disks in the Ceph cluster.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -227,7 +227,7 @@ This <code>storage</code> VM will be a single node with three disks Ceph cluster
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Take the console of the <code>storage</code> VM and login as <em>root</em> user with <em>redhat</em> as password.</p>
+<p>Take the console of the <code>storage</code> VM and log in as <em>root</em> user with <em>redhat</em> as the password.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">virsh console storage</code></pre>
@@ -247,7 +247,7 @@ Password:
 </div>
 </li>
 <li>
-<p>Register the <code>storage</code> VM with valid subscription.
+<p>Register the <code>storage</code> VM with a valid subscription.
 You will need to provide your customer portal (access.redhat.com) credentials.</p>
 <div class="listingblock execute">
 <div class="content">
@@ -255,7 +255,7 @@ You will need to provide your customer portal (access.redhat.com) credentials.</
 </div>
 </div>
 <div class="paragraph">
-<p>Disable the all repos.</p>
+<p>Disable all the repos.</p>
 </div>
 <div class="listingblock execute">
 <div class="content">
@@ -271,7 +271,7 @@ You will need to provide your customer portal (access.redhat.com) credentials.</
 </div>
 </div>
 <div class="paragraph">
-<p>Check the repo list and ensure all required repos are enabled.</p>
+<p>Check the repo list and ensure that all the required repos are enabled.</p>
 </div>
 <div class="listingblock execute">
 <div class="content">
@@ -280,7 +280,7 @@ You will need to provide your customer portal (access.redhat.com) credentials.</
 </div>
 </li>
 <li>
-<p>Update all packages on the <code>storage</code> VM to latest version.</p>
+<p>Update all packages on the <code>storage</code> VM to the latest version.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dnf -y update</code></pre>
@@ -305,7 +305,7 @@ You will need to provide your customer portal (access.redhat.com) credentials.</
 </li>
 <li>
 <p>Permit <code>root</code> login on <code>storage</code> VM.
-This will allow the login to <code>storage</code> VM as <code>root</code> user using <code>ssh</code> connection.</p>
+This will allow the login to a <code>storage</code> VM as a <code>root</code> user using an <code>ssh</code> connection.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">echo "PermitRootLogin yes" &gt;&gt; /etc/ssh/sshd_config</code></pre>
@@ -353,7 +353,7 @@ Once you add a password to <code>ssh-agent</code>, you will not be prompted for 
 </li>
 <li>
 <p>Create the <code>/etc/auth.json</code> file.
-This file will be used in Ceph cluster deployment for getting access to container image catalog.</p>
+This file will be used in Ceph cluster deployment for getting access to the container image catalog.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt;/etc/auth.json&lt;&lt;EOF
@@ -388,9 +388,9 @@ Replace "yourusername" with your username and "yourpassword" with your password 
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Create the Ceph spec file <code>initial-config.yaml</code>, which is used as initial configuration for Ceph cluster deployment.
+<p>Create the Ceph spec file <code>initial-config.yaml</code>, which is used as the initial configuration for Ceph cluster deployment.
 There is only a single Ceph cluster node i.e. <code>storage</code> VM, used to deploy Ceph cluster.
-You need to provide <code>storage</code> VM details in the spec file such as IP address, hostname, host and three disks attached to <code>storage</code> VM.</p>
+You need to provide <code>storage</code> VM details in the spec file such as IP address, hostname, host, and three disks attached to the <code>storage</code> VM.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt;initial-config.yaml&lt;&lt;EOF
@@ -429,8 +429,8 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Deploy the Ceph storage cluster with following command.
-You will need to pass the spec file as <code>initial-config.yaml</code>, mon IP as <code>storage</code> VM&#8217;s IP and registry json file as <code>/etc/auth.json</code>.
+<p>Deploy the Ceph storage cluster with the following command.
+You will need to pass the spec file as <code>initial-config.yaml</code>, mon IP as <code>storage</code> VM&#8217;s IP, and the registry json file as <code>/etc/auth.json</code>.
 To deploy a Ceph cluster running on a single host, use the <code>--single-host-defaults</code> flag when bootstrapping.</p>
 <div class="listingblock execute">
 <div class="content">
@@ -483,7 +483,7 @@ registry.redhat.io/rhceph/rhceph-7-rhel9@sha256:75bd8969ab3f86f2203a1ceb187876f4
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-You may have to wait for approximately 5 to 10 minutes for all the background processes needed for installation to complete and the cluster to be in <code>HEALTH_OK</code> state.
+You may have to wait for approximately 5 to 10 minutes for all the background processes needed for installation to complete and for the cluster to be in the <code>HEALTH_OK</code> state.
 You may track the progress with watch <code>ceph -s</code> command.
 </td>
 </tr>
@@ -491,7 +491,7 @@ You may track the progress with watch <code>ceph -s</code> command.
 </div>
 </li>
 <li>
-<p>You may also run <code>ceph health</code> command to verify cluster status.</p>
+<p>You may also run the <code>ceph health</code> command to verify cluster status.</p>
 <div class="listingblock">
 <div class="title">Sample output:</div>
 <div class="content">
@@ -501,7 +501,7 @@ HEALTH_OK</pre>
 </div>
 </li>
 <li>
-<p>In case of failure, you can use following command to destroy the Ceph storage cluster.</p>
+<p>In case of failure, you can use the following command to destroy the Ceph storage cluster.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cephadm rm-cluster --force --zap-osds --fsid `ceph fsid`</code></pre>
