@@ -35,13 +35,19 @@ dnf install -y ansible-core
 
 . Clone the repo which holds all automation scripts and ansible playbooks.
 +
+[NOTE]
+Clone the repo in case it is not already cloned while provisioning.
++
+.Sample output:
+----
+[root@hypervisor ~]# ls
+mcap-deployment-files
+----
++
 [source,bash,role=execute]
 ----
 git clone https://github.com/RedHatQuickCourses/mcap-deployment-files.git
 ----
-+
-[NOTE]
-Clone the repo in case it is not already cloned while provisioning.
 
 . Install the required ansible collections needed for running the playbooks.
 +

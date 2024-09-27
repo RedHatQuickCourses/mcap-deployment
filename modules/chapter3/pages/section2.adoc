@@ -12,7 +12,16 @@ image::MCAP_setup_1.png[]
 
 . Download or copy your https://console.redhat.com/openshift/install/pull-secret[pull-secret,window=read-later] and put it in `pull_secret.txt` file on the hypervisor.
 
-. Set the OpenShift `clusterimageset` to 4.16.8 on a stable channel.
+. Set the OpenShift `clusterimageset`.
++
+Here for example, it is set as `4.16.8` on `stable` channel.
++
+You can set it as the same version selected for the _Hub_ cluster.
++
+[source,bash,role=execute]
+----
+ocp_version=4.16.8
+----
 +
 This will allow you to deploy the _Infrastructure_ and _Tenant_ clusters with the same OpenShift version.
 
@@ -32,16 +41,16 @@ This will allow you to deploy the _Infrastructure_ and _Tenant_ clusters with th
     name: img4.16.10-multi-appsub
 ----
 
-.. Set the _visible_ label as _true_ and _channel_ label as _stable_ for `4.16.8` image.
+.. Set the _visible_ label as _true_ and _channel_ label as _stable_ for the image.
 +
 [source,bash,role=execute]
 ----
-oc patch clusterimagesets.hive.openshift.io img4.16.8-multi-appsub --type='json' -p='[{"op":"replace","path": "/metadata/labels/visible","value":"true"}]'
+oc patch clusterimagesets.hive.openshift.io img${ocp_version}-multi-appsub --type='json' -p='[{"op":"replace","path": "/metadata/labels/visible","value":"true"}]'
 ----
 +
 [source,bash,role=execute]
 ----
-oc patch clusterimagesets.hive.openshift.io img4.16.8-multi-appsub --type='json' -p='[{"op":"replace","path": "/metadata/labels/channel","value":"stable"}]'
+oc patch clusterimagesets.hive.openshift.io img${ocp_version}-multi-appsub --type='json' -p='[{"op":"replace","path": "/metadata/labels/channel","value":"stable"}]'
 ----
 +
 .Sample output:
@@ -103,7 +112,7 @@ Cluster set: `default`
 +
 Base domain: `lab.example.com`
 +
-Select `4.16.8` version of OpenShift from the menu.
+Select the same OpenShift version selected for the _Hub_ cluster from the menu.
 +
 Check the box `Install single node OpenShift (SNO)`.
 +
@@ -173,7 +182,7 @@ image::hub_console_sno1_accept_risk.png[]
 +
 .Sample output:
 ----
-[root@hypervisor ~]# mv Downloads/39c2b646-e122-435b-b85e-c8ec6dd18d04-discovery.iso /var/lib/libvirt/images/
+[root@hypervisor ~]# mv /root/Downloads/39c2b646-e122-435b-b85e-c8ec6dd18d04-discovery.iso /var/lib/libvirt/images/
 ----
 
 .. Boot the `sno1` VM with discovery ISO.

@@ -97,7 +97,7 @@ This is the backend shared storage for the _Tenant_ cluster.
 
 === Hub Cluster
 
-The main role of _Hub_ cluster is to deploy _Infrastructure_ clusters and _Tenant_ cluster.
+The main role of _Hub_ cluster is to deploy, configure, and secure _Infrastructure_ and _Tenant_ cluster.
 
 Deploy _Hub_ cluster as https://docs.openshift.com/container-platform/4.16/installing/installing_sno/install-sno-installing-sno.html[Single Node OpenShift (SNO) cluster,window=read-later].
 

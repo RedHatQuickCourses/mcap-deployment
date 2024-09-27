@@ -32,7 +32,7 @@ Cluster name: `hub`
 +
 Base domain: `lab.example.com`
 +
-Select `4.16.8` version of OpenShift from the menu.
+Select the latest version of OpenShift from the menu.
 +
 Check box the `Install single node OpenShift (SNO)`
 +
@@ -75,7 +75,7 @@ Use `Command to download the ISO` option and run the given `wget` command to dow
 +
 image::console_redhat_discovery_iso_download.png[]
 +
-[NOTE]
+[IMPORTANT]
 You will need `virt-manager` to attach this discovery ISO to the `hub` VM.
 To access the GUI of the hypervisor, you will need console access.
 
@@ -124,7 +124,7 @@ Starting applications specified in /root/.vnc/xstartup
 Log file is /root/.vnc/hypervisor:2.log
 ----
 +
-[NOTE]
+[IMPORTANT]
 As per the above output, you will mention `<hypervisor_ip_address>:2` as connection in VNC viewer.
 
 ..  Download and install VNC viewer from https://www.realvnc.com/en/connect/download/viewer/ as per your laptop or desktop operating system.
