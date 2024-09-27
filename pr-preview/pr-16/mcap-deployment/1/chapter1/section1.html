@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>MCAP Setup in RHDP Lab :: Deploy Mission Critical Application Platform (MCAP)</title>
+    <link rel="prev" href="index.html">
+    <link rel="next" href="section2.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Deploy Mission Critical Application Platform (MCAP)</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/mcap-deployment/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="mcap-deployment" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Deploy Mission Critical Application Platform (MCAP)</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Hands-on Lab Environment Setup for MCAP</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="section1.html">MCAP Setup in RHDP Lab</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section2.html">Initial Setup on Hypervisor</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section3.html">Storage VM Deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section4.html">Ceph Storage Deployment</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter2/index.html">Hub Cluster Deployment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter2/section1.html">Hub VM Deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter2/section2.html">Assisted Clusters - Hub Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter2/section3.html">Access the Hub Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter2/section4.html">Install Operators and Configure Service</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter3/index.html">Infrastructure Cluster Deployment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section1.html">Infrastructure VMs Deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section2.html">Assisted Clusters - Infrastructure Clusters</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section3.html">Access the Infrastructure Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section4.html">Install and Configure Operators</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section5.html">Network Settings</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter4/index.html">Tenant Cluster Deployment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section1.html">Tenant VMs Deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section2.html">Assisted Clusters - Tenant Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section3.html">Access the Tenant Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section4.html">Install and Configure Operators</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section5.html">Install Sample Application on Tenant Cluster</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../appendix/appendix.html">Appendix A</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/section1.html">Initial Setup on Hypervisor without Automation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/section2.html">Storage VM Deployment without Automation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/section3.html">Hub VM Deployment without Automation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/section4.html">Infrastructure VM Deployment without Automation</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Deploy Mission Critical Application Platform (MCAP)</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Deploy Mission Critical Application Platform (MCAP)</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Deploy Mission Critical Application Platform (MCAP)</a></li>
+    <li><a href="index.html">Hands-on Lab Environment Setup for MCAP</a></li>
+    <li><a href="section1.html">MCAP Setup in RHDP Lab</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">MCAP Setup in RHDP Lab</h1>
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MCAP is a solution for managing mission-critical applications.
+Mission-critical applications are software applications essential to an organization or enterprise.
+If these applications fail, it can have a catastrophic effect on the whole organization.
+For more on mission-critical application failure, see the real-life examples in Getting to Know Mission Critical Applications.</p>
+</div>
+<div class="paragraph">
+<p>With Red Hat MCAP, organizations can prioritize the applications most important to their individual needs.</p>
+</div>
+<div class="paragraph">
+<p>The MCAP solution combines the following Red Hat products:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Red Hat OpenShift Container Platform (OCP)</p>
+</li>
+<li>
+<p>Red Hat OpenShift Virtualization (OCP Virt)</p>
+</li>
+<li>
+<p>Red Hat Ansible Automation Platform (AAP)</p>
+</li>
+<li>
+<p>Red Hat Advanced Cluster Management (RHACM)</p>
+</li>
+<li>
+<p>Red Hat Advanced Cluster Security for Kubernetes (RHACS)</p>
+</li>
+<li>
+<p>Red Hat OpenShift GitOps</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_rhdp_lab_environment"><a class="anchor" href="#_rhdp_lab_environment"></a>RHDP Lab Environment</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This setup is a Proof of Concept (POC).
+This setup is not recommended for Production use cases.
+For other architecture options, refer to the <a href="https://www.redhat.com/en/blog/nested-openshift-using-openshift-virtualization" target="read-later">Nested OpenShift using OpenShift Virtualization</a> post on the Red Hat Blog.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/MCAP_setup.png" alt="MCAP setup">
+</div>
+</div>
+<div class="paragraph">
+<p>The following Red Hat products are used in this MCAP solution:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Red Hat OpenShift Container Platform (OCP)</p>
+</li>
+<li>
+<p>Red Hat OpenShift Virtualization (OCP Virt)</p>
+</li>
+<li>
+<p>Red Hat Advanced Cluster Management (RHACM)</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_hardware_and_bare_metal"><a class="anchor" href="#_hardware_and_bare_metal"></a>Hardware and Bare Metal</h3>
+<div class="paragraph">
+<p>In this lab, Equinix bare-metal is used.
+The flavor i.e. server configuration is <a href="https://deploy.equinix.com/product/bare-metal/servers/" target="read-later">n3.xlarge.x86</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_kernel_based_virtual_machines_kvm"><a class="anchor" href="#_kernel_based_virtual_machines_kvm"></a>Kernel-based Virtual Machines (KVM)</h3>
+<div class="paragraph">
+<p>In this MCAP solution, five Virtual Machines (VMs) are needed.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>One virtual machine as shared storage for <em>Tenant</em> cluster.</p>
+</li>
+<li>
+<p>One virtual machine as <em>Hub</em> cluster.</p>
+</li>
+<li>
+<p>Three virtual machines as <em>Infrastructure</em> clusters.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<a href="https://linux-kvm.org/page/Main_Page" target="read-later">Linux-KVM</a>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_utility_and_services"><a class="anchor" href="#_utility_and_services"></a>Utility and Services</h3>
+<div class="paragraph">
+<p>The bare metal is acting as a hypervisor, http server, dhcp server, and dns server.
+Configure all these services on the bare metal.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_networking"><a class="anchor" href="#_networking"></a>Networking</h3>
+<div class="paragraph">
+<p>In this example, there are three Infrastructure clusters.
+This setup uses KVMs as the base infrastructure.
+All external communication between your clusters will happen via a <a href="https://developers.redhat.com/blog/2018/10/22/introduction-to-linux-interfaces-for-virtual-networking#bridge" target="read-later">virtual bridge</a> on the bare metal.</p>
+</div>
+<div class="paragraph">
+<p>Install the <a href="https://docs.openshift.com/container-platform/4.16/networking/k8s_nmstate/k8s-nmstate-about-the-k8s-nmstate-operator.html" target="read-later">Kubernetes NMState Operator</a> on the <em>Infrastructure</em> clusters.
+NMstate operator allows users to configure various network interface types, DNS, and routing on cluster nodes.
+Two main object types drive the configuration.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>NodeNetworkConfigurationPolicy (Policy)</p>
+</li>
+<li>
+<p>NodeNetworkConfigurationEnactment (Enactment)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In this lab setup, configure the NodeNetworkConfigurationPolicy (Policy) and NetworkAttachmentDefinition (Object) to connect the <em>Tenant</em> cluster.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_storage"><a class="anchor" href="#_storage"></a>Storage</h3>
+<div class="paragraph">
+<p>Non-volatile Memory Express (NVMe) disks are attached to this hypervisor.
+In this lab setup, use <a href="https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_logical_volumes/index" target="read-later">LVM</a> to configure storage.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Non-volatile Memory Express (NVMe) is an interface that allows host software utility to communicate with solid-state drives.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>On the hypervisor, first create a 7TB (3.5TB + 3.5TB disks) logical volume (LV) and mount it on the storage pool directory path.
+This stores VMs images.</p>
+</div>
+<div class="paragraph">
+<p>There is a separate storage virtual machine (VM) for shared storage for <em>Tenant</em> cluster.
+Create three disks each of 2TB from the 7TB LV and attach them to the storage VM.
+These disks are needed in Ceph deployment on the storage VM.</p>
+</div>
+<div class="paragraph">
+<p>Next, install <a href="https://docs.redhat.com/en/documentation/red_hat_openshift_data_foundation/4.16/html/red_hat_openshift_data_foundation_architecture/openshift_data_foundation_operators" target="read-later">OpenShift Data Foundation (ODF) operator</a> on the <em>Infrastructure</em> clusters.
+Create an OpenShift Data Foundation cluster for <a href="https://docs.redhat.com/en/documentation/red_hat_openshift_data_foundation/4.16/html/deploying_openshift_data_foundation_in_external_mode/deploy-openshift-data-foundation-using-red-hat-ceph-storage#creating-an-openshift-data-foundation-cluster-service-for-external-storage_ceph-external" target="read-later">external Ceph storage system</a>.
+This is the backend shared storage for the <em>Tenant</em> cluster.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hub_cluster"><a class="anchor" href="#_hub_cluster"></a>Hub Cluster</h3>
+<div class="paragraph">
+<p>The main role of <em>Hub</em> cluster is to deploy <em>Infrastructure</em> clusters and <em>Tenant</em> cluster.</p>
+</div>
+<div class="paragraph">
+<p>Deploy <em>Hub</em> cluster as <a href="https://docs.openshift.com/container-platform/4.16/installing/installing_sno/install-sno-installing-sno.html" target="read-later">Single Node OpenShift (SNO) cluster</a>.</p>
+</div>
+<div class="paragraph">
+<p>Install the following operators on the  <em>Hub</em> cluster which acts as the hub cluster.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Multi cluster engine</p>
+</li>
+<li>
+<p>Red Hat Advanced Cluster Management (RHACM)</p>
+</li>
+<li>
+<p>Logical Volume Manager Storage (LVMS)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Ensure <a href="https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.11/html-single/clusters/index#enable-cim" target="read-later">Provisioning and Central Infrastructure Management (CIM)</a> services are deployed on the <em>Hub</em> cluster.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_infrastructure_cluster"><a class="anchor" href="#_infrastructure_cluster"></a>Infrastructure Cluster</h3>
+<div class="paragraph">
+<p>The main role of <em>Infrastructure</em> clusters is to deploy Nested OpenShift VMs using OpenShift Virtualization.
+Each <em>Infrastructure</em> cluster has one virtual machine that acts as an OpenShift node in the <em>Tenant</em> cluster.</p>
+</div>
+<div class="paragraph">
+<p>There are three <em>Infrastructure</em> clusters.
+Deploy <em>Infrastructure</em> clusters as <em>Single Node OpenShift (SNO)</em> cluster from <em>Hub</em> cluster using RHACM.</p>
+</div>
+<div class="paragraph">
+<p>Install <a href="https://docs.openshift.com/container-platform/4.16/virt/about_virt/about-virt.html" target="read-later">OpenShift Virtualization</a>, OpenShift Data Foundation (ODF) and NMState operators on <em>Infrastructure</em> clusters.</p>
+</div>
+<div class="paragraph">
+<p>Upload discovery ISO to all <em>Infrastructure</em> clusters to boot the <em>Tenant</em> cluster nodes from discovery ISO.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tenant_cluster"><a class="anchor" href="#_tenant_cluster"></a>Tenant Cluster</h3>
+<div class="paragraph">
+<p>There is only one <em>Tenant</em> cluster.
+Deploy <em>Tenant</em> cluster as <a href="https://docs.openshift.com/container-platform/4.5/release_notes/ocp-4-5-release-notes.html#ocp-4-5-three-node-bare-metal-deployments" target="read-later"><em>Three-Node OpenShift Compact</em> cluster</a> from the <em>Hub</em> cluster using RHACM.
+These three nodes are the virtual machines running on <em>Infrastructure</em> clusters.</p>
+</div>
+<div class="paragraph">
+<p>All applications and workloads are running on <em>Tenant</em> cluster nodes.</p>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="index.html">Hands-on Lab Environment Setup for MCAP</a></span>
+  <span class="next"><a href="section2.html">Initial Setup on Hypervisor</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

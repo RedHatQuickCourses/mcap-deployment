@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Assisted Clusters - Tenant Cluster :: Deploy Mission Critical Application Platform (MCAP)</title>
+    <link rel="prev" href="section1.html">
+    <link rel="next" href="section3.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Deploy Mission Critical Application Platform (MCAP)</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/mcap-deployment/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="mcap-deployment" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Deploy Mission Critical Application Platform (MCAP)</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter1/index.html">Hands-on Lab Environment Setup for MCAP</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section1.html">MCAP Setup in RHDP Lab</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section2.html">Initial Setup on Hypervisor</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section3.html">Storage VM Deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section4.html">Ceph Storage Deployment</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter2/index.html">Hub Cluster Deployment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter2/section1.html">Hub VM Deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter2/section2.html">Assisted Clusters - Hub Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter2/section3.html">Access the Hub Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter2/section4.html">Install Operators and Configure Service</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter3/index.html">Infrastructure Cluster Deployment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section1.html">Infrastructure VMs Deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section2.html">Assisted Clusters - Infrastructure Clusters</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section3.html">Access the Infrastructure Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section4.html">Install and Configure Operators</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section5.html">Network Settings</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Tenant Cluster Deployment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section1.html">Tenant VMs Deployment</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="section2.html">Assisted Clusters - Tenant Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section3.html">Access the Tenant Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section4.html">Install and Configure Operators</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section5.html">Install Sample Application on Tenant Cluster</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../appendix/appendix.html">Appendix A</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/section1.html">Initial Setup on Hypervisor without Automation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/section2.html">Storage VM Deployment without Automation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/section3.html">Hub VM Deployment without Automation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/section4.html">Infrastructure VM Deployment without Automation</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Deploy Mission Critical Application Platform (MCAP)</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Deploy Mission Critical Application Platform (MCAP)</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Deploy Mission Critical Application Platform (MCAP)</a></li>
+    <li><a href="index.html">Tenant Cluster Deployment</a></li>
+    <li><a href="section2.html">Assisted Clusters - Tenant Cluster</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Assisted Clusters - Tenant Cluster</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this section, you will be deploying the <em>Tenant</em> cluster using RHACM from the <em>Hub</em> cluster.
+The <em>Tenant</em> cluster will be the <em>Three-Node OpenShift Compact</em> cluster.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/MCAP_setup_1.png" alt="MCAP setup 1">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>tcn1.lab.example.com</code>, <code>tcn2.lab.example.com</code>, and <code>tcn3.lab.example.com</code> VMs (created using OpenShift Virtualization) are up and running.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deploy_tenant_cluster_as_three_node_openshift_compact_cluster"><a class="anchor" href="#_deploy_tenant_cluster_as_three_node_openshift_compact_cluster"></a>Deploy <em>Tenant</em> cluster as <em>Three-Node OpenShift Compact</em> Cluster</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Login to the web console of the <em>Hub</em> cluster.</p>
+<div class="paragraph">
+<p>Ensure that you have switched to <code>All Clusters</code> from the <code>local-cluster</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_switch.png" alt="hub console switch">
+</div>
+</div>
+</li>
+<li>
+<p>Create the cluster using <b class="button">Create cluster</b>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_create_cluster.png" alt="hub console create cluster">
+</div>
+</div>
+</li>
+<li>
+<p>Select <code>Host inventory</code>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_host_inventory.png" alt="hub console host inventory">
+</div>
+</div>
+</li>
+<li>
+<p>Select <code>Standalone</code>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_standalone.png" alt="hub console standalone">
+</div>
+</div>
+</li>
+<li>
+<p>Select <code>Add new hosts</code>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_add_new_hosts.png" alt="hub console add new hosts">
+</div>
+</div>
+</li>
+<li>
+<p>Provide cluster details.</p>
+<div class="paragraph">
+<p>Cluster name: <code>tenant</code></p>
+</div>
+<div class="paragraph">
+<p>Cluster set: <code>default</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_details.png" alt="hub console tenant details">
+</div>
+</div>
+<div class="paragraph">
+<p>Base domain: <code>lab.example.com</code></p>
+</div>
+<div class="paragraph">
+<p>Select <code>4.16.8</code> version of OpenShift from the menu.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_details_1.png" alt="hub console tenant details 1">
+</div>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Get the pull secret from <code>pull_secret.txt</code> and provide the pull secret in the <code>Pull secret</code> field.</p>
+<div class="paragraph">
+<p>Click <b class="button">Next</b></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_pull_secret.png" alt="hub console tenant pull secret">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>No automation template.</p>
+<div class="paragraph">
+<p>Click <b class="button">Next</b></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_automation.png" alt="hub console tenant automation">
+</div>
+</div>
+</li>
+<li>
+<p>Review and save.</p>
+<div class="paragraph">
+<p>Click <b class="button">Save</b></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_review_save.png" alt="hub console tenant review save">
+</div>
+</div>
+</li>
+<li>
+<p>Add <code>tcn1.lab.example.com</code>, <code>tcn2.lab.example.com</code>, and <code>tcn3.lab.example.com</code> VMs as host.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Select <span class="menuseq"><b class="menu">Add hosts</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">With Discovery ISO</b></span>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_add_host_discovery_iso.png" alt="hub console tenant add host discovery iso">
+</div>
+</div>
+</li>
+<li>
+<p>Here you will need to provide the public SSH key of the <code>root</code> user.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_public_key.png" alt="hub console tenant public key">
+</div>
+</div>
+</li>
+<li>
+<p>Get the public SSH key of the <code>root</code> user.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_public_key_1.png" alt="hub console tenant public key 1">
+</div>
+</div>
+</li>
+<li>
+<p>Provide the public SSH key of the <code>root</code> user in the <code>SSH public key</code> field.</p>
+<div class="paragraph">
+<p>Click <b class="button">Generate Discovery ISO</b> to generate discovery ISO.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_generate_discovery_iso.png" alt="hub console tenant generate discovery iso">
+</div>
+</div>
+</li>
+<li>
+<p>Click <b class="button">Download Discovery ISO</b> to download discovery ISO on the hypervisor.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_download_discovery_iso.png" alt="hub console tenant download discovery iso">
+</div>
+</div>
+</li>
+<li>
+<p>Upload ISO from <code>/root/Download</code> directory to <em>Infrastructure</em> clusters.</p>
+<div class="paragraph">
+<p>Login to the <code>sno1</code> cluster.</p>
+</div>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre>[root@hypervisor ~]# oc get nodes
+NAME                  STATUS   ROLES                         AGE   VERSION
+hub.lab.example.com   Ready    control-plane,master,worker   21h   v1.29.7+4510e9c
+
+[root@hypervisor ~]# oc logout
+Logged "kube:admin" out on "https://api.hub.lab.example.com:6443"
+
+[root@hypervisor ~]# cp /root/sno1/kubeconfig .kube/config
+cp: overwrite '.kube/config'? y
+
+[root@hypervisor ~]# kubepass=$(cat /root/sno1/kubeadmin-password)
+
+[root@hypervisor ~]# oc login -u kubeadmin -p $kubepass
+Login successful.
+
+You have access to 77 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+[root@hypervisor ~]# oc get nodes
+NAME                   STATUS   ROLES                         AGE   VERSION
+sno1.lab.example.com   Ready    control-plane,master,worker   20h   v1.29.7+4510e9c</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Upload the discovery ISO using the <code>virtctl image-upload</code> command.</p>
+</div>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre>[root@hypervisor ~]# ls /root/Downloads/
+3b6f60e8-ad5e-4466-a1ad-add735801ad1-discovery.iso  ceph-external-cluster-details-exporter.py  virtctl.tar.gz
+
+[root@hypervisor ~]# virtctl image-upload dv tenant-iso-pvc --size=1Gi --image-path=/root/Downloads/3b6f60e8-ad5e-4466-a1ad-add735801ad1-discovery.iso --insecure --force-bind
+
+Using existing PVC default/prime-a5b6464f-2244-4c31-ab93-5219abf15849
+Uploading data to https://cdi-uploadproxy-openshift-cnv.apps.sno1.lab.example.com
+
+ 107.46 MiB / 107.46 MiB [============================================================================================================================================================================] 100.00% 0s
+
+Uploading data completed successfully, and waiting for processing to complete, you can hit ctrl-c without interrupting the progress.
+Processing completed successfully
+Uploading /root/Downloads/eea97cca-cda5-47b9-bfdf-51929b4a7067-discovery.iso completed successfully
+
+[root@hypervisor ~]# oc logout</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Verify that the PVC is created on the <code>sno1</code> cluster.</p>
+</div>
+<div class="paragraph">
+<p>In the <code>sno1</code> cluster web console, from the left navigation pane; click <span class="menuseq"><b class="menu">Storage</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">PersistentVolumeClaims</b></span>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_console_tenant_iso_pvc.png" alt="sno1 console tenant iso pvc">
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Upload the discovery ISO to <code>sno2</code> and <code>sno3</code> clusters by performing the above steps.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Boot the <code>tcn1.lab.example.com</code>, <code>tcn2.lab.example.com</code>, and <code>tcn3.lab.example.com</code> VMs with discovery ISO.</p>
+<div class="paragraph">
+<p>In the <code>sno1</code> cluster web console, from the left navigation pane; click <span class="menuseq"><b class="menu">Virtualization</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">VirtualMachines</b></span>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_console_create_vm.png" alt="sno1 console create vm">
+</div>
+</div>
+<div class="paragraph">
+<p>Stop the <code>tcn1.lab.example.com</code> VM.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_console_vm_stop.png" alt="sno1 console vm stop">
+</div>
+</div>
+<div class="paragraph">
+<p>Verify that the <code>tcn1.lab.example.com</code> VM is stopped.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_console_vm_stopped.png" alt="sno1 console vm stopped">
+</div>
+</div>
+<div class="paragraph">
+<p>From the <code>tcn1.lab.example.com</code> VM&#8217;s <code>Configuration</code> tab, select <code>Storage</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_console_vm_config_tab.png" alt="sno1 console vm config tab">
+</div>
+</div>
+<div class="paragraph">
+<p>Click <b class="button">Add disk</b> to add the discovery ISO as the PVC.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_console_vm_add_disk.png" alt="sno1 console vm add disk">
+</div>
+</div>
+<div class="paragraph">
+<p>Select <span class="menuseq"><b class="menu">Source</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">PVC</b></span> and then select <span class="menuseq"><b class="menu">Select PersistentVolumeClaim</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">tenant-iso-pvc</b></span>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_console_vm_add_disk_iso.png" alt="sno1 console vm add disk iso">
+</div>
+</div>
+<div class="paragraph">
+<p>Keep the interface as <code>VirtIO</code> and click <b class="button">Save</b> to add the disk.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_console_vm_add_disk_iso_1.png" alt="sno1 console vm add disk iso 1">
+</div>
+</div>
+<div class="paragraph">
+<p>Edit the boot order of the <code>tcn1.lab.example.com</code> VM from the <code>Configuration</code> tab, and select <code>Details</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_console_vm_boot_order.png" alt="sno1 console vm boot order">
+</div>
+</div>
+<div class="paragraph">
+<p>Move up the newly added disk at the top and click <b class="button">Save</b>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_console_vm_boot_order_1.png" alt="sno1 console vm boot order 1">
+</div>
+</div>
+<div class="paragraph">
+<p>Start the <code>tcn1.lab.example.com</code> VM.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_console_vm_start.png" alt="sno1 console vm start">
+</div>
+</div>
+<div class="paragraph">
+<p>Ensure the <code>tcn1.lab.example.com</code> VM boots with the discovery ISO.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_console_vm_boot_rhcos.png" alt="sno1 console vm boot rhcos">
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Follow the same steps above for the <code>tcn2.lab.example.com</code> and <code>tcn3.lab.example.com</code> VMs to boot them with the discovery ISO.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Return to the web console of the <em>Hub</em> cluster to proceed with the cluster installation.</p>
+<div class="paragraph">
+<p>Approve the discovered host <code>tcn1.lab.example.com</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_approve_host.png" alt="hub console tenant approve host">
+</div>
+</div>
+<div class="paragraph">
+<p>Ensure that the discovered host <code>tcn1.lab.example.com</code> is ready.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_approve_host_ready.png" alt="hub console tenant approve host ready">
+</div>
+</div>
+<div class="paragraph">
+<p>Approve the remaining hosts <code>tcn2.lab.example.com</code> and <code>tcn3.lab.example.com</code>.</p>
+</div>
+<div class="paragraph">
+<p>Click <b class="button">Next</b> to proceed.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_approve_host_ready_1.png" alt="hub console tenant approve host ready 1">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>In the networking section, ensure all hosts are ready.</p>
+<div class="paragraph">
+<p>Provide the <code>API IP</code> and <code>Ingress IP</code> from the zone file.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_networking.png" alt="hub console tenant networking">
+</div>
+</div>
+<div class="paragraph">
+<p>Click <b class="button">Next</b> to proceed.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_networking_ready.png" alt="hub console tenant networking ready">
+</div>
+</div>
+</li>
+<li>
+<p>If you notice <code>All checks passed</code> for the cluster and host validations, then click <b class="button">Install cluster</b>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_review_create.png" alt="hub console tenant review create">
+</div>
+</div>
+</li>
+<li>
+<p>Notice that the installation has started.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_install_progress.png" alt="hub console tenant install progress">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_install_progress_1.png" alt="hub console tenant install progress 1">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_install_progress_2.png" alt="hub console tenant install progress 2">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_install_progress_3.png" alt="hub console tenant install progress 3">
+</div>
+</div>
+</li>
+<li>
+<p>After 7 to 10 minutes, the installation will wait for <em>Pending user action</em>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_pending_user_actions.png" alt="hub console tenant pending user actions">
+</div>
+</div>
+<div class="paragraph">
+<p>This means that you will need to disconnect the discovery ISO from the <code>tcn3.lab.example.com</code> VM and boot the <code>tcn3.lab.example.com</code> VM from disk.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_pending_user_actions_1.png" alt="hub console tenant pending user actions 1">
+</div>
+</div>
+<div class="paragraph">
+<p>This means that you will also need to disconnect the discovery ISO from the <code>tcn2.lab.example.com</code> VM, and boot the <code>tcn2.lab.example.com</code> VM from disk.</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Shutdown the <code>tcn2.lab.example.com</code> VM.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_console_vm_stopped_tcn2.png" alt="sno1 console vm stopped tcn2">
+</div>
+</div>
+</li>
+<li>
+<p>Update the boot order to boot the <code>tcn2.lab.example.com</code> VM from disk.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_console_vm_boot_order_tcn2.png" alt="sno1 console vm boot order tcn2">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_console_vm_boot_order_tcn2_1.png" alt="sno1 console vm boot order tcn2 1">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_console_vm_boot_order_tcn2_2.png" alt="sno1 console vm boot order tcn2 2">
+</div>
+</div>
+<div class="paragraph">
+<p>Ensure that the <code>tcn2.lab.example.com</code> VM boots from disk.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/sno1_console_vm_boot_tcn2.png" alt="sno1 console vm boot tcn2">
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Follow the same steps above to boot the <code>tcn3.lab.example.com</code> VM from disk.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>After 2 minutes, installation proceeds and you will notice the progress.</p>
+<div class="paragraph">
+<p>After 5 minutes, the <code>tcn2.lab.example.com</code> and <code>tcn3.lab.example.com</code> nodes are installed.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_install_progress_4.png" alt="hub console tenant install progress 4">
+</div>
+</div>
+</li>
+<li>
+<p>Installation proceeds and continues with <code>tcn1.lab.example.com</code> node.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_install_progress_5.png" alt="hub console tenant install progress 5">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_install_progress_6.png" alt="hub console tenant install progress 6">
+</div>
+</div>
+</li>
+<li>
+<p>After 7 to 10 minutes, the installation will wait for <em>Pending user action</em>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_pending_user_actions_2.png" alt="hub console tenant pending user actions 2">
+</div>
+</div>
+<div class="paragraph">
+<p>This means that you will need to disconnect the discovery ISO from the <code>tcn1.lab.example.com</code> VM and boot the <code>tcn1.lab.example.com</code> VM from disk.</p>
+</div>
+<div class="paragraph">
+<p>Follow the same steps that you followed for <code>tcn2.lab.example.com</code> VM to boot the <code>tcn1.lab.example.com</code> VM from disk.</p>
+</div>
+</li>
+<li>
+<p>Installation will complete in approximately 20 minutes.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_install_progress_7.png" alt="hub console tenant install progress 7">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_install_complete.png" alt="hub console tenant install complete">
+</div>
+</div>
+</li>
+<li>
+<p>Notice that the <code>tenant</code> cluster is added to the cluster list in the <code>default</code> cluster set.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hub_console_tenant_ready.png" alt="hub console tenant ready">
+</div>
+</div>
+<div class="paragraph">
+<p>This concludes the successful deployment of the OpenShift cluster and added to hub cluster using RHACM.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="section1.html">Tenant VMs Deployment</a></span>
+  <span class="next"><a href="section3.html">Access the Tenant Cluster</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
