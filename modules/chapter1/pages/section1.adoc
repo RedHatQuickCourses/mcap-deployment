@@ -58,8 +58,7 @@ https://linux-kvm.org/page/Main_Page[Linux-KVM,window=read-later]
 
 === Utility and Services
 
-The bare metal is acting as a hypervisor, http server, dhcp server, and dns server.
-// Should the above names - HTTP, DHCP be capitalized?
+The bare metal is acting as a hypervisor, HTTP server, DHCP server, and DNS server.
 Configure all these services on the bare metal.
 
 === Networking
@@ -69,7 +68,7 @@ This setup uses KVMs as the base infrastructure.
 All external communication between your clusters will happen via a https://developers.redhat.com/blog/2018/10/22/introduction-to-linux-interfaces-for-virtual-networking#bridge[virtual bridge,window=read-later] on the bare metal.
 
 Install the https://docs.openshift.com/container-platform/4.16/networking/k8s_nmstate/k8s-nmstate-about-the-k8s-nmstate-operator.html[Kubernetes NMState Operator,window=read-later] on the _Infrastructure_ clusters.
-NMstate operator allows users to configure various network interface types, DNS, and routing on cluster nodes.
+NMState operator allows users to configure various network interface types, DNS, and routing on cluster nodes.
 Two main object types drive the configuration.
 
 * NodeNetworkConfigurationPolicy (Policy)

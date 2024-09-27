@@ -240,7 +240,7 @@ image::hub_console_sno1_review_create.png[]
 +
 image::hub_console_sno1_install_progress.png[]
 
-. After 7-10 minutes, it waits for pending user action.
+. After 7-10 minutes, it waits for _Pending user action_.
 +
 image::hub_console_sno1_pending_user_actions.png[]
 +
