@@ -1,15 +1,15 @@
 = Install and Configure Operators
 :experimental:
 
-In this section, you will be installing OpenShift Data Foundation operator on _Tenant_ cluster.
+In this section, you will be installing the OpenShift Data Foundation operator on the _Tenant_ cluster.
 
 image::MCAP_setup_1.png[]
 
 == Prerequisites
 
-. Verify that _tenant_ cluster is deployed successfully.
+. Verify that the _tenant_ cluster is deployed successfully.
 
-. Access the _tenant_ cluster via CLI and web console.
+. Access the _tenant_ cluster via CLI and the web console.
 
 . Ensure that all nodes are in `Ready` status and that all cluster operators are available.
 +
@@ -29,7 +29,7 @@ version   4.16.8    True        False         23h     Cluster version is 4.16.8
 
 == Install OpenShift Data Foundation Operator
 
-. Access the operator hub from the web console of _tenant_ cluster.
+. Access the operator hub from the web console of the _tenant_ cluster.
 +
 From the left navigation pane, click menu:Operators[OperatorHub].
 +
@@ -39,7 +39,7 @@ image::tenant_console_operator_hub.png[]
 +
 image::tenant_console_odf_install.png[]
 
-. Click btn:[Install] to open install options.
+. Click btn:[Install] to open the install options.
 +
 image::tenant_console_odf_install_1.png[]
 
@@ -47,7 +47,7 @@ image::tenant_console_odf_install_1.png[]
 +
 image::tenant_console_odf_install_2.png[]
 
-. After 3-4 minutes, you should notice a message telling you to `Refresh web console` message on window.
+. After 3-4 minutes, you should notice a message telling you to the `Refresh web console` message on the window.
 +
 First, refresh the web console and then click btn:[Create StorageSystem] to create the resource.
 +
@@ -91,7 +91,7 @@ image::tenant_console_odf_install_10.png[]
 +
 image::tenant_console_odf_install_11.png[]
 
-.. Note the conditions as `Available, VendorCsv Ready, Vendor System Present`.
+.. Note the conditions as `Available, VendorCsv Ready, and Vendor System Present`.
 +
 image::tenant_console_odf_install_12.png[]
 

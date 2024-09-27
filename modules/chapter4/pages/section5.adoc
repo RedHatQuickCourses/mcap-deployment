@@ -1,7 +1,7 @@
 = Install Sample Application on Tenant Cluster
 :experimental:
 
-In this section, you will be installing basic _Node.js_ application on _Tenant_ cluster.
+In this section, you will be installing a basic _Node.js_ application on the _Tenant_ cluster.
 You will also be testing the high availability and resilience of deployed _Node.js_ application.
 
 image::MCAP_setup_1.png[]
@@ -19,7 +19,7 @@ NAME             VERSION   AVAILABLE   PROGRESSING   DEGRADED   SINCE   MESSAGE
 image-registry   4.16.8    True        False         False      61s
 ----
 
-== Install _Node.js_ application on _Tenant_ cluster
+== Install _Node.js_ application on _Tenant_ Cluster
 
 . From the left navigation pane, click menu:Administrator[Developer].
 +
@@ -27,7 +27,7 @@ image::tenant_console_switch_view.png[]
 
 . You will be redirected to the developer view.
 +
-Click on text btn:[create a Project].
+Click on the text btn:[create a Project].
 +
 image::tenant_console_developer_view.png[]
 
@@ -37,23 +37,23 @@ Name: `sample`.
 +
 Display name: `sample`.
 +
-Description: `This is sample project`.
+Description: `This is a sample project`.
 +
 Click btn:[Create] to create the project.
 +
 image::tenant_console_create_project.png[]
 
-. In the project view, click on text btn:[Add page] to add the sample application.
+. In the project view, click on the text btn:[Add page] to add the sample application.
 +
 image::tenant_console_nodejs_app_add.png[]
 
-. In the add page window, click on text btn:[View all samples].
+. In the add page window, click on the text btn:[View all samples].
 +
 image::tenant_console_nodejs_app_sample.png[]
 
-. In the search section, search for `basic node`.
+. In the search section, search for the `basic node`.
 +
-Select the `Basic Node.js` application from samples.
+Select the `Basic Node.js` application from the samples.
 +
 image::tenant_console_nodejs_app_search.png[]
 
@@ -69,7 +69,7 @@ image::tenant_console_nodejs_app_create_1.png[]
 
 . In resources tab, notice that the application is building.
 +
-If you click on the URL from routes section, it will open the application page in new tab.
+If you click on the URL from the routes section, it will open the application page in a new tab.
 +
 image::tenant_console_nodejs_app_build_running.png[]
 
@@ -85,7 +85,7 @@ image::tenant_console_nodejs_app_accept_risk.png[]
 +
 image::tenant_console_nodejs_app_page_failure.png[]
 
-. In a minute, you will notice the application is in running state.
+. In a minute, you will notice the application is in the running state.
 +
 image::tenant_console_nodejs_app_build_success.png[]
 
@@ -95,7 +95,7 @@ image::tenant_console_nodejs_app_page_success.png[]
 
 == Test the High Availability and Resilience
 
-. Find out the where the application pod is running.
+. Find out where the application pod is running.
 +
 .Sample output:
 ----
@@ -107,13 +107,13 @@ nodejs-basic-6d55569c9c-gps2d   1/1     Running     0          2m51s   10.130.0.
 
 . In this case, the application pod is running on the `tcn2.lab.example.com` node.
 +
-This means that the `tcn2.lab.example.com` node is running on `sno2` _Infrastructure_ cluster.
+This means that the `tcn2.lab.example.com` node is running on the `sno2` _Infrastructure_ cluster.
 
 . To test high availability and resilience, first shut down the `sno2` VM, which will shutdown the _Infrastructure_ cluster.
 +
 image::tenant_console_nodejs_app_shutdwon_vm.png[]
 +
-Ensure that `sno2` VM is in shutoff state.
+Ensure that the `sno2` VM is in a shutoff state.
 +
 image::tenant_console_nodejs_app_shutdwon_vm_1.png[]
 
@@ -121,7 +121,7 @@ image::tenant_console_nodejs_app_shutdwon_vm_1.png[]
 +
 image::tenant_console_nodejs_app_page_failure.png[]
 
-. The `pod-eviction-timeout` and `node-monitor-grace-period` parameters have the default value of `5m` and `40s` respectively.
+. The `pod-eviction-timeout` and `node-monitor-grace-period` parameters have the default values of `5m` and `40s` respectively.
 This means it takes `5m40s` to trigger the pod eviction process after the last node status update.
 +
 After 5 minutes (eviction timeout), note that the application is successfully migrated to the `tcn1.lab.example.com` node.
@@ -141,4 +141,4 @@ Eviction timeout - https://access.redhat.com/solutions/5359001[How to modify the
 +
 image::tenant_console_nodejs_app_page_success.png[]
 
-. This test shows that even if one infrastructure node is down; application automatically migrate to other infrastructure node.
+. This test shows that even if one infrastructure node is down; the application automatically migrates to other infrastructure node.

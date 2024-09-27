@@ -104,25 +104,25 @@ metadata:
 
 . Access the `local-cluster`.
 +
-Click to menu:All Clusters[local-cluster]
+Click on menu:All Clusters[local-cluster]
 +
 image::local_cluster_access.png[]
 
 . Access the operator hub.
 +
-From left navigation pane, click menu:Operators[OperatorHub].
+From the left navigation pane, click menu:Operators[OperatorHub].
 +
 image::operator_hub.png[]
 
-. In search window, search _rhacm_ and select the `Advanced Cluster Management for Kubernetes`.
+. In the search window, search _rhacm_ and select the `Advanced Cluster Management for Kubernetes`.
 +
 image::rhacm_search.png[]
 
-. Click btn:[Install] to open install options.
+. Click btn:[Install] to open the install options.
 +
 image::rhacm_install.png[]
 
-. Keep all options as is, with no change in selected options and click btn:[Install] to install the operator.
+. Keep all options as is, with no change in selected options and, click btn:[Install] to install the operator.
 +
 image::rhacm_install_1.png[]
 
@@ -130,28 +130,28 @@ image::rhacm_install_1.png[]
 +
 image::rhacm_install_2.png[]
 
-. Keep all options as is, with no change in selected options and click btn:[Create] to create the resource.
+. Keep all options as is, with no change in selected options and, click btn:[Create] to create the resource.
 +
 image::rhacm_install_3.png[]
 
-. Notice it goes into `Installing` phase.
+. Notice it goes into the `Installing` phase.
 +
 image::rhacm_install_4.png[]
 
-. After 2-3 minutes, notice the `Refresh web console` message on window.
+. After 2-3 minutes, notice the `Refresh web console` message on the window.
 +
 image::rhacm_install_5.png[]
 
-. After 3-4 minutes, refresh the page and _MultiClusterHub_ is in `Running` phase.
+. After 3-4 minutes, refresh the page and _MultiClusterHub_ is in the `Running` phase.
 +
 image::rhacm_install_6.png[]
 
-==  Enable the Central Infrastructure Management service
+==  Enable the Central Infrastructure Management Service
 
 https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.5/html/clusters/managing-your-clusters#enable-cim[The Central Infrastructure Management (CIM),window=read-later] service is provided with the `mce-short` and deploys OpenShift Container Platform clusters.
 CIM is deployed when you enable the _MultiClusterHub Operator_ on the hub cluster, but must be enabled.
 
-This will help to generate discovery ISO which will be used for deploying _Infrastructure_ clusters from _Hub_ cluster using RHACM.
+This will help to generate discovery ISO which will be used for deploying _Infrastructure_ clusters from the _Hub_ cluster using RHACM.
 
 Ensure `AgentServiceConfig` exists and running.
 

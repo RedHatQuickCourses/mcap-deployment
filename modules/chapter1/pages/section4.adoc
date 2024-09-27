@@ -1,7 +1,7 @@
 = Ceph Storage Deployment
 
-In this section, you will be deploying Ceph on `storage` VM.
-This `storage` VM will be a single node with three disks Ceph cluster.
+In this section, you will be deploying Ceph on a `storage` VM.
+This `storage` VM will be a single node with three disks in the Ceph cluster.
 
 image::MCAP_setup_3.png[]
 
@@ -11,7 +11,7 @@ image::MCAP_setup_3.png[]
 
 == Ceph Storage Deployment Prerequisites
 
-. Take the console of the `storage` VM and login as _root_ user with _redhat_ as password.
+. Take the console of the `storage` VM and log in as _root_ user with _redhat_ as the password.
 +
 [source,bash,role=execute]
 ----
@@ -29,7 +29,7 @@ Password:
 [root@storage ~]#
 ----
 
-. Register the `storage` VM with valid subscription.
+. Register the `storage` VM with a valid subscription.
 You will need to provide your customer portal (access.redhat.com) credentials.
 +
 [source,bash,role=execute]
@@ -37,7 +37,7 @@ You will need to provide your customer portal (access.redhat.com) credentials.
 subscription-manager register
 ----
 +
-Disable the all repos.
+Disable all the repos.
 +
 [source,bash,role=execute]
 ----
@@ -51,14 +51,14 @@ Enable only required and Ceph repos.
 subscription-manager repos --enable=rhel-9-for-x86_64-baseos-rpms --enable=rhel-9-for-x86_64-appstream-rpms --enable=rhceph-7-tools-for-rhel-9-x86_64-rpms
 ----
 +
-Check the repo list and ensure all required repos are enabled.
+Check the repo list and ensure that all the required repos are enabled.
 +
 [source,bash,role=execute]
 ----
 dnf repolist
 ----
 
-. Update all packages on the `storage` VM to latest version.
+. Update all packages on the `storage` VM to the latest version.
 +
 [source,bash,role=execute]
 ----
@@ -80,7 +80,7 @@ reboot
 ----
 
 . Permit `root` login on `storage` VM.
-This will allow the login to `storage` VM as `root` user using `ssh` connection.
+This will allow the login to a `storage` VM as a `root` user using an `ssh` connection.
 +
 [source,bash,role=execute]
 ----
@@ -123,7 +123,7 @@ The `ssh-add` command prompts the user for a private key password and adds it to
 Once you add a password to `ssh-agent`, you will not be prompted for it when using SSH or scp to connect to hosts with your public key.
 
 . Create the `/etc/auth.json` file.
-This file will be used in Ceph cluster deployment for getting access to container image catalog.
+This file will be used in Ceph cluster deployment for getting access to the container image catalog.
 +
 [source,bash,role=execute]
 ----
@@ -141,9 +141,9 @@ Replace "yourusername" with your username and "yourpassword" with your password 
 
 == Ceph Configuration and Deployment
 
-. Create the Ceph spec file `initial-config.yaml`, which is used as initial configuration for Ceph cluster deployment.
+. Create the Ceph spec file `initial-config.yaml`, which is used as the initial configuration for Ceph cluster deployment.
 There is only a single Ceph cluster node i.e. `storage` VM, used to deploy Ceph cluster.
-You need to provide `storage` VM details in the spec file such as IP address, hostname, host and three disks attached to `storage` VM.
+You need to provide `storage` VM details in the spec file such as IP address, hostname, host, and three disks attached to the `storage` VM.
 +
 [source,bash,role=execute]
 ----
@@ -181,8 +181,8 @@ data_devices:
 EOF
 ----
 
-. Deploy the Ceph storage cluster with following command.
-You will need to pass the spec file as `initial-config.yaml`, mon IP as `storage` VM's IP and registry json file as `/etc/auth.json`.
+. Deploy the Ceph storage cluster with the following command.
+You will need to pass the spec file as `initial-config.yaml`, mon IP as `storage` VM's IP, and the registry json file as `/etc/auth.json`.
 To deploy a Ceph cluster running on a single host, use the `--single-host-defaults` flag when bootstrapping.
 +
 [source,bash,role=execute]
@@ -227,10 +227,10 @@ registry.redhat.io/rhceph/rhceph-7-rhel9@sha256:75bd8969ab3f86f2203a1ceb187876f4
 ----
 +
 [NOTE]
-You may have to wait for approximately 5 to 10 minutes for all the background processes needed for installation to complete and the cluster to be in `HEALTH_OK` state.
+You may have to wait for approximately 5 to 10 minutes for all the background processes needed for installation to complete and for the cluster to be in the `HEALTH_OK` state.
 You may track the progress with watch `ceph -s` command.
 
-. You may also run `ceph health` command to verify cluster status.
+. You may also run the `ceph health` command to verify cluster status.
 +
 .Sample output:
 ----
@@ -238,7 +238,7 @@ You may track the progress with watch `ceph -s` command.
 HEALTH_OK
 ----
 
-. In case of failure, you can use following command to destroy the Ceph storage cluster.
+. In case of failure, you can use the following command to destroy the Ceph storage cluster.
 +
 [source,bash,role=execute]
 ----

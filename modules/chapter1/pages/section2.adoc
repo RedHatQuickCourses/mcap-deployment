@@ -1,10 +1,10 @@
 = Initial Setup on Hypervisor
 
 [NOTE]
-You can refer to how to configure manually i.e. without automation at the end appendix chapter.
+You can refer to the appendix at the end for manual configuration instructions without automation.
 
-Before proceeding with the actual MCAP deployment, let's first ensure the initial setup and configuration is done on the hypervisor.
-You will need to perform few tasks before the actual deployment of OpenShift clusters.
+Before proceeding with the actual MCAP deployment, let's first ensure that the initial setup and configuration are done on the hypervisor.
+You will need to perform a few tasks before the actual deployment of OpenShift clusters.
 Few of the tasks are automated with the help of ansible playbooks.
 
 image::MCAP_setup_1.png[]
@@ -13,7 +13,7 @@ image::MCAP_setup_1.png[]
 
 . Download the `rhel-9.4-x86_64-kvm.qcow2` image from the https://access.redhat.com/downloads/content/rhel[Red Hat Customer Portal,window=read-later] to your laptop/desktop.
 
-. Use secured copy (scp) to copy the `rhel-9.4-x86_64-kvm.qcow2` image from your laptop/desktop to hypervisor and then place it in `/root` directory.
+. Use secured copy (scp) to copy the `rhel-9.4-x86_64-kvm.qcow2` image from your laptop/desktop to the hypervisor and then place it in `/root` directory.
 +
 .Sample output:
 ----
@@ -57,7 +57,7 @@ ansible-galaxy collection install -r requirements.yml
 
 == Setup and Configuration
 
-You can either use the *_setup_hypervisor.yaml_* playbook to install packages, configure swap, LV, DHCP, HTTP and DNS or else run commands manually on the hypervisor.
+You can either use the *_setup_hypervisor.yaml_* playbook to install packages, configure swap, LV, DHCP, HTTP, and DNS, or else run commands manually on the hypervisor.
 
 Ensure you are in *_ansible_* directory of the repo.
 

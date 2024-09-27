@@ -1,20 +1,20 @@
 = Assisted Clusters - Tenant Cluster
 :experimental:
 
-In this section, you will be deploying _Tenant_ cluster using RHACM from _Hub_ cluster.
+In this section, you will be deploying the _Tenant_ cluster using RHACM from the _Hub_ cluster.
 The _Tenant_ cluster will be the _Three-Node OpenShift Compact_ cluster.
 
 image::MCAP_setup_1.png[]
 
 == Prerequisites
 
-The `tcn1.lab.example.com`, `tcn2.lab.example.com` and `tcn3.lab.example.com` VMs (created using OpenShift Virtualization) are up and running.
+The `tcn1.lab.example.com`, `tcn2.lab.example.com`, and `tcn3.lab.example.com` VMs (created using OpenShift Virtualization) are up and running.
 
-== Deploy _Tenant_ cluster as _Three-Node OpenShift Compact_ cluster
+== Deploy _Tenant_ cluster as _Three-Node OpenShift Compact_ Cluster
 
-. Login to the web console of _Hub_ cluster.
+. Login to the web console of the _Hub_ cluster.
 +
-Ensure that you have switched to `All Clusters` from `local-cluster`.
+Ensure that you have switched to `All Clusters` from the `local-cluster`.
 +
 image::hub_console_switch.png[]
 
@@ -48,7 +48,7 @@ Select `4.16.8` version of OpenShift from the menu.
 +
 image::hub_console_tenant_details_1.png[]
 
-.. Get the pull secret from `pull_secret.txt` and provide the pull secret in `Pull secret` field.
+.. Get the pull secret from `pull_secret.txt` and provide the pull secret in the `Pull secret` field.
 +
 Click btn:[Next]
 +
@@ -66,33 +66,33 @@ Click btn:[Save]
 +
 image::hub_console_tenant_review_save.png[]
 
-. Add `tcn1.lab.example.com`, `tcn2.lab.example.com` and `tcn3.lab.example.com` VMs as host.
+. Add `tcn1.lab.example.com`, `tcn2.lab.example.com`, and `tcn3.lab.example.com` VMs as host.
 
 .. Select menu:Add hosts[With Discovery ISO].
 +
 image::hub_console_tenant_add_host_discovery_iso.png[]
 
-.. Here you will need to provide the public SSH key of `root` user.
+.. Here you will need to provide the public SSH key of the `root` user.
 +
 image::hub_console_tenant_public_key.png[]
 
-.. Get the public SSH key of `root` user.
+.. Get the public SSH key of the `root` user.
 +
 image::hub_console_tenant_public_key_1.png[]
 
-.. Provide the public SSH key of `root` user in `SSH public key` field.
+.. Provide the public SSH key of the `root` user in the `SSH public key` field.
 +
 Click btn:[Generate Discovery ISO] to generate discovery ISO.
 +
 image::hub_console_tenant_generate_discovery_iso.png[]
 
-.. Click btn:[Download Discovery ISO] to download discovery ISO on hypervisor.
+.. Click btn:[Download Discovery ISO] to download discovery ISO on the hypervisor.
 +
 image::hub_console_tenant_download_discovery_iso.png[]
 
 .. Upload ISO from `/root/Download` directory to _Infrastructure_ clusters.
 +
-Login to `sno1` cluster.
+Login to the `sno1` cluster.
 +
 .Sample output:
 ----
@@ -133,23 +133,23 @@ Uploading data to https://cdi-uploadproxy-openshift-cnv.apps.sno1.lab.example.co
 
  107.46 MiB / 107.46 MiB [============================================================================================================================================================================] 100.00% 0s
 
-Uploading data completed successfully, waiting for processing to complete, you can hit ctrl-c without interrupting the progress
+Uploading data completed successfully, and waiting for processing to complete, you can hit ctrl-c without interrupting the progress.
 Processing completed successfully
 Uploading /root/Downloads/eea97cca-cda5-47b9-bfdf-51929b4a7067-discovery.iso completed successfully
 
 [root@hypervisor ~]# oc logout
 ----
 +
-Verify that the PVC is created on `sno1` cluster.
+Verify that the PVC is created on the `sno1` cluster.
 +
-In `sno1` cluster web console, from the left navigation pane; click menu:Storage[PersistentVolumeClaims].
+In the `sno1` cluster web console, from the left navigation pane; click menu:Storage[PersistentVolumeClaims].
 +
 image::sno1_console_tenant_iso_pvc.png[]
 +
 [IMPORTANT]
 Upload the discovery ISO to `sno2` and `sno3` clusters by performing the above steps.
 
-.. Boot the `tcn1.lab.example.com`, `tcn2.lab.example.com` and `tcn3.lab.example.com` VMs with discovery ISO.
+.. Boot the `tcn1.lab.example.com`, `tcn2.lab.example.com`, and `tcn3.lab.example.com` VMs with discovery ISO.
 +
 In the `sno1` cluster web console, from the left navigation pane; click menu:Virtualization[VirtualMachines].
 +
@@ -179,7 +179,7 @@ Keep the interface as `VirtIO` and click btn:[Save] to add the disk.
 +
 image::sno1_console_vm_add_disk_iso_1.png[]
 +
-Edit the boot order of the `tcn1.lab.example.com` VM from `Configuration` tab, and select `Details`.
+Edit the boot order of the `tcn1.lab.example.com` VM from the `Configuration` tab, and select `Details`.
 +
 image::sno1_console_vm_boot_order.png[]
 +
@@ -198,7 +198,7 @@ image::sno1_console_vm_boot_rhcos.png[]
 [IMPORTANT]
 Follow the same steps above for the `tcn2.lab.example.com` and `tcn3.lab.example.com` VMs to boot them with the discovery ISO.
 
-.. Return to the web console of _Hub_ cluster to proceed cluster installation.
+.. Return to the web console of the _Hub_ cluster to proceed with the cluster installation.
 +
 Approve the discovered host `tcn1.lab.example.com`.
 +
@@ -216,7 +216,7 @@ image::hub_console_tenant_approve_host_ready_1.png[]
 
 . In the networking section, ensure all hosts are ready.
 +
-Provide the `API IP` and `Ingress IP` from zone file.
+Provide the `API IP` and `Ingress IP` from the zone file.
 +
 image::hub_console_tenant_networking.png[]
 +
@@ -293,8 +293,8 @@ image::hub_console_tenant_install_progress_7.png[]
 +
 image::hub_console_tenant_install_complete.png[]
 
-. Notice that the `tenant` cluster is added to the cluster list in `default` cluster set.
+. Notice that the `tenant` cluster is added to the cluster list in the `default` cluster set.
 +
 image::hub_console_tenant_ready.png[]
 +
-This concludes the successful deployment of OpenShift cluster and added to hub cluster using RHACM.
+This concludes the successful deployment of the OpenShift cluster and added to hub cluster using RHACM.

@@ -1,12 +1,12 @@
 = Hub VM Deployment without Automation
 
-In this section, you will be creating one KVM with name `hub`.
+In this section, you will be creating one KVM with the name `hub`.
 
 image::MCAP_setup_3.png[]
 
 == Prerequisites
 
-Copy the `rhel-9.4-x86_64-kvm.qcow2` image from `/root` and place it in /var/lib/libvirt/images directory with name as `rhel9-guest.qcow2`.
+Copy the `rhel-9.4-x86_64-kvm.qcow2` image from `/root` and place it in /var/lib/libvirt/images directory with the name as `rhel9-guest.qcow2`.
 
 .Sample output
 ----
@@ -48,7 +48,7 @@ cluster_size: 65536
 ...output omitted...
 ----
 
-. Resize the image with additional size of 120G.
+. Resize the image with an additional size of 120G.
 +
 [source,bash,role=execute]
 ----
@@ -57,7 +57,7 @@ qemu-img resize rhel9-guest.qcow2 +120G
 +
 This increases the virtual size of the disk.
 +
-Ensure virtual size is increased by 120GB.
+Ensure the virtual size is increased by 120GB.
 +
 .Sample output
 ----
@@ -107,7 +107,7 @@ https://access.redhat.com/solutions/57263[How to extend a XFS filesytem using th
 virt-customize -a rhel9-guest.qcow2 --root-password password:redhat
 ----
 +
-You can use this password for logging into VM via console.
+You can use this password for logging into the VM via the console.
 
 . Disable the `cloud-init` service in qcow2 image.
 +
@@ -130,7 +130,7 @@ virt-customize -a rhel9-guest.qcow2 --ssh-inject root:file:/root/.ssh/id_rsa.pub
 virt-customize -a rhel9-guest.qcow2 --selinux-relabel
 ----
 
-. Create the image for `hub` VM using the _rhel9.X_ qcow2 image.
+. Create the image for the `hub` VM using the _rhel9.X_ qcow2 image.
 +
 [source,bash,role=execute]
 ----
@@ -144,7 +144,7 @@ Formatting '/var/lib/libvirt/images/hub.qcow2', fmt=qcow2 cluster_size=65536 ext
 
 . Create the `hub` VM with three 2TB disks.
 Disk path should be storage pool path i.e. `/var/lib/libvirt/images/`.
-mac address for the `hub` VM should be same as from the dhcp configuration.
+mac address for the `hub` VM should be the same as from the dhcp configuration.
 +
 [source,bash,role=execute]
 ----
@@ -190,7 +190,7 @@ Domain 'hub' started
 
 ----
 +
-Verify `hub` VM is in `running` state.
+Verify `hub` VM is in a `running` state.
 +
 .Sample output
 ----
@@ -204,7 +204,7 @@ virsh list --all
 
 . Verify `hub` VM is booted successfully.
 +
-Take the console of the `hub` VM and login as _root_ user with _redhat_ as password.
+Take the console of the `hub` VM and log in as _root_ user with _redhat_ as the password.
 +
 [source,bash,role=execute]
 ----

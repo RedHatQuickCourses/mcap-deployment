@@ -1,13 +1,13 @@
 = Install and Configure Operators
 :experimental:
 
-In this section, you will be installing additional operators needed for deploying _Tenant_ cluster.
+In this section, you will be installing additional operators needed for deploying the _Tenant_ cluster.
 
 image::MCAP_setup_2.png[]
 
 == Prerequisites
 
-. Verify that _sno1_ cluster is deployed successfully.
+. Verify that the _sno1_ cluster is deployed successfully.
 
 . Access the _sno1_ cluster via CLI and web console.
 
@@ -28,7 +28,7 @@ version   4.16.8    True        False         23h     Cluster version is 4.16.8
 
 == Install OpenShift Virtualization Operator
 
-. Access the operator hub from the web console of _sno1_ cluster.
+. Access the operator hub from the web console of the _sno1_ cluster.
 +
 From the left navigation pane, click menu:Operators[OperatorHub].
 +
@@ -42,7 +42,7 @@ image::sno1_console_operator_hub_1.png[]
 +
 image::sno1_console_ocpvirt_install.png[]
 
-. Keep all options as is, with no change in selected options and then click btn:[Install] to install the operator.
+. Keep all options as is, with no change in selected options, and then click btn:[Install] to install the operator.
 +
 image::sno1_console_ocpvirt_install_1.png[]
 
@@ -58,7 +58,7 @@ image::sno1_console_ocpvirt_install_3.png[]
 +
 image::sno1_console_ocpvirt_install_4.png[]
 
-. After 3-4 minutes, notice the `Refresh web console` message on window.
+. After 3-4 minutes, notice the `Refresh web console` message on the window.
 +
 image::sno1_console_ocpvirt_install_5.png[]
 
@@ -68,7 +68,7 @@ image::sno1_console_ocpvirt_install_6.png[]
 
 == Install OpenShift Data Foundation Operator
 
-. Access the operator hub from the web console of _sno1_ cluster.
+. Access the operator hub from the web console of the _sno1_ cluster.
 +
 From the left navigation pane, click menu:Operators[OperatorHub].
 +
@@ -78,7 +78,7 @@ image::sno1_console_operator_hub.png[]
 +
 image::sno1_console_odf_install.png[]
 
-. Click btn:[Install] to open install options.
+. Click btn:[Install] to open the install options.
 +
 image::sno1_console_odf_install_1.png[]
 
@@ -86,7 +86,7 @@ image::sno1_console_odf_install_1.png[]
 +
 image::sno1_console_odf_install_2.png[]
 
-. After 3-4 minutes, notice the `Refresh web console` message on window.
+. After 3-4 minutes, notice the `Refresh web console` message on the window.
 +
 First, refresh the web console and then click btn:[Create StorageSystem] to create the resource.
 +
@@ -123,7 +123,7 @@ You will need to run this script on the `storage` VM.
 scp /root/Downloads/ceph-external-cluster-details-exporter.py root@storage:.
 ----
 +
-Password for `root` user is `redhat`.
+Password for the `root` user is `redhat`.
 +
 .Sample output:
 ----
@@ -157,9 +157,9 @@ root@storage's password:
 [root@storage ~]# python ceph-external-cluster-details-exporter.py --rbd-data-pool-name default.rgw.control > output.json
 ----
 +
-Copy the `output.json` file from `storage` VM to hypervisor.
+Copy the `output.json` file from the `storage` VM to the hypervisor.
 +
-Run following command on hypervisor.
+Run the following command on the hypervisor.
 +
 [source,bash,role=execute]
 ----
@@ -206,7 +206,7 @@ image::sno1_console_odf_install_13.png[]
 
 == Install NMState Operator
 
-. Access the operator hub from the web console of _sno1_ cluster.
+. Access the operator hub from the web console of the _sno1_ cluster.
 +
 From the left navigation pane, click menu:Operators[OperatorHub].
 +
@@ -216,7 +216,7 @@ image::sno1_console_operator_hub.png[]
 +
 image::sno1_console_operator_hub_nmstate.png[]
 
-. Click btn:[Install] to open install options.
+. Click btn:[Install] to open the install options.
 +
 image::sno1_console_nmstate_install.png[]
 
@@ -228,7 +228,7 @@ image::sno1_console_nmstate_install_1.png[]
 +
 image::sno1_console_nmstate_install_2.png[]
 
-. In `NMState` tab and click btn:[Create NMState] to create the resource.
+. In `NMState` tab, click btn:[Create NMState] to create the resource.
 +
 image::sno1_console_nmstate_install_3.png[]
 
@@ -240,11 +240,11 @@ image::sno1_console_nmstate_install_4.png[]
 +
 image::sno1_console_nmstate_install_5.png[]
 
-. After 3-4 minutes, notice the `Refresh web console` message on window.
+. After 3-4 minutes, notice the `Refresh web console` message on the window.
 +
 image::sno1_console_nmstate_install_6.png[]
 
 == Install and Configure Operators on `sno2` and `sno3` Clusters
 
-. Follow the same prerequisites from previous section for `sno2` and `sno3` clusters.
-. Follow same steps from previous section for installing and configuring operators on the `sno2` and `sno3` clusters.
+. Follow the same prerequisites from the previous section for `sno2` and `sno3` clusters.
+. Follow the same steps from the previous section for installing and configuring operators on the `sno2` and `sno3` clusters.

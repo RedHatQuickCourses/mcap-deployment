@@ -1,20 +1,20 @@
 = Assisted Clusters - Infrastructure Clusters
 :experimental:
 
-In this section, you will be deploying _Infrastructure_ clusters using RHACM from _Hub_ cluster.
+In this section, you will be deploying _Infrastructure_ clusters using RHACM from the _Hub_ cluster.
 These _Infrastructure_ clusters will be Single Node OpenShift (SNO) clusters.
 
 image::MCAP_setup_1.png[]
 
 == Prerequisites
 
-. `sno1`, `sno2` and `sno3` VMs are up and running.
+. `sno1`, `sno2`, and `sno3` VMs are up and running.
 
-. Download or copy your https://console.redhat.com/openshift/install/pull-secret[pull-secret,window=read-later] and put it in `pull_secret.txt` file on hypervisor.
+. Download or copy your https://console.redhat.com/openshift/install/pull-secret[pull-secret,window=read-later] and put it in `pull_secret.txt` file on the hypervisor.
 
-. Set the OpenShift `clusterimageset` to 4.16.8 on stable channel.
+. Set the OpenShift `clusterimageset` to 4.16.8 on a stable channel.
 +
-This will allow you to deploy the _Infrastructure_ and _Tenant_ clusters with same OpenShift version.
+This will allow you to deploy the _Infrastructure_ and _Tenant_ clusters with the same OpenShift version.
 
 .. Get the images with _visible_ label as _true_ from `clusterimageset`.
 +
@@ -73,13 +73,13 @@ clusterimageset.hive.openshift.io/img4.16.8-multi-appsub patched
 
 == Deploy _Infrastructure_ clusters as SNO clusters
 
-. Login to web console of _Hub_ cluster.
+. Login to the web console of the _Hub_ cluster.
 +
-Switch to the `All Clusters` from `local-cluster`.
+Switch to the `All Clusters` from the `local-cluster`.
 +
 image::hub_console_switch.png[]
 
-. Create cluster using btn:[Create cluster].
+. Create a cluster using btn:[Create cluster].
 +
 image::hub_console_create_cluster.png[]
 
@@ -113,7 +113,7 @@ image::hub_console_sno1_details.png[]
 +
 image::hub_console_sno1_pull_secret.png[]
 
-.. Provide the pull secret in `Pull secret` field.
+.. Provide the pull secret in the `Pull secret` field.
 +
 Click btn:[Next]
 +
@@ -141,25 +141,25 @@ image::hub_console_sno1_add_host.png[]
 +
 image::hub_console_sno1_add_host_discovery_iso.png[]
 
-.. Here you need to provide the public ssh key of `root` user.
+.. Here you need to provide the public ssh key of the `root` user.
 +
 image::hub_console_sno1_public_key.png[]
 
-.. Get the public ssh key of `root` user.
+.. Get the public ssh key of the `root` user.
 +
 image::hub_console_sno1_public_key_1.png[]
 
-.. Provide the public ssh key of `root` user in `SSH public key` field.
+.. Provide the public ssh key of the `root` user in the `SSH public key` field.
 +
 Click btn:[Generate Discovery ISO] to generate discovery ISO.
 +
 image::hub_console_sno1_generate_discovery_iso.png[]
 
-.. Click btn:[Download Discovery ISO] to download discovery ISO on hypervisor.
+.. Click btn:[Download Discovery ISO] to download discovery ISO on the hypervisor.
 +
 image::hub_console_sno1_download_discovery_iso.png[]
 
-.. This will open link in new tab.
+.. This will open the link in the new tab.
 +
 Click btn:[Advanced...] to proceed.
 +
@@ -200,7 +200,7 @@ Select the discovery ISO and click btn:[Finish].
 +
 image::sno1_attach_iso_finish.png[]
 +
-Update the `Boot device order` to boot system with discovery ISO.
+Update the `Boot device order` to boot the system with discovery ISO.
 +
 Click btn:[Apply].
 +
@@ -210,7 +210,7 @@ Boot the `sno1` VM and ensure it is booted with RHEL CoreOS (Live).
 +
 image::sno1_rhcos_boot.png[]
 
-.. In hub console, notice `sno1` VM as host is discovered and select `Approve host`.
+.. In the hub console, notice `sno1` VM as host is discovered and select `Approve host`.
 +
 image::hub_console_sno1_approve_host.png[]
 
@@ -228,7 +228,7 @@ image::hub_console_sno1_host_ready.png[]
 +
 image::hub_console_sno1_networking_ready.png[]
 +
-After few minutes, the message goes away and notice the host is in `Ready` status.
+After a few minutes, the message goes away and notice that the host is in the `Ready` status.
 +
 image::hub_console_sno1_networking_ready_1.png[]
 
@@ -240,17 +240,17 @@ image::hub_console_sno1_review_create.png[]
 +
 image::hub_console_sno1_install_progress.png[]
 
-. After 7-10 minutes, it waits on pending user action.
+. After 7-10 minutes, it waits for _Pending user action_.
 +
 image::hub_console_sno1_pending_user_actions.png[]
 +
-This means you need to disconnect the discovery ISO from the `sno1` VM and boot the `sno1` VM from disk.
+This means you need to disconnect the discovery ISO from the `sno1` VM and boot the `sno1` VM from the disk.
 
 .. Shutdown the `sno1` VM.
 +
 image::sno1_shutdown_1.png[]
 
-.. Update the boot order to boot `sno1` VM from disk.
+.. Update the boot order to boot `sno1` VM from the disk.
 +
 image::sno1_boot_order_1.png[]
 
@@ -262,7 +262,7 @@ image::hub_console_sno1_install_proceed.png[]
 +
 image::hub_console_sno1_install_complete.png[]
 
-. If you notice any failure in importing the cluster to _Hub_ cluster then wait for 35 to 40 minutes.
+. If you notice any failure in importing the cluster to the _Hub_ cluster then wait for 35 to 40 minutes.
 +
 image::hub_console_sno1_import_fail.png[]
 
@@ -282,13 +282,13 @@ Click btn:[Import] to import cluster.
 +
 image::hub_console_sno1_import_1.png[]
 
-. Notice the `sno1` is added to cluster list in `default` cluster set.
+. Notice that `sno1` is added to the cluster list in the `default` cluster set.
 +
 image::hub_console_sno1_ready.png[]
 +
-This concludes the successful deployment of OpenShift cluster and added to hub cluster using RHACM.
+This concludes the successful deployment of the OpenShift cluster and added to the hub cluster using RHACM.
 
-== Install remaining _Infrastructure_ clusters as SNO clusters
+== Install remaining _Infrastructure_ clusters as SNO Clusters
 
-. You can deploy remaining `sno2` and `sno3` clusters by following steps from the previous section for `sno1` cluster deployment.
+. You can deploy the remaining `sno2` and `sno3` clusters by following the steps from the previous section for `sno1` cluster deployment.
 . Each cluster deployment will take 35 to 40 minutes to complete.

@@ -1,15 +1,15 @@
 = Infrastructure VMs Deployment
 
 [NOTE]
-You can refer to how to configure manually i.e. without automation at the end appendix chapter.
+You can refer to the appendix at the end for manual configuration instructions without automation.
 
-In this section, you will be creating three KVMs with name `sno1`, `sno2` and `sno3`.
+In this section, you will be creating three KVMs with the name `sno1`, `sno2`, and `sno3`.
 
 image::MCAP_setup.png[]
 
 == Prerequisites
 
-Ensure you have already executed *_setup_hypervisor.yaml_* playbook from `Initial Setup on Hypervisor` page.
+Ensure you have already executed *_setup_hypervisor.yaml_* playbook from `Initial Setup on the Hypervisor` page.
 
 == SNO VMs Deployment
 

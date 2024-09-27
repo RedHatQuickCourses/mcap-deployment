@@ -1,7 +1,7 @@
 = Assisted Clusters - Hub Cluster
 :experimental:
 
-In this section, you will be deploying _Hub_ cluster using `hub` VM.
+In this section, you will be deploying the _Hub_ cluster using the `hub` VM.
 This _Hub_ cluster will be Single Node OpenShift (SNO) cluster.
 
 image::MCAP_setup_1.png[]
@@ -18,11 +18,11 @@ Click btn:[Create cluster] to create the Assisted Cluster.
 +
 image::console_redhat_screen.png[]
 
-. Select `Bare Metal (x86_64)` as cluster type from `Datacenter` tab.
+. Select `Bare Metal (x86_64)` as the cluster type from the `Datacenter` tab.
 +
 image::console_redhat_cluster_type.png[]
 
-. Select `Interactive` web based mode.
+. Select `Interactive` web-based mode.
 +
 image::console_redhat_baremetal_interactive.png[]
 
@@ -58,7 +58,7 @@ image::console_redhat_host_discovery.png[]
 +
 Select menu:Provisioning type[Full image file - Download a self-contained ISO].
 +
-SSH public key: provide the `root` user's public rsa key from hypervisor.
+SSH public key: provide the `root` user's public rsa key from the hypervisor.
 +
 Click btn:[Generate Discovery ISO].
 +
@@ -67,7 +67,7 @@ image::console_redhat_host_add.png[]
 . Download the discovery ISO.
 +
 To download the discovery ISO on your laptop or desktop, click btn:[Download Discovery ISO].
-In this case, you need to copy it to hypervisor manually.
+In this case, you need to copy it to the hypervisor manually.
 +
 or
 +
@@ -76,17 +76,17 @@ Use `Command to download the ISO` option and run the given `wget` command to dow
 image::console_redhat_discovery_iso_download.png[]
 +
 [NOTE]
-You will need `virt-manager` to attach this discovery ISO to `hub` VM.
-To access the GUI of hypervisor, you will need console access.
+You will need `virt-manager` to attach this discovery ISO to the `hub` VM.
+To access the GUI of the hypervisor, you will need console access.
 
-. Access the vnc console of hypervisor.
+. Access the vnc console of the hypervisor.
 +
 [NOTE]
 `tigervnc-server` is installed on the hypervisor.
-Using vnc viewer, you can access the console of hypervisor.
+Using vnc viewer, you can access the console of the hypervisor.
 
 .. Set password for vncserver.
-You will use this password to access vnc console of hypervisor from your laptop/desktop.
+You will use this password to access vnc console of the hypervisor from your laptop/desktop.
 +
 [source,bash,role=execute]
 ----
@@ -125,7 +125,7 @@ Log file is /root/.vnc/hypervisor:2.log
 ----
 +
 [NOTE]
-As per above output, you will mention `<hypervisor_ip_address>:2` as connection in VNC viewer.
+As per the above output, you will mention `<hypervisor_ip_address>:2` as connection in VNC viewer.
 
 ..  Download and install VNC viewer from https://www.realvnc.com/en/connect/download/viewer/ as per your laptop or desktop operating system.
 
@@ -161,15 +161,15 @@ This command provides those missing menu bars.
 +
 image::vnc_menu_bar.png[]
 +
-Running the command in background i.e. with `&` allows you to run other commands on same terminal later.
+Running the command in the background i.e. with `&` allows you to run other commands on the same terminal later.
 
 .. Move the menu bar and place and resize the browser and terminal window when convenient.
 +
 image::vnc_menu_bar_1.png[]
 
-. Attach the downloaded discovery iso to `hub` VM.
+. Attach the downloaded discovery iso to the `hub` VM.
 
-.. Run the `virt-manager &` command on terminal to launch virtual machine manager.
+.. Run the `virt-manager &` command on the terminal to launch the virtual machine manager.
 +
 image::vnc_virt_manager.png[]
 +
@@ -201,20 +201,20 @@ Boot the VM, and ensure it is booted with RHEL CoreOS (Live).
 +
 image::hub_vm_5.png[]
 
-. Go back to https://console.redhat.com/openshift/cluster-list[console.redhat.com] to resume assisted installation of _Hub_ cluster.
-Notice the host is getting discovered and status is `Ready`.
+. Go back to https://console.redhat.com/openshift/cluster-list[console.redhat.com] to resume the assisted installation of the _Hub_ cluster.
+Notice that the host is getting discovered and it's status is `Ready`.
 +
 Click btn:[Next].
 +
 image::console_redhat_host_discovery_ready.png[]
 +
-It may take few minutes to update status as `Ready`.
+It may take a few minutes to update the status as `Ready`.
 
-. In storage section, once status is `Ready`, click btn:[Next].
+. In the storage section, once the status is `Ready`, click btn:[Next].
 +
 image::console_redhat_storage.png[]
 
-. In networking section, once status is `Ready`, click btn:[Next].
+. In the networking section, once the status is `Ready`, click btn:[Next].
 +
 image::console_redhat_networking.png[]
 
@@ -228,11 +228,11 @@ image::console_redhat_review_create.png[]
 +
 image::console_redhat_cluster_installation_start.png[]
 
-. After 7-10 minutes, it waits on pending user action.
+. After 7-10 minutes, it waits for pending user action.
 +
 image::console_redhat_pending_user_actions.png[]
 +
-This means you need to disconnect the discovery ISO from the `hub` VM and boot the `hub` VM from disk.
+This means you need to disconnect the discovery ISO from the `hub` VM and boot the `hub` VM from the disk.
 
 .. You can notice the user config is applied from the `hub` VM's console.
 +
@@ -250,10 +250,10 @@ image::hub_vm_8.png[]
 +
 image::console_redhat_install_proceed.png[]
 
-. You will notice at `80%` the installation goes into finalizing state.
+. You will notice at `80%` the installation goes into a finalizing state.
 +
 image::console_redhat_cluster_install_finalizing.png[]
 
-. Installation completes in approximately 15 minutes.
+. Installation is completed in approximately 15 minutes.
 +
 image::console_redhat_install_complete.png[]

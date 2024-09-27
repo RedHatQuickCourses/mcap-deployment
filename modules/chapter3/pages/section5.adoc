@@ -1,22 +1,22 @@
 = Network Settings
 :experimental:
 
-In this section, you will be configuring additional network settings needed for deploying _Tenant_ cluster.
+In this section, you will be configuring additional network settings needed for deploying the _Tenant_ cluster.
 
 After you install the Kubernetes NMState Operator, you can configure a Linux bridge network for live migration or external access to virtual machines (VMs).
 
 [IMPORTANT]
 ====
-In this POC setup, there is only one bridge, `virbr0` and each SNO VM has single NIC.
-This NIC is used to deploy _Infrastructure_ SNO cluster on SNO VMs.
-As NIC is already used for deploying _Infrastructure_ SNO cluster, NMState configuration will not work using the same NIC.
+In this POC setup, there is only one bridge, `virbr0`, and each SNO VM has a single NIC.
+This NIC is used to deploy the _Infrastructure_ SNO cluster on SNO VMs.
+As NIC is already used for deploying the _Infrastructure_ SNO cluster, NMState configuration will not work using the same NIC.
 
 For example, two NICs are attached to SNO VMs (connected to the same bridge `virbr0`) at the time of creating SNO VMs.
-In this case, deployment of _Infrastructure_ cluster from _Hub_ cluster using RHACM will not proceed.
+In this case, deployment of the _Infrastructure_ cluster from the _Hub_ cluster using RHACM will not proceed.
 The reason behind this is that the two NICs are on the same network.
 
 Ideally, there should be separate networks for _Infrastructure_ and _Tenant_ clusters.
-It is possible that in future releases or updates of this course, the separate network configurations may be included.
+It is possible that in future releases or updates of this course, separate network configurations may be included.
 
 There is a workaround to address it in this POC setup, adding the second NIC to SNO VMs after the deployment of the SNO cluster.
 ====
@@ -25,11 +25,11 @@ image::MCAP_setup_2.png[]
 
 == Prerequisites
 
-. Verify that _sno1_ cluster is deployed successfully.
+. Verify that the _sno1_ cluster is deployed successfully.
 
 . Access the _sno1_ cluster via CLI and web console.
 
-. Ensure that `sno1.lab.example.com` node is in `Ready` status and all cluster operators are available.
+. Ensure that the `sno1.lab.example.com` node is in the `Ready` status and all cluster operators are available.
 +
 .Sample output:
 ----
@@ -44,7 +44,7 @@ NAME      VERSION   AVAILABLE   PROGRESSING   SINCE   STATUS
 version   4.16.8    True        False         23h     Cluster version is 4.16.8
 ----
 
-. Ensure that NMState operator is installed on _sno1_ cluster.
+. Ensure that the NMState operator is installed on the _sno1_ cluster.
 
 == Add Additional Network Interface Card (NIC) to `sno1`, `sno2` and `sno3` VMs
 
@@ -64,7 +64,7 @@ Click btn:[Finish] to add NIC.
 +
 image::sno1_add_nic_1.png[]
 
-. Notice, NIC is added on the fly.
+. Notice, that NIC is added on the fly.
 +
 image::sno1_add_nic_2.png[]
 

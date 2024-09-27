@@ -1,7 +1,7 @@
 = Initial Setup on Hypervisor without Automation
 
-Before proceeding the actual MCAP deployment, let's first ensure the initial setup and configuration is done on the hypervisor.
-You will need to perform few tasks before actual deployment of openshift clusters.
+Before proceeding with the actual MCAP deployment, let's first ensure the initial setup and configuration are done on the hypervisor.
+You will need to perform a few tasks before the actual deployment of openshift clusters.
 
 image::MCAP_setup_1.png[]
 
@@ -20,10 +20,10 @@ Login as `root` on the hypervisor.
 
 == Setup and Configuration without Automation
 
-=== Create SSH key for the root user
+=== Create an SSH key for the root user
 
 The public key from the following command will be used while deploying _Hub_ and _Infrastructure_ clusters.
-You will be asked for public key while building the discovery iso for the host.
+You will be asked for a public key while building the discovery iso for the host.
 
 [source,bash,role=execute]
 ----
@@ -32,8 +32,8 @@ ssh-keygen -t rsa -f /root/.ssh/id_rsa -N ''
 
 === Install the required packages
 
-The following required packages needed for DHCP server, HTTP server, DNS server, VNC server and creating virtual machines on hypervisor.
-It also include additional tools packages.
+The following required packages are needed for DHCP server, HTTP server, DNS server, VNC server, and creating virtual machines on the hypervisor.
+It also includes additional tools and packages.
 
 [source,bash,role=execute]
 ----
@@ -44,9 +44,9 @@ libguestfs-tools-c cockpit cockpit-machines unzip tigervnc tigervnc-server firef
 
 === Increase the _Swap_ space
 
-_Swap_ space is extension of physical RAM.
+_Swap_ space is an extension of physical RAM.
 It offers virtual memory in case of physical RAM is fully used.
-MCAP needs considerable amount of memory and it is recommended to have proportionate amount of _Swap_ space configured in an environment.
+MCAP needs a considerable amount of memory and it is recommended to have a proportionate amount of _Swap_ space configured in an environment.
 
 . Disable the existing _Swap_ first.
 +
@@ -55,7 +55,7 @@ MCAP needs considerable amount of memory and it is recommended to have proportio
 swapoff -a
 ----
 +
-Check the _Swap_ space using `free` command.
+Check the _Swap_ space using the `free` command.
 +
 .Sample output
 ----
@@ -93,7 +93,7 @@ Here `nvme1n1` disk can be used to create the swap space.
 The NVMe disk sequencing used as an OS partition will change, whenever you provision the catalog.
 The unused NVMe disk may vary in your environment output.
 
-. Use unused 250GB nvme disk as swap partition.
+. Use unused 250GB nvme disk as a swap partition.
 +
 [source,bash,role=execute]
 ----
@@ -111,7 +111,7 @@ The above UUID may differ in your environment.
 
 . Add swap entry in `/etc/fstab` to make it persistent throughout the reboot.
 +
-Ensure to replace the UUID in following command with UUID from previous step.
+Ensure to replace the UUID in following command with the UUID from the previous step.
 +
 [source,bash,role=execute]
 ----
@@ -147,7 +147,7 @@ Swap:          238Gi          0B       238Gi
 
 === Create LV for VM storage pool
 
-The LV created in this section will be used as storage pool for virtual machine disks and backend shared OpenShift DataFoundation using Red Hat Ceph storage for _Tenant_ cluster.
+The LV created in this section will be used as a storage pool for virtual machine disks and backend-shared OpenShift DataFoundation using Red Hat Ceph storage for the _Tenant_ cluster.
 
 . Find the 3.5TB nvme disks.
 +
@@ -229,14 +229,14 @@ The above UUID may differ in your environment.
 
 . Mount the 7TB LV on `/var/lib/libvirt/images`.
 +
-Ensure to replace the UUID in following command with UUID from previous step.
+Ensure to replace the UUID in the following command with UUID from the previous step.
 +
 [source,bash,role=execute]
 ----
 echo "UUID=195dc91e-58be-4671-bbf5-b4fdf70945e2	/var/lib/libvirt/images	ext4	errors=remount-ro	0	1" >> /etc/fstab
 ----
 +
-Run `mount` command to mount the LV on `/var/lib/libvirt/images`.
+Run the `mount` command to mount the LV on `/var/lib/libvirt/images`.
 +
 [source,bash,role=execute]
 ----
@@ -273,7 +273,7 @@ After enabling and starting the libvirt services, `virbr0` bridge will be create
 You can verify it by running the `ip addr` command.
 
 After enabling and starting the cockpit services, it creates cockpit web console access.
-You can login to cockpit web console with `lab-user's` credentials.
+You can log in to the cockpit web console with the `lab-user's` credentials.
 
 [source,bash,role=execute]
 ----
@@ -300,7 +300,7 @@ You can use the cockpit web console (https://<your_hypervisor_IP>:9090/) to moni
 
 === Configure DHCP
 
-It is recommended to have DHCP server.
+It is recommended to have the DHCP server.
 In this section, you will be configuring the DHCP server.
 
 . Create the `/etc/dhcp/dhcpd.conf` file.
@@ -393,7 +393,7 @@ systemctl start dhcpd
 
 === Configure DNS
 
-To have name resolution, DNS server is needed.
+To have name resolution, the DNS server is needed.
 In this section, you will be configuring the DNS server.
 
 . Create the `/etc/named.conf` file.
@@ -692,9 +692,9 @@ dig sno1.lab.example.com
 === Configure HTTP
 
 The HTTP server is needed to serve the ignition configuration files.
-These ignition configuration files will be pulled from HTTP server during the openshift node installation.
+These ignition configuration files will be pulled from the HTTP server during the openshift node installation.
 In this section, you will be configuring the HTTP server.
-There are multiple ways to configure the HTTP server but here directory from user's home directory holds the files.
+There are multiple ways to configure the HTTP server but here directory from the user's home directory holds the files.
 
 . Create the `/etc/httpd/conf.d/userdir.conf` file.
 +
@@ -818,7 +818,7 @@ rm /home/lab-user/public_html/cmd
 [NOTE]
 "HTTP/1.1 200 OK" indicates http server is working.
 
-=== Create Storage Pool for KVMs
+=== Create a Storage Pool for KVMs
 
 All five KVMs need the storage pool for storing the VM disks.
 In this section, you will be creating the storage pool.
