@@ -44,7 +44,7 @@ image::hub_console_tenant_details.png[]
 +
 Base domain: `lab.example.com`
 +
-Select `4.16.8` version of OpenShift from the menu.
+Select the same OpenShift version selected for the _Hub_ cluster from the menu.
 +
 image::hub_console_tenant_details_1.png[]
 
@@ -147,7 +147,7 @@ In the `sno1` cluster web console, from the left navigation pane; click menu:Sto
 image::sno1_console_tenant_iso_pvc.png[]
 +
 [IMPORTANT]
-Upload the discovery ISO to `sno2` and `sno3` clusters by performing the above steps.
+Upload the discovery ISO to `sno2` and `sno3` clusters by performing the above same steps.
 
 .. Boot the `tcn1.lab.example.com`, `tcn2.lab.example.com`, and `tcn3.lab.example.com` VMs with discovery ISO.
 +
@@ -239,6 +239,12 @@ image::hub_console_tenant_install_progress_2.png[]
 image::hub_console_tenant_install_progress_3.png[]
 
 . After 7 to 10 minutes, the installation will wait for _Pending user action_.
++
+[IMPORTANT]
+In your environment, the bootstrap role can be assigned to any of the nodes.
++
+Here the bootstrap role is assigned to the `tcn1.lab.example.com` VM.
+Hence the _Pending user action_ is performed first on other two VMs.
 +
 image::hub_console_tenant_pending_user_actions.png[]
 +

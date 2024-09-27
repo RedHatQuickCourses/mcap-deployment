@@ -5,6 +5,8 @@ Welcome to this quick course, _Deploy Mission Critical Application Platform (MCA
 This course will help you learn the basic infrastructure required for Red Hat MCAP and how to deploy nested OpenShift using OpenShift Virtualization.
 After completing this course, you will be able to deploy the MCAP solution for production environments.
 
+Duration: 6 hours, 40 minutes
+
 == Authors
 
 The PTL team acknowledges the valuable contributions of the following Red Hat associates:

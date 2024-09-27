@@ -94,12 +94,12 @@ Type: `Bridge`.
 +
 Check box the `IPv4` and select `DHCP` in `IP configuration`.
 +
-Port: `enp2s0`.
+Port: `enp8s0`.
 +
 This is the NIC, which you added in the previous section.
 +
-The NIC `enp2s0` value can be different in your environment.
-Check in VM's console from `virt-manager`.
+The NIC `enp8s0` value can be different in your environment.
+To find the NIC details, check in the VM's console from `virt-manager`.
 +
 image::sno1_console_nncp_3.png[]
 +
