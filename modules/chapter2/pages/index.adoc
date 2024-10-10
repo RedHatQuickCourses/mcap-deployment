@@ -7,3 +7,5 @@ Chapter goals:
 * Deploy Single Node OpenShift (SNO) cluster as KVM on bare metal using assisted method.
 * Install RHACM, LVMS, and multicluster engine operators on the _Hub_ cluster.
 * Create Provisioning and AgentServiceConfig for enabling CIM (Central Infrastructure Management) service.
+
+Duration: 50 minutes
