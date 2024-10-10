@@ -8,3 +8,5 @@ Chapter goals:
 * Install the OpenShift Data Foundation operator on the _Tenant_ cluster.
 * Deploy and configure applications on _Tenant_ Clusters.
 * Test the high availability and resilience of deployed workloads.
+
+Duration: 2 hours
