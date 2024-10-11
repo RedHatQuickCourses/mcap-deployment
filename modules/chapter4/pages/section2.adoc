@@ -44,7 +44,7 @@ image::hub_console_tenant_details.png[]
 +
 Base domain: `lab.example.com`
 +
-Select the same OpenShift version selected for the _Hub_ cluster from the menu.
+Select the same OpenShift version selected for the _Hub_ cluster or previous version from the menu.
 +
 image::hub_console_tenant_details_1.png[]
 

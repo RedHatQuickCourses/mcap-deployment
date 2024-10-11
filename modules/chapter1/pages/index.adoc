@@ -7,3 +7,5 @@ Chapter goals:
 * Explain the hands-on lab environment setup used to deploy MCAP solution.
 * Provision the base infrastructure (HW, Storage, Networking) for the hands-on lab environment.
 * Install utility services needed for the hands-on labs.
+
+Duration: 40 minutes

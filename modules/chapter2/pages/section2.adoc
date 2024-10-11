@@ -32,7 +32,7 @@ Cluster name: `hub`
 +
 Base domain: `lab.example.com`
 +
-Select the latest version of OpenShift from the menu.
+Select the latest stable version of OpenShift from the menu.
 +
 Check box the `Install single node OpenShift (SNO)`
 +
