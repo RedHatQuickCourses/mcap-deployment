@@ -16,7 +16,7 @@ image::MCAP_setup_1.png[]
 +
 Here for example, it is set as `4.16.8` on `stable` channel.
 +
-You can set it as the same version selected for the _Hub_ cluster.
+You can set it as the same version selected for the _Hub_ cluster or previous stable version.
 +
 [source,bash,role=execute]
 ----
@@ -112,7 +112,7 @@ Cluster set: `default`
 +
 Base domain: `lab.example.com`
 +
-Select the same OpenShift version selected for the _Hub_ cluster from the menu.
+Select the same OpenShift version selected for the _Hub_ cluster or previous version from the menu.
 +
 Check the box `Install single node OpenShift (SNO)`.
 +
