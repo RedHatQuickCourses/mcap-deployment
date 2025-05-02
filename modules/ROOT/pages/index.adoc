@@ -19,21 +19,7 @@ The PTL team acknowledges the valuable contributions of the following Red Hat as
 
 == Classroom Environment
 
-=== Red Hat Associates
-
-This introductory course has a few, simple hands-on labs. You will use the https://demo.redhat.com/catalog?item=babylon-catalog-prod/equinix-metal.eqx-blank.prod&utm_source=webapp&utm_medium=share-link.ocp4-workshop-rhods-base-aws.prod[Equinix Metal baremetal blank server,window=read-later] catalog item in the Red Hat Demo Platform (RHDP) to run the hands-on exercises in this course.
-You may need to extend the lab auto-stop in demo platform as this training may take more than 6 hours to complete.
-
-[NOTE]
-The use of equinix would be charged back to associate's cost center.
-
-When ordering this catalog item in RHDP:
-
-. Select *Practice/Enablement* for the *Activity* field.
-. Select the nearest or any region in the *Region* field.
-. Select *n3.xlarge.x86* as the flavor in the  *Type* field.
-
-=== Red Hat Partners
+=== Red Hat Associates and Partners
 
 Find a bare metal server with at least the following specifications:
 
@@ -43,9 +29,7 @@ Find a bare metal server with at least the following specifications:
 
 Click https://deploy.equinix.com/product/servers/n3-xlarge/[here,window=read-later] to view the system configuration used to build the lab for this training.
 
-// Partners should be able to access the new https://partner.demo.redhat.com[Red Hat Demo Platform for Partners,window=read-later] by logging in with their RHN account credentials. For more information on this you can refer https://content.redhat.com/us/en/product/cross-portfolio-initiatives/rhdp.html#tabs-333fa7ebb9-item-b6fc845e73-tab[about Red Hat Demo Platform (RHDP),window=read-later]
-
-// For partner support - https://connect.redhat.com/en/support[Help and support,window=read-later]
+You may need to tweak the automation scripts provided in this training.
 
 == Prerequisites
 
