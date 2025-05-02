@@ -1,4 +1,4 @@
-= MCAP Setup in RHDP Lab
+= MCAP Setup
 
 == Overview
 
@@ -23,7 +23,7 @@ The MCAP solution combines the following Red Hat products:
 
 * Red Hat OpenShift GitOps
 
-== RHDP Lab Environment
+== Lab Environment
 
 [NOTE]
 This setup is a Proof of Concept (POC).
@@ -42,7 +42,7 @@ The following Red Hat products are used in this MCAP solution:
 
 === Hardware and Bare Metal
 
-In this lab, Equinix bare-metal is used.
+While developing this lab, Equinix bare-metal was used.
 The flavor i.e. server configuration is https://deploy.equinix.com/product/bare-metal/servers/[n3.xlarge.x86,window=read-later].
 
 === Kernel-based Virtual Machines (KVM)
