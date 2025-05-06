@@ -148,3 +148,11 @@ image::sno1_console_create_vm_16.png[]
 
 . You can deploy the remaining `tcn2.lab.example.com` and `tcn3.lab.example.com` VMs by following the steps from the previous section for a `tcn1.lab.example.com` VM deployment.
 . Each VM deployment takes 5 to 10 minutes to complete.
+
+[IMPORTANT]
+Here you are creating tenant VMs first then attaching the discovery ISO later in next section.
+You can also create VM after the step of uploading the discovery ISO to sno1, sno2 and sno3 clusters.
+Create VM spec with the attached new drive as primary boot drive and the RHCOS discovery ISO as the secondary boot drive.
+On first boot it will boot from discovery ISO, when reboot occurs it will boot from RHCOS root filesystem.
+There is manual steps required.
+This will reduce the number of steps mentioned in this section.
