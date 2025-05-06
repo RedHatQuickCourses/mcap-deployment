@@ -490,6 +490,23 @@ sno3            true           https://api.sno3.lab.example.com:6443   True     
 </li>
 </ol>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Here you are creating tenant VMs first then attaching the discovery ISO later in next section.
+You can also create VM after the step of uploading the discovery ISO to sno1, sno2 and sno3 clusters.
+Create VM spec with the attached new drive as primary boot drive and the RHCOS discovery ISO as the secondary boot drive.
+On first boot it will boot from discovery ISO, when reboot occurs it will boot from RHCOS root filesystem.
+There is manual steps required.
+This will reduce the number of steps mentioned in this section.
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <nav class="pagination">
